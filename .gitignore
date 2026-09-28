@@ -1,0 +1,23 @@
+# Raw source data is NEVER committed.
+# Safeguard S7 (raw data untouched) and S2 (no vendor or product names in the repo).
+# Raw OMB files contain vendor and product columns. Committing them would break S2.
+# The notebook re-downloads every raw file from its official URL and verifies its
+# SHA-256 hash against governance/data-provenance.md, so results stay reproducible
+# without the repo ever holding a vendor name.
+data/raw/*
+!data/raw/.gitkeep
+
+# The vendor term list is built from raw data and lives in data/raw/ only.
+vendor_terms*.txt
+vendor_terms*.json
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.ipynb_checkpoints/
+
+# OS
+.DS_Store

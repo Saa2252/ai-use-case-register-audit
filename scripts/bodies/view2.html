@@ -1,0 +1,153 @@
+  <div class="intro">
+    <p><strong>A register is only as useful as it is readable.</strong> This page shows where the published register is incomplete, and where it is easy to count wrongly.</p>
+    <p>None of this is a claim that anyone did anything wrong. Every finding describes the file as published.</p>
+    <p class="note"><strong>Where the numbers come from.</strong> Anything labelled <em>published</em> is a figure the source states in its own summary. Everything else was counted from the data file by this project. Where the two disagree, both are shown.</p>
+  </div>
+
+  <div class="tabs" role="tablist" aria-label="Sections">
+    <button role="tab" id="t-count" aria-controls="p-count" data-marker="count" aria-selected="true">What gets counted</button>
+    <button role="tab" id="t-recon" aria-controls="p-recon" data-marker="caution" aria-selected="false">Figures that disagree</button>
+    <button role="tab" id="t-time" aria-controls="p-time" data-marker="caution" aria-selected="false">How current it is</button>
+    <button role="tab" id="t-read" aria-controls="p-read" data-marker="teach" aria-selected="false">Counting it wrongly</button>
+    <button role="tab" id="t-compare" aria-controls="p-compare" data-marker="calm" aria-selected="false">A second register</button>
+  </div>
+
+  <section class="tabpanel" id="p-count" role="tabpanel" aria-labelledby="t-count">
+  <h2>The register counts two different kinds of thing</h2>
+  <div class="panel" data-kind="count">
+    <p class="lead-in">Agencies report their AI two ways, and the two cannot be added together. The headline count includes only the first.</p>
+    <p><span class="fig" data-figure="M1.individually_reported_entries" data-fmt="n"></span> entries are reported individually, one per system.</p>
+    <p>The second route is <strong>consolidated reporting</strong>: rather than list every common tool, an agency ticks a shared list of ordinary tasks done with <strong>off-the-shelf</strong> software, meaning products bought ready-made. <span data-figure="M1.consolidated_route.agencies"></span> agencies report this way against <span data-figure="M1.consolidated_route.distinct_common_tasks"></span> tasks, giving <span data-figure="M1.consolidated_route.agency_task_combinations_in_use"></span> combinations marked in use.</p>
+    <p class="qualifier"><strong>Never added together.</strong> <span data-figure="M1.never_summed_reason"></span></p>
+  </div>
+
+  <h2>How many entries read alike depends on where the line is drawn</h2>
+  <div class="panel" data-kind="count">
+    <p class="lead-in">Some entries are worded much like others. Whether that means one system written down twice, or two different systems described in similar words, the wording alone cannot say. How many turn up depends on how alike they have to be.</p>
+    <div class="teach">
+      <label for="thr">Move this either way: how alike two entries must be before they count as a pair</label>
+      <input id="thr" type="range" min="0" max="2" step="1" value="1">
+      <p class="readout">At <strong id="thr-value">–</strong>,
+        <strong id="thr-entries">–</strong> entries are flagged, which is
+        <strong id="thr-share">–</strong> of the register, from
+        <strong id="thr-pairs">–</strong> candidate pairs.</p>
+    </div>
+    <details class="finding"><summary>All three settings, as published</summary>
+      <div class="scroller"><table>
+        <thead><tr><th>Threshold</th><th>Candidate pairs</th><th>Entries flagged</th><th>Share</th></tr></thead>
+        <tbody id="thresholds"></tbody>
+      </table></div>
+    </details>
+    <p class="qualifier"><span data-figure="M1.caveat"></span></p>
+  </div>
+  </section>
+
+  <section class="tabpanel is-off" id="p-recon" role="tabpanel" aria-labelledby="t-recon">
+  <h2>Three of the publisher's own figures do not match its data</h2>
+  <div class="panel" data-kind="gap">
+    <p class="lead-in">The source states seven summary figures. Four match the data exactly. Three do not.</p>
+    <div class="scroller"><table>
+      <thead><tr><th>Figure</th><th>Published</th><th>In the data</th><th>Possible explanations</th></tr></thead>
+      <tbody id="mismatches"></tbody>
+    </table></div>
+    <p>The source's own per-agency table also disagrees with the total printed beneath it, in one column, by <span data-figure="M2.reconciliation.internal_disagreement_in_source_table.difference"></span>.</p>
+    <p class="qualifier">Each is a disagreement between a published figure and the published data. No error is attributed to anyone, and where two explanations are possible both are stated and neither is chosen.</p>
+  </div>
+
+  <h2>Completeness varies far less within an agency than across the list</h2>
+  <div class="panel" data-kind="gap">
+    <p class="lead-in">Inside a single agency's submission, entries are filled in to almost the same degree as each other. Across the whole list, the range is wide. Information appears to arrive in batches rather than entry by entry.</p>
+    <p>Each entry has <span data-figure="M2.completeness_shape.core_fields_counted"></span> core fields. <span data-figure="M2.completeness_shape.statement"></span></p>
+    <p>Put plainly: if you know which agency submitted an entry, you can predict how complete it is. If you only know it is somewhere in the register, you cannot.</p>
+    <details class="finding"><summary>The supporting measures</summary>
+      <div class="scroller"><table>
+        <tbody>
+          <tr><td>Agencies where every entry shares one value</td><td data-figure="M2.completeness_shape.agencies_where_every_entry_shares_one_value"></td></tr>
+          <tr><td>Entries inside those agencies</td><td data-figure="M2.completeness_shape.entries_in_those_agencies" data-fmt="n"></td></tr>
+          <tr><td>Agencies where over four fifths share one value</td><td data-figure="M2.completeness_shape.agencies_where_over_four_fifths_share_one_value"></td></tr>
+          <tr><td>Entries inside those agencies</td><td data-figure="M2.completeness_shape.entries_in_those_agencies_too" data-fmt="n"></td></tr>
+          <tr><td>Median share at an agency's most common value</td><td><span data-figure="M2.completeness_shape.median_share_of_entries_at_an_agency_most_common_value"></span>%</td></tr>
+        </tbody>
+      </table></div>
+    </details>
+    <p class="note">The same shape appears in the oversight questions on the next page.</p>
+    <p class="qualifier"><span data-figure="M2.completeness_shape.caveat"></span></p>
+    <p class="qualifier"><span data-figure="M2.caveat"></span></p>
+  </div>
+  </section>
+
+  <section class="tabpanel is-off" id="p-time" role="tabpanel" aria-labelledby="t-time">
+  <h2>The register cannot say how current any entry is</h2>
+  <div class="panel" data-kind="gap">
+    <p class="lead-in">Nothing records when an entry was last checked, so a description written last month and one written years ago and never revisited look identical.</p>
+    <p><span data-figure="M3.finding"></span></p>
+
+    <h3>What would call for a re-check, and what the register would notice</h3>
+    <p class="lead-in">Five kinds of change would normally mean an entry needs verifying again. The register records none of them as a change.</p>
+    <p><span data-figure="M3.re_verification_trigger_diagnostic.group_one.statement"></span></p>
+    <ul id="group-one"></ul>
+    <p><strong><span data-figure="M3.re_verification_trigger_diagnostic.group_two.statement"></span></strong></p>
+    <p class="note"><span data-figure="M3.re_verification_trigger_diagnostic.why_reported_separately"></span></p>
+
+    <h3>The one date field</h3>
+    <p class="lead-in">It records when a system started running, not when its entry was checked, and under a third of entries carry one that can be read reliably.</p>
+    <p><span data-figure="M3.operational_date.share_of_rows"></span>% of entries carry a value. Of those, <span data-figure="M3.operational_date.parse_rate"></span>% can be read as dates, leaving <span data-figure="R4.figures.unresolvable_rate"></span> written in a form that could mean two things. Usable dates cover <span data-figure="M3.operational_date.usable_dates_as_share_of_all_rows"></span>% of the register.</p>
+    <p class="note"><span data-figure="M3.operational_date.values_dated_after_the_download_date"></span> values carry a date later than the day this project downloaded the file. An observation. No inference is drawn from it.</p>
+    <p class="qualifier"><span data-figure="M3.caveat"></span></p>
+  </div>
+  </section>
+
+  <section class="tabpanel is-off" id="p-read" role="tabpanel" aria-labelledby="t-read">
+  <h2>Six ways a careful person would still get these numbers wrong</h2>
+  <div class="panel" data-kind="method">
+    <p class="lead-in">Suppose you downloaded this register and opened it in a spreadsheet to answer a simple question, such as how many entries say which groups of people the system affects. You would get a wrong answer, and nothing would tell you it was wrong.</p>
+    <p>These six are the reasons. They are properties of how the files are written, not of what any agency reported.</p>
+
+    <div class="teach">
+      <p>Two fields look fully answered and are almost empty. Where a question lets you tick several boxes, ticking none is stored as two square brackets with nothing between them, like this: <code>[]</code>. A spreadsheet counts those brackets as an answer.</p>
+      <p class="note">Press the button and watch what those two fields actually hold.</p>
+      <button id="empty-toggle" type="button" aria-pressed="false">Show what they actually hold</button>
+      <div class="scroller"><table>
+        <thead><tr><th>Field</th><th id="empty-mode">Read at a glance</th></tr></thead>
+        <tbody id="emptylist"></tbody>
+      </table></div>
+    </div>
+
+    <div id="reuse-lead"></div>
+    <div id="reuse-rest"></div>
+    <p class="note">Four of the seven make a column read fuller than it is. One makes a set of choices look complete when hundreds of entries sit outside it. One is about which of two published files was meant. One is about a value the file uses and its own documentation does not define.</p>
+
+    <h3>What was done to this data before it was published</h3>
+    <p class="lead-in">Agencies wrote the same category in many different ways, and the publisher folded those into a shorter list before publishing. The categories a reader counts are the publisher's, not the agencies'.</p>
+    <p>The document explaining the file records <span data-figure="M2-preparation.written_forms_folded_into_them"></span> written forms folded into <span data-figure="M2-preparation.categories_published"></span> categories.</p>
+    <div class="scroller"><table>
+      <thead><tr><th>Category as published</th><th>Written forms folded into it</th></tr></thead>
+      <tbody id="folded"></tbody>
+    </table></div>
+    <p class="note">One of those forms named two categories at once and was folded into a single one.</p>
+    <p class="qualifier"><span data-figure="M2-preparation.caveat"></span></p>
+  </div>
+  </section>
+
+  <section class="tabpanel is-off" id="p-compare" role="tabpanel" aria-labelledby="t-compare">
+  <h2>A second government asks different questions</h2>
+  <div class="panel" data-kind="compare">
+    <p class="lead-in">What a register asks is a design choice, and these two governments chose differently.</p>
+    <p>This compares the questions each asks, never how much either contains. The Ontario register holds <span data-figure="M5.ontario_register.entries"></span> entries.</p>
+    <div class="scroller"><table>
+      <thead><tr><th>Asked by Ontario, not federally</th><th>What it captures</th></tr></thead>
+      <tbody id="ont-only"></tbody>
+    </table></div>
+    <div class="scroller"><table>
+      <thead><tr><th>Asked federally, not by Ontario</th><th>What it captures</th></tr></thead>
+      <tbody id="fed-only"></tbody>
+    </table></div>
+    <p class="qualifier"><span data-figure="M5.caveat"></span></p>
+  </div>
+
+  <div class="panel observation" data-kind="compare">
+    <h3>Where the comparison meets this project's own method</h3>
+    <p>The Ontario register names no vendor in any published field. The federal register publishes a vendor name field. That field is the one this project removes from its own published data, under its safeguard against publishing vendor names.</p>
+    <p class="note">Stated as an observation. No argument is attached, and no conclusion is drawn about either register.</p>
+  </div>
+  </section>

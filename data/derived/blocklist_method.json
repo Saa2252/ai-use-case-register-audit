@@ -1,0 +1,52 @@
+{
+  "method": "Option C then B, decided by the owner on 23 September 2026. C: candidate terms are taken only from the field where an agency is asked to name its vendor, never from the field naming its own authorised system. B: every remaining term that actually appears in the narrative text was then inspected in context and classified by hand.",
+  "why_the_source_field_matters": "A term earns its place from the field where an agency names a supplier. The field naming an agency's own authorised system contains government system names, and replacing one of those with [product] would state something false: it would present a public system as a commercial product.",
+  "counts": {
+    "terms_on_blocklist": 645,
+    "terms_that_appear_in_narrative_text": 208,
+    "replacements_made": 1184,
+    "rows_affected": 604,
+    "previous_mechanism_blocklist_size": 891,
+    "government_system_names_firing_under_previous_mechanism": 39,
+    "government_system_names_firing_now": 0
+  },
+  "removed_after_context_inspection": [
+    {
+      "category": "government or agency system named in the vendor field by the agency that operates it",
+      "count": 5,
+      "reasons": [
+        "A federal procurement system. The commercial tools named alongside it remain on the list separately.",
+        "An agency's own internal assistant.",
+        "An agency research chatbot, described in the data as a model for an intramural community.",
+        "The same chatbot under different casing.",
+        "An agency-built assistant, entered in the vendor field by the agency that built it."
+      ]
+    },
+    {
+      "category": "ordinary words and technical terms that reached the vendor field",
+      "count": 3,
+      "reasons": [
+        "The ordinary word for a connection or link, as in an agency nexus.",
+        "A statistical method, least absolute shrinkage and selection operator.",
+        "The ordinary expression for round-the-clock availability."
+      ]
+    }
+  ],
+  "added_back_by_hand": {
+    "why": "Option C drops the field that also carried some genuine commercial products. Those were recovered rather than accepted as a cost of the change.",
+    "count": 14,
+    "categories": [
+      "commercial low-code and productivity platforms",
+      "a commercial camera and evidence supplier",
+      "a commercial search and observability vendor",
+      "commercial model and headset products",
+      "a commercial transcription service",
+      "two company domains found inside links"
+    ]
+  },
+  "classification_of_firing_terms": {
+    "commercial_products_or_suppliers": 208,
+    "government_or_agency_systems": 0,
+    "note": "Every term that now fires was named by an agency in the vendor field and confirmed in context as a commercial product or supplier."
+  }
+}

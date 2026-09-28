@@ -1,0 +1,6 @@
+{
+  "terms_retained": [
+    "Python"
+  ],
+  "reason": "S2 targets commercial companies and their commercial products. Names of open-source languages, runtimes and general-purpose libraries are retained because they describe the technology used rather than identifying a commercial supplier."
+}

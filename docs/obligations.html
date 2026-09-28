@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Oversight pack | AI Use Case Register Audit</title>
+<link rel="stylesheet" href="assets/style.css?v=enclbahf">
+</head>
+<body>
+<div class="wrap" data-dv="enpkhbie">
+
+<header>
+  <h1>AI Use Case Register Audit</h1>
+  <p class="lede">An independent read of publicly published AI use case inventories.</p>
+  <nav>
+    <a href="index.html">Register</a>
+    <a href="gaps.html">Gaps</a>
+    <a href="obligations.html" aria-current="page">Oversight pack</a>
+  </nav>
+</header>
+
+<main>
+  <h2>If someone asked about the riskiest systems</h2>
+  <p class="lede">What this register could hand over about the systems it flags high-impact, if someone asked.</p>
+  <div class="intro">
+    <p><strong>Suppose someone in authority asked an agency to account for its riskiest AI systems.</strong> The register has a name for those: it flags them <strong>high-impact</strong>, meaning the agency judged the system's output to be the principal basis for a decision affecting people. This page asks what the published register could hand over about them, and finds that for most it holds almost nothing.</p>
+    <p class="qualifier">Nobody asked. This page is a rehearsal: it takes a question an oversight body would plausibly ask and checks whether the published register could answer it. No agency requested this, and no agency has been asked to respond to it.</p>
+  </div>
+
+  <h2>The classification field has four states, not two</h2>
+  <div class="panel">
+    <p class="lead-in">Entries are not simply serious or not serious. The field has four states, and one of them is that nothing was recorded, which is not a judgment about the system at all.</p>
+    <p><strong>High-impact</strong> means the agency judged that the system's output is the principal basis for a decision affecting people. The table below shows how many entries carry each state, in the wording the data itself uses. Selecting a group opens the register filtered to those entries.</p>
+    <div class="scroller"><table>
+      <thead><tr><th>Group</th><th>Entries</th></tr></thead>
+      <tbody id="bands"></tbody>
+    </table></div>
+    <p id="band-sum" class="note"></p>
+    <p class="pair">
+      <span class="fig" data-figure="M4.register_rows" data-fmt="n"></span> entries in the register.
+      <span class="fig" data-figure="M4.bands.classification not recorded" data-fmt="n"></span> have no classification recorded at all.
+    </p>
+    <p class="qualifier">The group labelled "classification not recorded" carries no inference in either direction. It holds more entries than the group of entries presumed high-impact and then determined not to be.</p>
+  </div>
+
+  <h2>Oversight information nearly always arrives whole, or not at all</h2>
+  <div class="panel">
+    <p class="lead-in">Nine fields cover human oversight, filled in only for high-impact entries. Almost every such entry has all nine filled or all nine empty. Two out of hundreds sit in between.</p>
+    <p>The nine ask whether the system was tested before deployment, whether an impact assessment was completed, what the potential impacts are, whether an independent review took place, whether performance is monitored, whether operators are trained, whether there is a fail-safe, whether a person can appeal, and whether affected groups were consulted.</p>
+    <p>Counting how many of the nine each of the <span data-figure="M4.subset_size" data-fmt="n"></span> high-impact entries answers:</p>
+    <div class="scroller"><table>
+      <thead><tr><th>Oversight questions answered</th><th>Entries</th></tr></thead>
+      <tbody>
+        <tr><td>All nine</td><td data-figure="M4.oversight_block_shape.all_nine_answered" data-fmt="n"></td></tr>
+        <tr><td>None</td><td data-figure="M4.oversight_block_shape.none_answered" data-fmt="n"></td></tr>
+        <tr><td>Between one and eight</td><td data-figure="M4.oversight_block_shape.partially_answered"></td></tr>
+      </tbody>
+    </table></div>
+    <p><span data-figure="M4.oversight_block_shape.statement"></span></p>
+
+    <h3>The field asking whether an entry should be withheld is blank for most high-impact entries</h3>
+    <p class="lead-in">The register asks every entry whether it should be withheld from public reporting, and requires an answer. For most of the entries it flags as most serious, the field is empty.</p>
+    <p class="pair">
+      <span class="fig" data-figure="M4.withholding_status.high_impact_with_no_status" data-fmt="n"></span>
+      of <span data-figure="M4.withholding_status.high_impact_entries" data-fmt="n"></span> high-impact entries carry no withholding status.
+    </p>
+    <p>Across the whole register the figure is <span data-figure="M4.withholding_status.all_entries_with_no_status" data-fmt="n"></span> of <span data-figure="M4.withholding_status.all_entries" data-fmt="n"></span>.</p>
+    <p class="qualifier"><span data-figure="M4.withholding_status.caveat"></span></p>
+
+    <h3>How often each question is answered</h3>
+    <div class="scroller"><table>
+      <thead><tr><th>Question</th><th>Share of high-impact entries providing information</th></tr></thead>
+      <tbody id="coverage"></tbody>
+    </table></div>
+    <p class="qualifier"><span data-figure="M4.caveat"></span></p>
+  </div>
+
+  <h2>Entries the agency considered serious and then decided were not</h2>
+  <div class="panel">
+    <p class="lead-in">A small group of entries was presumed high-impact and then judged not to be, and nearly all of them explain why.</p>
+    <p><span data-figure="M4.presumed_band.rows"></span> entries carry this status, and a justification is provided for <span data-figure="M4.presumed_band.justification_fill_rate"></span>% of them.</p>
+    <p class="note">A <strong>data dictionary</strong> is the document a publisher provides defining each field and when it applies. <span data-figure="M4.presumed_band.dictionary_note"></span></p>
+  </div>
+
+  <h2>Take the pack away</h2>
+  <div class="panel">
+    <p class="lead-in">The same information as a file, one row per high-impact entry, marking for each of the nine questions whether information was provided.</p>
+    <p>Both files carry the disclaimer and the practice-exercise notice in their header.</p>
+    <ul>
+      <li><a href="data/oversight_information_pack.csv">Oversight information pack (CSV, opens in a spreadsheet)</a></li>
+      <li><a href="data/oversight_information_pack.md">Oversight information pack (Markdown, opens in a text editor)</a></li>
+    </ul>
+  </div>
+
+</main>
+
+<footer>
+  <p id="disclaimer">This is an independent portfolio project. It uses publicly available AI use case inventories published by the US Office of Management and Budget (public domain, 17 U.S.C. §105) and the Government of Ontario (Open Government Licence – Ontario). Vendor and product names have been removed. Findings describe patterns in the published data and are not claims about any agency's conduct. This is not legal advice. Not affiliated with or endorsed by any government body.</p>
+  <p>Governance design by Sana Ahmad.</p>
+</footer>
+
+</div>
+<script src="assets/figures.js?v=delgfpod"></script>
+<script src="assets/views.js?v=cfddplon"></script>
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Register | AI Use Case Register Audit</title>
+<link rel="stylesheet" href="assets/style.css?v=enclbahf">
+</head>
+<body>
+<div class="wrap" data-dv="enpkhbie">
+
+<header>
+  <h1>AI Use Case Register Audit</h1>
+  <p class="lede">An independent read of publicly published AI use case inventories.</p>
+  <nav>
+    <a href="index.html" aria-current="page">Register</a>
+    <a href="gaps.html">Gaps</a>
+    <a href="obligations.html">Oversight pack</a>
+  </nav>
+</header>
+
+<main>
+  <h2>The register</h2>
+  <p class="lede">The list the United States federal government publishes of the AI systems it uses.</p>
+  <div class="intro">
+    <p><strong>Federal agencies in the United States have to publish a list of the AI systems they use.</strong> That list is called a use case inventory, or a register. The idea behind it is simple: an organisation cannot oversee what it has never written down.</p>
+    <p>This page is the register the United States federal government published in 2025. Each row is one system an agency has declared, in the agency's own words. You can search it, narrow it, and open any row to see everything the register records about that system.</p>
+  </div>
+
+  <section class="headline">
+    <p class="lead-in">The register sets aside nine fields for human oversight, filled in only for the entries it flags high-impact, which are the most serious it records. In most of those entries, all nine are empty.</p>
+    <p class="pair">
+      <span class="fig" data-figure="M4.subset_size" data-fmt="n"></span> entries are flagged high-impact, meaning the agency judged the system's output to be the principal basis for a decision affecting people.
+      In <span class="fig" data-figure="M4.oversight_block_shape.none_answered" data-fmt="n"></span> of them, all nine oversight fields are empty.
+    </p>
+    <div class="qualifier">
+      <p>A filled field shows that information was provided, not that the practice is adequate. An empty field is not evidence that the practice is absent.</p>
+      <p>The pattern describes what reached the file, not the oversight practice itself.</p>
+    </div>
+  </section>
+
+  <h2>Nearly one entry in five carries nothing to identify it by</h2>
+  <div class="panel">
+    <p class="lead-in">A list is only useful over time if each entry can be recognised again next year. A sixth of these entries carry no reference code at all, and the earlier year's list carries none for any entry.</p>
+    <p class="pair">
+      <span class="fig" data-figure="M1.individually_reported_entries" data-fmt="n"></span> entries in the register.
+      <span class="fig" data-figure="R3.figures.rows_with_no_usable_identifier" data-fmt="n"></span> carry no usable identifier, meaning no reference code that would let anyone match this entry to the same system in a later year.
+    </p>
+    <p>Of those, <span data-figure="R3.figures.of_which_carry_TBD_rather_than_blank"></span> hold the text "TBD" rather than being empty. Thirteen identifier values are used on more than one row.</p>
+    <p class="qualifier">An entry without a stable identifier cannot be followed from one year's inventory to the next, whatever else it records.</p>
+  </div>
+
+  <h2>The register itself</h2>
+  <div class="panel controls">
+    <p class="lead-in">Search or narrow the register below, then open any row to see every field it publishes for that entry.</p>
+
+    <label for="q">Search names, agencies and identifiers</label>
+    <input id="q" type="search" placeholder="type to filter">
+
+    <label for="stage">Development stage, meaning how far along the system is</label>
+    <select id="stage"><option value="__all">all stages</option></select>
+    <p class="note" id="stage-coverage">loading</p>
+    <p class="qualifier">Stage is not recency. A stage describes where a system is in its life, not when this entry was last checked.</p>
+
+    <label for="band">Classification, meaning how seriously the agency rated the system</label>
+    <select id="band"><option value="__all">all classifications</option></select>
+    <p class="note">The four options are the classification field's own wording, including entries where it holds nothing. Choosing the first reaches the entries described at the top of this page.</p>
+
+    <p class="note is-off" id="from-finding">Filtered from a finding on another page.
+      <button id="clear-filters" type="button">Show all entries</button></p>
+    <p class="note"><span id="count">0</span> entries shown. Select any row to open it.</p>
+    <p class="note"><strong>Order:</strong> entries appear in the order the source publishes them, which groups them by agency. It is not a sample, and the order carries no judgment about the entries. Searching or filtering narrows that order rather than reordering it.</p>
+    <p class="note"><strong>The completeness bar</strong> counts, for that entry alone, how many of seventeen core fields hold a value. It is computed per entry. No agency average is taken and no agency is compared with another.</p>
+  </div>
+  <div class="scroller">
+    <table>
+      <thead><tr><th>Use case</th><th>Agency</th><th>Stage</th><th>Classification</th><th>Identifier</th><th>Completeness</th></tr></thead>
+      <tbody id="tbody"></tbody>
+    </table>
+  </div>
+  <p><button id="more" class="is-off">Show more</button></p>
+
+</main>
+
+<footer>
+  <p id="disclaimer">This is an independent portfolio project. It uses publicly available AI use case inventories published by the US Office of Management and Budget (public domain, 17 U.S.C. §105) and the Government of Ontario (Open Government Licence – Ontario). Vendor and product names have been removed. Findings describe patterns in the published data and are not claims about any agency's conduct. This is not legal advice. Not affiliated with or endorsed by any government body.</p>
+  <p>Governance design by Sana Ahmad.</p>
+</footer>
+
+</div>
+<script src="assets/figures.js?v=delgfpod"></script>
+<script src="assets/register.js?v=fpdjjbbm"></script>
+</body>
+</html>

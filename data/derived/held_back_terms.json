@@ -1,0 +1,53 @@
+{
+  "what_this_is": "Six terms were held back from the vendor blocklist. Each is a commercial company or product name that is also an ordinary English word. A case-insensitive rule on any of them would replace ordinary prose with [product], so they are not scrubbed. This file documents the resulting gap in safeguard S2 so that it is visible rather than implicit.",
+  "count_held_back": 6,
+  "literal_terms_location": "data/raw/vendor_terms_ordinary_word_brands.txt, which is not committed. The terms are company names, and publishing them here would put vendor names into the repository, which is the thing S2 exists to prevent.",
+  "why_the_terms_are_not_listed_here": "Naming them would breach the safeguard this file documents. The category and the evidence below are enough to understand the size and shape of the gap without reproducing the names.",
+  "recheck_required": "If the source data is ever re-downloaded, every term below must be re-checked in context. The conclusions here describe this file at this hash and do not carry forward automatically.",
+  "terms": [
+    {
+      "ref": "H1",
+      "semantic_category": "a word for a location or a place, also used for a web page",
+      "reason_held_back": "Appears constantly in ordinary prose about web pages and physical locations.",
+      "what_it_actually_refers_to_here": "Every occurrence I checked is an internal agency system carrying this as its name, written in capitals. One entry describes the system being trained on a human-verified dataset and another describes its outputs informing analysis. None refers to the commercial company.",
+      "residual_risk": "low"
+    },
+    {
+      "ref": "H2",
+      "semantic_category": "a word for a container",
+      "reason_held_back": "Common in ordinary phrasing.",
+      "what_it_actually_refers_to_here": "Occurrences are ordinary phrases. One names an assistant after a figure of speech about a doctor in a container, another describes a workflow container. None refers to the commercial company.",
+      "residual_risk": "low"
+    },
+    {
+      "ref": "H3",
+      "semantic_category": "a word meaning a watchman or guard",
+      "reason_held_back": "Used generically for monitoring systems.",
+      "what_it_actually_refers_to_here": "Every occurrence refers to a European space agency's satellite programme, as a source of earth-observation imagery and radar data. That is a public science programme, not a commercial supplier.",
+      "residual_risk": "low"
+    },
+    {
+      "ref": "H4",
+      "semantic_category": "a word meaning a tool or person that locates things",
+      "reason_held_back": "Descriptive of search functionality.",
+      "what_it_actually_refers_to_here": "The single occurrence is an internal agency system, written in capitals, described as sifting violent crime and firearms trace data. Not the commercial product.",
+      "residual_risk": "low"
+    },
+    {
+      "ref": "H5",
+      "semantic_category": "a word meaning pleasant or agreeable",
+      "reason_held_back": "An extremely common ordinary word.",
+      "what_it_actually_refers_to_here": "Does not appear in this register in any form.",
+      "residual_risk": "none in this file"
+    },
+    {
+      "ref": "H6",
+      "semantic_category": "a compound word meaning a day of work",
+      "reason_held_back": "Ordinary compound noun.",
+      "what_it_actually_refers_to_here": "Does not appear in this register in any form.",
+      "residual_risk": "none in this file"
+    }
+  ],
+  "summary_of_the_gap": "Of the six, four appear in the register and none of those four carries a commercial meaning: two are internal agency system names written in capitals, one is a public satellite programme, and one appears only in ordinary figures of speech. Two do not appear at all. The documented hole is real in principle, because a future commercial mention of any of these names would pass unscrubbed, but no such mention exists in the data as downloaded.",
+  "contrast": "Three further ordinary-word brand names were checked the same way, found to carry genuine commercial mentions, and returned to the blocklist. One of those was a company domain sitting inside a link. The distinction between the two groups was made from evidence in context, not from the shape of the word."
+}

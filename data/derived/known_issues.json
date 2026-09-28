@@ -1,0 +1,7 @@
+{
+  "purpose": "Vendor or product names found after Phase 3 closed. Recorded with their location rather than triggering another review cycle. Fixed only where the fix costs nothing.",
+  "why_this_file_exists": "The scope limit recorded in governance/safeguards.md states that the automated check verifies no blocklist term survives, not that no vendor name survives. Commercial names written only in narrative text are outside the blocklist by construction. Searching for them has no natural endpoint, which is the same objection that led this project to replace its redaction method rather than keep patching it. This file is where such findings are recorded instead.",
+  "handling_rule": "Record location and name. Fix only if the fix costs nothing. Do not open a review cycle. Do not run further passes over the narrative fields.",
+  "closed_date": "2026-09-23",
+  "issues": []
+}

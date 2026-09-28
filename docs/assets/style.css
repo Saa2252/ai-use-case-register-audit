@@ -1,0 +1,307 @@
+/* AI Use Case Register Audit
+   Plain CSS. No framework, no build step, no external calls (S12).
+   Works on mobile and in dark mode. */
+
+:root {
+  --bg: #fbfbf9;
+  --surface: #ffffff;
+  --border: #d9d7d0;
+  --ink: #1c1b18;
+  --ink-soft: #57544c;
+  --accent: #2f5d50;
+  --flag: #8a5a10;
+  --count: #1f5673;
+  --caution: #8a4a2f;
+  --teach: #4a3a7a;
+  --calm: #4a5d2f;
+  --tint: rgba(47, 93, 80, .07);
+  --radius: 6px;
+  --measure: 68ch;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #14150f;
+    --surface: #1d1e18;
+    --border: #3a3b33;
+    --ink: #eceadf;
+    --ink-soft: #a8a498;
+    --accent: #8fc4ae;
+    --flag: #d7a75a;
+    --count: #7db8d8;
+    --caution: #e0a184;
+    --teach: #b3a5e6;
+    --calm: #b5c98d;
+    --tint: rgba(143, 196, 174, .09);
+  }
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 16px/1.6 system-ui, "Segoe UI", Helvetica, Arial, sans-serif;
+}
+
+.wrap { max-width: 1100px; margin: 0 auto; padding: 1.5rem 1.25rem 3rem; }
+
+header { border-bottom: 1px solid var(--border); }
+
+h1 { font-size: 1.45rem; line-height: 1.25; margin: 0 0 .35rem; text-wrap: balance; }
+h2 { font-size: 1.15rem; margin: 2rem 0 .5rem; }
+p, li { max-width: var(--measure); text-wrap: pretty; }
+.lede { color: var(--ink-soft); margin: 0 0 1rem; text-wrap: balance; }
+
+nav { display: flex; flex-wrap: wrap; gap: .5rem; margin: .75rem 0 0; }
+nav a {
+  display: inline-block;
+  padding: .4rem .7rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--ink);
+  text-decoration: none;
+  font-size: .9rem;
+}
+nav a[aria-current="page"] { background: var(--accent); border-color: var(--accent); color: var(--bg); }
+
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem 1.1rem;
+  margin: 1rem 0;
+}
+
+.caveat {
+  border-left: 3px solid var(--flag);
+  padding: .6rem .9rem;
+  margin: .75rem 0;
+  color: var(--ink-soft);
+  font-size: .92rem;
+}
+
+.pending { color: var(--ink-soft); font-style: italic; }
+
+table { width: 100%; border-collapse: collapse; font-size: .92rem; }
+.scroller { overflow-x: auto; }
+th, td { text-align: left; padding: .5rem .6rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+th { font-weight: 600; color: var(--ink-soft); }
+
+footer {
+  border-top: 1px solid var(--border);
+  margin-top: 2.5rem;
+  padding-top: 1rem;
+  color: var(--ink-soft);
+  font-size: .85rem;
+}
+footer p { max-width: var(--measure); }
+
+@media (max-width: 600px) {
+  .wrap { padding: 1rem .9rem 2.5rem; }
+  h1 { font-size: 1.25rem; }
+}
+
+/* Headline: the two computed numbers the site opens with. */
+.headline { margin: 1.25rem 0 1.5rem; }
+.pair { font-size: 1.15rem; line-height: 1.5; max-width: var(--measure); text-wrap: pretty; }
+.fig {
+  font-size: 1.9rem;
+  font-weight: 650;
+  color: var(--accent);
+  display: inline-block;
+  margin-right: .15rem;
+}
+.headline .pair { font-size: 1.3rem; }
+.headline .fig { font-size: 2.4rem; }
+
+.note { color: var(--ink-soft); font-size: .9rem; }
+h3 { font-size: 1rem; margin: 1.25rem 0 .4rem; }
+
+.controls label { display: block; font-size: .85rem; color: var(--ink-soft); margin: .6rem 0 .2rem; }
+.controls input, .controls select {
+  width: 100%; max-width: 32rem; padding: .45rem .55rem;
+  border: 1px solid var(--border); border-radius: var(--radius);
+  background: var(--bg); color: var(--ink); font: inherit;
+}
+
+button {
+  padding: .5rem .9rem; border: 1px solid var(--border); border-radius: var(--radius);
+  background: var(--surface); color: var(--ink); font: inherit; cursor: pointer;
+}
+button:hover { border-color: var(--accent); }
+
+.bar {
+  display: inline-block; width: 60px; height: .5rem; vertical-align: middle;
+  background: var(--border); border-radius: 3px; overflow: hidden; margin-right: .4rem;
+}
+.bar > span { display: block; height: 100%; background: var(--accent); }
+
+.finding { border-top: 1px solid var(--border); padding-top: .85rem; margin-top: .85rem; }
+.finding:first-child { border-top: 0; padding-top: 0; margin-top: 0; }
+
+.observation { border-left: 3px solid var(--accent); }
+
+a { color: var(--accent); }
+
+@media (max-width: 600px) {
+  .headline .fig { font-size: 1.9rem; }
+  .headline .pair { font-size: 1.1rem; }
+  td, th { font-size: .85rem; }
+}
+
+.is-off { display: none; }
+
+/* Shown only when the page could not read its data at all. */
+.loadfail {
+  border: 1px solid var(--flag);
+  border-left-width: 4px;
+  border-radius: var(--radius);
+  background: var(--surface);
+  padding: 1rem 1.1rem;
+  margin: 0 0 1.5rem;
+}
+.loadfail p { margin: .5rem 0; }
+.loadfail pre {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: .55rem .7rem;
+  overflow-x: auto;
+  font-size: .85rem;
+}
+.loadfail code { font-size: .9rem; }
+
+/* Row detail: an entry opens to show its whole field set. */
+tr.entry { cursor: pointer; }
+tr.entry:hover td, tr.entry:focus td { background: var(--surface); }
+tr.entry:focus { outline: 2px solid var(--accent); outline-offset: -2px; }
+.tw { color: var(--ink-soft); font-size: .8rem; }
+
+.detailrow > td { background: var(--surface); padding: .9rem 1rem; }
+table.detail { margin-top: .5rem; }
+table.detail th {
+  width: 14rem; vertical-align: top; font-weight: 600;
+  color: var(--ink-soft); white-space: nowrap;
+}
+table.detail td { white-space: pre-wrap; }
+table.detail td.blank { color: var(--ink-soft); font-style: italic; }
+
+/* A figure that leads to the entries it describes. */
+a.drill { text-decoration: underline dotted; text-underline-offset: 3px; }
+#from-finding { display: flex; gap: .6rem; align-items: center; flex-wrap: wrap; }
+
+/* --- Readability pass -------------------------------------------------- */
+
+/* The plain opening on each page: what you are looking at, before anything. */
+.intro {
+  border-left: 3px solid var(--accent);
+  padding: .2rem 0 .2rem 1rem;
+  margin: 0 0 2rem;
+}
+.intro p { font-size: 1.05rem; line-height: 1.65; }
+.intro p:last-child { margin-bottom: 0; }
+
+/* One plain sentence saying what to take away, before any number. */
+.lead-in {
+  font-size: 1.05rem;
+  line-height: 1.6;
+  margin: 0 0 .9rem;
+  color: var(--ink);
+}
+h2 + .panel .lead-in, .panel > .lead-in:first-child { margin-top: 0; }
+
+/* Qualifications sit below the point they qualify, quieter, never between a
+   point and its explanation. Visible by default: never behind a control. */
+.qualifier {
+  font-size: .88rem;
+  line-height: 1.55;
+  color: var(--ink-soft);
+  border-top: 1px solid var(--border);
+  margin: 1.1rem 0 0;
+  padding-top: .6rem;
+}
+.qualifier p { font-size: inherit; margin: .4rem 0; }
+.qualifier p:first-child { margin-top: 0; }
+.qualifier p:last-child { margin-bottom: 0; }
+.qualifier + .qualifier { border-top: 0; margin-top: .2rem; padding-top: 0; }
+
+/* Controls that teach: the reader changes something and watches the number. */
+.teach {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: .9rem 1rem;
+  margin: 1rem 0;
+}
+.teach label { display: block; font-size: .85rem; color: var(--ink-soft); margin-bottom: .5rem; }
+.teach input[type="range"] { width: 100%; max-width: 28rem; accent-color: var(--accent); }
+.readout { font-size: 1.02rem; margin: .7rem 0 .2rem; }
+.readout strong { color: var(--accent); }
+#empty-toggle[aria-pressed="true"] { border-color: var(--accent); color: var(--accent); }
+
+/* The five shorter findings: heading and a sentence, opening in place. */
+details.finding {
+  border-top: 1px solid var(--border);
+  padding: .7rem 0 .2rem;
+}
+details.finding > summary {
+  cursor: pointer;
+  font-weight: 600;
+  list-style: revert;
+}
+details.finding > summary::marker { color: var(--ink-soft); }
+details.finding .gist { color: var(--ink-soft); font-size: .92rem; margin: .35rem 0 0; }
+details.finding[open] .gist { margin-bottom: .5rem; }
+.finding-lead { border-top: 1px solid var(--border); padding-top: .9rem; margin-top: .9rem; }
+
+/* --- Section colour, so a reader can tell one kind of thing from another --- */
+.panel { border-left: 3px solid var(--border); }
+.panel[data-kind="count"]   { border-left-color: var(--count); }
+.panel[data-kind="gap"]     { border-left-color: var(--caution); }
+.panel[data-kind="compare"] { border-left-color: var(--calm); }
+.panel[data-kind="method"]  { border-left-color: var(--teach); }
+
+.panel[data-kind="count"] .fig   { color: var(--count); }
+.panel[data-kind="gap"] .fig     { color: var(--caution); }
+.panel[data-kind="compare"] .fig { color: var(--calm); }
+
+.teach { border-left: 3px solid var(--teach); background: var(--tint); }
+.teach .readout strong { color: var(--teach); }
+.teach input[type="range"] { accent-color: var(--teach); }
+
+/* --- Tabs: one section at a time, so the page is not read all at once ---- */
+.tabs {
+  display: flex; flex-wrap: wrap; gap: .4rem;
+  border-bottom: 1px solid var(--border);
+  margin: 1.5rem 0 1.25rem; padding-bottom: .5rem;
+}
+.tabs button {
+  border: 1px solid transparent; background: none; color: var(--ink-soft);
+  padding: .45rem .75rem; border-radius: var(--radius);
+  font: inherit; font-size: .92rem; cursor: pointer;
+}
+.tabs button:hover { color: var(--ink); background: var(--surface); }
+.tabs button[aria-selected="true"] {
+  background: var(--surface); border-color: var(--border);
+  color: var(--ink); font-weight: 600;
+}
+.tabs button[aria-selected="true"]::before {
+  content: ""; display: inline-block; width: .5rem; height: .5rem;
+  border-radius: 50%; margin-right: .45rem; vertical-align: middle;
+  background: var(--marker, var(--accent));
+}
+.tabpanel.is-off { display: none; }
+.tabpanel > h2:first-child { margin-top: 0; }
+
+@media (max-width: 600px) {
+  .tabs { gap: .3rem; }
+  .tabs button { font-size: .85rem; padding: .4rem .55rem; }
+}
+
+summary.tech {
+  cursor: pointer; font-size: .85rem; color: var(--ink-soft);
+  margin: .5rem 0 .2rem; font-weight: 500;
+}
+code { font-size: .92em; background: var(--surface); padding: .05rem .3rem; border-radius: 3px; }
