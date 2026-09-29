@@ -384,3 +384,156 @@ everywhere would have broken the oversight-block finding on a mistake.
 **Term to add:** a **controlled vocabulary** is a fixed list of allowed answers.
 Text that looks like an absence inside one is usually an answer.
 
+
+## Phase 4. Decision rules
+
+**What we did.** Wrote down the rules that decide the numbers, before running
+the analysis that produces them. What counts as one use case. What counts as
+empty. Whether the two years may be compared. Which words are banned from the
+findings.
+
+**Why it matters.** Most of what determines a figure in governance work is not
+technical. It is a definition someone chose. Choosing after seeing the results
+means choosing the result. Writing the rule down first, in the owner's words,
+is what makes the figure a finding rather than a preference.
+
+**New terms.**
+- **Decision rule.** A definition fixed in advance and applied without
+  exception, recorded with what it catches and what it misses.
+- **Controlled vocabulary.** A fixed list of allowed answers. Text that looks
+  like an absence inside one is usually an answer, not a blank.
+
+**Decisions the owner made, and why.** One row is one use case, with lookalikes
+flagged and never merged, because merging changes a published total on a
+judgment that cannot be defended entry by entry. All three similarity
+thresholds are published together, because publishing one would leave a reader
+unaware that the number is a choice. No count anywhere is framed as movement over time.
+
+**Interview question.** *How do you stop an analysis from being shaped by what
+you want it to show?*
+Fix the definitions before you look. Write down what each one catches and what
+it misses, and publish the alternatives you rejected alongside the number. If a
+figure depends on a threshold, publish every threshold rather than the one that
+reads best.
+
+## Phase 5. Analysis
+
+**What we did.** Implemented the five measures, wrote every output to
+`data/derived/` as JSON, and attached a caveat to every finding. Two of the
+five turned into findings about what the register cannot answer rather than
+measurements of it.
+
+**Why it matters.** A measure that the data cannot support is itself a result.
+Reporting "the register records no date on which an entry was checked" is more
+useful to an oversight team than a freshness score built on a date field that
+answers a different question.
+
+**New terms.**
+- **Derived data.** Outputs computed from raw files and never edited by hand.
+  Everything published reads from here.
+- **Caveat field.** A qualification stored with the figure, so the two cannot
+  be separated by anyone republishing it.
+
+**Decisions the owner made, and why.** Freshness became a finding rather than a
+metric, because the data cannot support the metric. The two years are never
+compared at row level: the earlier file carries no identifier for any entry, the
+central category was redefined between them, and the inclusion rules changed.
+
+**Interview question.** *What do you do when the data cannot answer the
+question you were asked?*
+Say so, and say precisely what it can answer instead. Not being able to measure something is
+usually the more actionable finding, because it names a gap in the record rather
+than producing a number nobody can act on.
+
+## Phase 6. The site
+
+**What we did.** Built four pages of plain HTML, CSS and JavaScript with no
+framework and no build step. Every figure is injected at load time from
+`docs/data/`. No number is typed into the markup, and a test enforces it.
+
+**Why it matters.** A number typed into a page is a number that drifts from its
+source the moment the source changes. That is not theoretical: it happened five
+times on this project, and is the tenth judgment call in the README.
+
+**New terms.**
+- **Single source of truth.** One place a fact is stated. Everywhere else reads
+  it. A correction applied to the source cannot survive in a copy.
+- **Cache busting.** Appending a content hash to an asset address so a browser
+  fetches the new version instead of serving the old one.
+
+**Decisions the owner made, and why.** The design view leads and the findings
+follow as evidence, because the ordering is the argument. A figure reaches the
+landing page only if its qualification survives being shortened to one line
+that still holds. The ones that do not are linked rather than reduced.
+
+**Interview question.** *How do you keep a published figure correct over time?*
+Compute it once, publish it from that single place, and test that nothing
+restates it. If a person can retype a number, a person eventually will, and
+nothing on the page will look broken when they do.
+
+## Phase 7. Safeguard review
+
+**What we did.** Ran the full suite, then ran the checks no test can perform: a
+reading for trend framing, a reading for source attribution, a reading for the
+absence of any claim about who wrote the code, and a reading of every heading
+against the figure beneath it.
+
+**Why it matters.** A test verifies wording, structure and provenance. It cannot
+verify that a claim matches its evidence, because that means holding both in
+mind and asking whether they agree. The heading reading found three claims that
+said more than the thing beneath them supported. The suite was green throughout.
+
+**New terms.**
+- **Manual check with a named owner.** An untested gap with a named owner and a
+  stated trigger is a control. The same gap without one is a hope.
+- **Planting the failure.** Verifying a test by breaking the thing it exists to
+  catch, rather than trusting that a passing test was ever able to fail.
+
+**Decisions the owner made, and why.** Prose corrections come to the owner.
+Numeric ones are corrected and reported. A published figure that does not match
+the data is a defect and should not be held pending a conversation.
+
+**Interview question.** *Your automated checks are all green. What does that
+tell you?*
+That the things somebody thought to test are holding. It says nothing about the
+claims in the prose around the numbers. On this project every published figure
+was correct by the tests while four of them were wrong, because no test
+compared a published number to the data until one was written for it.
+
+## Phases 8 and 9. README, deployment, and two things withdrawn
+
+**What we did.** Wrote the README as a case study, published the site from
+GitHub Pages, and recorded ten judgment calls including the ones that went
+badly.
+
+Two things were built and then withdrawn. A second surface for the findings,
+built as a separate application, was moved into this repository when the
+separate one could not be created, and then dropped entirely because it could
+not carry the design the site carries. A social preview card was built and then
+removed at the owner's request. Both decisions are recorded with their reasons
+rather than deleted.
+
+**Why it matters.** The record of a decision that was reversed is worth more
+than the absence of it. A reader can see what was weighed. Deleting the history
+of a reversal leaves a project that looks like it never had to choose.
+
+**New terms.**
+- **Scope lock.** A written statement of what the project is not, so that
+  adding something requires a decision rather than a drift.
+- **Unreachable is not deleted.** Rewriting published history makes old commits
+  unreachable from a branch. The host keeps the objects until it collects them,
+  and anything computed from them keeps showing.
+
+**Decisions the owner made, and why.** The application was dropped because it
+stated the same findings less well than the site, which is the same objection
+this project makes to a figure lifted away from what qualifies it. The reasoning
+was kept in the decision record, because a record that deletes its own history
+is not a record.
+
+**Interview question.** *Tell me about something you built and then removed.*
+A second surface for the findings. It worked and it passed its checks, but it
+could not carry the parts of the design that do the explaining, so it was a
+weaker copy of something that already existed. The cost of keeping it was a
+looser scope lock and a safeguard enforced by a test where it had previously
+been enforced by the data simply not being there. Removing it was cheaper than
+maintaining a second, worse version of the same argument.
