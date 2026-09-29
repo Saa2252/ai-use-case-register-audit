@@ -22,6 +22,7 @@ application loads carry no per-agency rows at all, so the comparison cannot be
 built here even by mistake.
 """
 
+import html
 import json
 from pathlib import Path
 
@@ -63,6 +64,28 @@ def measure(findings: dict, name: str) -> dict:
     return {}
 
 
+def esc(value) -> str:
+    """Every value written into markup goes through this.
+
+    The values come from the published register, so they contain whatever the
+    agencies typed, including characters that would otherwise close a tag.
+    """
+    return html.escape(str(value))
+
+
+def stylesheet() -> str:
+    """The page's own stylesheet, held in app/style.css.
+
+    It lives in a file rather than in this one for the same reason the site
+    keeps its CSS out of its HTML: a stylesheet carries lengths and weights,
+    and those are layout rather than findings. Keeping them out of here lets
+    the check on typed figures stay as strict as it is.
+    """
+    return "<style>" + (Path(__file__).resolve().parent / "style.css").read_text(
+        encoding="utf-8"
+    ) + "</style>"
+
+
 # --- the page ---------------------------------------------------------------
 # set_page_config has to be the first Streamlit call in the script, which is
 # why it sits above the loads rather than beside the rest of the layout.
@@ -72,6 +95,8 @@ st.set_page_config(
     page_icon="▦",
     layout="wide",
 )
+
+st.markdown(stylesheet(), unsafe_allow_html=True)
 
 findings = load("findings.json")
 fieldset = load("fieldset.json")
@@ -130,34 +155,49 @@ two = fieldset["panel_two"]
 
 left, right = st.columns(2)
 
+def field(label: str, value: str, side: str, blank: str = "", note: str = "") -> str:
+    """One field of the drawn form: label above, box below.
+
+    An empty box is drawn empty rather than filled with the word "empty", so
+    the two forms can be compared by looking at them.
+    """
+    classes = "ffield-box"
+    if blank:
+        classes += " is-blank " + blank
+    return (
+        '<div class="ffield ' + side + '">'
+        '<p class="ffield-label">' + esc(label) + "</p>"
+        '<div class="' + classes + '">' + (esc(value) if value else "") + "</div>"
+        + ('<p class="ffield-note">' + esc(note) + "</p>" if note else "")
+        + "</div>"
+    )
+
+
 with left:
     st.subheader("A real published entry")
     st.caption(
-        one["use_case_name"]
-        + ". "
-        + one["agency"]
-        + ". Entry "
-        + one["entry_id"]
-        + "."
+        one["use_case_name"] + ". " + one["agency"] + ". Entry " + one["entry_id"] + "."
     )
+    drawn = []
     for row in one["rows"]:
         if row["state"] == "from_source":
-            st.markdown("**" + row["field"] + "**")
-            st.markdown("> " + str(row["value"]))
+            drawn.append(field(row["field"], row["value"], "real"))
         else:
-            # The label is the data's own wording. Only its first letter is
-            # changed, so that it reads as a sentence after "Empty."
+            # Two different facts, drawn differently. A question the register
+            # never asks gets a dashed outline; one it asks and this entry
+            # leaves empty keeps a solid one, because the field does exist.
+            kind = "asked" if row["state"] == "blank_in_source" else ""
             said = row.get("label") or row.get("short") or ""
-            said = said[:1].upper() + said[1:] if said else ""
-            st.markdown("**" + row["field"] + "**")
-            st.markdown(":gray[Empty. " + said + "]")
+            drawn.append(field(row["field"], "", "real", blank=kind or "absent", note=said))
+    st.markdown("".join(drawn), unsafe_allow_html=True)
 
 with right:
     st.subheader("The same form, filled in")
     st.caption(two["label"])
-    for row in two["rows"]:
-        st.markdown("**" + row["field"] + "**")
-        st.markdown("> " + str(row["value"]))
+    st.markdown(
+        "".join(field(row["field"], row["value"], "mine") for row in two["rows"]),
+        unsafe_allow_html=True,
+    )
 
 st.info(one["rule"])
 
@@ -205,10 +245,10 @@ for column, item in zip(columns, fieldset["evidence"]):
         # Figure first, then what it is of, then what it reads, then what
         # qualifies it. The same order the site uses, so a reader who has seen
         # one recognises the other.
-        figure = n(item["value"]) + item.get("suffix", "")
+        figure = esc(n(item["value"]) + item.get("suffix", ""))
         if item.get("of_value") is not None:
-            figure += " :gray[of " + n(item["of_value"]) + "]"
-        st.markdown("### " + figure)
+            figure += ' <span class="of">of ' + esc(n(item["of_value"])) + "</span>"
+        st.markdown('<p class="evfig">' + figure + "</p>", unsafe_allow_html=True)
         st.markdown(item["reads"])
         st.caption(item["caveat"])
         st.markdown("[See the working](" + link_for(item.get("link", "index.html")) + ")")

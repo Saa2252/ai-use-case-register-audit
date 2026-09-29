@@ -1,11 +1,17 @@
 [theme]
-# The two hues the audit site uses. One stands for the published register, one
-# for the field set the author proposes. Nothing else borrows them.
+# --pub, the hue that stands for the published register. The site's own value.
 primaryColor = "#17506c"
-backgroundColor = "#fbfaf8"
-secondaryBackgroundColor = "#f1eeea"
-textColor = "#1b1a18"
-font = "serif"
+font = "sans-serif"
+
+# No background or text colour is pinned here, deliberately. Pinning them fixes
+# the page to one mode while app/style.css follows the viewer's own setting, and
+# the two then disagree: a light ground under a dark box, dark text on it,
+# contrast close to 1 to 1 and the text invisible. That is what happened, and it
+# was found by reading the computed colours rather than by looking at a
+# screenshot in one mode.
+#
+# Left unset, the host follows the viewer's setting, which is what the site does
+# and what the stylesheet expects.
 
 [browser]
 gatherUsageStats = false

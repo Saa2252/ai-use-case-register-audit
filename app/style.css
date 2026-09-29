@@ -1,0 +1,78 @@
+/* The application's stylesheet.
+
+   Three things this fixes against the host's defaults. Prose gets a reading
+   measure instead of running the full width of a monitor. An empty field reads
+   as an empty box with its outline kept, which is the whole argument of the
+   comparison and is lost if it is printed as grey words. And each form carries
+   its own hue on the left edge of every box: --pub for the published register,
+   --mine for the proposed field set, the same two the site uses and nothing
+   else borrows.
+
+   Every colour here either inherits or is translucent. Nothing sets a ground
+   or a text colour of its own.
+
+   That rule was written after the first attempt broke. The stylesheet defined
+   light and dark tokens behind prefers-color-scheme, and the host paints its
+   own ground without regard to it. On a dark-set machine the page came out
+   light ground, dark box, dark text: a contrast ratio of 1.34 to 1, which is
+   text nobody can read. It was found by measuring the computed colours rather
+   than by looking at a screenshot in one mode.
+
+   The two hues survive as borders rather than as text. No single colour can
+   carry 4.5 to 1 against both a white and a near-black ground, so the figures
+   inherit the host's own text colour and the hue is kept for the edges, where
+   the threshold is 3 to 1 and a mid tone clears it either way. */
+
+:root {
+  /* Mid tones, so each reads against a light or a dark ground. */
+  --pub: #2b7fa8;
+  --mine: #7a5aa0;
+  --measure: 68ch;
+  --hair: rgba(128, 128, 128, .45);
+  --hair-soft: rgba(128, 128, 128, .6);
+}
+
+.block-container { max-width: 1100px; padding-top: 2.5rem; }
+.block-container p,
+.block-container li { max-width: var(--measure); text-wrap: pretty; }
+h1, h2, h3 { text-wrap: balance; }
+
+.ffield { margin: 0 0 .85rem; }
+.ffield-label {
+  font-size: .74rem; font-weight: bold; line-height: 1.3;
+  margin: 0 0 .2rem; opacity: .72;
+}
+.ffield-box {
+  border: 1px solid var(--hair); border-radius: 3px;
+  background: transparent; color: inherit;
+  padding: .45rem .55rem; font-size: .85rem; line-height: 1.45;
+  min-height: 2.35rem; overflow-wrap: anywhere; max-width: 46ch;
+}
+.real .ffield-box { border-left: 3px solid var(--pub); }
+.mine .ffield-box { border-left: 3px solid var(--mine); }
+
+/* An empty box reads as an empty box: the outline stays, the ground goes, and
+   nothing is printed inside it. The run of them down the left form is what a
+   reader should see at a glance, and in a screenshot. */
+.ffield-box.is-blank {
+  border-style: dashed; border-left-style: dashed;
+  border-color: var(--hair-soft); opacity: .6;
+}
+/* A box the register asks and this entry leaves empty is a different fact from
+   a box the register never had. Its outline stays solid, because the field does
+   exist. The note underneath says which it is. */
+.ffield-box.is-blank.asked {
+  border-style: solid; border-left-style: solid; border-color: var(--hair-soft);
+}
+.ffield-note {
+  font-size: .7rem; font-style: italic; opacity: .72; margin: .2rem 0 0;
+}
+
+/* The figure inherits the host's text colour, so it is readable on whatever
+   ground the host paints. The hue sits under it as a rule. */
+.evfig {
+  font-size: 1.9rem; line-height: 1.1; color: inherit;
+  margin: 0 0 .35rem; padding-bottom: .3rem;
+  border-bottom: 2px solid var(--pub); max-width: 12ch;
+}
+.evfig .of { font-size: .95rem; opacity: .7; }
