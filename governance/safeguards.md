@@ -12,7 +12,7 @@ The full suite becomes live from Phase 3 onward.
 | S1 | Source attribution | Every source named, linked, dated and hashed in `governance/data-provenance.md`. Sources are never renamed or hidden | Manual review plus T7 | Stub |
 | S2 | No vendor or product names | Vendor and product columns dropped. Free-text mentions replaced with `[product]`. URLs containing a term replaced whole. Raw files are gitignored | T2 | **Live, passing** |
 | S3 | No agency judgments | No ranking, score, league table or chart comparing agencies. Agency names appear only as published facts in row-level detail | T3 | Stub |
-| S4 | Neutral language | Findings describe the data, not the conduct of an organisation. Banned word list in CLAUDE.md Section 8, extended by the banned trend framing in decision-rules.md section 4 | T4 | Stub |
+| S4 | Neutral language | Findings describe the data, not the conduct of an organisation. Banned word list in the owner's brief, section 8, extended by the banned trend framing in decision-rules.md section 4 | T4 | Stub |
 | S5 | Traceable numbers | Every number on the site is computed by the notebook, written to `data/derived/`, copied to `docs/data/` and injected into the page by JavaScript. No number is typed into HTML | T5 | Stub |
 | S6 | Reconcile to published totals | Row counts checked against the totals published by the source before any analysis. A mismatch stops the work and is reported to the owner | T1 | Stub |
 | S7 | Raw data untouched | Raw files downloaded by script, verified by SHA-256 hash, never edited. All changes happen in derived files | T7 | Stub |
@@ -43,9 +43,9 @@ not repeat it so that it can stay subject to the ban itself:
 - `governance/decision-rules.md` section 4, in the owner's words
 - `tests/test_banned_words.py`, as the constant the test reads
 
-Exempt from the check, as set by the owner: the test file itself, `CLAUDE.md`,
-and `governance/decision-rules.md`. Everything else is in scope, including this
-file.
+Exempt from the check, as set by the owner: the test file itself and
+`governance/decision-rules.md`. Both state the rule, so both hold the words.
+Everything else the repository carries is in scope, including this file.
 
 Matching is on whole words, not substrings, so ordinary words that happen to
 contain a banned one are not caught.

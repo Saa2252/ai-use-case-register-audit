@@ -2,7 +2,7 @@
 
 Every test in this folder enforces one of the safeguards S1 to S12 listed in
 governance/safeguards.md. A test is never deleted or weakened to make it pass
-(CLAUDE.md Section 6).
+(the owner's brief, section 6).
 """
 
 from pathlib import Path

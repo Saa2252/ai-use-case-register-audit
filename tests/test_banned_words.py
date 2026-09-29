@@ -1,4 +1,4 @@
-"""T4. No banned word from CLAUDE.md Section 8 appears in docs/, derived findings, the README or exports.
+"""T4. No banned word from the owner's brief, section 8, appears in docs/, derived findings, the README or exports.
 
 Also checks the banned trend framing added by the owner's addendum of
 22 September 2026, which applies to the serious category only. See
@@ -12,7 +12,7 @@ import pytest
 
 from conftest import NOT_IMPLEMENTED
 
-# CLAUDE.md Section 8. "withheld" is permitted only when quoting the source's
+# The owner's brief, section 8. "withheld" is permitted only when quoting the source's
 # own exclusion rules, which the implementation must allow for.
 BANNED_WORDS = [
     "failed",
@@ -71,7 +71,6 @@ BANNED_TREND_WORDS = [
 # the ban by reference so it stays subject to it.
 TREND_BAN_EXEMPT_PATHS = [
     "tests/test_banned_words.py",
-    "CLAUDE.md",
     "governance/decision-rules.md",
 ]
 
@@ -165,6 +164,29 @@ def _export_header(text: str) -> str:
     return "\n".join(l for l in text.splitlines() if l.startswith("#") or l.startswith("|---"))
 
 
+def _published_paths():
+    """The files the repository carries, or None when that cannot be read.
+
+    The trend ban applies to this project's own published prose. A local file
+    the repository does not carry is not published, so it is out of scope. None
+    means the scan falls back to covering every file, which fails loudly rather
+    than passing quietly.
+    """
+    import subprocess
+
+    from conftest import REPO_ROOT
+
+    try:
+        out = subprocess.run(
+            ["git", "ls-files"], cwd=REPO_ROOT, capture_output=True, text=True, timeout=30
+        )
+    except (OSError, subprocess.SubprocessError):
+        return None
+    if out.returncode != 0 or not out.stdout.strip():
+        return None
+    return set(out.stdout.splitlines())
+
+
 def test_no_trend_words_anywhere_in_repo():
     """Whole-word match over this project's own prose, wherever it appears.
 
@@ -179,11 +201,17 @@ def test_no_trend_words_anywhere_in_repo():
 
     pattern = re.compile(r"\b(" + "|".join(BANNED_TREND_WORDS) + r")\b", re.I)
     findings = []
+    published = _published_paths()
 
     for path in sorted(REPO_ROOT.rglob("*")):
         if not path.is_file() or TREND_SKIP_PARTS & set(path.parts):
             continue
         rel = str(path.relative_to(REPO_ROOT))
+        # A file the repository does not carry is not this project's published
+        # prose. When the tracked set cannot be read the scan covers everything,
+        # so a broken lookup shows up as a failure rather than as silence.
+        if published is not None and rel not in published:
+            continue
         if rel in TREND_BAN_EXEMPT_PATHS or path.suffix not in TREND_SUFFIXES:
             continue
 

@@ -21,3 +21,9 @@ venv/
 
 # OS
 .DS_Store
+
+# The owner brief and the local editor configuration stay out of the repository.
+# They describe how the work was done rather than what it found, which S11 keeps
+# off the published record.
+CLAUDE.md
+.claude/

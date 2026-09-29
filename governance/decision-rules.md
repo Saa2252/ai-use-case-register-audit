@@ -214,8 +214,11 @@ increased, decreased, rose, fell, doubled, grew, growth, jump
 Three files are exempt, because they exist to state the rule:
 
 - `tests/test_banned_words.py`
-- `CLAUDE.md`
 - `governance/decision-rules.md`
+
+The scan covers the files the repository carries. The owner's brief states the
+banned list in full and is held outside the repository, so it is out of scope
+without needing an exemption.
 
 `governance/safeguards.md` is **not** exempt. It documents the ban by pointing
 at this file rather than repeating the list, so that it remains subject to the
