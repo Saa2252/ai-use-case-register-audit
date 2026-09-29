@@ -1033,7 +1033,7 @@ rather than restating it in different words.
 | 2026-09-29 | Dashboard leads with the design view, findings follow as the evidence it rests on | Findings first, design last | Owner decision. The ordering is the dashboard's argument, not the findings' |
 | 2026-09-29 | The field set appears on the dashboard as a compact preview, never in full | Link only, or show it all | A reader should get the shape at a glance and go to page four for the detail |
 
-## 21. Four rulings issued together, 30 September 2026
+## 22. Four rulings issued together, 30 September 2026
 
 The owner issued these as a block so that nothing stayed open waiting on them.
 
@@ -1043,4 +1043,69 @@ The owner issued these as a block so that nothing stayed open waiting on them.
 | The five View 2 sections were collapsed by default, which served "clicking a row opens the finding" and defeated "the five read as one continuous argument" | **All five open by default.** A row click scrolls to its section rather than opening it. The summary rows and the side rail are both ways of jumping to a section, not ways of revealing one |
 | Whether the completeness-shape figure belongs on the landing page's evidence strip. The developer reported being uncertain rather than deciding | **It stays out and is linked instead. The uncertainty was the answer.** A figure whose qualification cannot be shortened without changing what it says does not go on the strip |
 | Two exact-string exemptions would be needed to publish the repository link | **Both approved**, recorded in `governance/safeguards.md` with their reasons and their scope. Exact strings only |
+
+## 23. A second artefact built on this project's published outputs
+
+**Owner decisions, 29 September 2026.**
+
+The owner asked for a Streamlit application built on this project's findings.
+Two things had to be settled before anything was built, because both touch a
+safeguard rather than a preference.
+
+**Naming.** This project already uses the word dashboard for the site's own
+landing page, settled in section 18. The Streamlit artefact is a separate
+thing. It is called the application throughout, so neither name borrows the
+other's rulings.
+
+### 23.1 It lives in its own repository
+
+**Ruling: its own repository, taking this project's published derived data as
+its input.**
+
+| Option | What it costs |
+|---|---|
+| **Its own repository** | Two repositories to keep current. The application carries its own safeguards file and its own copy of the disclaimer |
+| Inside this repository | S12 and T9 would both need amending, and the banned-word and vendor tests would have to cover text that Python builds at run time, which is weaker than scanning a file that sits still |
+| Do not build it | Nothing to reconcile, and nothing new |
+
+**Why this one.** The audit's scope lock, its page count and its 48 tests stay
+as they are. The boundary between the two is a published file rather than a
+shared import, so the application can only show what this project has already
+committed to `data/derived`. A finding it cannot reach is a finding it cannot
+restate wrongly.
+
+### 23.2 No agency filter and no agency sort
+
+**Ruling: the application does not let a reader filter or sort by agency.**
+
+S3 bans rankings, scores and league tables comparing agencies. A page honours
+that by choosing what to publish. **An application with a filter cannot, because
+the reader assembles the comparison themselves.** Sort by completeness, filter
+to one agency, and the reader has built the league table this project declines
+to publish, out of data that does not support it. This project's own finding
+says the pattern describes what reached the file and not the oversight practice,
+so the comparison would be read as something the data never measured.
+
+The two rejected options are recorded so the reasoning is not lost. Allowing it
+behind a caveat shown beside the control was rejected because a screenshot
+travels without the caveat attached. Allowing it outright was rejected as
+setting S3 aside rather than working within it.
+
+**Agency names are not banned from the application.** They may appear as
+published facts in row-level detail, which is what S3 permits. What is absent is
+the machinery for turning them into a comparison.
+
+### 23.3 What carries over
+
+**Section 18.2 governs the application as written.** A figure appears only if
+its qualification survives being shortened to one line that still holds.
+Anything that does not is linked to rather than reproduced. That rule exists
+because a dashboard is the artefact this project spent its length arguing
+against, and it applies with more force to an artefact whose whole form is
+figures lifted out of their context.
+
+S1, S2, S4, S5, S8, S9, S10 and S11 all carry over unchanged, and the
+application's own repository records how each is enforced there. S6 does not
+apply, because the application reconciles against nothing: it reads figures this
+project already reconciled.
 
