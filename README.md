@@ -6,6 +6,13 @@
 
 **Repository:** https://github.com/Saa2252/ai-use-case-register-audit
 
+**The application:** a single page at `app/app.py` that puts the design view
+and its evidence together. Run it with `streamlit run app.py` from the `app`
+directory. It reads `data/derived/` directly, so it holds no copy of any
+finding, and it offers no way to filter or sort by agency. Both points, and
+what the second one cost when the application moved into this repository, are
+recorded in `governance/decision-rules.md` section 23.
+
 ## What this is
 
 **This project takes a list that a government publishes of its own AI systems, reads it the way someone responsible for overseeing those systems would have to, and reports what the list can and cannot answer.**

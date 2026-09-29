@@ -1098,6 +1098,37 @@ setting S3 aside rather than working within it.
 published facts in row-level detail, which is what S3 permits. What is absent is
 the machinery for turning them into a comparison.
 
+### 23.4 The separate repository was reversed the next day
+
+**Owner decision, 30 September 2026. This reverses 23.1 and is recorded as a
+reversal, not as a clarification.**
+
+The separate repository could not be created: it needs a step on the owner's
+GitHub account that nothing in the build could take. After several attempts the
+owner ruled that the application could be part of this repository if that was
+easier, and that what was needed was a link.
+
+**What the reversal gained.** The repository exists and is already published, so
+the application can be deployed the same day.
+
+**What it cost, stated rather than glossed.**
+
+| What 23.1 protected | Where it stands now |
+|---|---|
+| The scope lock, its test and the suite stay untouched | S12 is amended. T9 and the banned-word scan are extended to reach `app/app.py` |
+| Text built at run time is outside a scan that reads files | `app/app.py` joins the banned-word scope, and `tests/test_app_safeguards.py` reads the file for typed figures, for a copied disclaimer and for controls that could sort |
+| **The row-level register was not present to be sorted** | **This is the real loss. It is present here.** The absence of the data was a stronger guard than any test, because it made the wrong thing impossible rather than caught. It is replaced by `test_the_application_never_opens_row_level_data`, which restricts the application to the two findings files |
+
+**The third row is a weakening and is written down as one.** A test can be
+passed by code that a later change breaks in a way the test does not model. An
+absent file cannot. The owner is told this rather than left to find it.
+
+**What improved.** The application now reads `data/derived/` directly instead of
+holding a synced copy, so the sync script, the copied files and the drift test
+are all gone. There is no second copy of any finding anywhere in this project.
+That removes a whole class of the failure this project has already had four
+times.
+
 ### 23.3 What carries over
 
 **Section 18.2 governs the application as written.** A figure appears only if

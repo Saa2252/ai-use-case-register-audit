@@ -1,0 +1,11 @@
+[theme]
+# The two hues the audit site uses. One stands for the published register, one
+# for the field set the author proposes. Nothing else borrows them.
+primaryColor = "#17506c"
+backgroundColor = "#fbfaf8"
+secondaryBackgroundColor = "#f1eeea"
+textColor = "#1b1a18"
+font = "serif"
+
+[browser]
+gatherUsageStats = false
