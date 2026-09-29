@@ -316,39 +316,6 @@ the link renders. With a second, different address added to the same page, T2
 reports `docs/index.html: ['github']` and T5 reports `index.html:122 '9999'`.
 The exemptions cover the approved address alone.
 
-### The site address, and the social preview card
-
-**Delegated call, 30 September 2026. Not an owner ruling, and recorded as such
-so the difference is not lost.**
-
-The owner asked whether a link to this project can be shared the way a Streamlit
-app can. It can, but only if the pages carry preview tags, and those need the
-site's own address stated absolutely. That address carries the same two
-problems as the repository address: the provider's name, and digits from the
-account name.
-
-The owner was shown both decisions with their trade-offs and expressed no
-preference on either. The developer therefore took the recommended option on
-each and recorded it here as a delegated call. **Both are reversible by emptying
-`src.disclaimer.SITE_URL`, which turns off the card and the exemptions
-together.**
-
-| Decision put to the owner | What was taken, and why |
-|---|---|
-| A third exact-string exemption, for the site address | **Taken.** Same shape as the two above: both tests read `src.disclaimer.SITE_URL` rather than holding a pattern, so widening either means changing that value, which is a stop-and-ask |
-| Whether the card's description may carry a figure | **Declined, deliberately.** A card's text is static, because the crawler reading it does not run scripts. A figure there would be a literal number in the page head, and would widen T5 from "no digits in published HTML" to "no digits except the ones the build wrote". That is a loosening of the rule rather than an exemption to it |
-
-**Where the figure went instead.** Into the card image, drawn at build time from
-`data/derived` by `scripts/build_preview.py`. It is generated, never typed, and
-T5 is untouched. The card carries the sentence that qualifies the figure,
-because a card is the only part of this project that travels without the page
-around it.
-
-**Verified by planting the failure.** A figure added to a card description is
-reported by two tests: `test_the_card_description_holds_no_figure` names the
-description, and T5 names the line. Neither was adjusted to let the card
-through.
-
 **Live since 29 September 2026.** The owner created the repository and sent the
 address, so `REPOSITORY_URL` now holds it and the link renders on the landing
 page and in the README. The full suite was run with the address set: 48 tests

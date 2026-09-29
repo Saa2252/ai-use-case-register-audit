@@ -15,7 +15,7 @@ from pathlib import Path
 
 import pytest
 
-from src.disclaimer import REPOSITORY_URL, SITE_URL
+from src.disclaimer import REPOSITORY_URL
 
 from conftest import REPO_ROOT
 
@@ -61,7 +61,7 @@ EXEMPT_EXACT_STRINGS = [
     '<meta charset',
     '<meta name="viewport"',
     'spheroidal elastic deformation sources',
-] + [s for s in (REPOSITORY_URL, SITE_URL) if s]
+] + ([REPOSITORY_URL] if REPOSITORY_URL else [])
 
 
 def strip_exempt(text: str) -> str:
