@@ -1,17 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The register | AI Use Case Register Audit</title>
+<link rel="stylesheet" href="assets/style.css?v=onbcakbf">
+</head>
+<body>
+<div class="wrap" data-dv="pkhgplpp">
+
+<header>
+  <h1>AI Use Case Register Audit</h1>
+  <p class="lede">An independent read of publicly published AI use case inventories.</p>
+  <nav>
+    <div class="navgroup audit">
+      <span class="navlabel">What I would build</span>
+      <span class="navlinks">
+        <a href="index.html">The field set</a>
+      </span>
+    </div>
+    <div class="navgroup design">
+      <span class="navlabel">What the register says</span>
+      <span class="navlinks">
+        <a href="register.html" aria-current="page">The register</a>
+        <a href="gaps.html">What it does not tell you</a>
+        <a href="obligations.html">The oversight pack</a>
+      </span>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <h2>The register</h2>
+  <p class="lede">The list the United States federal government publishes of the AI systems it uses.</p>
   <div class="intro">
-    <p><strong>{{publication_duty}}</strong> That list is called a use case inventory, or a register. The idea behind it is simple: an organisation cannot oversee what it has never written down.</p>
+    <p><strong>US federal agencies publish a list of the AI systems they use once a year, under a White House policy memorandum.</strong> That list is called a use case inventory, or a register. The idea behind it is simple: an organisation cannot oversee what it has never written down.</p>
     <p>This page is the register the United States federal government published in 2025. Each row is one system an agency has declared, in the agency's own words. You can search it, narrow it, and open any row to see everything the register records about that system.</p>
   </div>
 
   <section class="headline">
     <p class="lead-in">The register sets aside nine fields for human oversight, filled in only for the entries it flags high-impact, which are the most serious it records. In most of those entries, all nine are empty.</p>
     <p class="pair">
-      <span class="fig" data-figure="M4.subset_size" data-fmt="n"></span> entries are flagged high-impact, meaning {{high_impact_meaning}}.
+      <span class="fig" data-figure="M4.subset_size" data-fmt="n"></span> entries are flagged high-impact, meaning the agency judged the system's output to be the principal basis for a decision affecting people.
       In <span class="fig" data-figure="M4.oversight_block_shape.none_answered" data-fmt="n"></span> of them, all nine oversight fields are empty.
     </p>
     <div class="qualifier">
-      <p>{{filled_field}}</p>
-      <p>{{reached_the_file}}</p>
+      <p>A filled field shows that information was provided, not that the practice is adequate. An empty field is not evidence that the practice is absent.</p>
+      <p>The pattern describes what reached the file, not the oversight practice itself.</p>
     </div>
   </section>
 
@@ -54,3 +89,16 @@
     </table>
   </div>
   <p><button id="more" class="is-off">Show more</button></p>
+
+</main>
+
+<footer>
+  <p id="disclaimer">This is an independent portfolio project. It uses publicly available AI use case inventories published by the US Office of Management and Budget (public domain, 17 U.S.C. §105) and the Government of Ontario (Open Government Licence – Ontario). Vendor and product names have been removed. Findings describe patterns in the published data and are not claims about any agency's conduct. This is not legal advice. Not affiliated with or endorsed by any government body.</p>
+  <p>Governance design by Sana Ahmad.</p>
+</footer>
+
+</div>
+<script src="assets/figures.js?v=lmdlebco"></script>
+<script src="assets/register.js?v=adheljog"></script>
+</body>
+</html>

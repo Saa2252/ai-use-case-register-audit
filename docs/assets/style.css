@@ -252,8 +252,9 @@ details.finding > summary {
   list-style: revert;
 }
 details.finding > summary::marker { color: var(--ink-soft); }
-details.finding .gist { color: var(--ink-soft); font-size: .92rem; margin: .35rem 0 0; }
-details.finding[open] .gist { margin-bottom: .5rem; }
+details.finding .gist { display: block; color: var(--ink-soft); font-size: .92rem;
+  font-weight: 400; margin: .3rem 0 0; }
+details.finding[open] .gist { margin-bottom: .4rem; }
 .finding-lead { border-top: 1px solid var(--border); padding-top: .9rem; margin-top: .9rem; }
 
 /* --- Section colour, so a reader can tell one kind of thing from another --- */
@@ -305,3 +306,436 @@ summary.tech {
   margin: .5rem 0 .2rem; font-weight: 500;
 }
 code { font-size: .92em; background: var(--surface); padding: .05rem .3rem; border-radius: 3px; }
+
+/* --- Page four: the design view, visibly not a findings page -------------
+   --design is the page's own colour, used by the navigation group label and
+   the framing band. On the page body itself the two meanings below take over:
+   --pub for the published register, --mine for the field set. */
+:root { --design: #6a4a8a; }
+@media (prefers-color-scheme: dark) { :root { --design: #c4a8e6; } }
+.intro.design { border-left-color: var(--design); }
+
+/* --- Colour on this page means two things and nothing else ----------------
+
+   Blue is the published register: the file this project read, and anything
+   that leads back to a finding about it. Purple is the field set: the author's
+   own proposal, which is what this page is. Everything else on the page is
+   neutral. Links take the blue, because every link on this page leads to the
+   audit of the published register.
+
+   Nothing else may borrow either colour. If a third thing needs telling apart,
+   it is told apart by shape, weight or position, not by a third hue. */
+.design-page {
+  --pub: #17506c;
+  --pub-soft: rgba(23, 80, 108, .07);
+  --mine: #63437f;
+  --mine-soft: rgba(99, 67, 127, .07);
+}
+@media (prefers-color-scheme: dark) {
+  .design-page {
+    --pub: #8cc4e2;
+    --pub-soft: rgba(140, 196, 226, .10);
+    --mine: #c9aeea;
+    --mine-soft: rgba(201, 174, 234, .10);
+  }
+}
+.design-page a { color: var(--pub); }
+.design-page .halfmark { border-top-color: var(--mine); }
+.design-page .halfmark-label { color: var(--mine); }
+.design-page .intro.design { border-left-color: var(--mine); }
+
+/* --- The lead ------------------------------------------------------------
+
+   The first thing a stranger reads is the fact, not the project. No card, no
+   rule, no label: one paragraph at reading size and one line saying what this
+   page does about it. Everything self-descriptive sits below the forms. */
+.lead { margin: .5rem 0 2rem; max-width: 46ch; }
+.design-page h2:first-of-type {
+  font-size: 1.6rem; line-height: 1.3; margin: .5rem 0 .75rem; max-width: 22ch;
+}
+.lead-fact { font-size: 1.15rem; line-height: 1.6; margin: 0 0 .9rem; text-wrap: pretty; }
+.lead-fact [data-figure] { font-weight: 700; color: var(--pub); font-variant-numeric: tabular-nums; }
+.lead-turn {
+  font-size: 1rem; margin: 0; padding-top: .8rem;
+  border-top: 2px solid var(--mine); color: var(--ink);
+}
+@media (min-width: 820px) { .lead { max-width: 52ch; } }
+@media (max-width: 640px) {
+  .design-page h2:first-of-type { font-size: 1.3rem; max-width: none; }
+  .lead-fact { font-size: 1.05rem; }
+}
+
+/* --- Level one: the opening, and the forms -------------------------------
+
+   The loudest things on the page. Large type, air around them, no card and no
+   rule, so that the two things that carry the argument are the two things a
+   reader sees before anything else resolves. */
+.opening {
+  display: grid; grid-template-columns: 1fr; gap: 1.25rem;
+  margin: 1.5rem 0 1.75rem; align-items: center;
+}
+@media (min-width: 820px) { .opening { grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 2.5rem; } }
+.opening .pair { font-size: 1.45rem; line-height: 1.45; margin: 0 0 .6rem; text-wrap: pretty; }
+.opening .fig { font-size: 2.6rem; color: var(--mine); font-variant-numeric: tabular-nums; }
+.opening .qualifier { font-size: .92rem; line-height: 1.6; color: var(--ink-soft); margin: 0; max-width: 60ch; }
+@media (max-width: 640px) {
+  .opening .pair { font-size: 1.15rem; }
+  .opening .fig { font-size: 1.9rem; }
+}
+
+/* Ten marks: solid for a box the published entry answers, hollow for one it
+   does not. The caption says the same in words, so the strip is never the only
+   place the fact is stated. */
+.slotfig { margin: 0; }
+.slots { display: flex; flex-wrap: wrap; gap: .4rem; margin-bottom: .55rem; }
+.slot {
+  width: 1.65rem; height: 2.1rem; border-radius: 3px;
+  border: 2px solid var(--pub); background: transparent;
+}
+.slot.is-filled { background: var(--pub); }
+.slots-caption { font-size: .82rem; line-height: 1.5; color: var(--ink-soft); }
+
+/* --- The drawn form ------------------------------------------------------
+
+   Two copies of one form, label above box, laid out as a form is laid out. A
+   box the published entry cannot answer is left empty with its outline intact,
+   so the shape of the two forms differs before a word of either is read. */
+.build { display: grid; grid-template-columns: 1fr; gap: 1.25rem; margin: 1rem 0 2.25rem; }
+@media (min-width: 980px) {
+  .build { grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr); gap: 2rem; align-items: start; }
+  .build-stage { position: sticky; top: 1rem; }
+}
+
+.switch { display: flex; flex-wrap: wrap; gap: .4rem; margin-bottom: .9rem; }
+.switch-btn {
+  font: inherit; font-size: .82rem; cursor: pointer;
+  padding: .35rem .75rem; border-radius: 999px;
+  border: 1px solid var(--border); background: var(--surface); color: var(--ink-soft);
+}
+.switch-btn[data-side="real"][aria-pressed="true"] {
+  background: var(--pub); border-color: var(--pub); color: var(--bg); font-weight: 600;
+}
+.switch-btn[data-side="mine"][aria-pressed="true"] {
+  background: var(--mine); border-color: var(--mine); color: var(--bg); font-weight: 600;
+}
+.switch-btn[data-side="both"][aria-pressed="true"] {
+  background: var(--ink); border-color: var(--ink); color: var(--bg); font-weight: 600;
+}
+.switch-btn:focus-visible { outline: 2px solid var(--mine); outline-offset: 2px; }
+
+.forms { display: grid; grid-template-columns: 1fr; gap: 1.25rem; }
+@media (min-width: 620px) { .forms { grid-template-columns: 1fr 1fr; gap: 1rem; } }
+
+/* Choosing a side leaves that form on its own. "Both" is the default and hides
+   nothing; on a narrow screen, where the two forms stack, this is what lets a
+   reader hold one of them at a time. */
+.forms[data-side="real"] .formsheet.mine,
+.forms[data-side="mine"] .formsheet.real { display: none; }
+@media (min-width: 620px) {
+  .forms[data-side="real"], .forms[data-side="mine"] { grid-template-columns: minmax(0, 34rem); }
+}
+
+.formsheet { min-width: 0; }
+.formsheet-head {
+  font-size: .78rem; text-transform: uppercase; letter-spacing: .08em; font-weight: 700;
+  margin: 0 0 .1rem;
+}
+.formsheet.real .formsheet-head { color: var(--pub); }
+.formsheet.mine .formsheet-head { color: var(--mine); }
+.formsheet-sub { font-size: .78rem; color: var(--ink-soft); margin: 0 0 .7rem; }
+.formsheet-body { display: flex; flex-direction: column; gap: .55rem; }
+
+.ffield { display: flex; flex-direction: column; gap: .18rem; min-width: 0; }
+.ffield-label {
+  font-size: .72rem; font-weight: 600; color: var(--ink-soft); line-height: 1.3;
+}
+.ffield-n {
+  display: inline-block; min-width: 1.15rem;
+  font-variant-numeric: tabular-nums; color: var(--ink-soft);
+}
+.ffield-box {
+  border: 1px solid var(--border); border-radius: 3px; background: var(--surface);
+  padding: .4rem .5rem; font-size: .82rem; line-height: 1.4; min-height: 2.35rem;
+  overflow-wrap: anywhere;
+}
+.formsheet.real .ffield-box { border-left: 3px solid var(--pub); }
+.formsheet.mine .ffield-box { border-left: 3px solid var(--mine); }
+
+/* An empty box reads as an empty box: its outline stays, its ground goes, and
+   nothing is printed inside it. The run of them down the left form is the
+   whole argument of this page, visible at any size and in a screenshot. */
+.ffield-box.is-blank {
+  background: transparent; border-style: dashed; border-left-style: dashed;
+  border-color: var(--ink-soft); opacity: .55;
+}
+/* A box the register asks and the entry leaves empty is a different fact from a
+   box the register never had. The outline stays solid, because the field does
+   exist, and the caption underneath says which it is. */
+.ffield-box.is-blank.blank_in_source {
+  border-style: solid; border-left-style: solid; border-color: var(--ink-soft);
+}
+.ffield-note { font-size: .68rem; color: var(--ink-soft); font-style: italic; }
+
+.compare-note { display: flex; flex-direction: column; gap: .3rem; margin-top: .9rem; }
+
+/* The reading steps. Each points at one box on both forms. */
+.build-steps { list-style: none; margin: 0; padding: 0; }
+.step { padding: .9rem 0 .9rem 1rem; border-left: 3px solid var(--border); max-width: 46ch; }
+.step-field { margin: 0 0 .25rem; font-weight: 600; font-size: .95rem; }
+.step-line { margin: 0; font-size: .9rem; line-height: 1.5; color: var(--ink-soft); }
+.step-sum { border-left-color: var(--mine); }
+@media (min-width: 980px) {
+  .step { min-height: 42vh; display: flex; flex-direction: column; justify-content: center; }
+}
+
+/* --- Level two: the evidence, and the field set --------------------------
+
+   Secondary. Bordered cards, smaller type, no large figures. These reward a
+   reader who has stopped; they do not compete with the opening. */
+.evidence { display: grid; gap: .9rem; margin: 1rem 0 1.25rem; grid-template-columns: 1fr; }
+@media (min-width: 620px) { .evidence { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 980px) { .evidence { grid-template-columns: repeat(3, 1fr); } }
+
+.evcard {
+  border: 1px solid var(--border); border-radius: var(--radius);
+  padding: .8rem .85rem; background: var(--surface);
+  display: flex; flex-direction: column; gap: .3rem;
+}
+.evcard-fig { margin: 0; font-size: 1.5rem; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.evcard-fig a { color: var(--pub); text-decoration: none; border-bottom: 2px solid transparent; }
+.evcard-fig a:hover, .evcard-fig a:focus-visible { border-bottom-color: var(--pub); }
+.evcard-of { font-size: .9rem; color: var(--ink-soft); font-weight: 400; }
+.evcard-reads { margin: 0; font-size: .88rem; line-height: 1.45; }
+.evcard-caveat {
+  margin: .1rem 0 0; font-size: .76rem; line-height: 1.4; color: var(--ink-soft);
+  border-top: 1px solid var(--border); padding-top: .35rem;
+}
+
+.fieldgrid { display: grid; gap: .7rem; grid-template-columns: 1fr; margin: 1rem 0 1.5rem; align-items: start; }
+@media (min-width: 620px) { .fieldgrid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 980px) { .fieldgrid { grid-template-columns: repeat(3, 1fr); } }
+
+.fieldcard { border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); padding: .7rem .85rem; }
+.fieldcard > summary {
+  cursor: pointer; font-weight: 600; font-size: .9rem; line-height: 1.4;
+  display: flex; gap: .5rem; align-items: baseline;
+}
+.fieldcard > summary:focus-visible { outline: 2px solid var(--mine); outline-offset: 3px; }
+.fieldcard .num { color: var(--mine); font-variant-numeric: tabular-nums; font-size: .82rem; }
+.fieldcard[open] { border-color: var(--mine); }
+@media (min-width: 620px) { .fieldcard[open] { grid-column: 1 / -1; } }
+.fieldcard-body { padding-top: .5rem; }
+.fieldcard-body p { font-size: .9rem; }
+.fieldcard .from { font-size: .84rem; color: var(--ink-soft); }
+
+/* --- Level three: sources, limits, where to go next ----------------------
+
+   Quiet. No card, no rule down the side, smaller and set back. A reader who
+   squints should not see these at all. */
+.design-page .panel.quiet {
+  border: 0; border-top: 1px solid var(--border); border-radius: 0;
+  background: transparent; padding: .8rem 0 0; margin-bottom: 1.5rem;
+}
+.design-page .panel.quiet, .design-page .panel.quiet p, .design-page .panel.quiet li,
+.design-page .panel.quiet td, .design-page .panel.quiet th { font-size: .85rem; color: var(--ink-soft); }
+.design-page .panel.quiet h3 { font-size: .88rem; margin: .9rem 0 .3rem; color: var(--ink); }
+.design-page h2.h-quiet {
+  font-size: .78rem; text-transform: uppercase; letter-spacing: .08em;
+  color: var(--ink-soft); margin: 1.75rem 0 0; border: 0; padding: 0;
+}
+.design-page h2.h-loud { font-size: 1.5rem; margin-top: 2.25rem; }
+.onward { margin: 0 0 .75rem 1.1rem; padding: 0; }
+.onward li { margin: .3rem 0; }
+
+/* --- Motion --------------------------------------------------------------
+   Each of these reveals a fact: the figure counts to its value while the boxes
+   it counts empty out, the step in view marks the box it is about, and a card
+   arrives as it is reached. Nothing here decorates. */
+/* Slots fill one at a time. The resting state is the real split, so a reader
+   who never reaches the strip, or who has asked for less motion, sees the same
+   three solid marks. */
+.slot { transition: background-color .3s ease; }
+
+/* The boxes hold an outline while the slots fill and empty as the forms come
+   into view. The resting state is the empty one, so a reader who triggers
+   nothing sees the same two forms. */
+.ffield-box.is-blank { transition: opacity .55s ease, border-color .55s ease; }
+body.counting-rows .ffield-box.is-blank { opacity: 1; border-style: solid; }
+
+.ffield { transition: opacity .25s ease; }
+.forms.reading .ffield { opacity: .4; }
+.forms.reading .ffield.lit { opacity: 1; }
+.forms .ffield.lit .ffield-label { color: var(--mine); }
+
+.step { transition: border-color .25s ease, opacity .25s ease; opacity: 1; }
+@media (min-width: 980px) {
+  .build-steps.armed .step { opacity: .5; }
+  .build-steps.armed .step.here { opacity: 1; border-left-color: var(--mine); }
+}
+
+/* Cards arrive as they are reached. Scroll-driven, so it costs no script. The
+   plain state is visible, so anything without support shows them all at once,
+   which is the same page without the arrival. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .fieldcard, .evcard {
+      animation: arrive linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 55%;
+    }
+  }
+}
+@keyframes arrive {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* A reader who has asked for less motion gets none of it, with every figure,
+   box, step and card present and readable. */
+@media (prefers-reduced-motion: reduce) {
+  .fieldcard, .evcard { animation: none; opacity: 1; transform: none; }
+  .ffield, .step { transition: none; opacity: 1; }
+  .slot { transition: none; }
+  .ffield-box.is-blank { transition: none; }
+  .forms.reading .ffield { opacity: 1; }
+  .build-steps .step { opacity: 1; }
+  .build-stage { position: static; }
+  html { scroll-behavior: auto; }
+}
+
+/* --- Two halves of one project, said in the navigation ------------------- */
+nav { display: flex; flex-wrap: wrap; gap: 1.5rem; align-items: flex-start; }
+.navgroup { display: flex; flex-direction: column; gap: .3rem; }
+.navgroup + .navgroup {
+  padding-left: 1.5rem;
+  border-left: 1px solid var(--border);
+}
+.navlabel {
+  font-size: .72rem; text-transform: uppercase; letter-spacing: .07em;
+  color: var(--ink-soft); font-weight: 600;
+}
+.navgroup.design .navlabel { color: var(--design); }
+.navlinks { display: flex; flex-wrap: wrap; gap: .4rem; }
+.navgroup.design a[aria-current="page"] {
+  background: var(--design); border-color: var(--design); color: var(--bg);
+}
+.navgroup.design a { border-color: var(--design); }
+
+@media (max-width: 700px) {
+  nav { gap: 1rem; }
+  .navgroup + .navgroup { padding-left: 0; border-left: 0; padding-top: .8rem; border-top: 1px solid var(--border); width: 100%; }
+}
+
+/* The band that marks page four as the other half rather than a fourth tab. */
+.halfmark {
+  border-top: 3px solid var(--design);
+  padding: 1rem 0 1.25rem;
+  margin: 0 0 1.5rem;
+}
+.halfmark-label {
+  font-size: .72rem; text-transform: uppercase; letter-spacing: .09em;
+  color: var(--design); font-weight: 700; margin: 0 0 .4rem;
+}
+.halfmark-line {
+  font-size: 1.15rem; line-height: 1.55; margin: 0;
+  max-width: var(--measure); text-wrap: pretty;
+}
+
+ol.subfields { margin: .4rem 0 .6rem 1.2rem; padding: 0; columns: 2; column-gap: 1.5rem; }
+ol.subfields li { font-size: .9rem; margin: .12rem 0; break-inside: avoid; }
+@media (max-width: 640px) { ol.subfields { columns: 1; } }
+
+.convention {
+  border-top: 1px solid var(--design);
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+}
+.convention-label {
+  font-size: .72rem; text-transform: uppercase; letter-spacing: .07em;
+  color: var(--design); font-weight: 700; margin: 0 0 .3rem;
+}
+.convention h3 { margin-top: 0; }
+
+/* --- The question summary ------------------------------------------------ */
+.summary { margin: 1.75rem 0 2rem; }
+.summary-lead { color: var(--ink-soft); font-size: .92rem; margin: 0 0 .75rem; }
+
+.qrow { border-top: 1px solid var(--border); }
+.qrow:last-child { border-bottom: 1px solid var(--border); }
+
+.qrow-head {
+  display: grid;
+  grid-template-columns: 1.75rem minmax(0, 15rem) minmax(0, 1fr);
+  gap: .2rem .9rem;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: 0;
+  border-radius: 0;
+  padding: .85rem .2rem;
+  font: inherit;
+  cursor: pointer;
+  align-items: baseline;
+}
+.qrow-head:hover { background: var(--surface); }
+.qrow-head:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.qrow-n { color: var(--ink-soft); font-variant-numeric: tabular-nums; font-size: .85rem; }
+.qrow-q { font-weight: 600; }
+.qrow-a { color: var(--ink-soft); font-size: .92rem; line-height: 1.5; text-wrap: pretty; }
+.qrow-head[aria-expanded="true"] .qrow-q { color: var(--accent); }
+.qrow-elsewhere {
+  grid-column: 3; margin: 0 0 .8rem 17.65rem;
+  font-size: .85rem; color: var(--ink-soft);
+}
+
+@media (max-width: 760px) {
+  .qrow-head { grid-template-columns: 1.6rem minmax(0, 1fr); }
+  .qrow-a { grid-column: 2; }
+  .qrow-elsewhere { grid-column: 1 / -1; margin-left: 1.6rem; }
+}
+
+/* The five sections are always open: the owner ruled that they read as one
+   continuous argument, so a reader who clicks nothing still gets all of it.
+   The summary rows are links into the sections, not toggles over them. */
+.qrow-head { display: block; text-decoration: none; color: inherit; cursor: pointer; }
+.qrow-head:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.qsection { scroll-margin-top: 1rem; }
+
+.handoff {
+  border-top: 1px solid var(--border);
+  padding-top: .8rem;
+  margin: 1.5rem 0 0;
+  color: var(--ink-soft);
+  font-size: .92rem;
+  font-style: italic;
+}
+
+/* --- The reading rail ---------------------------------------------------- */
+.rail {
+  position: fixed; left: max(.6rem, calc(50vw - 640px)); top: 50%;
+  transform: translateY(-50%);
+  display: flex; flex-direction: column; gap: .5rem; z-index: 5;
+}
+.railmark { display: flex; align-items: center; gap: .5rem; text-decoration: none; }
+.railbar {
+  display: block; width: 1.5rem; height: 2px; background: var(--border); border-radius: 2px;
+  transition: background .15s, width .15s;
+}
+.railmark.here .railbar { background: var(--accent); width: 2.25rem; }
+.railtext {
+  font-size: .75rem; color: var(--ink-soft); opacity: 0; max-width: 0;
+  overflow: hidden; white-space: nowrap; transition: opacity .15s;
+}
+.railmark:hover .railtext, .railmark:focus-visible .railtext { opacity: 1; max-width: 16rem; }
+@media (max-width: 1100px) { .rail { display: none; } }
+
+/* A published figure this project could not reproduce prints as that, never as
+   a number. The failure to reconcile is the finding. */
+.unreconciled { font-style: italic; color: var(--flag); }
+
+/* A proposed field whose only evidence is a three-entry register carries that
+   limit on the card itself. */
+.rests-on {
+  font-size: .82rem; line-height: 1.45; color: var(--ink-soft);
+  border-left: 3px solid var(--flag); padding: .35rem .6rem; margin: .5rem 0 0;
+}

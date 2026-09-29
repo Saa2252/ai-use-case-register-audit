@@ -1,0 +1,385 @@
+{
+  "what_this_is": "The first three pages describe the register as published. This page is the author's own view: what they would build, given what the audit found.",
+  "based_on": {
+    "sources": "Two published registers: the 2025 US federal AI use case inventory and the Government of Ontario's list.",
+    "downloaded": "2026-09-22",
+    "snapshot": "A single point in time, each file recorded by SHA-256 hash in governance/data-provenance.md."
+  },
+  "limits": [
+    "One register, in one year.",
+    "Read from outside, with no access to how any agency works.",
+    "Built from what a published file shows, which is not everything an organisation knows.",
+    "Not tested against anyone who keeps a register."
+  ],
+  "fields": [
+    {
+      "name": "Entry identifier",
+      "records": "A reference code that stays the same for this entry from one year to the next.",
+      "finding": "Of 3,611 entries, 706 carry no usable identifier, and the earlier year's list carries none for any entry, so no entry can be followed between the two.",
+      "finding_link": "index.html",
+      "us_2025": "Asks for one. It is filled on four fifths of entries, and 12 values appear on more than one row.",
+      "ontario": "Does not ask."
+    },
+    {
+      "name": "Date this entry was last checked",
+      "records": "The date a person last confirmed that this entry still describes the system.",
+      "finding": "Nothing in the register records when an entry was checked. Its single date field records when a system started running, which answers a different question.",
+      "finding_link": "gaps.html",
+      "us_2025": "Does not ask.",
+      "ontario": "Does not ask."
+    },
+    {
+      "name": "What changed since the last check",
+      "records": "Which of a named set of changes has happened since the entry was last confirmed: the responsible office, the model or its version, the data it draws on, what it is used for, or how far it acts without a person.",
+      "finding": "Five kinds of change would normally call for an entry to be verified again. No field in the register records any of them as a change, and one of the five is not present in the field set at all.",
+      "finding_link": "gaps.html",
+      "us_2025": "Does not ask.",
+      "ontario": "Does not ask."
+    },
+    {
+      "name": "Acts without a person reviewing the output",
+      "records": "Whether the system can carry out a decision or action without a person looking at its output first.",
+      "finding": "The 2025 federal register does not ask this question. The Ontario register asks it as a standing field.",
+      "finding_link": "gaps.html",
+      "rests_on": "This rests on a register of three entries and has not been tested against a large one.",
+      "us_2025": "Not present in the 2025 field set.",
+      "ontario": "**Asks it**, as a standing field."
+    },
+    {
+      "name": "Where a person reviews it",
+      "records": "The point in the process at which a person sees the output, if there is one.",
+      "finding": "The 2025 federal register does not ask this question. The Ontario register asks it as a standing field.",
+      "finding_link": "gaps.html",
+      "rests_on": "This rests on a register of three entries and has not been tested against a large one.",
+      "us_2025": "Not present in the 2025 field set.",
+      "ontario": "**Asks it**, as a standing field."
+    },
+    {
+      "name": "Impact classification, with an explicit option for not yet assessed",
+      "records": "How seriously the system is rated, including a value meaning no assessment has been made, so that an unassessed entry is distinguishable from a blank.",
+      "finding": "The classification field has four states in practice, and the fourth is that nothing was recorded: 426 entries carry no classification at all, which is more than the 110 assessed and set aside.",
+      "finding_link": "obligations.html",
+      "us_2025": "Asks it. The options do not include one meaning no assessment was made.",
+      "ontario": "Does not ask."
+    },
+    {
+      "name": "Withheld from public reporting, and on what ground",
+      "records": "Whether any part of this entry is held back from publication, and if so on what ground. Named in the direction the question is asked, so that an answer of no means nothing was held back.",
+      "finding": "The field asking whether an entry should be withheld is required, and is blank for 274 of the 445 entries flagged high-impact.",
+      "finding_link": "obligations.html",
+      "us_2025": "Asks it, and requires an answer.",
+      "ontario": "Does not ask."
+    },
+    {
+      "name": "The nine oversight questions, each with its own explicit states",
+      "records": "Each carries its own answer, including one meaning the question does not apply. They are nine fields, not one.",
+      "sub_fields": [
+        "Tested before deployment",
+        "Impact assessment completed",
+        "Potential impacts identified",
+        "Independent review conducted",
+        "Ongoing monitoring in place",
+        "Training established for operators",
+        "Fail-safe in place",
+        "Appeal process in place",
+        "Consultation with the people it affects"
+      ],
+      "finding": "Of 445 high-impact entries, 126 answer all nine and 317 answer none, with two in between. The nine arrive together or not at all.",
+      "finding_link": "obligations.html",
+      "us_2025": "Asks all nine. Two of them offer a not-applicable option.",
+      "ontario": "Does not ask."
+    },
+    {
+      "name": "What this entry counts as one of",
+      "records": "Whether this entry describes one system, or a class of common tools reported together, so that a reader knows what a count of entries is a count of.",
+      "finding": "The register publishes two routes that count different things and cannot be added: 3,611 systems reported individually, and 45 agencies reporting against 21 common tasks.",
+      "finding_link": "gaps.html",
+      "us_2025": "Implied by publishing two separate files, not recorded in either.",
+      "ontario": "Does not ask."
+    },
+    {
+      "name": "Who completed this entry, and when",
+      "records": "The office that filled this entry in, and the date it did so.",
+      "finding": "How completely an entry is filled in varies far less within one agency's submission than across the register, and the nine oversight fields arrive together or not at all. What produces that pattern cannot be read from the file, because it records nothing about who filled an entry in or when.",
+      "finding_link": "gaps.html",
+      "us_2025": "Does not ask.",
+      "ontario": "Does not ask."
+    }
+  ],
+  "convention": {
+    "name": "Every field records an empty answer the same way",
+    "records": "Every field distinguishes four states: answered, the question does not apply, not yet answered, and withheld. No field records an absence as ordinary text.",
+    "finding": "Two fields store an empty answer as a pair of brackets a spreadsheet counts as content; words such as 'No' and 'Not available' record an absence in one field and a real answer in another; the development stage field offers four answers with no option meaning nobody filled it in; and a value the file uses appears nowhere in the document describing the field.",
+    "finding_link": "gaps.html",
+    "us_2025": "No single convention. Three of the seven counting problems on the gaps page come from how an empty answer is recorded.",
+    "ontario": "Not enough published entries to tell."
+  },
+  "evidence": [
+    {
+      "path": "M4.oversight_block_shape.none_answered",
+      "of": "M4.subset_size",
+      "reads": "of the entries flagged high-impact have all nine oversight fields empty",
+      "caveat": "A filled field shows information was provided, not that the practice is adequate.",
+      "link": "obligations.html",
+      "value": 317,
+      "of_value": 445
+    },
+    {
+      "path": "R3.figures.rows_with_no_usable_identifier",
+      "of": "M1.individually_reported_entries",
+      "reads": "entries carry no usable identifier",
+      "caveat": "The register asks for one, and permits agencies to remove the column from their own inventories.",
+      "link": "register.html",
+      "value": 706,
+      "of_value": 3611
+    },
+    {
+      "path": "M4.withholding_status.high_impact_with_no_status",
+      "of": "M4.withholding_status.high_impact_entries",
+      "reads": "high-impact entries say nothing about whether they were withheld",
+      "caveat": "A blank is not evidence anything was withheld. The field is required.",
+      "link": "obligations.html",
+      "value": 274,
+      "of_value": 445
+    },
+    {
+      "path": "M4.bands.classification not recorded",
+      "of": "M4.register_rows",
+      "reads": "entries carry no impact classification at all",
+      "caveat": "No inference is drawn in either direction.",
+      "link": "obligations.html",
+      "value": 426,
+      "of_value": 3611
+    },
+    {
+      "path": "M3.operational_date.usable_dates_as_share_of_all_rows",
+      "suffix": "%",
+      "reads": "of entries carry a date that can be read reliably",
+      "caveat": "It records when a system started running, not when the entry was checked.",
+      "link": "gaps.html",
+      "value": 31.7
+    }
+  ],
+  "evidence_withheld": [
+    {
+      "name": "How many entries resemble each other",
+      "why": "It is three numbers, not one. The finding is that the count triples depending on where the line is drawn, so any single figure states the opposite of what was found.",
+      "link": "gaps.html"
+    },
+    {
+      "name": "How completeness varies within an agency against across the list",
+      "why": "Its qualification shortens cleanly, but the figure does not stand alone: a median of two against fifteen means nothing without the setup that precedes it. Kept out of the strip for that reason, and linked instead.",
+      "link": "gaps.html"
+    }
+  ],
+  "repository_url": "",
+  "panel_one": {
+    "entry_id": "FRB-0055",
+    "use_case_name": "Data Quality Prioritization Dashboard",
+    "agency": "Federal Reserve Board",
+    "why_this_entry": "An ordinary entry, not flagged high-impact, describing internal data quality work. Chosen because nothing about it is sensitive.",
+    "rule": "Every value here is read from the published file. Nothing is inferred, estimated or filled with a plausible answer. Where the source collects nothing, the row is marked as such. Where the source asks and this entry is empty, the row is marked differently, because those are different facts.",
+    "rows": [
+      {
+        "field": "Entry identifier",
+        "value": "FRB-0055",
+        "state": "from_source",
+        "label": null,
+        "short": ""
+      },
+      {
+        "field": "Date this entry was last checked",
+        "value": null,
+        "state": "not_collected",
+        "label": "the source register does not collect this",
+        "short": "not collected by this register"
+      },
+      {
+        "field": "What changed since the last check",
+        "value": null,
+        "state": "not_collected",
+        "label": "the source register does not collect this",
+        "short": "not collected by this register"
+      },
+      {
+        "field": "Acts without a person reviewing the output",
+        "value": null,
+        "state": "not_collected",
+        "label": "the source register does not collect this",
+        "short": "not collected by this register"
+      },
+      {
+        "field": "Where a person reviews it",
+        "value": null,
+        "state": "not_collected",
+        "label": "the source register does not collect this",
+        "short": "not collected by this register"
+      },
+      {
+        "field": "Impact classification, with an explicit option for not yet assessed",
+        "value": "Not High-impact",
+        "state": "from_source",
+        "label": null,
+        "short": ""
+      },
+      {
+        "field": "Withheld from public reporting, and on what ground",
+        "value": "No",
+        "state": "from_source",
+        "label": null,
+        "short": ""
+      },
+      {
+        "field": "The nine oversight questions, each with its own explicit states",
+        "value": null,
+        "state": "blank_in_source",
+        "label": "the source register asks this and this entry leaves it empty",
+        "short": "asked, left empty"
+      },
+      {
+        "field": "What this entry counts as one of",
+        "value": null,
+        "state": "not_collected",
+        "label": "the source register does not collect this",
+        "short": "not collected by this register"
+      },
+      {
+        "field": "Who completed this entry, and when",
+        "value": null,
+        "state": "not_collected",
+        "label": "the source register does not collect this",
+        "short": "not collected by this register"
+      }
+    ]
+  },
+  "panel_two": {
+    "organisation": "A fictional city transport authority",
+    "system": "A fictional tool that drafts replies to passenger complaints",
+    "label": "Fictional throughout. No real organisation, no real system, no real data. It exists to show the field set filled in.",
+    "rows": [
+      {
+        "field": "Entry identifier",
+        "value": "CTA-0041, unchanged since first registered"
+      },
+      {
+        "field": "Date this entry was last checked",
+        "value": "12 March 2026"
+      },
+      {
+        "field": "What changed since the last check",
+        "value": "Model version changed. The responsible office, data sources, purpose and degree of autonomy are unchanged."
+      },
+      {
+        "field": "Acts without a person reviewing the output",
+        "value": "No. Every draft reply is read by a caseworker before it is sent."
+      },
+      {
+        "field": "Where a person reviews it",
+        "value": "At the point of sending. The caseworker may edit or discard the draft."
+      },
+      {
+        "field": "Impact classification, with an explicit option for not yet assessed",
+        "value": "Assessed, not high impact. The output is a draft, and the decision that reaches the passenger is the caseworker's."
+      },
+      {
+        "field": "Withheld from public reporting, and on what ground",
+        "value": "No. Published in full."
+      },
+      {
+        "field": "The nine oversight questions, each with its own explicit states",
+        "value": "Tested before deployment: yes. Impact assessment: completed. Potential impacts: recorded. Independent review: not applicable at this classification. Monitoring: monthly sampling of sent replies. Operator training: completed for all caseworkers. Fail-safe: replies can be sent without the tool. Appeal: the existing complaints process is unchanged. Consultation: not yet carried out."
+      },
+      {
+        "field": "What this entry counts as one of",
+        "value": "One system."
+      },
+      {
+        "field": "Who completed this entry, and when",
+        "value": "Customer Services, 12 March 2026."
+      }
+    ]
+  },
+  "headline": {
+    "fields": 10,
+    "a_real_entry_can_fill": 3,
+    "a_real_entry_cannot_fill": 7,
+    "not_collected": 6,
+    "asked_and_left_empty": 1,
+    "entry": "FRB-0055",
+    "entry_agency": "Federal Reserve Board",
+    "register_entries": 3611
+  },
+  "lead": {
+    "entries": 3611,
+    "high_impact": 445,
+    "no_oversight": 317
+  },
+  "steps": [
+    {
+      "row": 0,
+      "field": "Entry identifier",
+      "line": "The published register records this.",
+      "state": "from_source"
+    },
+    {
+      "row": 1,
+      "field": "Date this entry was last checked",
+      "line": "The published register does not collect this.",
+      "state": "not_collected"
+    },
+    {
+      "row": 2,
+      "field": "What changed since the last check",
+      "line": "The published register does not collect this.",
+      "state": "not_collected"
+    },
+    {
+      "row": 3,
+      "field": "Acts without a person reviewing the output",
+      "line": "The published register does not collect this.",
+      "state": "not_collected"
+    },
+    {
+      "row": 4,
+      "field": "Where a person reviews it",
+      "line": "The published register does not collect this.",
+      "state": "not_collected"
+    },
+    {
+      "row": 5,
+      "field": "Impact classification, with an explicit option for not yet assessed",
+      "line": "The published register records this.",
+      "state": "from_source"
+    },
+    {
+      "row": 6,
+      "field": "Withheld from public reporting, and on what ground",
+      "line": "The published register records this.",
+      "state": "from_source"
+    },
+    {
+      "row": 7,
+      "field": "The nine oversight questions, each with its own explicit states",
+      "line": "The published register asks this, and this entry leaves it empty.",
+      "state": "blank_in_source"
+    },
+    {
+      "row": 8,
+      "field": "What this entry counts as one of",
+      "line": "The published register does not collect this.",
+      "state": "not_collected"
+    },
+    {
+      "row": 9,
+      "field": "Who completed this entry, and when",
+      "line": "The published register does not collect this.",
+      "state": "not_collected"
+    },
+    {
+      "row": null,
+      "field": "Of the ten, this is what carries a value",
+      "line": "3 of 10 boxes carry a value from the published register. The other 7 are the empty boxes on the left. The second form is one made-up organisation filling in every one.",
+      "state": "summary"
+    }
+  ]
+}

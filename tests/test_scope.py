@@ -12,9 +12,17 @@ DB_SUFFIXES = {".db", ".sqlite", ".sqlite3", ".mdb", ".accdb"}
 LOGIN_PATTERNS = [r"\blogin\b", r"\bsign[\s-]?in\b", r"\bpassword\b", r"\bauthenticat", r"\bsession\b"]
 
 
-def test_exactly_three_pages():
-    pages = sorted(p.name for p in (REPO_ROOT / "docs").glob("*.html"))
-    assert len(pages) == 3, f"expected three pages, found {pages}"
+# The brief set three views. Two additions were approved and recorded in the
+# scope-change table in governance/safeguards.md: a design view, and then the
+# decision to merge the planned dashboard into that page rather than add a
+# fifth. Four is the approved number.
+APPROVED_PAGES = {"index.html", "register.html", "gaps.html", "obligations.html"}
+
+
+def test_exactly_the_approved_pages():
+    pages = {p.name for p in (REPO_ROOT / "docs").glob("*.html")}
+    assert pages == APPROVED_PAGES, (
+        f"pages present: {sorted(pages)}, approved: {sorted(APPROVED_PAGES)}")
 
 
 def test_no_database_files():

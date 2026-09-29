@@ -47,7 +47,11 @@
   // rule drifts, and the drift stays invisible until someone checks one entry
   // by hand. This one already had: the rule held twenty-eight values and the
   // copy held twenty-one.
-  var RULE = null;
+  var RULE = null, LABELS = {}, GROUPS = {};
+
+  function label(column) {
+    return LABELS[column] || column.replace(/_/g, " ");
+  }
 
   function recordsNothing(field, value) {
     if (!RULE) { return String(value).trim() === ""; }
@@ -61,10 +65,21 @@
   function detailHtml(index) {
     if (!FULL) { return '<p class="note">Loading the full entry.</p>'; }
     var values = FULL.rows[index];
+    // Fields asked only under a condition are introduced by that condition, once,
+    // rather than each carrying it in its own name.
+    var currentGroup = null;
     var cells = FULL.fields.map(function (field, i) {
       var value = values[i];
       var blank = recordsNothing(field, value);
-      return "<tr><th>" + esc(field.replace(/_/g, " ")) + "</th><td" +
+      var group = GROUPS[field] || null;
+      var header = "";
+      if (group !== currentGroup) {
+        currentGroup = group;
+        if (group) {
+          header = '<tr class="groupline"><th colspan="2">' + esc(group) + "</th></tr>";
+        }
+      }
+      return header + "<tr><th>" + esc(label(field)) + "</th><td" +
         (blank ? ' class="blank">(blank)' : ">" + esc(value)) + "</td></tr>";
     }).join("");
     return '<p class="note">Every field this register publishes for this entry. Blanks are shown ' +
@@ -120,6 +135,15 @@
       if (note) { note.classList.remove("is-off"); }
     }
   }
+
+  fetch(dataUrl("field_labels.json"))
+    .then(function (r) { return r.ok ? r.json() : {}; })
+    .then(function (d) {
+      LABELS = (d && d.labels) || {};
+      GROUPS = (d && d.group_of) || {};
+      render();
+    })
+    .catch(function () { LABELS = {}; });
 
   fetch(dataUrl("empty_value_rule.json"))
     .then(function (r) { return r.ok ? r.json() : null; })

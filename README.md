@@ -64,7 +64,7 @@ Most of what determines these numbers is not technical. It is a set of rules dec
 
 **Nothing describes conduct.** Findings describe the file. An empty field is reported as an empty field, never as an omission by the organisation that published it.
 
-## How this project handled eight judgment calls
+## How this project handled ten judgment calls
 
 ### A test that did not pass, and the wrong way to fix it
 
@@ -299,6 +299,42 @@ list the test reads. That makes the test pass while leaving the thing it was
 checking for exactly where it was. It was tried once here and reversed, and it
 is the first note above.
 
+### Two ways the right data still reached the reader wrong
+
+Both were found by someone reading the page rather than by any test, and both
+sat in the gap between what the system held and what appeared on screen.
+
+**A label built from a database column name.** The register names its columns for
+a machine: `has_pii`, `have_ato`, `hi_public_consultation`. The site turned those
+into labels by taking the underscores out, which is the obvious thing to do and
+works for most of them. For one it did not. The prefix `hi_` marks the nine
+questions asked only of entries flagged high-impact, so that column reached the
+reader as **"hi public consultation"**, which reads as a greeting.
+
+The fix was to stop deriving labels and start looking them up: every published
+column now has a plain label written once and fetched by the page. A test rejects
+any script that builds a label out of a column name.
+
+It also surfaced something the underscores had been hiding. That prefix carried
+meaning, and replacing it with readable words dropped it: a reader seeing
+"Consultation with the people it affects" could not tell it is asked only of the
+most serious entries. Those fields are now introduced by the condition they are
+asked under, stated once above them. Writing that out showed the justification
+field belongs to a different condition again, asked only of entries presumed
+serious and then judged not to be, which is a different population from the nine
+and is now a separate group.
+
+**A correction that arrived after the first paint.** The labels are fetched, so
+for a moment the page drew the old raw names and then redrew with the right ones.
+Every test passed, because by the time anything measured the page it was correct.
+A reader who looks quickly, or takes a screenshot, sees the wrong state, and has
+no way to know it was ever going to change.
+
+Anything that prints a label now redraws when the labels arrive. The general
+lesson is narrow and worth keeping: **a page that is correct only after an
+asynchronous step is a page that is wrong to whoever reads it fast.** Testing the
+settled state proves less than it appears to.
+
 ### A figure that was produced and not published
 
 One figure produced during the analysis was not published.
@@ -313,6 +349,58 @@ It was escalated to the owner rather than published with a caveat or quietly
 dropped. Publishing it with a caveat would have put the number into circulation,
 where the caveat does not travel with it. Dropping it silently would have left no
 record of the decision. The reasoning is recorded in `governance/decision-rules.md`.
+### A rule enforced in one place and typed by hand everywhere else
+
+Safeguard S5 says every number on the site is computed by the analysis and
+loaded from `data/derived/`. An audit of every published figure against the raw
+file found **four numbers that were wrong**.
+
+| Where | Published | The file holds |
+|---|---|---|
+| Two pages, on identifier repeats | thirteen | 12 |
+| The register page, on entries with no identifier | a sixth | 19.6%, which the heading above it called nearly a fifth |
+| The gaps page, under a heading reading "Seven ways" | these six | seven |
+| The gaps page, on the size of an error | about seventy percentage points | 69.4 on one field and 92.7 on the other, both printed beneath it |
+
+A fifth figure, a count of agency submissions, was published with no working at
+all and could not be reproduced by any method. It has been removed and replaced
+with a statement that it could not be reconciled, with every method tried
+recorded in `governance/data-provenance.md`.
+
+**Every one of them was typed by hand.** None came from the analysis. The
+evidence strip on the landing page obeys S5 and resolves its figures from the
+findings; the prose around it did not. The rule existed, was documented, was
+enforced in one place, and was ignored everywhere else. A rule enforced in one
+place and typed by hand everywhere else is not a rule. It is a habit that
+happens to hold in the place someone checked.
+
+**The part that matters is that this was already known.** An earlier note in
+this file, *A heading that claimed the opposite of the finding beneath it*,
+recorded exactly this lesson: the test suite verifies wording, structure and
+provenance, and does not verify that a claim matches its evidence. That was
+written down, and nothing was built to act on it. The same class of error then
+recurred four more times, in four different files, over the following week.
+Writing a lesson down is not the same as closing it. A finding that produces no
+test produces nothing.
+
+At the point the audit ran, the suite held 42 tests. Not one compared a
+published number against the data.
+
+**What closed it.** `tests/test_published_claims.py` recomputes nine figures
+from the raw file and fails naming any that have drifted, and checks the two
+specific counts that were wrong against the file rather than against another
+page. `tests/test_single_source_statements.py` fails if a page writes out a
+shared fact instead of taking it from `src/statements.py`, which is the same
+defect in a second form: a sentence corrected on one page had survived
+unchanged on another because each page stated it independently. Both were
+verified by planting the failure they exist to catch.
+
+**What it cost to find.** Nothing on the site was visibly broken. Every page
+rendered, every test passed, every caveat was present and every link resolved.
+The errors were only reachable by recomputing each published figure from the
+raw file and comparing. A suite that is green says the things it checks are
+true. It says nothing about the things it does not check.
+
 ## What this project cannot show
 
 This is the part that took the longest to get right.

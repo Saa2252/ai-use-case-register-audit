@@ -88,6 +88,7 @@
       if (findings && findings.findings) {
         findings.findings.forEach(function (f) { STORE[f.measure] = f; });
         STORE.meta = { generated: findings.generated };
+        STORE.__questions = findings.questions || null;
       }
       if (reuse && reuse.findings) {
         reuse.findings.forEach(function (f) { STORE[f.id] = f; });

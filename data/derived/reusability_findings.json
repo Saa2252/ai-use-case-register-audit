@@ -1,113 +1,115 @@
 {
-  "class": "reusability",
-  "definition": "Ways a published register can be counted wrongly by someone doing the obvious thing. None of these is a claim about any agency. All concern whether published data can be picked up and used correctly.",
-  "findings": [
-    {
-      "id": "R1",
-      "name": "Empty answers stored as a two-character string",
-      "detail": "Two fields record 'nothing selected' as the literal text [], which is neither null nor an empty string. Standard tools read those two characters as content.",
-      "figures": {
-        "demographic_features": {
-          "read_naively": "100.0%",
-          "corrected": "30.6%"
-        },
-        "hi_public_consultation": {
-          "read_naively": "100.0%",
-          "corrected": "7.3%"
-        }
-      },
-      "caveat": "The error runs about seventy percentage points, in the direction that flatters the register.",
-      "plain": "When a question lets you tick several boxes and you tick none, the file stores that as two square brackets with nothing between them. To a spreadsheet those brackets are content, so the column looks completely filled in when almost nobody answered it.",
-      "plain_name": "A column that looks full and is nearly empty",
-      "technical_name": "Empty answers stored as a two-character string"
+ "class": "reusability",
+ "definition": "Ways a published register can be counted wrongly by someone doing the obvious thing. None of these is a claim about any agency. All concern whether published data can be picked up and used correctly.",
+ "findings": [
+  {
+   "id": "R1",
+   "name": "Empty answers stored as a two-character string",
+   "detail": "Two fields record 'nothing selected' as the literal text [], which is neither null nor an empty string. Standard tools read those two characters as content.",
+   "figures": {
+    "demographic_features": {
+     "read_naively": "100.0%",
+     "corrected": "30.6%"
     },
-    {
-      "id": "R2",
-      "name": "File published in a non-UTF-8 encoding",
-      "detail": "One published inventory file is encoded as cp1252. Opened under the common assumption of UTF-8 it raises an error rather than showing different characters, which reads as a damaged file rather than a different convention.",
-      "caveat": "Concerns the repository, not the rows. No claim is made about any entry.",
-      "plain": "Text files have to say which alphabet they are written in. This one uses an older Western European scheme rather than the modern standard most tools assume. Opened the usual way it does not show odd characters, it refuses to open at all, so it looks broken rather than merely different.",
-      "plain_name": "A file that will not open the usual way",
-      "technical_name": "File published in a non-UTF-8 encoding"
-    },
-    {
-      "id": "R3",
-      "name": "Placeholder values that mean different things in different fields",
-      "detail": "Values such as 'No', 'Not available', 'TBD' and 'Not applicable' appear across many fields. In a field expecting written content or a URL they record an absence. In a multiple-choice field the same string can be a valid selection listed in the dictionary.",
-      "figures": {
-        "rows_with_no_usable_identifier": 706,
-        "of_which_carry_TBD_rather_than_blank": 2
-      },
-      "caveat": "Applying one blanket rule moves two oversight fields from 28.8% to 26.5% and 22.0% and breaks a finding, on a mistake. The dictionary decides, not the appearance of the string.",
-      "plain": "Words like 'No', 'Not available' and 'Not applicable' turn up all over the file. In a box expecting a sentence or a web address they mean there is nothing to give. In a tick-box question the same words can be one of the answers on offer. Counting them the same way in both places gets the answer wrong.",
-      "plain_name": "The same word meaning two different things",
-      "technical_name": "Placeholder values that mean different things in different fields"
-    },
-    {
-      "id": "R4",
-      "name": "Ambiguous date values in the only date field",
-      "detail": "The single date field carries a value in 1,402 of 3,611 rows. Of those values, 81.6% parse as dates. The remaining 18.4% take a form such as a three-letter month followed by a two-digit number, which cannot be resolved to either a century or a day order. The ambiguity cannot be resolved from the file: nothing elsewhere in the row or the dictionary fixes which reading is intended.",
-      "figures": {
-        "rows_with_a_value": 1402,
-        "share_of_all_rows": "38.8%",
-        "values_that_parse": 1144,
-        "parse_rate": "81.6%",
-        "values_that_cannot_be_resolved": 258,
-        "unresolvable_rate": "18.4%",
-        "usable_dates_as_share_of_all_rows": "31.7%",
-        "values_dated_after_the_download_date": 5
-      },
-      "caveat": "A value that cannot be resolved is not a date. Guessing a century or a day order would manufacture precision the file does not contain. Five values carry dates later than the date this project downloaded the file. That is recorded as an observation. No inference is drawn from it.",
-      "plain": "The one date column mixes formats. About a fifth of the dates are written as a month and a two-digit number, which could be a year or a day of the month. Nothing else in the file settles which, so those dates cannot be used.",
-      "plain_name": "Dates that could mean two different days",
-      "technical_name": "Ambiguous date values in the only date field"
-    },
-    {
-      "id": "R5",
-      "name": "A field with no placeholder convention, where absence is only a blank",
-      "detail": "The development stage field is multiple choice and all four of its allowed selections are substantive: pre-deployment, pilot, deployed, retired. There is no selection meaning 'not recorded', and no placeholder text is used. Absence appears only as a blank cell. A filter built on the four values therefore presents as complete, while the entries carrying no value at all sit outside every option and outside the filter.",
-      "mechanism_differs_from": "R1, R3 and R4 are cases where a value is present but records an absence, so a naive count reads too high. R5 is the reverse: no value is present at all, every value that is present is genuine, and the trap is that the set of options looks exhaustive when it is not.",
-      "figures": {
-        "rows_carrying_a_stage": 3273,
-        "total_rows": 3611,
-        "coverage": "90.6%",
-        "rows_with_no_stage_recorded": 338
-      },
-      "caveat": "The placeholder scan did not change these counts: 338 before and 338 after, because no value in this field matches any placeholder pattern. The gap is only visible by counting what the four options do not account for. Stating the coverage on the filter itself is what keeps it visible at the point of use.",
-      "plain": "The development stage column offers four answers and all four are real ones. There is no option meaning 'nobody filled this in', so those entries are simply blank. A filter built from the four options looks like it covers everything while several hundred entries sit outside it.",
-      "plain_name": "A set of choices that looks complete and is not",
-      "technical_name": "A field with no placeholder convention, where absence is only a blank"
-    },
-    {
-      "id": "R6",
-      "name": "Two near-identically named files, with the documentation and the row counts pointing at different ones",
-      "detail": "One repository publishes two files whose names differ only by a version suffix. Its own file listing names the first. Its stated total matches the second, and the first matches a different count exactly. A reader following the documentation and a reader checking the stated total arrive at different files.",
-      "mechanism_differs_from": "R1, R3 and R4 are values that read too high. R5 is an option set that looks exhaustive. R6 is neither: both files open correctly and both are internally consistent. What cannot be resolved from the repository is which one is meant.",
-      "figures": {
-        "files_published": 2,
-        "rows_in_the_documented_file": 1757,
-        "rows_in_the_undocumented_file": 2133,
-        "stated_total": 2133
-      },
-      "caveat": "This concerns the repository, not the rows. No claim is made about any entry in either file. This project uses the file whose row count matches the stated total, and records that the documentation names the other.",
-      "plain": "The earlier year's repository contains two files with almost the same name. Its own contents page points at one of them. Its stated total matches the other. Both open perfectly well, and nothing in the repository says which one is meant.",
-      "plain_name": "Two files, and no way to tell which one is meant",
-      "technical_name": "Two near-identically named files, with the documentation and the row counts pointing at different ones"
-    },
-    {
-      "id": "R7",
-      "plain_name": "A value the file uses and its own dictionary does not define",
-      "name": "A published value absent from the dictionary that describes the field",
-      "technical_name": "A published value absent from the dictionary that describes the field",
-      "plain": "The field recording what kind of AI a system uses has six categories, set out in the document that explains the file. A seventh value appears in the file itself, used by 102 entries, and that document does not mention it. Anyone counting the categories from the documentation will not find a place to put those entries.",
-      "detail": "The classification field's recoding map in the data dictionary names six categories and the written forms folded into each. The published file also contains the value 'Other' in 102 entries. It appears in no entry of the map.",
-      "mechanism_differs_from": "This is the same class as the file publishing 36 columns while the dictionary documents 34: the data and the document describing it do not agree about what the data contains.",
-      "figures": {
-        "categories_in_the_dictionary": 6,
-        "distinct_values_in_the_file": 7,
-        "entries_carrying_the_undocumented_value": 102
-      },
-      "caveat": "This concerns the agreement between a file and its own documentation. No claim is made about any entry, and nothing here says the value is wrong to use."
+    "hi_public_consultation": {
+     "read_naively": "100.0%",
+     "corrected": "7.3%"
     }
-  ]
+   },
+   "caveat": "The error runs from about seventy percentage points on one field to over ninety on the other, in the direction that flatters the register.",
+   "plain": "When a question lets you tick several boxes and you tick none, the file stores that as two square brackets with nothing between them. To a spreadsheet those brackets are content, so the column looks completely filled in when almost nobody answered it.",
+   "plain_name": "A column that looks full and is nearly empty",
+   "technical_name": "Empty answers stored as a two-character string"
+  },
+  {
+   "id": "R2",
+   "name": "File published in a non-UTF-8 encoding",
+   "detail": "One published inventory file is encoded as cp1252. Opened under the common assumption of UTF-8 it raises an error rather than showing different characters, which reads as a damaged file rather than a different convention.",
+   "caveat": "Concerns the repository, not the rows. No claim is made about any entry.",
+   "plain": "Text files have to say which alphabet they are written in. This one uses an older Western European scheme rather than the modern standard most tools assume. Opened the usual way it does not show odd characters, it refuses to open at all, so it looks broken rather than merely different.",
+   "plain_name": "A file that will not open the usual way",
+   "technical_name": "File published in a non-UTF-8 encoding"
+  },
+  {
+   "id": "R3",
+   "name": "Placeholder values that mean different things in different fields",
+   "detail": "Values such as 'No', 'Not available', 'TBD' and 'Not applicable' appear across many fields. In a field expecting written content or a URL they record an absence. In a multiple-choice field the same string can be a valid selection listed in the dictionary.",
+   "figures": {
+    "rows_with_no_usable_identifier": 706,
+    "of_which_carry_TBD_rather_than_blank": 2,
+    "identifier_values_on_more_than_one_row": 12,
+    "rows_carrying_a_repeated_identifier": 26
+   },
+   "caveat": "Applying one blanket rule moves two oversight fields from 28.8% to 26.5% and 22.0% and breaks a finding, on a mistake. The dictionary decides, not the appearance of the string.",
+   "plain": "Words like 'No', 'Not available' and 'Not applicable' turn up all over the file. In a box expecting a sentence or a web address they mean there is nothing to give. In a tick-box question the same words can be one of the answers on offer. Counting them the same way in both places gets the answer wrong.",
+   "plain_name": "The same word meaning two different things",
+   "technical_name": "Placeholder values that mean different things in different fields"
+  },
+  {
+   "id": "R4",
+   "name": "Ambiguous date values in the only date field",
+   "detail": "The single date field carries a value in 1,402 of 3,611 rows. Of those values, 81.6% parse as dates. The remaining 18.4% take a form such as a three-letter month followed by a two-digit number, which cannot be resolved to either a century or a day order. The ambiguity cannot be resolved from the file: nothing elsewhere in the row or the dictionary fixes which reading is intended.",
+   "figures": {
+    "rows_with_a_value": 1402,
+    "share_of_all_rows": "38.8%",
+    "values_that_parse": 1144,
+    "parse_rate": "81.6%",
+    "values_that_cannot_be_resolved": 258,
+    "unresolvable_rate": "18.4%",
+    "usable_dates_as_share_of_all_rows": "31.7%",
+    "values_dated_after_the_download_date": 5
+   },
+   "caveat": "A value that cannot be resolved is not a date. Guessing a century or a day order would manufacture precision the file does not contain. Five values carry dates later than the date this project downloaded the file. That is recorded as an observation. No inference is drawn from it.",
+   "plain": "The one date column mixes formats. About a fifth of the dates are written as a month and a two-digit number, which could be a year or a day of the month. Nothing else in the file settles which, so those dates cannot be used.",
+   "plain_name": "Dates that could mean two different days",
+   "technical_name": "Ambiguous date values in the only date field"
+  },
+  {
+   "id": "R5",
+   "name": "A field with no placeholder convention, where absence is only a blank",
+   "detail": "The development stage field is multiple choice and all four of its allowed selections are substantive: pre-deployment, pilot, deployed, retired. There is no selection meaning 'not recorded', and no placeholder text is used. Absence appears only as a blank cell. A filter built on the four values therefore presents as complete, while the entries carrying no value at all sit outside every option and outside the filter.",
+   "mechanism_differs_from": "The findings above about empty brackets, placeholder words and unreadable dates all work the same way: a value is present but records an absence, so a naive count reads too high. This one is the reverse. No value is present at all, every value that is present is genuine, and the trap is that the set of options looks complete when it is not.",
+   "figures": {
+    "rows_carrying_a_stage": 3273,
+    "total_rows": 3611,
+    "coverage": "90.6%",
+    "rows_with_no_stage_recorded": 338
+   },
+   "caveat": "The placeholder scan did not change these counts: 338 before and 338 after, because no value in this field matches any placeholder pattern. The gap is only visible by counting what the four options do not account for. Stating the coverage on the filter itself is what keeps it visible at the point of use.",
+   "plain": "The development stage column offers four answers and all four are real ones. There is no option meaning 'nobody filled this in', so those entries are simply blank. A filter built from the four options looks like it covers everything while several hundred entries sit outside it.",
+   "plain_name": "A set of choices that looks complete and is not",
+   "technical_name": "A field with no placeholder convention, where absence is only a blank"
+  },
+  {
+   "id": "R6",
+   "name": "Two near-identically named files, with the documentation and the row counts pointing at different ones",
+   "detail": "One repository publishes two files whose names differ only by a version suffix. Its own file listing names the first. Its stated total matches the second, and the first matches a different count exactly. A reader following the documentation and a reader checking the stated total arrive at different files.",
+   "mechanism_differs_from": "The findings about empty brackets, placeholder words and unreadable dates are values that read too high. The one about development stage is a set of options that looks complete. This is neither: both files open correctly and both are internally consistent. What cannot be resolved from the repository is which one is meant.",
+   "figures": {
+    "files_published": 2,
+    "rows_in_the_documented_file": 1757,
+    "rows_in_the_undocumented_file": 2133,
+    "stated_total": 2133
+   },
+   "caveat": "This concerns the repository, not the rows. No claim is made about any entry in either file. This project uses the file whose row count matches the stated total, and records that the documentation names the other.",
+   "plain": "The earlier year's repository contains two files with almost the same name. Its own contents page points at one of them. Its stated total matches the other. Both open perfectly well, and nothing in the repository says which one is meant.",
+   "plain_name": "Two files, and no way to tell which one is meant",
+   "technical_name": "Two near-identically named files, with the documentation and the row counts pointing at different ones"
+  },
+  {
+   "id": "R7",
+   "plain_name": "A value the file uses and its own dictionary does not define",
+   "name": "A published value absent from the dictionary that describes the field",
+   "technical_name": "A published value absent from the dictionary that describes the field",
+   "plain": "The field recording what kind of AI a system uses has six categories, set out in the document that explains the file. A seventh value appears in the file itself, used by 102 entries, and that document does not mention it. Anyone counting the categories from the documentation will not find a place to put those entries.",
+   "detail": "The classification field's recoding map in the data dictionary names six categories and the written forms folded into each. The published file also contains the value 'Other' in 102 entries. It appears in no entry of the map.",
+   "mechanism_differs_from": "This is the same class as the file publishing thirty-six columns while the document describing it documents thirty-four: the data and its own documentation do not agree about what the data contains.",
+   "figures": {
+    "categories_in_the_dictionary": 6,
+    "distinct_values_in_the_file": 7,
+    "entries_carrying_the_undocumented_value": 102
+   },
+   "caveat": "This concerns the agreement between a file and its own documentation. No claim is made about any entry, and nothing here says the value is wrong to use."
+  }
+ ]
 }

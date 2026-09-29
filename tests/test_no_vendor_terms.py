@@ -15,6 +15,8 @@ from pathlib import Path
 
 import pytest
 
+from src.disclaimer import REPOSITORY_URL
+
 from conftest import REPO_ROOT
 
 sys.path.insert(0, str(REPO_ROOT))
@@ -48,11 +50,18 @@ def published_files() -> list[Path]:
 #
 # Adding any further exemption requires the owner's approval and is a
 # stop-and-ask condition. See governance/safeguards.md.
+#
+# A third exemption was approved on 30 September 2026: the repository address.
+# The hosting provider's name sits inside the address, so publishing the link to
+# the project's own source would otherwise trip this test. It is read from
+# src.disclaimer.REPOSITORY_URL rather than written out here, so the exemption
+# covers exactly the one address the project publishes and widening it means
+# changing that value. While the address is empty, nothing is exempt.
 EXEMPT_EXACT_STRINGS = [
     '<meta charset',
     '<meta name="viewport"',
     'spheroidal elastic deformation sources',
-]
+] + ([REPOSITORY_URL] if REPOSITORY_URL else [])
 
 
 def strip_exempt(text: str) -> str:

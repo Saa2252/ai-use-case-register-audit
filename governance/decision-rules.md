@@ -1032,3 +1032,15 @@ rather than restating it in different words.
 | 2026-09-29 | The gloss on high-impact recorded as the author's own, with the register's term required alongside it on first use per page | Leave it unrecorded | It is the author's wording and reads as if it were the publisher's |
 | 2026-09-29 | Dashboard leads with the design view, findings follow as the evidence it rests on | Findings first, design last | Owner decision. The ordering is the dashboard's argument, not the findings' |
 | 2026-09-29 | The field set appears on the dashboard as a compact preview, never in full | Link only, or show it all | A reader should get the shape at a glance and go to page four for the detail |
+
+## 21. Four rulings issued together, 30 September 2026
+
+The owner issued these as a block so that nothing stayed open waiting on them.
+
+| Question held open | Ruling |
+|---|---|
+| View 2's fourth question does not match the section list the owner gave: the oversight question sits on page three, and View 2's fourth section is the counting traps | **Question four stays as drafted**, "Can a careful person count this file correctly?", with the oversight question carried as a linked line beneath the row, pointing at `obligations.html` |
+| The five View 2 sections were collapsed by default, which served "clicking a row opens the finding" and defeated "the five read as one continuous argument" | **All five open by default.** A row click scrolls to its section rather than opening it. The summary rows and the side rail are both ways of jumping to a section, not ways of revealing one |
+| Whether the completeness-shape figure belongs on the landing page's evidence strip. The developer reported being uncertain rather than deciding | **It stays out and is linked instead. The uncertainty was the answer.** A figure whose qualification cannot be shortened without changing what it says does not go on the strip |
+| Two exact-string exemptions would be needed to publish the repository link | **Both approved**, recorded in `governance/safeguards.md` with their reasons and their scope. Exact strings only |
+

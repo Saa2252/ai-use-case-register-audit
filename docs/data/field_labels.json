@@ -1,0 +1,71 @@
+{
+ "labels": {
+  "agency": "Agency code",
+  "agency_name": "Agency",
+  "id": "Entry identifier",
+  "use_case_name": "Use case name",
+  "agency_bureau": "Bureau or component",
+  "is_withheld": "Withheld from public reporting",
+  "development_stage": "Development stage",
+  "is_high_impact": "Impact classification",
+  "HI_justification": "Justification for that classification",
+  "topic_area": "Topic area",
+  "classification": "Type of AI",
+  "problem_solved": "Problem it is intended to solve",
+  "benefits": "Expected benefits",
+  "system_outputs": "What the system produces",
+  "operational_date": "Date it became operational",
+  "contracting_usage": "Bought from a vendor, or built",
+  "have_ato": "Has an authorisation to operate",
+  "data_description": "Data used to build or evaluate it",
+  "link_to_data": "Link to that data",
+  "has_pii": "Involves personal information",
+  "pia_url": "Link to the privacy impact assessment",
+  "demographic_features": "Demographic variables the system uses",
+  "has_custom_code": "Includes custom-written code",
+  "code_url": "Link to the source code",
+  "hi_testing_conducted": "Tested before deployment",
+  "hi_assessment_completed": "Impact assessment completed",
+  "hi_potential_impacts": "Potential impacts identified",
+  "hi_independent_review": "Independent review conducted",
+  "hi_ongoing_monitoring": "Ongoing monitoring in place",
+  "hi_training_established": "Training established for operators",
+  "hi_failsafe_presence": "Fail-safe in place",
+  "hi_appeal_process": "Appeal process in place",
+  "hi_public_consultation": "Consultation with the people it affects"
+ },
+ "groups": {
+  "high_impact_oversight": {
+   "label": "Asked only of entries flagged high-impact",
+   "columns": [
+    "hi_testing_conducted",
+    "hi_assessment_completed",
+    "hi_potential_impacts",
+    "hi_independent_review",
+    "hi_ongoing_monitoring",
+    "hi_training_established",
+    "hi_failsafe_presence",
+    "hi_appeal_process",
+    "hi_public_consultation"
+   ]
+  },
+  "presumed_not_high_impact": {
+   "label": "Asked only when an entry is presumed high-impact and then determined not to be",
+   "columns": [
+    "HI_justification"
+   ]
+  }
+ },
+ "group_of": {
+  "hi_testing_conducted": "Asked only of entries flagged high-impact",
+  "hi_assessment_completed": "Asked only of entries flagged high-impact",
+  "hi_potential_impacts": "Asked only of entries flagged high-impact",
+  "hi_independent_review": "Asked only of entries flagged high-impact",
+  "hi_ongoing_monitoring": "Asked only of entries flagged high-impact",
+  "hi_training_established": "Asked only of entries flagged high-impact",
+  "hi_failsafe_presence": "Asked only of entries flagged high-impact",
+  "hi_appeal_process": "Asked only of entries flagged high-impact",
+  "hi_public_consultation": "Asked only of entries flagged high-impact",
+  "HI_justification": "Asked only when an entry is presumed high-impact and then determined not to be"
+ }
+}

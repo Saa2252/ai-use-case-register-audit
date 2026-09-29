@@ -14,6 +14,7 @@ DOCS = REPO_ROOT / "docs"
 
 
 def store() -> dict:
+    """What the findings pages fill their figures from."""
     data = {}
     findings = json.loads((DOCS / "data" / "findings.json").read_text())
     for f in findings["findings"]:
@@ -22,6 +23,19 @@ def store() -> dict:
     for f in reuse["findings"]:
         data[f["id"]] = f
     return data
+
+
+def store_for(page) -> dict:
+    """Each page resolves its figures against the data that page loads.
+
+    Page four loads a different file from the findings pages. Checking every
+    page against one store would either pass paths that cannot resolve on the
+    page that uses them, or reject paths that resolve perfectly well.
+    """
+    text = page.read_text()
+    if "assets/proposal.js" in text:
+        return json.loads((DOCS / "data" / "fieldset.json").read_text())
+    return store()
 
 
 def resolve(data, path):
@@ -34,18 +48,30 @@ def resolve(data, path):
 
 
 def test_every_figure_path_resolves():
-    data = store()
     missing = []
     for page in sorted(DOCS.glob("*.html")):
+        data = store_for(page)
         for path in re.findall(r'data-figure="([^"]+)"', page.read_text()):
             if resolve(data, path) is None:
                 missing.append(f"{page.name}: {path}")
     assert not missing, "data-figure paths that resolve to nothing:\n" + "\n".join(missing)
 
 
-def test_every_page_loads_the_figure_script():
+# Two scripts fill data-figure placeholders, from two different data files. A
+# page loads exactly one of them: loading both leaves whichever finishes second
+# writing over the first, and the loser's elements read "unavailable".
+FIGURE_FILLERS = ["assets/figures.js", "assets/proposal.js"]
+
+
+def test_every_page_loads_exactly_one_figure_script():
+    problems = []
     for page in sorted(DOCS.glob("*.html")):
-        assert "assets/figures.js" in page.read_text(), f"{page.name} does not load figures.js"
+        text = page.read_text()
+        loaded = [s for s in FIGURE_FILLERS if s in text]
+        if len(loaded) != 1:
+            problems.append(f"{page.name}: loads {loaded or 'none'}")
+    assert not problems, (
+        "pages that do not load exactly one script to fill their figures:\n" + "\n".join(problems))
 
 
 def test_every_data_file_the_scripts_request_exists():

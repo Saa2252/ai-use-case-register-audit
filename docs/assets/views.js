@@ -4,6 +4,9 @@
 (function () {
   "use strict";
 
+  // Labels are fetched, never restated, for the same reason the emptiness rule
+  // is: a second copy drifts. Loaded before the findings render.
+
   function esc(s) {
     return String(s === undefined || s === null ? "" : s).replace(/[&<>"]/g, function (c) {
       return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c];
@@ -18,11 +21,39 @@
     if (!node) { return; }
     var link = document.createElement("a");
     link.className = "drill";
-    link.href = "index.html?band=" + encodeURIComponent(band);
+    link.href = "register.html?band=" + encodeURIComponent(band);
     link.textContent = node.textContent;
     node.textContent = "";
     node.appendChild(link);
   }
+
+  var LABELS = {}, GROUPS = {};
+  var REPAINT = [];
+
+  function label(column) {
+    return LABELS[column] || column.replace(/_/g, " ");
+  }
+
+  // Anything that prints a label registers here, so that when the labels arrive
+  // it is drawn again. Without this the first paint shows raw column names and
+  // only a later interaction corrects them, which is worse than either.
+  function onLabels(fn) {
+    REPAINT.push(fn);
+    if (Object.keys(LABELS).length) { fn(); }
+  }
+
+  (function loadLabels() {
+    var holder = document.querySelector("[data-dv]");
+    var v = holder ? holder.getAttribute("data-dv") : "";
+    fetch("data/field_labels.json" + (v ? "?v=" + v : ""))
+      .then(function (r) { return r.ok ? r.json() : {}; })
+      .then(function (d) {
+        LABELS = (d && d.labels) || {};
+        GROUPS = (d && d.group_of) || {};
+        REPAINT.forEach(function (fn) { fn(); });
+      })
+      .catch(function () { LABELS = {}; });
+  })();
 
   document.addEventListener("figures:ready", function (e) {
     var S = e.detail;
@@ -42,8 +73,13 @@
     if (S.M2 && el("mismatches")) {
       var m = S.M2.reconciliation.figures_that_do_not_match;
       rows("mismatches", Object.keys(m).map(function (k) {
+        // A figure that could not be reconciled prints as that, not as a
+        // number. Publishing nothing here is the finding.
+        var observed = (m[k].observed === null || m[k].observed === undefined)
+          ? '<span class="unreconciled">could not be reconciled</span>'
+          : n(m[k].observed);
         return "<tr><td>" + esc(k) + "</td><td>" + n(m[k].published) + "</td><td>" +
-          n(m[k].observed) + "</td><td>" + esc(m[k].note || "Both candidate explanations are stated in the provenance document. Neither is chosen.") + "</td></tr>";
+          observed + "</td><td>" + esc(m[k].note || "Both candidate explanations are stated in the provenance document. Neither is chosen.") + "</td></tr>";
       }).join(""));
     }
 
@@ -64,9 +100,16 @@
       var rest = ["R2", "R3", "R4", "R5", "R6"].filter(function (i) { return S[i]; });
       el("reuse-rest").innerHTML = rest.map(function (i) {
         var r = S[i];
-        var gist = String(r.plain || r.detail).split(". ")[0] + ".";
-        return "<details class=\"finding\"><summary>" + esc(r.plain_name || r.name) + "</summary>" +
-          '<p class="gist">' + esc(gist) + "</p><p>" + esc(r.plain || r.detail) + "</p>" +
+        // The opening sentence goes in the summary, which is what shows when the
+        // finding is closed. The body carries what follows it. Printing both the
+        // teaser and the whole text repeated the first sentence every time.
+        var full = String(r.plain || r.detail);
+        var breakAt = full.indexOf(". ");
+        var gist = breakAt === -1 ? full : full.slice(0, breakAt + 1);
+        var rest = breakAt === -1 ? "" : full.slice(breakAt + 2);
+        return "<details class=\"finding\"><summary>" + esc(r.plain_name || r.name) +
+          '<span class="gist">' + esc(gist) + "</span></summary>" +
+          (rest ? "<p>" + esc(rest) + "</p>" : "") +
           '<details><summary class="tech">How it is written in the file</summary><p class="note"><strong>' +
           esc(r.technical_name || r.name) + '.</strong> ' + esc(r.detail) + "</p></details>" +
           (r.mechanism_differs_from ? '<p class="note">' + esc(r.mechanism_differs_from) + "</p>" : "") +
@@ -99,7 +142,7 @@
       var paint = function () {
         rows("emptylist", Object.keys(figures).map(function (k) {
           var f = figures[k];
-          return "<tr><td>" + esc(k.replace(/_/g, " ")) + "</td><td><strong>" +
+          return "<tr><td>" + esc(label(k)) + "</td><td><strong>" +
             esc(corrected ? f.corrected : f.read_naively) + "</strong></td></tr>";
         }).join(""));
         el("empty-mode").textContent = corrected ? "What it actually holds" : "Read at a glance";
@@ -107,6 +150,7 @@
         toggle.setAttribute("aria-pressed", String(corrected));
       };
       toggle.addEventListener("click", function () { corrected = !corrected; paint(); });
+      onLabels(paint);
       paint();
     }
 
@@ -136,7 +180,7 @@
       // can be opened rather than only read.
       rows("bands", keys.map(function (k) {
         var value = k === "classification not recorded" ? "__none" : k;
-        var href = "index.html?band=" + encodeURIComponent(value);
+        var href = "register.html?band=" + encodeURIComponent(value);
         return '<tr><td><a class="drill" href="' + href + '">' + esc(k) + "</a></td><td>" +
           n(b[k]) + "</td></tr>";
       }).join(""));
@@ -146,9 +190,18 @@
 
     if (S.M4 && el("coverage")) {
       var c = S.M4.oversight_field_coverage;
-      rows("coverage", Object.keys(c).map(function (k) {
-        return "<tr><td>" + esc(k.replace(/^hi_/, "").replace(/_/g, " ")) + "</td><td>" + c[k] + "%</td></tr>";
-      }).join(""));
+      var paintCoverage = function () {
+        // The condition is stated once above the nine, not repeated on each row.
+        var condition = GROUPS[Object.keys(c)[0]];
+        var caption = condition
+          ? '<tr class="groupline"><td colspan="2">' + esc(condition) + "</td></tr>"
+          : "";
+        rows("coverage", caption + Object.keys(c).map(function (k) {
+          return "<tr><td>" + esc(label(k)) + "</td><td>" + c[k] + "%</td></tr>";
+        }).join(""));
+      };
+      onLabels(paintCoverage);
+      paintCoverage();
     }
   });
 })();

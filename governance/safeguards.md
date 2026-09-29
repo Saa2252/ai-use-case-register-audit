@@ -243,6 +243,7 @@ have drifted. Full account in the README process notes.
 | The vendor blocklist | `data/raw/vendor_terms.txt` | Single source. The scrub and T2 read the same file |
 | The term matcher | `src.scrub.compile_term_pattern` | Single source. The scrub and T2 import the same function, so the test cannot be weaker than the fix |
 | Similarity thresholds | `src.measures.SIMILARITY_THRESHOLDS` | Single source |
+| The landing page's evidence figures | `data/derived/findings.json` and `reusability_findings.json` | Single source. **Resolved when the site is built rather than in the browser, from 30 September 2026.** `tests/test_evidence_figures.py` re-reads the findings and fails if a published figure has drifted from the one it came from |
 
 ### Two duplications that remain, by design
 
@@ -267,6 +268,87 @@ owner sees both. If that ever stops being true, these become single-source too.
 | S1 source attribution complete and accurate | Requires reading the sources | not yet run | |
 | S11 authorship, and no claim about who wrote the code | Requires reading for absence | not yet run | |
 
+### Where the landing page's figures are resolved, and why that changed
+
+**Changed 30 September 2026.** The landing page used to fetch every finding on
+the site, in two files, to read five numbers out of them in the browser. It now
+reads figures that the build has already resolved into `fieldset.json`.
+
+| | Before | After |
+|---|---|---|
+| Where the figure is read from the finding | In the reader's browser, on every visit | Once, when the site is built |
+| Files the landing page downloads | 6 | 4 |
+| Bytes | 72,386 | 61,855 |
+
+**What this gives up, and what replaces it.** Reading the finding in the browser
+meant a figure could not be stale, because it was resolved from the finding
+every time the page loaded. Resolving at build time means a published figure
+could in principle sit still while the finding it came from moves.
+`tests/test_evidence_figures.py` closes that: it re-reads both findings files
+and fails, naming the path, if any published figure or denominator disagrees.
+It was verified by planting the failure, moving one resolved value by one.
+
+S5 is unaffected either way. Every number is still computed from the data by a
+script and published from `data/derived`. What changed is when the lookup runs,
+not whether the number is traceable.
+
+A second test asserts that `proposal.js` does not fetch the findings files
+again, because the saving only holds while the page stops asking for them.
+
+### The two exact-string exemptions for the repository address
+
+**Approved by the owner on 30 September 2026.** Publishing a link to the
+project's own source would otherwise fail two tests. Each exemption covers one
+exact string and nothing else.
+
+| Test | What it would otherwise catch | Why the exemption | Scope |
+|---|---|---|---|
+| T2, no vendor or product terms | The hosting provider's name sits inside the address | A reader cannot check the working without being told where it is. The provider's name is unavoidable in its own URL and names no vendor of an AI system | The exact value of `src.disclaimer.REPOSITORY_URL`, nowhere else |
+| T5, no typed numbers in published pages | Digits inside the account name | The digits are part of an address, not a figure a reader could mistake for a finding. Every other number on the page stays checked, including any printed beside the link | The exact value of `src.disclaimer.REPOSITORY_URL`, nowhere else |
+
+**Neither is a categorical exemption.** Both read the one address from
+`src.disclaimer.REPOSITORY_URL` rather than holding a pattern, so widening
+either means changing that value, which is a stop-and-ask. While the value is
+empty, nothing is exempt and no link is rendered.
+
+**Verified by planting the failure.** With the address set, both tests pass and
+the link renders. With a second, different address added to the same page, T2
+reports `docs/index.html: ['github']` and T5 reports `index.html:122 '9999'`.
+The exemptions cover the approved address alone.
+
+**Not yet live.** `REPOSITORY_URL` is empty because the repository does not
+exist yet. The link appears on the landing page, and in the README, the moment
+the owner sets that one value.
+
+### What colour means on the landing page
+
+**Set 30 September 2026.** Colour on the landing page carries meaning, so it is
+rationed. Two hues, and nothing else.
+
+| Token | Means | Used by |
+|---|---|---|
+| `--pub` | The published register: the file this project read, and anything leading back to a finding about it | The slot marks, the left form's heading and box edges, every link on the page, the evidence figures |
+| `--mine` | The field set: the author's own proposal, which is what this page argues for | The opening figures, the right form's heading and box edges, the field card numbers, the open card's edge |
+
+Everything else on the page is neutral. Links take `--pub` rather than a third
+colour, because every link on this page leads to the audit of the published
+register.
+
+**Nothing else may borrow either hue.** If a third thing needs telling apart, it
+is told apart by shape, weight or position. The rules that carry these meanings
+are scoped to `main.design-page`, so they cannot reach the three audit pages.
+The tokens they replaced, `--real`, `--fiction` and the `--side-*` set, were
+deleted rather than left unused, because an unused hue in the stylesheet is what
+lets something borrow it later.
+
+**Nothing depends on colour alone.** The three states a box can be in are told
+apart by shape and by words: a filled box has a solid edge, a ground and its
+content; a box the register does not collect has a dashed edge, no ground and no
+content; a box the register asks and the entry leaves empty has a solid edge and
+no content. Each empty box carries a caption underneath saying which it is. The
+slot strip pairs solid and hollow marks with a caption stating the same split in
+words.
+
 ## Scope changes
 
 Any change to the scope recorded under S12 is written here, dated, and signed
@@ -274,4 +356,9 @@ off by the owner before work starts.
 
 | Date | Change requested | Owner decision |
 |---|---|---|
+| 2026-09-29 | Add a fourth page: the author's design view | **Approved.** The brief set three views describing the register. A fourth states what the author would build from what the audit found, which is a different kind of claim and is kept on a page of its own. Every field on it traces to a finding, it states its own limits, and nothing on the three findings pages changed to support it |
+| 2026-09-30 | Merge the planned fifth page, a dashboard, into the fourth, and make that the landing page | **Approved.** The dashboard was to carry framing, a preview of the field set, and the key figures. All three already belonged on the design page, and a separate page would have restated them. Merging keeps the site at four pages rather than five, and puts the design view and the evidence it rests on in one place. The register moves to its own tab. Figures on the evidence strip pass the caveat test or are linked rather than reproduced |
+| 2026-09-30 | Draw the form, add the slot strip, set three levels of hierarchy, and cut colour back to two meanings | **Approved.** The page was text at one weight in identically treated cards, with no shape anywhere, so a first-time reader had to build a mental model of a register entry by reading. The two worked examples become two drawn copies of the same form, label above box, with the published entry's unanswerable boxes left visibly empty. Ten marks beside the opening state the split at a glance. Three levels: the opening and the forms loud, the evidence and field set secondary, sources and where-to-go-next quiet. Contrast is carried by density rather than shade, and every figure stays computed from the data |
+| 2026-09-30 | Replace the counting numeral with the slot fill | **Changed during the work, and reported.** The instruction was for the headline figure to count up. Counting from zero printed figures that were not the finding: mid-count the sentence read "of 1 things ... answers 0", which contradicted the slot strip beside it. The slots now fill one at a time instead. It counts the same thing, reveals the same fact, and can only ever show the real split |
+| 2026-09-30 | Restructure the landing page: worked panels first, field set into closed cards, and motion that reveals | **Approved, with constraints set by the owner.** The order becomes headline, the two worked panels, the evidence strip, then the field set and the way on to the register. The ten fields close by default; the owner recorded that their earlier ruling to open everything applied to the five sections on the gaps page, not to these. Motion is allowed only where it makes a fact easier to see, must honour `prefers-reduced-motion` in full, must leave every section reachable without triggering anything, must degrade to one column and stay reachable by keyboard, and must not make the page heavier or slower |
 | 2026-09-24 | Scope the trend-word ban to this project's own prose, excluding values copied unchanged from the source register | **Approved.** The ban exists to stop this project framing counts as a trend. Agency-authored text in the register is data rather than framing, and the only ways to satisfy the rule literally were to alter the source data or to stop publishing the register. Implemented by key rather than by file path, so that project prose inside a data file stays checked, and recorded above so the boundary is auditable |

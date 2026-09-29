@@ -30,3 +30,18 @@ ONTARIO_ATTRIBUTION = (
     "Contains information licensed under the Open Government Licence – Ontario."
 )
 ONTARIO_LICENCE_URL = "https://www.ontario.ca/page/open-government-licence-ontario"
+
+# The repository the project is published from. Empty until the owner creates it
+# and sends the address; every place that shows the link reads it from here, and
+# nothing renders a link while it is empty.
+#
+# The owner approved two exact-string exemptions for this one value on
+# 2026-09-30, recorded with their reasons in governance/safeguards.md:
+#   T2 (no vendor or product terms) would otherwise match the hosting provider's
+#   name inside the address.
+#   T5 (no typed numbers in published pages) would otherwise match the digits
+#   inside the account name.
+# Both exemptions cover this exact string and nothing else. They are written as
+# a comparison against REPOSITORY_URL rather than a pattern, so widening one
+# means changing this value, which is a stop-and-ask.
+REPOSITORY_URL = ""

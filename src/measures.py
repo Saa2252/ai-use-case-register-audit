@@ -246,7 +246,22 @@ def m2_completeness(reg: pd.DataFrame) -> dict:
             "figures_that_do_not_match": {
                 "deployed and piloted": {"published": 1818, "observed": 1480,
                                           "note": "The difference of 338 equals exactly the number of rows with no development stage recorded."},
-                "total agency submissions": {"published": 56, "observed": 54},
+                # The observed figure here was 54, typed in rather than computed,
+                # and no method reproduces it. The two files name the same agency
+                # differently, so any count of submissions depends on a matching
+                # rule the source does not publish. Every method attempted is
+                # recorded in governance/data-provenance.md. Publishing the
+                # failure to reconcile is honest; publishing a number with no
+                # working is not.
+                "total agency submissions": {
+                    "published": 56,
+                    "observed": None,
+                    "note": "Could not be reconciled. The individually reported file "
+                            "names 41 agencies and the consolidated file names 45, but "
+                            "the two use different naming conventions for the same "
+                            "agency, so the number of distinct submissions depends on a "
+                            "matching rule the source does not publish. Methods "
+                            "attempted give 86, 57 and 52. None gives 56."},
                 "agencies reporting consolidated off-the-shelf": {
                     "published": 46, "observed": 45,
                     "note": "The source's own per-agency table and the data file agree at 45. Only the summary bullet differs."},
@@ -409,8 +424,93 @@ def m5_design_comparison(reg_columns: list[str], ontario: pd.DataFrame) -> dict:
             "The Ontario register names no vendor in its published fields. The federal register publishes "
             "a vendor name field, which is the field this project removes under its own safeguard."
         ),
+        # The count was written out as "three". Read from the file instead, so
+        # the caveat cannot state a size the register does not have.
         "caveat": (
-            "The Ontario register holds three entries. This comparison is of what each register asks, "
-            "never of how much either contains, and nothing here depends on the size of either."
+            f"The Ontario register holds {len(ontario)} entries. This comparison is of what "
+            "each register asks, never of how much either contains, and nothing here "
+            "depends on the size of either."
         ),
     }
+
+
+def question_summary(findings: list[dict], counting_traps: int = 0) -> list[dict]:
+    """The five questions a reader would put to a register, with short answers.
+
+    Each answer states a fact. None states a verdict: no grade, no label such as
+    partial or weak, because a verdict compresses a judgment and leaves its
+    qualification behind. Every figure is read from the findings rather than
+    written here, so the summary cannot drift from what it summarises.
+    """
+    by = {f["measure"]: f for f in findings}
+    m1, m2, m3, m4, m5 = by["M1"], by["M2"], by["M3"], by["M4"], by["M5"]
+    reconciliation = m2["reconciliation"]
+    consolidated = m1["consolidated_route"]
+    oversight = m4["oversight_block_shape"]
+
+    return [
+        {
+            "id": "count",
+            "question": "How many AI systems are there?",
+            "answer": (
+                f"{m1['individually_reported_entries']:,} are reported one by one. "
+                f"A second route adds {consolidated['agencies']} agencies reporting against "
+                f"{consolidated['distinct_common_tasks']} shared tasks. The two count different "
+                "things and are not added together."
+            ),
+            "section": "The register counts two different kinds of thing",
+        },
+        {
+            "id": "reconcile",
+            "question": "Do the published totals agree with the data?",
+            "answer": (
+                f"{len(reconciliation['figures_that_match'])} of "
+                f"{len(reconciliation['figures_that_match']) + len(reconciliation['figures_that_do_not_match'])} "
+                "figures the source states match the file exactly. "
+                f"{len(reconciliation['figures_that_do_not_match'])} do not, and the source's own "
+                "summary table disagrees with the total printed beneath it."
+            ),
+            "section": "Three of the publisher's own figures do not match its data",
+        },
+        {
+            "id": "current",
+            "question": "How current is any of it?",
+            "answer": (
+                "No entry records when it was last checked. The register has one date field, "
+                f"readable on {m3['operational_date']['usable_dates_as_share_of_all_rows']}% of "
+                "entries, and it records when a system started running."
+            ),
+            "section": "The register cannot say how current any entry is",
+        },
+        {
+            # This page has no oversight section: that material is on the third
+            # page. Its fourth section is about counting the file correctly, and
+            # the question is written to match what is actually beneath it.
+            "id": "counting",
+            "question": "Can a careful person count this file correctly?",
+            "answer": (
+                f"Not without knowing {counting_traps} things about how the files are written. "
+                "Three make a column read fuller than it is, one makes a set of choices look "
+                "complete, and the rest concern the files themselves."
+            ),
+            "section": "Seven ways a careful person would still get these numbers wrong",
+            "elsewhere": {
+                "question": "Could it answer a question about the riskiest systems?",
+                "answer": (
+                    f"Of {m4['subset_size']:,} entries flagged high-impact, "
+                    f"{oversight['none_answered']:,} have all nine oversight fields empty."
+                ),
+                "link": "obligations.html",
+            },
+        },
+        {
+            "id": "compare",
+            "question": "What does another government ask that this one does not?",
+            "answer": (
+                f"{len(m5['asked_by_ontario_not_by_the_federal_register'])} questions, including "
+                "whether a system acts without a person reviewing it, and where a person reviews "
+                "it. Neither is in the 2025 federal field set."
+            ),
+            "section": "A second government asks different questions",
+        },
+    ]

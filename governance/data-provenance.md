@@ -1155,3 +1155,49 @@ owner confirmed on 23 September 2026 that two vendor-field mentions and a
 description of a paid subscription are sufficient evidence that it is a
 commercial product.
 
+## The agency submission count: a failure to reconcile, and what was tried
+
+**Recorded 30 September 2026, on the owner's ruling that an honest failure to
+reconcile is a better finding than a number with no working.**
+
+The source states **56 total agency submissions**. This project previously
+published **54** beside it. That 54 was typed into `src/measures.py` and was
+never computed from anything. No method reproduces it. It has been removed.
+
+### Every method attempted
+
+| Method | Result |
+|---|---|
+| Distinct agency codes in the individually reported file | 41 |
+| Distinct agency names in the individually reported file | 41 |
+| Distinct agency names in the consolidated file | 45 |
+| The two counts added | 86 |
+| Union of agency codes with consolidated agency names | 86 |
+| Union of agency names, exact strings | 57 |
+| Union of agency names, case and punctuation normalised | 57 |
+| Union after also folding common title words (the, of, for, United States, Board, Governors) | 52 |
+
+**None gives 56.**
+
+### Why it cannot be settled from the files
+
+The two files use different naming conventions for the same agency. Five pairs
+are visible by inspection alone:
+
+| In the consolidated file | In the individually reported file |
+|---|---|
+| Department of Treasury | Department of the Treasury |
+| Federal Reserve Board of Governors | Federal Reserve Board |
+| National Endowment of the Arts | National Endowment for the Arts |
+| United States Election Assistance Commission | Election Assistance Commission |
+| United States Office of Special Counsel | Office of Special Counsel |
+
+The individually reported file also carries an agency code column; the
+consolidated file does not, so the two cannot be joined on a key. Any count of
+distinct submissions therefore depends on a matching rule, and the source does
+not publish one. Choosing a rule would manufacture a figure rather than read
+one.
+
+**What the site now shows:** the published figure of 56, and in place of a
+counterpart, the words "could not be reconciled", with this note beside it. No
+number is published that this project cannot recompute.

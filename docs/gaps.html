@@ -4,39 +4,49 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Gaps | AI Use Case Register Audit</title>
-<link rel="stylesheet" href="assets/style.css?v=enclbahf">
+<link rel="stylesheet" href="assets/style.css?v=onbcakbf">
 </head>
 <body>
-<div class="wrap" data-dv="enpkhbie">
+<div class="wrap" data-dv="pkhgplpp">
 
 <header>
   <h1>AI Use Case Register Audit</h1>
   <p class="lede">An independent read of publicly published AI use case inventories.</p>
   <nav>
-    <a href="index.html">Register</a>
-    <a href="gaps.html" aria-current="page">Gaps</a>
-    <a href="obligations.html">Oversight pack</a>
+    <div class="navgroup audit">
+      <span class="navlabel">What I would build</span>
+      <span class="navlinks">
+        <a href="index.html">The field set</a>
+      </span>
+    </div>
+    <div class="navgroup design">
+      <span class="navlabel">What the register says</span>
+      <span class="navlinks">
+        <a href="register.html">The register</a>
+        <a href="gaps.html" aria-current="page">What it does not tell you</a>
+        <a href="obligations.html">The oversight pack</a>
+      </span>
+    </div>
   </nav>
 </header>
 
 <main>
   <h2>What the register does not tell you</h2>
-  <p class="lede">Where this register is incomplete, and where it is easy to read wrongly.</p>
+  <p class="lede">What this register does not record, and where it is easy to read wrongly.</p>
   <div class="intro">
-    <p><strong>A register is only as useful as it is readable.</strong> This page shows where the published register is incomplete, and where it is easy to count wrongly.</p>
+    <p><strong>A register is only as useful as it is readable.</strong> This page shows what the published register does not record, and where it is easy to count wrongly.</p>
     <p>None of this is a claim that anyone did anything wrong. Every finding describes the file as published.</p>
     <p class="note"><strong>Where the numbers come from.</strong> Anything labelled <em>published</em> is a figure the source states in its own summary. Everything else was counted from the data file by this project. Where the two disagree, both are shown.</p>
   </div>
 
-  <div class="tabs" role="tablist" aria-label="Sections">
-    <button role="tab" id="t-count" aria-controls="p-count" data-marker="count" aria-selected="true">What gets counted</button>
-    <button role="tab" id="t-recon" aria-controls="p-recon" data-marker="caution" aria-selected="false">Figures that disagree</button>
-    <button role="tab" id="t-time" aria-controls="p-time" data-marker="caution" aria-selected="false">How current it is</button>
-    <button role="tab" id="t-read" aria-controls="p-read" data-marker="teach" aria-selected="false">Counting it wrongly</button>
-    <button role="tab" id="t-compare" aria-controls="p-compare" data-marker="calm" aria-selected="false">A second register</button>
+  <div class="summary" id="summary">
+    <p class="summary-lead">Five questions, with what the published register can answer. Select one to read the finding it comes from.</p>
+    <div id="questions"></div>
   </div>
 
-  <section class="tabpanel" id="p-count" role="tabpanel" aria-labelledby="t-count">
+  <nav class="rail" id="rail" aria-label="Sections"></nav>
+
+  <section class="qsection" id="s-count">
   <h2>The register counts two different kinds of thing</h2>
   <div class="panel" data-kind="count">
     <p class="lead-in">Agencies report their AI two ways, and the two cannot be added together. The headline count includes only the first.</p>
@@ -64,12 +74,14 @@
     </details>
     <p class="qualifier"><span data-figure="M1.caveat"></span></p>
   </div>
+    <p class="handoff">That is how many there are. Whether the figures the source publishes agree with the file is the next question.</p>
+
   </section>
 
-  <section class="tabpanel is-off" id="p-recon" role="tabpanel" aria-labelledby="t-recon">
+  <section class="qsection" id="s-recon">
   <h2>Three of the publisher's own figures do not match its data</h2>
   <div class="panel" data-kind="gap">
-    <p class="lead-in">The source states seven summary figures. Four match the data exactly. Three do not.</p>
+    <p class="lead-in">The source states seven summary figures. Four match the data exactly. Three do not, and one of those three could not be reconciled by any method this project tried, so no counterpart figure is published for it.</p>
     <div class="scroller"><table>
       <thead><tr><th>Figure</th><th>Published</th><th>In the data</th><th>Possible explanations</th></tr></thead>
       <tbody id="mismatches"></tbody>
@@ -80,9 +92,9 @@
 
   <h2>Completeness varies far less within an agency than across the list</h2>
   <div class="panel" data-kind="gap">
-    <p class="lead-in">Inside a single agency's submission, entries are filled in to almost the same degree as each other. Across the whole list, the range is wide. Information appears to arrive in batches rather than entry by entry.</p>
+    <p class="lead-in">Inside a single agency's submission, entries are filled in to almost the same degree as each other. Across the whole list, the range is wide. What produces that pattern is not visible in the file, which records nothing about who filled an entry in or when.</p>
     <p>Each entry has <span data-figure="M2.completeness_shape.core_fields_counted"></span> core fields. <span data-figure="M2.completeness_shape.statement"></span></p>
-    <p>Put plainly: if you know which agency submitted an entry, you can predict how complete it is. If you only know it is somewhere in the register, you cannot.</p>
+    <p>Put plainly: entries from the same agency are filled in to a similar degree as each other, and entries from different agencies are not. That is what was counted. Whether it would hold for a submission this project has not seen was not tested.</p>
     <details class="finding"><summary>The supporting measures</summary>
       <div class="scroller"><table>
         <tbody>
@@ -98,9 +110,11 @@
     <p class="qualifier"><span data-figure="M2.completeness_shape.caveat"></span></p>
     <p class="qualifier"><span data-figure="M2.caveat"></span></p>
   </div>
+    <p class="handoff">Those are the figures that disagree. How current any of it is comes next.</p>
+
   </section>
 
-  <section class="tabpanel is-off" id="p-time" role="tabpanel" aria-labelledby="t-time">
+  <section class="qsection" id="s-time">
   <h2>The register cannot say how current any entry is</h2>
   <div class="panel" data-kind="gap">
     <p class="lead-in">Nothing records when an entry was last checked, so a description written last month and one written years ago and never revisited look identical.</p>
@@ -119,13 +133,15 @@
     <p class="note"><span data-figure="M3.operational_date.values_dated_after_the_download_date"></span> values carry a date later than the day this project downloaded the file. An observation. No inference is drawn from it.</p>
     <p class="qualifier"><span data-figure="M3.caveat"></span></p>
   </div>
+    <p class="handoff">Nothing records when an entry was checked. Whether the file can be counted correctly at all comes next.</p>
+
   </section>
 
-  <section class="tabpanel is-off" id="p-read" role="tabpanel" aria-labelledby="t-read">
-  <h2>Six ways a careful person would still get these numbers wrong</h2>
+  <section class="qsection" id="s-counting">
+  <h2>Seven ways a careful person would still get these numbers wrong</h2>
   <div class="panel" data-kind="method">
     <p class="lead-in">Suppose you downloaded this register and opened it in a spreadsheet to answer a simple question, such as how many entries say which groups of people the system affects. You would get a wrong answer, and nothing would tell you it was wrong.</p>
-    <p>These six are the reasons. They are properties of how the files are written, not of what any agency reported.</p>
+    <p>These seven are the reasons. They are properties of how the files are written, not of what any agency reported.</p>
 
     <div class="teach">
       <p>Two fields look fully answered and are almost empty. Where a question lets you tick several boxes, ticking none is stored as two square brackets with nothing between them, like this: <code>[]</code>. A spreadsheet counts those brackets as an answer.</p>
@@ -139,7 +155,7 @@
 
     <div id="reuse-lead"></div>
     <div id="reuse-rest"></div>
-    <p class="note">Four of the seven make a column read fuller than it is. One makes a set of choices look complete when hundreds of entries sit outside it. One is about which of two published files was meant. One is about a value the file uses and its own documentation does not define.</p>
+    <p class="note">Three of the seven make a column read fuller than it is. One makes a set of choices look complete when hundreds of entries sit outside it. One is a file that will not open the usual way. One is about which of two published files was meant. One is about a value the file uses and its own documentation does not define.</p>
 
     <h3>What was done to this data before it was published</h3>
     <p class="lead-in">Agencies wrote the same category in many different ways, and the publisher folded those into a shorter list before publishing. The categories a reader counts are the publisher's, not the agencies'.</p>
@@ -151,13 +167,15 @@
     <p class="note">One of those forms named two categories at once and was folded into a single one.</p>
     <p class="qualifier"><span data-figure="M2-preparation.caveat"></span></p>
   </div>
+    <p class="handoff">Those are the traps in counting it. What a second government asks that this one does not comes last.</p>
+
   </section>
 
-  <section class="tabpanel is-off" id="p-compare" role="tabpanel" aria-labelledby="t-compare">
+  <section class="qsection" id="s-compare">
   <h2>A second government asks different questions</h2>
   <div class="panel" data-kind="compare">
     <p class="lead-in">What a register asks is a design choice, and these two governments chose differently.</p>
-    <p>This compares the questions each asks, never how much either contains. The Ontario register holds <span data-figure="M5.ontario_register.entries"></span> entries.</p>
+    <p>Below are the questions each register asks that the other does not. The size of either register is stated once, in the qualification beneath this section.</p>
     <div class="scroller"><table>
       <thead><tr><th>Asked by Ontario, not federally</th><th>What it captures</th></tr></thead>
       <tbody id="ont-only"></tbody>
@@ -185,8 +203,8 @@
 </footer>
 
 </div>
-<script src="assets/figures.js?v=delgfpod"></script>
-<script src="assets/views.js?v=cfddplon"></script>
-<script src="assets/tabs.js?v=mikeheje"></script>
+<script src="assets/figures.js?v=lmdlebco"></script>
+<script src="assets/views.js?v=oehknokm"></script>
+<script src="assets/summary.js?v=aanedlco"></script>
 </body>
 </html>

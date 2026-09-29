@@ -20,6 +20,7 @@ warnings.filterwarnings("ignore")
 
 import pandas as pd  # noqa: E402
 
+from src.labels import FIELD_GROUPS, FIELD_LABELS, GROUP_OF  # noqa: E402
 from src.measures import CORE_FIELDS, _empty_rule, is_empty  # noqa: E402
 
 DERIVED = REPO_ROOT / "data" / "derived"
@@ -37,6 +38,29 @@ def main() -> None:
     rule["field_types"] = {c: types.get(c, "free_text") for c in register.columns}
     rule["core_fields"] = CORE_FIELDS
     (DOCS_DATA / "empty_value_rule.json").write_text(json.dumps(rule, indent=1))
+
+    # How many identifier values sit on more than one row. This was typed into
+    # two pages as "thirteen" and the file says twelve, so it is computed here
+    # and read from the published findings by both. tests/test_published_claims.py
+    # recomputes it and fails if either page drifts again.
+    for path in (DERIVED / "reusability_findings.json", DOCS_DATA / "reusability_findings.json"):
+        if not path.exists():
+            continue
+        payload = json.loads(path.read_text())
+        ids = register["id"][~register["id"].map(
+            lambda v: is_empty("id", v, always, text_only, types))].astype(str).str.strip()
+        counts = ids.value_counts()
+        for finding in payload.get("findings", []):
+            if finding.get("id") == "R3":
+                finding.setdefault("figures", {})
+                finding["figures"]["identifier_values_on_more_than_one_row"] = int((counts > 1).sum())
+                finding["figures"]["rows_carrying_a_repeated_identifier"] = int(counts[counts > 1].sum())
+        path.write_text(json.dumps(payload, indent=1))
+
+    # Reader-facing labels for the register's own column names, published so the
+    # pages never render a raw column name.
+    (DOCS_DATA / "field_labels.json").write_text(json.dumps(
+        {"labels": FIELD_LABELS, "groups": FIELD_GROUPS, "group_of": GROUP_OF}, indent=1))
 
     rows = []
     for _, record in register.iterrows():
@@ -63,6 +87,7 @@ def main() -> None:
     print(f"register_table.json: {len(rows):,} rows, {len(CORE_FIELDS)} core fields")
     print(f"register_full.json: {len(full):,} rows, {len(register.columns)} fields")
     print(f"empty_value_rule.json: {len(rule['empty_always'])} values, published for the page")
+    print(f"field_labels.json: {len(FIELD_LABELS)} labels, {len(FIELD_GROUPS)} groups")
 
 
 if __name__ == "__main__":
