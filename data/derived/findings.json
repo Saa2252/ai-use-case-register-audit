@@ -1,527 +1,552 @@
 {
- "disclaimer": "This is an independent portfolio project. It uses publicly available AI use case inventories published by the US Office of Management and Budget (public domain, 17 U.S.C. \u00a7105) and the Government of Ontario (Open Government Licence \u2013 Ontario). Vendor and product names have been removed. Findings describe patterns in the published data and are not claims about any agency's conduct. This is not legal advice. Not affiliated with or endorsed by any government body.",
- "authorship": "Governance design by Sana Ahmad.",
- "generated": "2026-09-30",
- "questions": [
-  {
-   "id": "count",
-   "question": "How many AI systems are there?",
-   "answer": "3,611 are reported one by one. A second route adds 45 agencies reporting against 21 shared tasks. The two count different things and are not added together.",
-   "section": "The register counts two different kinds of thing"
-  },
-  {
-   "id": "reconcile",
-   "question": "Do the published totals agree with the data?",
-   "answer": "4 of 7 figures the source states match the file exactly. 3 do not, and the source's own summary table disagrees with the total printed beneath it.",
-   "section": "Three of the publisher's own figures do not match its data"
-  },
-  {
-   "id": "current",
-   "question": "How current is any of it?",
-   "answer": "No entry records when it was last checked. The register has one date field, readable on 31.7% of entries, and it records when a system started running.",
-   "section": "The register cannot say how current any entry is"
-  },
-  {
-   "id": "counting",
-   "question": "Can a careful person count this file correctly?",
-   "answer": "Not without knowing 7 things about how the files are written. Three make a column read fuller than it is, one makes a set of choices look complete, and the rest concern the files themselves.",
-   "section": "Seven ways a careful person would still get these numbers wrong",
-   "elsewhere": {
-    "question": "Could it answer a question about the riskiest systems?",
-    "answer": "Of 445 entries flagged high-impact, 317 have all nine oversight fields empty.",
-    "link": "obligations.html"
-   }
-  },
-  {
-   "id": "compare",
-   "question": "What does another government ask that this one does not?",
-   "answer": "3 questions, including whether a system acts without a person reviewing it, and where a person reviews it. Neither is in the 2025 federal field set.",
-   "section": "A second government asks different questions"
-  }
- ],
- "findings": [
-  {
-   "measure": "M1",
-   "question": "Is the same AI capability registered once, many times, or folded into something else?",
-   "rule_applied": "One row is one use case. Candidates are flagged and never merged, and no total is adjusted.",
-   "individually_reported_entries": 3611,
-   "consolidated_route": {
-    "rows": 900,
-    "agencies": 45,
-    "distinct_common_tasks": 21,
-    "agency_task_combinations_in_use": 468
-   },
-   "never_summed_reason": "The headline count of 3,611 includes nothing from the second route. The two count different things: one counts systems, the other counts an agency ticking a task on a shared list. Adding them would produce a number that means nothing.",
-   "candidate_duplicates_not_confirmed": [
+  "disclaimer": "This is an independent portfolio project. It uses publicly available AI use case inventories published by the US Office of Management and Budget (public domain, 17 U.S.C. \u00a7105) and the Government of Ontario (Open Government Licence \u2013 Ontario). Vendor and product names have been removed. Findings describe patterns in the published data and are not claims about any agency's conduct. This is not legal advice. Not affiliated with or endorsed by any government body.",
+  "authorship": "Governance design by Sana Ahmad.",
+  "generated": "2026-09-30",
+  "questions": [
     {
-     "threshold": 0.95,
-     "candidate_pairs": 220,
-     "entries_flagged": 120,
-     "share_of_register": 3.3
+      "id": "count",
+      "question": "How many AI systems are there?",
+      "answer": "3,611 are reported one by one. A second route adds 45 agencies reporting against 21 shared tasks. The two count different things and are not added together.",
+      "section": "The register counts two different kinds of thing"
     },
     {
-     "threshold": 0.85,
-     "candidate_pairs": 336,
-     "entries_flagged": 234,
-     "share_of_register": 6.5
+      "id": "reconcile",
+      "question": "Do the published totals agree with the data?",
+      "answer": "4 of 7 figures the source states match the file exactly. 3 do not, and the source's own summary table disagrees with the total printed beneath it.",
+      "section": "Three of the publisher's own figures do not match its data"
     },
     {
-     "threshold": 0.7,
-     "candidate_pairs": 510,
-     "entries_flagged": 354,
-     "share_of_register": 9.8
+      "id": "current",
+      "question": "How current is any of it?",
+      "answer": "No entry records when it was last checked. The register has one date field, readable on 31.7% of entries, and it records when a system started running.",
+      "section": "The register cannot say how current any entry is"
+    },
+    {
+      "id": "counting",
+      "question": "Can a careful person count this file correctly?",
+      "answer": "Not without knowing 7 things about how the files are written. Three make a column read fuller than it is, one makes a set of choices look complete, and the rest concern the files themselves.",
+      "section": "Seven ways a careful person would still get these numbers wrong",
+      "elsewhere": {
+        "question": "Could it answer a question about the riskiest systems?",
+        "answer": "Of 445 entries flagged high-impact, 317 have all nine oversight fields empty.",
+        "link": "obligations.html"
+      }
+    },
+    {
+      "id": "compare",
+      "question": "What does another government ask that this one does not?",
+      "answer": "3 questions, including whether a system acts without a person reviewing it, and where a person reviews it. Neither is in the 2025 federal field set.",
+      "section": "A second government asks different questions"
     }
-   ],
-   "exact_name_repeats_within_one_agency": {
-    "names": 37,
-    "rows": 163
-   },
-   "same_name_used_by_more_than_one_agency": 16,
-   "entries_flagged_at_highest_threshold": [
-    8,
-    9,
-    265,
-    269,
-    272,
-    275,
-    360,
-    362,
-    409,
-    519,
-    523,
-    525,
-    527,
-    528,
-    534,
-    543,
-    588,
-    590,
-    595,
-    602,
-    603,
-    604,
-    606,
-    620,
-    623,
-    634,
-    637,
-    669,
-    673,
-    751,
-    752,
-    1069,
-    1081,
-    1082,
-    1086,
-    1087,
-    1088,
-    1089,
-    1115,
-    1139,
-    1140,
-    1159,
-    1166,
-    1171,
-    1174,
-    1178,
-    1188,
-    1199,
-    1202,
-    1203,
-    1209,
-    1215,
-    1216,
-    1232,
-    1233,
-    1280,
-    1287,
-    1288,
-    1315,
-    1316,
-    1323,
-    1325,
-    1489,
-    1490,
-    1492,
-    1493,
-    1494,
-    1495,
-    1496,
-    1507,
-    1510,
-    1513,
-    1514,
-    1521,
-    1523,
-    1524,
-    1525,
-    1530,
-    1531,
-    1549,
-    1550,
-    1584,
-    1586,
-    1644,
-    1645,
-    1779,
-    1780,
-    2061,
-    2090,
-    2104,
-    2115,
-    2118,
-    2119,
-    2120,
-    2121,
-    2123,
-    2125,
-    2131,
-    2352,
-    2388,
-    2656,
-    2913,
-    2914,
-    2915,
-    2916,
-    2917,
-    2918,
-    3039,
-    3040,
-    3048,
-    3049,
-    3053,
-    3055,
-    3062,
-    3071,
-    3073,
-    3353,
-    3504,
-    3507,
-    3571
-   ],
-   "caveat": "Comparing wording cannot show that two entries are the same system. Entries that read alike may be one system written down twice, or two different systems described in similar words. The count triples depending on how alike they have to be, so it is a choice about where to draw a line rather than something the file contains. All three settings are shown for that reason. Nothing has been merged and no total changed."
-  },
-  {
-   "measure": "M2",
-   "question": "Does the register hold everything it should, and is each entry filled in?",
-   "rule_applied": "Completeness is reported within one year only. The earlier inventory is a schema reference and its rows are not read.",
-   "rows": 3611,
-   "field_completeness_all_rows": {
-    "agency": 100.0,
-    "agency_name": 100.0,
-    "id": 80.4,
-    "use_case_name": 100.0,
-    "agency_bureau": 98.4,
-    "is_withheld": 68.7,
-    "development_stage": 90.6,
-    "is_high_impact": 88.2,
-    "HI_justification": 22.8,
-    "topic_area": 83.3,
-    "classification": 81.7,
-    "problem_solved": 83.2,
-    "benefits": 81.8,
-    "system_outputs": 78.6,
-    "operational_date": 38.8,
-    "contracting_usage": 44.4,
-    "have_ato": 42.7,
-    "data_description": 34.3,
-    "link_to_data": 3.0,
-    "has_pii": 41.8,
-    "pia_url": 4.7,
-    "demographic_features": 30.6,
-    "has_custom_code": 47.4,
-    "code_url": 4.7,
-    "hi_testing_conducted": 7.1,
-    "hi_assessment_completed": 6.5,
-    "hi_potential_impacts": 6.8,
-    "hi_independent_review": 7.4,
-    "hi_ongoing_monitoring": 7.4,
-    "hi_training_established": 7.8,
-    "hi_failsafe_presence": 8.1,
-    "hi_appeal_process": 8.0,
-    "hi_public_consultation": 7.3
-   },
-   "field_completeness_high_impact": {
-    "agency": 100.0,
-    "agency_name": 100.0,
-    "id": 96.9,
-    "use_case_name": 100.0,
-    "agency_bureau": 100.0,
-    "is_withheld": 38.4,
-    "development_stage": 100.0,
-    "is_high_impact": 100.0,
-    "HI_justification": 1.1,
-    "topic_area": 87.6,
-    "classification": 87.6,
-    "problem_solved": 87.4,
-    "benefits": 87.6,
-    "system_outputs": 87.6,
-    "operational_date": 33.3,
-    "contracting_usage": 56.0,
-    "have_ato": 33.3,
-    "data_description": 32.6,
-    "link_to_data": 0.9,
-    "has_pii": 34.4,
-    "pia_url": 7.9,
-    "demographic_features": 22.0,
-    "has_custom_code": 56.2,
-    "code_url": 1.1,
-    "hi_testing_conducted": 28.5,
-    "hi_assessment_completed": 28.8,
-    "hi_potential_impacts": 28.5,
-    "hi_independent_review": 28.5,
-    "hi_ongoing_monitoring": 28.5,
-    "hi_training_established": 28.5,
-    "hi_failsafe_presence": 28.8,
-    "hi_appeal_process": 28.8,
-    "hi_public_consultation": 28.8
-   },
-   "completeness_shape": {
-    "core_fields_counted": 17,
-    "distinct_values_across_the_register": 15,
-    "possible_values": 18,
-    "median_distinct_values_within_one_agency": 2,
-    "agencies_where_every_entry_shares_one_value": 12,
-    "entries_in_those_agencies": 205,
-    "agencies_where_over_four_fifths_share_one_value": 16,
-    "entries_in_those_agencies_too": 918,
-    "median_share_of_entries_at_an_agency_most_common_value": 71.4,
-    "statement": "An entry can hold anywhere from none of these fields to all seventeen. Almost every one of those levels occurs somewhere in the list. Inside a single agency, almost every entry sits at the same one or two levels.",
-    "caveat": "This counts each entry on its own. No agency average is taken and no agency is compared with another. The pattern describes how information arrives in the file, in the same way the nine oversight fields do, and says nothing about how any agency works."
-   },
-   "reconciliation": {
-    "figures_that_match": {
-     "individually reported use cases": 3611,
-     "high-impact use cases": 445,
-     "agencies reporting individually": 41,
-     "agencies affirmatively reporting no AI": 2
+  ],
+  "findings": [
+    {
+      "measure": "M1",
+      "question": "Is the same AI capability registered once, many times, or folded into something else?",
+      "rule_applied": "One row is one use case. Candidates are flagged and never merged, and no total is adjusted.",
+      "individually_reported_entries": 3611,
+      "consolidated_route": {
+        "rows": 900,
+        "agencies": 45,
+        "distinct_common_tasks": 21,
+        "agency_task_combinations_in_use": 468
+      },
+      "never_summed_reason": "The headline count of 3,611 includes nothing from the second route. The two count different things: one counts systems, the other counts an agency ticking a task on a shared list. Adding them would produce a number that means nothing.",
+      "candidate_duplicates_not_confirmed": [
+        {
+          "threshold": 0.95,
+          "candidate_pairs": 220,
+          "entries_flagged": 120,
+          "share_of_register": 3.3
+        },
+        {
+          "threshold": 0.85,
+          "candidate_pairs": 336,
+          "entries_flagged": 234,
+          "share_of_register": 6.5
+        },
+        {
+          "threshold": 0.7,
+          "candidate_pairs": 510,
+          "entries_flagged": 354,
+          "share_of_register": 9.8
+        }
+      ],
+      "exact_name_repeats_within_one_agency": {
+        "names": 37,
+        "rows": 163
+      },
+      "same_name_used_by_more_than_one_agency": 16,
+      "entries_flagged_at_highest_threshold": [
+        8,
+        9,
+        265,
+        269,
+        272,
+        275,
+        360,
+        362,
+        409,
+        519,
+        523,
+        525,
+        527,
+        528,
+        534,
+        543,
+        588,
+        590,
+        595,
+        602,
+        603,
+        604,
+        606,
+        620,
+        623,
+        634,
+        637,
+        669,
+        673,
+        751,
+        752,
+        1069,
+        1081,
+        1082,
+        1086,
+        1087,
+        1088,
+        1089,
+        1115,
+        1139,
+        1140,
+        1159,
+        1166,
+        1171,
+        1174,
+        1178,
+        1188,
+        1199,
+        1202,
+        1203,
+        1209,
+        1215,
+        1216,
+        1232,
+        1233,
+        1280,
+        1287,
+        1288,
+        1315,
+        1316,
+        1323,
+        1325,
+        1489,
+        1490,
+        1492,
+        1493,
+        1494,
+        1495,
+        1496,
+        1507,
+        1510,
+        1513,
+        1514,
+        1521,
+        1523,
+        1524,
+        1525,
+        1530,
+        1531,
+        1549,
+        1550,
+        1584,
+        1586,
+        1644,
+        1645,
+        1779,
+        1780,
+        2061,
+        2090,
+        2104,
+        2115,
+        2118,
+        2119,
+        2120,
+        2121,
+        2123,
+        2125,
+        2131,
+        2352,
+        2388,
+        2656,
+        2913,
+        2914,
+        2915,
+        2916,
+        2917,
+        2918,
+        3039,
+        3040,
+        3048,
+        3049,
+        3053,
+        3055,
+        3062,
+        3071,
+        3073,
+        3353,
+        3504,
+        3507,
+        3571
+      ],
+      "caveat": "Comparing wording cannot show that two entries are the same system. Entries that read alike may be one system written down twice, or two different systems described in similar words. The count triples depending on how alike they have to be, so it is a choice about where to draw a line rather than something the file contains. All three settings are shown for that reason. Nothing has been merged and no total changed."
     },
-    "figures_that_do_not_match": {
-     "deployed and piloted": {
-      "published": 1818,
-      "observed": 1480,
-      "note": "The difference of 338 equals exactly the number of rows with no development stage recorded."
-     },
-     "total agency submissions": {
-      "published": 56,
-      "observed": null,
-      "note": "Could not be reconciled. The individually reported file names 41 agencies and the consolidated file names 45, but the two use different naming conventions for the same agency, so the number of distinct submissions depends on a matching rule the source does not publish. Methods attempted give 86, 57 and 52. None gives 56."
-     },
-     "agencies reporting consolidated off-the-shelf": {
-      "published": 46,
-      "observed": 45,
-      "note": "The source's own per-agency table and the data file agree at 45. Only the summary bullet differs."
-     }
+    {
+      "measure": "M2",
+      "question": "Does the register hold everything it should, and is each entry filled in?",
+      "rule_applied": "Completeness is reported within one year only. The earlier inventory is a schema reference and its rows are not read.",
+      "rows": 3611,
+      "field_completeness_all_rows": {
+        "agency": 100.0,
+        "agency_name": 100.0,
+        "id": 80.4,
+        "use_case_name": 100.0,
+        "agency_bureau": 98.4,
+        "is_withheld": 68.7,
+        "development_stage": 90.6,
+        "is_high_impact": 88.2,
+        "HI_justification": 22.8,
+        "topic_area": 83.3,
+        "classification": 81.7,
+        "problem_solved": 83.2,
+        "benefits": 81.8,
+        "system_outputs": 78.6,
+        "operational_date": 38.8,
+        "contracting_usage": 44.4,
+        "have_ato": 42.7,
+        "data_description": 34.3,
+        "link_to_data": 3.0,
+        "has_pii": 41.8,
+        "pia_url": 4.7,
+        "demographic_features": 30.6,
+        "has_custom_code": 47.4,
+        "code_url": 4.7,
+        "hi_testing_conducted": 7.1,
+        "hi_assessment_completed": 6.5,
+        "hi_potential_impacts": 6.8,
+        "hi_independent_review": 7.4,
+        "hi_ongoing_monitoring": 7.4,
+        "hi_training_established": 7.8,
+        "hi_failsafe_presence": 8.1,
+        "hi_appeal_process": 8.0,
+        "hi_public_consultation": 7.3
+      },
+      "field_completeness_high_impact": {
+        "agency": 100.0,
+        "agency_name": 100.0,
+        "id": 96.9,
+        "use_case_name": 100.0,
+        "agency_bureau": 100.0,
+        "is_withheld": 38.4,
+        "development_stage": 100.0,
+        "is_high_impact": 100.0,
+        "HI_justification": 1.1,
+        "topic_area": 87.6,
+        "classification": 87.6,
+        "problem_solved": 87.4,
+        "benefits": 87.6,
+        "system_outputs": 87.6,
+        "operational_date": 33.3,
+        "contracting_usage": 56.0,
+        "have_ato": 33.3,
+        "data_description": 32.6,
+        "link_to_data": 0.9,
+        "has_pii": 34.4,
+        "pia_url": 7.9,
+        "demographic_features": 22.0,
+        "has_custom_code": 56.2,
+        "code_url": 1.1,
+        "hi_testing_conducted": 28.5,
+        "hi_assessment_completed": 28.8,
+        "hi_potential_impacts": 28.5,
+        "hi_independent_review": 28.5,
+        "hi_ongoing_monitoring": 28.5,
+        "hi_training_established": 28.5,
+        "hi_failsafe_presence": 28.8,
+        "hi_appeal_process": 28.8,
+        "hi_public_consultation": 28.8
+      },
+      "completeness_shape": {
+        "core_fields_counted": 17,
+        "distinct_values_across_the_register": 15,
+        "possible_values": 18,
+        "median_distinct_values_within_one_agency": 2,
+        "agencies_where_every_entry_shares_one_value": 12,
+        "entries_in_those_agencies": 205,
+        "agencies_where_over_four_fifths_share_one_value": 16,
+        "entries_in_those_agencies_too": 918,
+        "median_share_of_entries_at_an_agency_most_common_value": 71.4,
+        "statement": "An entry can hold anywhere from none of these fields to all seventeen. Almost every one of those levels occurs somewhere in the list. Inside a single agency, almost every entry sits at the same one or two levels.",
+        "caveat": "This counts each entry on its own. No agency average is taken and no agency is compared with another. The pattern describes how information arrives in the file, in the same way the nine oversight fields do, and says nothing about how any agency works."
+      },
+      "reconciliation": {
+        "figures_that_match": {
+          "individually reported use cases": 3611,
+          "high-impact use cases": 445,
+          "agencies reporting individually": 41,
+          "agencies affirmatively reporting no AI": 2
+        },
+        "figures_that_do_not_match": {
+          "deployed and piloted": {
+            "published": 1818,
+            "observed": 1480,
+            "note": "The difference of 338 equals exactly the number of rows with no development stage recorded."
+          },
+          "total agency submissions": {
+            "published": 56,
+            "observed": null,
+            "note": "No method this project tried reproduced it. The individually reported file names 41 agencies and the consolidated file names 45, and the two write the same agency differently, so any count of distinct submissions depends on a rule for matching them. Eight methods were tried, giving 86, 57 and 52, and every one is recorded in governance/data-provenance.md. A rule that reaches 56 may exist and was not found."
+          },
+          "agencies reporting consolidated off-the-shelf": {
+            "published": 46,
+            "observed": 45,
+            "note": "The source's own per-agency table and the data file agree at 45. Only the summary bullet differs."
+          }
+        },
+        "internal_disagreement_in_source_table": {
+          "column": "deployed and piloted",
+          "sum_of_rows": 1819,
+          "stated_total": 1818,
+          "difference": 1
+        }
+      },
+      "caveat": "These figures cannot be compared with the earlier year, because the two years ask different questions: a box left empty in one year may not exist at all in the other. A published list can only show what was declared, so nothing here says anything about systems nobody wrote down. Two fields store an empty answer as a pair of brackets that a spreadsheet counts as an answer, and every figure here treats them as empty. A filled field shows that information was provided, not that the practice is adequate. An empty field is not evidence that the practice is absent."
     },
-    "internal_disagreement_in_source_table": {
-     "column": "deployed and piloted",
-     "sum_of_rows": 1819,
-     "stated_total": 1818,
-     "difference": 1
+    {
+      "measure": "M2-preparation",
+      "question": "What was done to this data before it was published?",
+      "rule_applied": "Read from the publisher's own dictionary. Nothing here is inferred.",
+      "categories_published": 6,
+      "written_forms_folded_into_them": 19,
+      "per_category": {
+        "Agentic AI": {
+          "written_forms_folded_in": 2,
+          "forms": [
+            "Agentic AI",
+            "agentic-ai"
+          ]
+        },
+        "Classical/Predictive Machine Learning": {
+          "written_forms_folded_in": 6,
+          "forms": [
+            "Classical/Predictive Machine Learning",
+            "Machine Learning",
+            "Machine Learning (Classification/Prediction)",
+            "Classical ML",
+            "Intelligent Automations (AIOps)",
+            "Intelligent Automation (AIOps)"
+          ]
+        },
+        "Computer Vision": {
+          "written_forms_folded_in": 2,
+          "forms": [
+            "Computer Vision",
+            "Computer Vision - AI that processes and interprets visual data (e.g.; images and videos)."
+          ]
+        },
+        "Generative AI": {
+          "written_forms_folded_in": 5,
+          "forms": [
+            "Generative AI",
+            "Gen AI",
+            "GenAI",
+            "Generative AI; Natural Language Processing (NLP)",
+            "AI-Enabled Application"
+          ]
+        },
+        "Natural Language Processing": {
+          "written_forms_folded_in": 3,
+          "forms": [
+            "Natural Language Processing (NLP)",
+            "Natural Language Processing",
+            "NLP"
+          ]
+        },
+        "Reinforcement Learning": {
+          "written_forms_folded_in": 1,
+          "forms": [
+            "Reinforcement Learning"
+          ]
+        }
+      },
+      "one_form_named_two_categories": "Generative AI; Natural Language Processing (NLP)",
+      "values_present_but_not_in_the_map": [
+        "Other"
+      ],
+      "entries_carrying_them": 102,
+      "caveat": "Folding written variants into shared categories is ordinary preparation and is not a criticism of it. It is recorded because the categories a reader counts are the publisher's, not the agencies', and because one published value does not appear in the map that describes them."
+    },
+    {
+      "measure": "M3",
+      "question": "How old is the information in each entry, and what would trigger a re-check?",
+      "rule_applied": "Freshness cannot be calculated from this data. The finding replaces the metric.",
+      "finding": "The register cannot express how current any entry is. It records no verification date, no update date and no review date. Its single date field records when a system became operational, which answers a different question.",
+      "date_fields_in_the_field_set": 1,
+      "operational_date": {
+        "rows_with_a_value": 1402,
+        "share_of_rows": 38.8,
+        "values_that_parse": 1144,
+        "parse_rate": 81.6,
+        "values_that_cannot_be_resolved": 258,
+        "usable_dates_as_share_of_all_rows": 31.7,
+        "values_dated_after_the_download_date": 5
+      },
+      "development_stage_filter": {
+        "rows_carrying_a_stage": 3273,
+        "rows_with_no_stage_recorded": 338,
+        "coverage": 90.6,
+        "label": "Stage is not recency. A stage describes where a system is in its life, not when this entry was last checked."
+      },
+      "re_verification_trigger_diagnostic": {
+        "group_one": {
+          "statement": "Fields touching each of these exist. None records a change, a date of change, or a prior value.",
+          "triggers": [
+            "owner of the system",
+            "model or version",
+            "data sources",
+            "scope of use"
+          ]
+        },
+        "group_two": {
+          "statement": "The degree of autonomy with which a system acts is not present in the 2025 field set. No field touches it at all.",
+          "triggers": [
+            "degree of autonomy"
+          ]
+        },
+        "why_reported_separately": "No field records a change and no field exists are different statements. Reporting them together would understate the second."
+      },
+      "caveat": "The one date says when a system started running, not when anyone last looked at its entry. A system running for years might have had its description checked last week or never, and nothing here can tell those apart. Dates written in a form that could mean two different days are not counted, because choosing one reading would invent a precision the file does not have."
+    },
+    {
+      "measure": "M4",
+      "question": "For every high-impact use case, can the register answer the questions an oversight body would ask?",
+      "rule_applied": "The subset is the entries labelled high-impact only. Two further bands are labelled separately, using the data's own label.",
+      "bands": {
+        "High-impact": 445,
+        "Not High-impact": 2630,
+        "Presumed High-Impact, but Not High-impact": 110,
+        "classification not recorded": 426
+      },
+      "bands_total": 3611,
+      "register_rows": 3611,
+      "arithmetic_closes": true,
+      "subset_size": 445,
+      "oversight_field_coverage": {
+        "hi_testing_conducted": 28.5,
+        "hi_assessment_completed": 28.8,
+        "hi_potential_impacts": 28.5,
+        "hi_independent_review": 28.5,
+        "hi_ongoing_monitoring": 28.5,
+        "hi_training_established": 28.5,
+        "hi_failsafe_presence": 28.8,
+        "hi_appeal_process": 28.8,
+        "hi_public_consultation": 28.8
+      },
+      "oversight_answers": {
+        "possible_answers": 4005,
+        "fields": 9,
+        "entries": 445,
+        "counts": {
+          "blank": 2858,
+          "in progress": 675,
+          "done": 428,
+          "not applicable": 44,
+          "says no": 0
+        },
+        "share": {
+          "blank": 71.4,
+          "in progress": 16.9,
+          "done": 10.7,
+          "not applicable": 1.1,
+          "says no": 0.0
+        },
+        "entries_answering_at_all": 128,
+        "of_those_more_unfinished_than_done": 83,
+        "of_those_more_unfinished_share": 64.8,
+        "no_field_records_a_step_not_taken": true,
+        "statement": "Counting whether these fields are filled and reading what they say give different answers. Most of what is filled in says the work has not finished, and no entry records a step as considered and not taken.",
+        "caveat": "These are the words agencies entered. A field saying a step is complete shows that was entered, not that the step was adequate. The absence of any answer recording a step not taken describes the answers present in the file, and the field set offers no wording for one."
+      },
+      "oversight_block_shape": {
+        "all_nine_answered": 126,
+        "none_answered": 317,
+        "partially_answered": 2,
+        "statement": "The nine oversight fields are answered together or not at all."
+      },
+      "withholding_status": {
+        "high_impact_entries": 445,
+        "high_impact_with_no_status": 274,
+        "high_impact_share_blank": 61.6,
+        "all_entries": 3611,
+        "all_entries_with_no_status": 1132,
+        "all_entries_share_blank": 31.3,
+        "field_is_required": true,
+        "dictionary_question": "Should this AI use case be withheld from public reporting?",
+        "caveat": "A blank in a field asking whether something should be withheld is not evidence that anything was withheld. The field is required, so a blank here is different from a blank in a field that did not apply."
+      },
+      "presumed_band": {
+        "rows": 110,
+        "justification_fill_rate": 99.1,
+        "dictionary_note": "The justification field is specified to appear only when this band is selected, so a low rate in the high-impact band is the specification working."
+      },
+      "caveat": "A filled field shows that information was provided, not that the practice is adequate. An empty field is not evidence that the practice is absent. The pattern describes what reached the file, not the oversight practice itself. This is a practice exercise modelled on a realistic request. It is not a response to a request from any body."
+    },
+    {
+      "measure": "M5",
+      "question": "How do two real registers differ in what they ask, and what does that reveal about design choices?",
+      "rule_applied": "Fields asked are compared, never volume. One table, inside the gaps view.",
+      "federal_register": {
+        "fields_published": 33,
+        "entries": 3611
+      },
+      "ontario_register": {
+        "fields_published": 9,
+        "entries": 3
+      },
+      "asked_by_ontario_not_by_the_federal_register": [
+        {
+          "field": "Autonomous",
+          "note": "Whether the system acts autonomously. Not present in the 2025 federal field set."
+        },
+        {
+          "field": "Human in the loop",
+          "note": "Whether a person is involved in the decision. Not present in the 2025 federal field set."
+        },
+        {
+          "field": "User base",
+          "note": "Who the system serves."
+        }
+      ],
+      "asked_by_the_federal_register_not_by_ontario": [
+        {
+          "field": "unique identifier",
+          "note": "Ontario publishes no identifier for an entry."
+        },
+        {
+          "field": "high-impact classification and its justification",
+          "note": "Ontario publishes no risk classification."
+        },
+        {
+          "field": "nine oversight questions",
+          "note": "Testing, impact assessment, independent review, monitoring, training, fail-safe, appeal, consultation, potential impacts."
+        },
+        {
+          "field": "whether the entry is withheld from public reporting",
+          "note": "No Ontario equivalent."
+        }
+      ],
+      "naming_practice": "The Ontario register names no vendor in its published fields. The federal register publishes a vendor name field, which is the field this project removes under its own safeguard.",
+      "caveat": "The Ontario register holds 3 entries. This comparison is of what each register asks, never of how much either contains, and nothing here depends on the size of either."
     }
-   },
-   "caveat": "These figures cannot be compared with the earlier year, because the two years ask different questions: a box left empty in one year may not exist at all in the other. A published list can only show what was declared, so nothing here says anything about systems nobody wrote down. Two fields store an empty answer as a pair of brackets that a spreadsheet counts as an answer, and every figure here treats them as empty. A filled field shows that information was provided, not that the practice is adequate. An empty field is not evidence that the practice is absent."
-  },
-  {
-   "measure": "M2-preparation",
-   "question": "What was done to this data before it was published?",
-   "rule_applied": "Read from the publisher's own dictionary. Nothing here is inferred.",
-   "categories_published": 6,
-   "written_forms_folded_into_them": 19,
-   "per_category": {
-    "Agentic AI": {
-     "written_forms_folded_in": 2,
-     "forms": [
-      "Agentic AI",
-      "agentic-ai"
-     ]
-    },
-    "Classical/Predictive Machine Learning": {
-     "written_forms_folded_in": 6,
-     "forms": [
-      "Classical/Predictive Machine Learning",
-      "Machine Learning",
-      "Machine Learning (Classification/Prediction)",
-      "Classical ML",
-      "Intelligent Automations (AIOps)",
-      "Intelligent Automation (AIOps)"
-     ]
-    },
-    "Computer Vision": {
-     "written_forms_folded_in": 2,
-     "forms": [
-      "Computer Vision",
-      "Computer Vision - AI that processes and interprets visual data (e.g.; images and videos)."
-     ]
-    },
-    "Generative AI": {
-     "written_forms_folded_in": 5,
-     "forms": [
-      "Generative AI",
-      "Gen AI",
-      "GenAI",
-      "Generative AI; Natural Language Processing (NLP)",
-      "AI-Enabled Application"
-     ]
-    },
-    "Natural Language Processing": {
-     "written_forms_folded_in": 3,
-     "forms": [
-      "Natural Language Processing (NLP)",
-      "Natural Language Processing",
-      "NLP"
-     ]
-    },
-    "Reinforcement Learning": {
-     "written_forms_folded_in": 1,
-     "forms": [
-      "Reinforcement Learning"
-     ]
-    }
-   },
-   "one_form_named_two_categories": "Generative AI; Natural Language Processing (NLP)",
-   "values_present_but_not_in_the_map": [
-    "Other"
-   ],
-   "entries_carrying_them": 102,
-   "caveat": "Folding written variants into shared categories is ordinary preparation and is not a criticism of it. It is recorded because the categories a reader counts are the publisher's, not the agencies', and because one published value does not appear in the map that describes them."
-  },
-  {
-   "measure": "M3",
-   "question": "How old is the information in each entry, and what would trigger a re-check?",
-   "rule_applied": "Freshness cannot be calculated from this data. The finding replaces the metric.",
-   "finding": "The register cannot express how current any entry is. It records no verification date, no update date and no review date. Its single date field records when a system became operational, which answers a different question.",
-   "date_fields_in_the_field_set": 1,
-   "operational_date": {
-    "rows_with_a_value": 1402,
-    "share_of_rows": 38.8,
-    "values_that_parse": 1144,
-    "parse_rate": 81.6,
-    "values_that_cannot_be_resolved": 258,
-    "usable_dates_as_share_of_all_rows": 31.7,
-    "values_dated_after_the_download_date": 5
-   },
-   "development_stage_filter": {
-    "rows_carrying_a_stage": 3273,
-    "rows_with_no_stage_recorded": 338,
-    "coverage": 90.6,
-    "label": "Stage is not recency. A stage describes where a system is in its life, not when this entry was last checked."
-   },
-   "re_verification_trigger_diagnostic": {
-    "group_one": {
-     "statement": "Fields touching each of these exist. None records a change, a date of change, or a prior value.",
-     "triggers": [
-      "owner of the system",
-      "model or version",
-      "data sources",
-      "scope of use"
-     ]
-    },
-    "group_two": {
-     "statement": "The degree of autonomy with which a system acts is not present in the 2025 field set. No field touches it at all.",
-     "triggers": [
-      "degree of autonomy"
-     ]
-    },
-    "why_reported_separately": "No field records a change and no field exists are different statements. Reporting them together would understate the second."
-   },
-   "caveat": "The one date says when a system started running, not when anyone last looked at its entry. A system running for years might have had its description checked last week or never, and nothing here can tell those apart. Dates written in a form that could mean two different days are not counted, because choosing one reading would invent a precision the file does not have."
-  },
-  {
-   "measure": "M4",
-   "question": "For every high-impact use case, can the register answer the questions an oversight body would ask?",
-   "rule_applied": "The subset is the entries labelled high-impact only. Two further bands are labelled separately, using the data's own label.",
-   "bands": {
-    "High-impact": 445,
-    "Not High-impact": 2630,
-    "Presumed High-Impact, but Not High-impact": 110,
-    "classification not recorded": 426
-   },
-   "bands_total": 3611,
-   "register_rows": 3611,
-   "arithmetic_closes": true,
-   "subset_size": 445,
-   "oversight_field_coverage": {
-    "hi_testing_conducted": 28.5,
-    "hi_assessment_completed": 28.8,
-    "hi_potential_impacts": 28.5,
-    "hi_independent_review": 28.5,
-    "hi_ongoing_monitoring": 28.5,
-    "hi_training_established": 28.5,
-    "hi_failsafe_presence": 28.8,
-    "hi_appeal_process": 28.8,
-    "hi_public_consultation": 28.8
-   },
-   "oversight_block_shape": {
-    "all_nine_answered": 126,
-    "none_answered": 317,
-    "partially_answered": 2,
-    "statement": "The nine oversight fields are answered together or not at all."
-   },
-   "withholding_status": {
-    "high_impact_entries": 445,
-    "high_impact_with_no_status": 274,
-    "high_impact_share_blank": 61.6,
-    "all_entries": 3611,
-    "all_entries_with_no_status": 1132,
-    "all_entries_share_blank": 31.3,
-    "field_is_required": true,
-    "dictionary_question": "Should this AI use case be withheld from public reporting?",
-    "caveat": "A blank in a field asking whether something should be withheld is not evidence that anything was withheld. The field is required, so a blank here is different from a blank in a field that did not apply."
-   },
-   "presumed_band": {
-    "rows": 110,
-    "justification_fill_rate": 99.1,
-    "dictionary_note": "The justification field is specified to appear only when this band is selected, so a low rate in the high-impact band is the specification working."
-   },
-   "caveat": "A filled field shows that information was provided, not that the practice is adequate. An empty field is not evidence that the practice is absent. The pattern describes what reached the file, not the oversight practice itself. This is a practice exercise modelled on a realistic request. It is not a response to a request from any body."
-  },
-  {
-   "measure": "M5",
-   "question": "How do two real registers differ in what they ask, and what does that reveal about design choices?",
-   "rule_applied": "Fields asked are compared, never volume. One table, inside the gaps view.",
-   "federal_register": {
-    "fields_published": 33,
-    "entries": 3611
-   },
-   "ontario_register": {
-    "fields_published": 9,
-    "entries": 3
-   },
-   "asked_by_ontario_not_by_the_federal_register": [
-    {
-     "field": "Autonomous",
-     "note": "Whether the system acts autonomously. Not present in the 2025 federal field set."
-    },
-    {
-     "field": "Human in the loop",
-     "note": "Whether a person is involved in the decision. Not present in the 2025 federal field set."
-    },
-    {
-     "field": "User base",
-     "note": "Who the system serves."
-    }
-   ],
-   "asked_by_the_federal_register_not_by_ontario": [
-    {
-     "field": "unique identifier",
-     "note": "Ontario publishes no identifier for an entry."
-    },
-    {
-     "field": "high-impact classification and its justification",
-     "note": "Ontario publishes no risk classification."
-    },
-    {
-     "field": "nine oversight questions",
-     "note": "Testing, impact assessment, independent review, monitoring, training, fail-safe, appeal, consultation, potential impacts."
-    },
-    {
-     "field": "whether the entry is withheld from public reporting",
-     "note": "No Ontario equivalent."
-    }
-   ],
-   "naming_practice": "The Ontario register names no vendor in its published fields. The federal register publishes a vendor name field, which is the field this project removes under its own safeguard.",
-   "caveat": "The Ontario register holds 3 entries. This comparison is of what each register asks, never of how much either contains, and nothing here depends on the size of either."
-  }
- ]
+  ]
 }

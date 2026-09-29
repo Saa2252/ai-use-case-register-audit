@@ -256,12 +256,14 @@ def m2_completeness(reg: pd.DataFrame) -> dict:
                 "total agency submissions": {
                     "published": 56,
                     "observed": None,
-                    "note": "Could not be reconciled. The individually reported file "
-                            "names 41 agencies and the consolidated file names 45, but "
-                            "the two use different naming conventions for the same "
-                            "agency, so the number of distinct submissions depends on a "
-                            "matching rule the source does not publish. Methods "
-                            "attempted give 86, 57 and 52. None gives 56."},
+                    "note": "No method this project tried reproduced it. The "
+                            "individually reported file names 41 agencies and the "
+                            "consolidated file names 45, and the two write the same "
+                            "agency differently, so any count of distinct submissions "
+                            "depends on a rule for matching them. Eight methods were "
+                            "tried, giving 86, 57 and 52, and every one is recorded in "
+                            "governance/data-provenance.md. A rule that reaches 56 may "
+                            "exist and was not found."},
                 "agencies reporting consolidated off-the-shelf": {
                     "published": 46, "observed": 45,
                     "note": "The source's own per-agency table and the data file agree at 45. Only the summary bullet differs."},
@@ -337,6 +339,74 @@ def m3_freshness(reg: pd.DataFrame) -> dict:
     }
 
 
+# The words the nine oversight fields actually accept. Read from the answers the
+# register contains, not from the dictionary, because what agencies typed is the
+# evidence and the dictionary is the intention.
+#
+# Counting whether a field is filled answers a different question from reading
+# what it says. Both are reported, because the second changes the first: most of
+# what is filled in says the work has not finished.
+_IN_PROGRESS = re.compile(r"in[-\s]?progress", re.I)
+_NOT_APPLICABLE = re.compile(r"not applicable|precluded", re.I)
+# Anything an agency could type to say a step was considered and not taken.
+# Searched for rather than assumed, so that the finding is an observation.
+_NEGATIVE = re.compile(r"^\s*(no|none|not done|not conducted|not completed|"
+                       r"not established|not performed|declined|rejected)\s*\.?\s*$", re.I)
+
+
+def _answer_state(field: str, value, always, text_only, types) -> str:
+    """One of: blank, in progress, done, not applicable, says no."""
+    if is_empty(field, value, always, text_only, types):
+        return "blank"
+    text = str(value).strip()
+    if _NOT_APPLICABLE.search(text):
+        return "not applicable"
+    if _IN_PROGRESS.search(text):
+        return "in progress"
+    if _NEGATIVE.match(text):
+        return "says no"
+    return "done"
+
+
+def oversight_answers(hi: pd.DataFrame, hifields: list) -> dict:
+    """What the nine oversight fields say, across the high-impact subset."""
+    always, text_only, types = _empty_rule()
+    counts = {k: 0 for k in ("blank", "in progress", "done", "not applicable", "says no")}
+    per_entry = []
+    for _, row in hi.iterrows():
+        states = [_answer_state(c, row[c], always, text_only, types) for c in hifields]
+        for s in states:
+            counts[s] += 1
+        per_entry.append(states)
+    total = sum(counts.values())
+    answering = [s for s in per_entry if any(x != "blank" for x in s)]
+    more_unfinished = sum(
+        1 for s in answering if s.count("in progress") > s.count("done"))
+    return {
+        "possible_answers": total,
+        "fields": len(hifields),
+        "entries": int(len(hi)),
+        "counts": counts,
+        "share": {k: round(v / total * 100, 1) for k, v in counts.items()} if total else {},
+        "entries_answering_at_all": len(answering),
+        "of_those_more_unfinished_than_done": more_unfinished,
+        "of_those_more_unfinished_share": (
+            round(more_unfinished / len(answering) * 100, 1) if answering else 0.0),
+        "no_field_records_a_step_not_taken": counts["says no"] == 0,
+        "statement": (
+            "Counting whether these fields are filled and reading what they say give "
+            "different answers. Most of what is filled in says the work has not "
+            "finished, and no entry records a step as considered and not taken."
+        ),
+        "caveat": (
+            "These are the words agencies entered. A field saying a step is complete "
+            "shows that was entered, not that the step was adequate. The absence of "
+            "any answer recording a step not taken describes the answers present in "
+            "the file, and the field set offers no wording for one."
+        ),
+    }
+
+
 def m4_oversight_pack(reg: pd.DataFrame) -> dict:
     """What the register could hand over for its high-impact entries."""
     always, text_only, types = _empty_rule()
@@ -364,6 +434,7 @@ def m4_oversight_pack(reg: pd.DataFrame) -> dict:
         "subset_size": int(len(hi)),
         "oversight_field_coverage": {c: round(float((~hi[c].map(
             lambda v: is_empty(c, v, always, text_only, types))).mean()) * 100, 1) for c in hifields},
+        "oversight_answers": oversight_answers(hi, hifields),
         "oversight_block_shape": {
             "all_nine_answered": int((answered == len(hifields)).sum()),
             "none_answered": int((answered == 0).sum()),

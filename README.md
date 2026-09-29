@@ -366,10 +366,10 @@ file found **four numbers that were wrong**.
 | Two pages, on identifier repeats | thirteen | 12 |
 | The register page, on entries with no identifier | a sixth | 19.6%, which the heading above it called nearly a fifth |
 | The gaps page, under a heading reading "Seven ways" | these six | seven |
-| The gaps page, on the size of an error | about seventy percentage points | 69.4 on one field and 92.7 on the other, both printed beneath it |
+| The gaps page, on the size of an error | about seventy percentage points | 69.4 on one field and 92.7 on the other, each the difference between two figures the page prints |
 
 A fifth figure, a count of agency submissions, was published with no working at
-all and could not be reproduced by any method. It has been removed and replaced
+all and was not reproduced by any of the eight methods tried. It has been removed and replaced
 with a statement that it could not be reconciled, with every method tried
 recorded in `governance/data-provenance.md`.
 

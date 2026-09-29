@@ -267,11 +267,21 @@ def main() -> None:
             "snapshot": "A single point in time, each file recorded by SHA-256 hash in "
                         "governance/data-provenance.md.",
         },
+        # Four of these describe what the audit could see. The last two are
+        # about this field set itself, and are here because the README now says
+        # the audit is the method and the field set is the result. A result
+        # should carry what it has not been put through.
         "limits": [
             "One register, in one year.",
             "Read from outside, with no access to how any agency works.",
             "Built from what a published file shows, which is not everything an organisation knows.",
             "Not tested against anyone who keeps a register.",
+            "This field set has not been used to record anything real. Every "
+            "question on it answers something the audit found, and none of them "
+            "has been put in front of a person asked to fill it in.",
+            "Nothing here compares one organisation with another. That is a "
+            "choice, and it has a cost: the question a reader is most likely to "
+            "arrive with is the one this project will not answer.",
         ],
         "fields": fields_with_figures(),
         "convention": EMPTY_CONVENTION,

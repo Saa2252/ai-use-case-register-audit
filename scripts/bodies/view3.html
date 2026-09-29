@@ -19,9 +19,9 @@
     <p class="qualifier">The group labelled "classification not recorded" carries no inference in either direction. It holds more entries than the group of entries presumed high-impact and then determined not to be.</p>
   </div>
 
-  <h2>Oversight information nearly always arrives whole, or not at all</h2>
+  <h2>The nine oversight fields are nearly always all filled or all empty</h2>
   <div class="panel">
-    <p class="lead-in">Nine fields cover human oversight, filled in only for high-impact entries. Almost every such entry has all nine filled or all nine empty. Two out of hundreds sit in between.</p>
+    <p class="lead-in">Nine fields cover human oversight, filled in only for high-impact entries. Almost every such entry has all nine filled or all nine empty. Two out of hundreds sit in between. The file records nothing about how any entry came to be filled in that way.</p>
     <p>The nine ask whether the system was tested before deployment, whether an impact assessment was completed, what the potential impacts are, whether an independent review took place, whether performance is monitored, whether operators are trained, whether there is a fail-safe, whether a person can appeal, and whether affected groups were consulted.</p>
     <p>Counting how many of the nine each of the <span data-figure="M4.subset_size" data-fmt="n"></span> high-impact entries answers:</p>
     <div class="scroller"><table>
@@ -33,6 +33,26 @@
       </tbody>
     </table></div>
     <p><span data-figure="M4.oversight_block_shape.statement"></span></p>
+
+    <h3>Reading what the answers say gives a different picture from counting them</h3>
+    <p class="lead-in">Counting a field as filled treats every answer alike. Read instead, most of what is filled in says the work has not finished.</p>
+    <p>Across the nine fields and the <span data-figure="M4.oversight_answers.entries" data-fmt="n"></span> high-impact entries there are <span data-figure="M4.oversight_answers.possible_answers" data-fmt="n"></span> places an answer could sit. Sorting every one of them by what it says:</p>
+    <div class="scroller"><table>
+      <thead><tr><th>What the answer says</th><th>Share of all <span data-figure="M4.oversight_answers.possible_answers" data-fmt="n"></span></th></tr></thead>
+      <tbody>
+        <tr><td>Nothing. The field is empty</td><td><span data-figure="M4.oversight_answers.share.blank"></span>%</td></tr>
+        <tr><td>The step is under way and not finished</td><td><span data-figure="M4.oversight_answers.share.in progress"></span>%</td></tr>
+        <tr><td>The step was done</td><td><span data-figure="M4.oversight_answers.share.done"></span>%</td></tr>
+        <tr><td>The step does not apply, or is ruled out by law</td><td><span data-figure="M4.oversight_answers.share.not applicable"></span>%</td></tr>
+        <tr><td>The step was considered and not taken</td><td><span data-figure="M4.oversight_answers.share.says no"></span>%</td></tr>
+      </tbody>
+    </table></div>
+    <p><span data-figure="M4.oversight_answers.entries_answering_at_all" data-fmt="n"></span> entries give at least one answer. Of those, <span data-figure="M4.oversight_answers.of_those_more_unfinished_than_done" data-fmt="n"></span>, or <span data-figure="M4.oversight_answers.of_those_more_unfinished_share"></span>%, give more answers saying a step is under way than saying it was done.</p>
+    <p class="pair">
+      No entry, in any of the nine fields, records a step as considered and not taken.
+    </p>
+    <p>There is no wording for it. The answers the register contains are: done, under way, does not apply, and ruled out by law. So an empty field, a step nobody started, and a step somebody decided against all reach a reader the same way.</p>
+    <p class="qualifier"><span data-figure="M4.oversight_answers.caveat"></span></p>
 
     <h3>The field asking whether an entry should be withheld is blank for most high-impact entries</h3>
     <p class="lead-in">The register asks every entry whether it should be withheld from public reporting, and requires an answer. For most of the entries it flags as most serious, the field is empty.</p>

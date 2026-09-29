@@ -41,7 +41,7 @@ manifest at `data/raw/manifest.json`, which is not committed.
 | `omb2025_README_datasets.md` | OMB 2025 | 2026-09-22 | `794c3d3042f7f2ca50ad61912bd39bde88dfeab74fd5eb3521f3bc7eb8750614` | 111 | Dataset notes |
 | `omb2025_README.md` | OMB 2025 | 2026-09-22 | `c9cc8fc318466ba636c30f00e1f9a61e7088c782dbf8c3b573054070085a3cf9` | 10,688 | States the published totals |
 | `omb2024_inventory_v1.csv` | OMB 2024 | 2026-09-22 | `9a2c9e25d41eb7b4b2e5463459c8ea78e0e02db0c15e82cc09c88e78889b40f5` | 2,655,883 | Version 1 |
-| `omb2024_inventory_v2.csv` | OMB 2024 | 2026-09-22 | `789e1bac6d2551e8f90e5cfc5feb37ac23c6ca9f302f5af92fea8a577caa0a83` | 2,982,726 | Version 2, authoritative version to be determined |
+| `omb2024_inventory_v2.csv` | OMB 2024 | 2026-09-22 | `789e1bac6d2551e8f90e5cfc5feb37ac23c6ca9f302f5af92fea8a577caa0a83` | 2,982,726 | Version 2. **This is the version used.** Its row count of 2,133 matches the total the 2024 README states; version 1 does not. Recorded 30 September 2026, closing a note that had stood open since Phase 1. The choice affects field names only, since no row of either file is read |
 | `omb2024_data_dictionary.yaml` | OMB 2024 | 2026-09-22 | `bc2302170a5b3aee419479522cd6afbb5416de9555a8d6fe7e34a848d7e8eee0` | 45,842 | Data dictionary |
 | `omb2024_README.md` | OMB 2024 | 2026-09-22 | `dc846005495e339b6a77a38030a973d1dfec53648611de72ea045edc5275ea7f` | 6,096 | States the 2024 totals |
 | `ontario_ai_use_cases_en.csv` | Ontario | 2026-09-22 | `f5bbd7d0c2b14d3f1a2f5ea9a982e7ef28d5b59a83a1f483104d9c98089ade7a` | 2,182 | English, the version analysed |

@@ -9,7 +9,9 @@
     "One register, in one year.",
     "Read from outside, with no access to how any agency works.",
     "Built from what a published file shows, which is not everything an organisation knows.",
-    "Not tested against anyone who keeps a register."
+    "Not tested against anyone who keeps a register.",
+    "This field set has not been used to record anything real. Every question on it answers something the audit found, and none of them has been put in front of a person asked to fill it in.",
+    "Nothing here compares one organisation with another. That is a choice, and it has a cost: the question a reader is most likely to arrive with is the one this project will not answer."
   ],
   "fields": [
     {
