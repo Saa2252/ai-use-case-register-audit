@@ -10,3 +10,5 @@ requests==2.32.3
 # Text similarity for M1 (candidate near-duplicate detection).
 # Ships with scikit-learn's TF-IDF; no separate fuzzy-matching library needed.
 scikit-learn==1.6.1
+# Draws the social preview card in scripts/build_preview.py.
+pillow==10.4.0

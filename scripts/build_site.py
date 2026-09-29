@@ -14,7 +14,7 @@ sys.path.insert(0, str(REPO_ROOT))
 
 from src.statements import apply as apply_statements  # noqa: E402
 from src.disclaimer import (AUTHORSHIP, DISCLAIMER, ONTARIO_ATTRIBUTION,
-                            ONTARIO_LICENCE_URL)
+                            ONTARIO_LICENCE_URL, SITE_URL)
 
 DOCS = REPO_ROOT / "docs"
 # The site has two halves, and the navigation says so. Three pages read the
@@ -68,6 +68,37 @@ def data_stamp() -> str:
     return "".join(chr(ord("a") + int(ch, 16)) for ch in digest.hexdigest()[:8])
 
 
+# What a link to this project says when it is pasted somewhere that reads the
+# page rather than opening it. Deliberately free of numerals: a preview card's
+# text has to be static, because the crawler reading it does not run scripts,
+# and a literal figure in the head is what T5 exists to catch. The figure is in
+# the card image instead, drawn from data/derived by scripts/build_preview.py.
+# Recorded in governance/safeguards.md as a delegated call.
+CARD_TEXT = ("An independent read of a published AI use case register: what it "
+             "can answer, what it cannot, and a field set built from what the "
+             "audit found.")
+
+
+def card(file, title):
+    """The preview tags. Absolute addresses, because the reader is elsewhere."""
+    if not SITE_URL:
+        return ""
+    page_url = SITE_URL if file == "index.html" else SITE_URL + file
+    image = SITE_URL + "assets/preview.png"
+    return (
+        '<meta name="description" content="' + CARD_TEXT + '">\n'
+        '<meta property="og:type" content="website">\n'
+        '<meta property="og:site_name" content="AI Use Case Register Audit">\n'
+        '<meta property="og:title" content="' + title + '">\n'
+        '<meta property="og:description" content="' + CARD_TEXT + '">\n'
+        '<meta property="og:url" content="' + page_url + '">\n'
+        '<meta property="og:image" content="' + image + '">\n'
+        '<meta property="og:image:alt" content="A figure from the audit, with '
+        'the sentence that qualifies it.">\n'
+        '<meta name="twitter:card" content="summary_large_image">\n'
+    )
+
+
 def page(file, title, heading, lede, body, scripts="", ontario=False, figures=True,
          page_class=""):
     links = []
@@ -89,6 +120,7 @@ def page(file, title, heading, lede, body, scripts="", ontario=False, figures=Tr
         '<!DOCTYPE html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n'
         '<meta name="viewport" content="width=device-width, initial-scale=1">\n'
         "<title>" + title + "</title>\n"
+        + card(file, title) +
         '<link rel="stylesheet" href="' + stamp("assets/style.css") + '">\n</head>\n<body>\n'
         '<div class="wrap" data-dv="' + data_stamp() + '">\n\n'
         "<header>\n  <h1>AI Use Case Register Audit</h1>\n"

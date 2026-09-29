@@ -45,3 +45,14 @@ ONTARIO_LICENCE_URL = "https://www.ontario.ca/page/open-government-licence-ontar
 # a comparison against REPOSITORY_URL rather than a pattern, so widening one
 # means changing this value, which is a stop-and-ask.
 REPOSITORY_URL = "https://github.com/Saa2252/ai-use-case-register-audit"
+
+# Where the site is served. Needed because a social preview card has to give an
+# absolute address: the crawler that reads it is not on the site.
+#
+# This carries the same two exemptions as REPOSITORY_URL and for the same two
+# reasons, the provider name and the digits in the account name. The owner was
+# shown the trade-off on 30 September 2026 and expressed no preference, so the
+# developer took the recommended option and recorded it as a delegated call
+# rather than an owner ruling. It is reversible: emptying this value turns off
+# the preview card and the exemption together.
+SITE_URL = "https://saa2252.github.io/ai-use-case-register-audit/"
