@@ -425,10 +425,15 @@ This is the part that took the longest to get right.
 
 ```
 python3.11 -m venv .venv
-./.venv/bin/python -m pip install -r requirements.txt
+./.venv/bin/python -m pip install -r requirements-analysis.txt
 ./.venv/bin/python -m pytest
 ./.venv/bin/python -m jupyter notebook notebooks/analysis.ipynb
 ```
+
+Two dependency files, because two things run here. `requirements-analysis.txt`
+holds the pins that reproduce the numbers. `requirements.txt` holds the single
+package the deployed application needs, and sits at the root because that is
+where the host serving the application looks.
 
 Raw data is deliberately not committed. The raw files carry vendor and product columns, and committing them would break this project's own rule against publishing vendor names. The notebook downloads each file from its official address and checks it against the hash recorded in `governance/data-provenance.md`, so the results reproduce without the repository ever holding a vendor name.
 
