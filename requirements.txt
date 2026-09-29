@@ -12,4 +12,4 @@
 #
 # The analysis pins live in requirements-analysis.txt. Reproducing the numbers
 # needs that file, not this one. See "Reproducing it" in README.md.
-streamlit==1.39.0
+streamlit==1.64.0
