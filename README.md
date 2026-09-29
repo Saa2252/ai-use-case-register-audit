@@ -2,7 +2,9 @@
 
 > This is an independent portfolio project. It uses publicly available AI use case inventories published by the US Office of Management and Budget (public domain, 17 U.S.C. §105) and the Government of Ontario (Open Government Licence – Ontario). Vendor and product names have been removed. Findings describe patterns in the published data and are not claims about any agency's conduct. This is not legal advice. Not affiliated with or endorsed by any government body.
 
-**Live site:** to be added at deployment.
+**Live site:** https://saa2252.github.io/ai-use-case-register-audit/
+
+**Repository:** https://github.com/Saa2252/ai-use-case-register-audit
 
 ## What this is
 

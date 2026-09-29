@@ -172,7 +172,8 @@
       "link": "gaps.html"
     }
   ],
-  "repository_url": "",
+  "repository_url": "https://github.com/Saa2252/ai-use-case-register-audit",
+  "judgment_calls": 10,
   "panel_one": {
     "entry_id": "FRB-0055",
     "use_case_name": "Data Quality Prioritization Dashboard",

@@ -44,4 +44,4 @@ ONTARIO_LICENCE_URL = "https://www.ontario.ca/page/open-government-licence-ontar
 # Both exemptions cover this exact string and nothing else. They are written as
 # a comparison against REPOSITORY_URL rather than a pattern, so widening one
 # means changing this value, which is a stop-and-ask.
-REPOSITORY_URL = ""
+REPOSITORY_URL = "https://github.com/Saa2252/ai-use-case-register-audit"

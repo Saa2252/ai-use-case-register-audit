@@ -316,9 +316,11 @@ the link renders. With a second, different address added to the same page, T2
 reports `docs/index.html: ['github']` and T5 reports `index.html:122 '9999'`.
 The exemptions cover the approved address alone.
 
-**Not yet live.** `REPOSITORY_URL` is empty because the repository does not
-exist yet. The link appears on the landing page, and in the README, the moment
-the owner sets that one value.
+**Live since 29 September 2026.** The owner created the repository and sent the
+address, so `REPOSITORY_URL` now holds it and the link renders on the landing
+page and in the README. The full suite was run with the address set: 48 tests
+pass, which is what confirms both exemptions are drawn narrowly enough to let
+the approved address through and nothing else.
 
 ### What colour means on the landing page
 

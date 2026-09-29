@@ -27,6 +27,25 @@ from src.measures import _empty_rule, is_empty  # noqa: E402
 DERIVED = REPO_ROOT / "data" / "derived"
 DOCS_DATA = REPO_ROOT / "docs" / "data"
 
+
+def judgment_calls() -> int:
+    """Count the judgment calls the README sets out.
+
+    The landing page names this number. Counting the headings here means a
+    judgment call added to the README cannot leave the page saying the old
+    figure, which is what happened when the count was typed into the script.
+    """
+    lines = (REPO_ROOT / "README.md").read_text(encoding="utf-8").splitlines()
+    inside = False
+    count = 0
+    for line in lines:
+        if line.startswith("## "):
+            inside = "judgment call" in line.lower()
+            continue
+        if inside and line.startswith("### "):
+            count += 1
+    return count
+
 # Which source column, if any, answers each proposed field.
 SOURCE_COLUMN = {
     "Entry identifier": ["id"],
@@ -262,6 +281,7 @@ def main() -> None:
         # only when it carries an address, so nothing points at a page that is
         # not there yet.
         "repository_url": REPOSITORY_URL,
+        "judgment_calls": judgment_calls(),
         "panel_one": panel_one(register),
         "panel_two": panel_two(),
     }

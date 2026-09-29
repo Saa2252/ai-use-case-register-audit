@@ -293,8 +293,9 @@
   function drawReadme(d) {
     var node = el("readme-link");
     if (!node) { return; }
-    var account = "The full account of how the work was done, with nine judgment " +
-      "calls made along the way, is in the file named README.";
+    var account = "The full account of how the work was done, with " +
+      num(d.judgment_calls) + " judgment calls made along the way, is in the " +
+      "file named README.";
     if (d.repository_url) {
       node.innerHTML = esc(account) + ' <a href="' + esc(d.repository_url) +
         '">Read it in the repository</a>.';
