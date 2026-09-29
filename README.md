@@ -8,11 +8,15 @@
 
 ## What this is
 
-**This project takes a list that a government publishes of its own AI systems, reads it the way someone responsible for overseeing those systems would have to, and reports what the list can and cannot answer.**
+**This project audits a real, published AI use case register in order to work out what a good one would ask.**
+
+It takes a list that a government publishes of its own AI systems, reads it the way someone responsible for overseeing those systems would have to, and reports what the list can and cannot answer. Then it uses those answers to set out a field set: ten questions a register would need to ask for the gaps found here not to recur.
+
+So the audit is the method and the field set is the result. Each of the ten fields exists because of something the audit found, and says so on the page, with a link to the working behind it. The field set is the author's own proposal. It is not a claim about what any publisher should have done, and nothing here says any organisation acted wrongly.
 
 It examines 3,611 entries published by US federal agencies in 2025, alongside a second and much smaller list published by the Government of Ontario. Both were downloaded on one day and recorded by hash, so everything here describes those exact files and can be checked against them.
 
-The work is the audit. The governance design, the rules it follows and the judgments in it are the author's.
+The governance design, the rules it follows and the judgments in it are the author's.
 
 **Ontario data.** Contains information licensed under the Open Government Licence – Ontario. The licence is at <https://www.ontario.ca/page/open-government-licence-ontario>.
 
@@ -444,7 +448,7 @@ That prints the raw row as downloaded, compares it field by field with what the 
 | `notebooks/analysis.ipynb` | Download, verify, scrub, analyse, export |
 | `data/derived/` | Everything published. Every figure on the site comes from here |
 | `docs/` | The site |
-| `tests/` | 30 automated checks, run with pytest |
+| `tests/` | 50 automated checks, run with pytest |
 
 ## Licence
 
