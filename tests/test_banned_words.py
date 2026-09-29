@@ -82,10 +82,7 @@ REQUIRED_CROSSWALK_CAVEAT = (
 )
 
 
-# app/app.py joins the scope with the scope change of 30 September 2026.
-# It is published copy like any page, and builds its text at run time,
-# which is precisely why it has to be read here rather than assumed.
-SCOPE_GLOBS = ["docs/*.html", "docs/assets/*.js", "README.md", "app/app.py",
+SCOPE_GLOBS = ["docs/*.html", "docs/assets/*.js", "README.md",
                "data/derived/findings.json", "data/derived/reusability_findings.json",
                "data/derived/oversight_information_pack.md"]
 

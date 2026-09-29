@@ -32,11 +32,9 @@ def test_no_database_files():
 
 
 def test_no_login_code():
-    """The site and the application both. S12 bans a login on either."""
     found = []
-    sources = sorted((REPO_ROOT / "docs").rglob("*")) + sorted((REPO_ROOT / "app").rglob("*"))
-    for p in sources:
-        if p.is_file() and p.suffix in {".html", ".js", ".py"}:
+    for p in sorted((REPO_ROOT / "docs").rglob("*")):
+        if p.is_file() and p.suffix in {".html", ".js"}:
             text = p.read_text()
             for pat in LOGIN_PATTERNS:
                 if re.search(pat, text, re.I):

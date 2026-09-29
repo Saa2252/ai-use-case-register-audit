@@ -1129,6 +1129,38 @@ are all gone. There is no second copy of any finding anywhere in this project.
 That removes a whole class of the failure this project has already had four
 times.
 
+### 23.5 The application is dropped
+
+**Owner decision, 30 September 2026. This closes section 23 rather than
+amending it further.**
+
+The owner's words: the application does not look like the site, and the site
+was made to look the way it does.
+
+**The reason is sound and worth recording, because it is the same argument the
+project has been making about figures.** The site carries the design in things
+a host does not let go of: a reading measure, a three-level hierarchy, two
+semantic hues, and empty fields drawn as empty boxes so the comparison can be
+seen rather than read. The application reproduced the last of those and
+approximated the rest. What it could not reproduce was the page as a designed
+object, because the host owns the page.
+
+A second surface that states the same findings less well is not a second
+surface. It is a weaker copy of the first, and this project has spent its length
+arguing that a figure lifted away from its setting misstates it. The same
+applies to a design lifted away from the page that carries it.
+
+**What was removed.** `app/`, `.streamlit/`, `tests/test_app_safeguards.py`,
+the streamlit pin, and the two-file dependency split it required. S12 returns to
+four site views. T4 and T9 return to the scope they had before the application
+widened them.
+
+**What is kept.** This section stays as written, including 23.4's record of
+what the move into this repository cost. The reasoning about agency filters,
+about an absence being a stronger guard than a test, and about a figure needing
+its qualification is not made wrong by the artefact going away, and a decision
+record that deletes its own history is not a record.
+
 ### 23.3 What carries over
 
 **Section 18.2 governs the application as written.** A figure appears only if
