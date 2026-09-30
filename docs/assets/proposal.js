@@ -432,8 +432,38 @@
      landing page does not download the whole findings set to read five numbers
      out of it. tests/test_evidence_figures.py fails if any of those resolved
      figures drifts from the finding it came from. */
-  json("fieldset.json")
-    .then(function (d) {
+
+  /* The page and the data it just fetched are from different builds. See the
+     note on the same function in assets/figures.js: the host caches HTML for
+     ten minutes, so shortly after a deployment a returning visitor can hold the
+     previous markup while the data comes back current. A half-filled page is
+     the state this exists to prevent, so nothing is drawn. */
+  function staleBanner() {
+    var main = document.querySelector("main");
+    if (!main) { return; }
+    var box = document.createElement("div");
+    box.className = "loadfail";
+    box.setAttribute("role", "alert");
+    var fresh = window.location.pathname + "?r=" + Date.now();
+    box.innerHTML = "<strong>This page is an older version than the figures it just loaded, " +
+      "so nothing on it has been filled in.</strong>" +
+      "<p>The site was updated in the last few minutes and your browser still holds the " +
+      "previous copy of this page. Nothing here is wrong; this copy is simply out of date.</p>" +
+      '<p><a href="' + fresh + '">Load the current version</a></p>';
+    main.insertBefore(box, main.firstChild);
+  }
+
+  function isStale(stampFile) {
+    var holder = document.querySelector("[data-dv]");
+    var built = holder ? holder.getAttribute("data-dv") : "";
+    var served = stampFile && stampFile.stamp;
+    return Boolean(built && served && built !== served);
+  }
+
+  Promise.all([json("fieldset.json"), json("build_stamp.json")])
+    .then(function (res) {
+      var d = res[0];
+      if (isStale(res[1])) { staleBanner(); return; }
       if (!d) {
         var strip = el("evidence");
         if (strip) {

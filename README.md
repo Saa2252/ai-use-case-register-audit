@@ -467,7 +467,7 @@ That prints the raw row as downloaded, compares it field by field with what the 
 | `scripts/acquire.py` | Every source, its address, and the hash manifest the tests verify |
 | `data/derived/` | Everything published. Every figure on the site comes from here |
 | `docs/` | The site. Four pages that read the published register, and one that proposes how a register would be kept current |
-| `tests/` | 72 automated checks, run with pytest |
+| `tests/` | 75 automated checks, run with pytest |
 
 ## Licence
 

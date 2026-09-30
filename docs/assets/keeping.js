@@ -71,14 +71,41 @@
     return "data/" + name + (v ? "?v=" + v : "");
   }
 
-  fetch(dataUrl("operating_model.json"))
-    .then(function (r) { return r.json(); })
-    .then(draw)
-    .catch(function () {
-      var node = el("mechanisms");
-      if (node) {
-        node.innerHTML = '<p class="pending">This page could not read its data file. ' +
-          "Serve the site over HTTP rather than opening the file directly.</p>";
+  function json(name) {
+    return fetch(dataUrl(name)).then(function (r) { return r.ok ? r.json() : null; })
+      .catch(function () { return null; });
+  }
+
+  /* Same check as the other two scripts. This page carries no figures, but its
+     containers are filled by id, and stale markup loses its rows without
+     looking broken. */
+  function isStale(stampFile) {
+    var holder = document.querySelector("[data-dv]");
+    var built = holder ? holder.getAttribute("data-dv") : "";
+    var served = stampFile && stampFile.stamp;
+    return Boolean(built && served && built !== served);
+  }
+
+  function problem(message, link) {
+    var node = el("mechanisms");
+    if (!node) { return; }
+    node.innerHTML = '<div class="loadfail" role="alert"><strong>' + message + "</strong>" +
+      (link ? '<p><a href="' + link + '">Load the current version</a></p>' : "") + "</div>";
+  }
+
+  Promise.all([json("operating_model.json"), json("build_stamp.json")])
+    .then(function (res) {
+      if (isStale(res[1])) {
+        problem("This page is an older version than the data it just loaded, so nothing " +
+                "on it has been filled in. Your browser still holds the previous copy.",
+                window.location.pathname + "?r=" + Date.now());
+        return;
       }
+      if (!res[0]) {
+        problem("This page could not read its data file. Serve the site over HTTP " +
+                "rather than opening the file directly.", "");
+        return;
+      }
+      draw(res[0]);
     });
 })();

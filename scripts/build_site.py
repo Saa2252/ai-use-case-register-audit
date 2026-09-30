@@ -6,6 +6,7 @@ load time from docs/data (S5). No number is typed into the HTML.
 """
 
 import hashlib
+import json
 import pathlib
 import sys
 
@@ -65,6 +66,11 @@ def stamp(relative: str) -> str:
     return relative + "?v=" + letters
 
 
+# The stamp is written here as well as into every page, and this file is left
+# out of the hash so that writing it does not change it.
+STAMP_FILE = "build_stamp.json"
+
+
 def data_stamp() -> str:
     """One stamp covering every published data file.
 
@@ -74,8 +80,31 @@ def data_stamp() -> str:
     """
     digest = hashlib.sha256()
     for path in sorted((DOCS / "data").glob("*.json")):
+        if path.name == STAMP_FILE:
+            continue
         digest.update(path.read_bytes())
     return "".join(chr(ord("a") + int(ch, 16)) for ch in digest.hexdigest()[:8])
+
+
+def write_stamp(stamp: str) -> None:
+    """Publish the stamp beside the data, so a page can check it belongs.
+
+    The query stamp on each data file stops a browser serving yesterday's
+    figures to today's page. It does nothing about the other direction, which
+    is the one that actually happened: the host caches HTML for ten minutes, so
+    for ten minutes after a deployment a returning visitor can hold yesterday's
+    markup while the data files it asks for come back current. A query string
+    is a cache key, not a version, so the server answers with the new file.
+
+    The result is a page whose markup and data are from different builds. It
+    does not look broken. It looks like a register with values missing, which
+    is the one thing this site must never look like by accident.
+
+    Writing the stamp here lets a page compare what it was built against with
+    what it just received, and say so when they differ.
+    """
+    (DOCS / "data" / STAMP_FILE).write_text(
+        json.dumps({"stamp": stamp}) + "\n", encoding="utf-8")
 
 
 def page(file, title, heading, lede, body, scripts="", licences=(), figures=True,
@@ -117,6 +146,7 @@ def page(file, title, heading, lede, body, scripts="", licences=(), figures=True
 def main() -> None:
     bodies = (REPO_ROOT / "scripts" / "bodies")
     DOCS.mkdir(exist_ok=True)
+    write_stamp(data_stamp())
     # The fifth page. Its own data file, its own script, and no findings loaded,
     # because nothing on it was counted from a published file and it must never
     # be filled with a figure from the audit.

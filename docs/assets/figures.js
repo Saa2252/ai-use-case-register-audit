@@ -67,15 +67,60 @@
     document.dispatchEvent(new CustomEvent("figures:ready", { detail: STORE }));
   }
 
+
+  /* The page and the data it just fetched are from different builds.
+
+     The host caches HTML for ten minutes, so for ten minutes after a
+     deployment a returning visitor can hold the previous markup while the data
+     files it asks for come back current. The query stamp on each data file is
+     a cache key, not a version, so the server answers with the new file.
+
+     The result does not look broken. Tables keep their headings and lose their
+     rows, and figures whose path moved read as a dash. It looks like a register
+     with values missing, which is the one thing this site must never look like
+     by accident. So the page says what has happened and offers a reload that
+     goes past the cache. Nothing is filled in, because half-filled is the state
+     this exists to prevent. */
+  function staleBanner() {
+    var main = document.querySelector("main");
+    if (!main) { return; }
+    var box = document.createElement("div");
+    box.className = "loadfail";
+    box.setAttribute("role", "alert");
+    var fresh = window.location.pathname + "?r=" + Date.now();
+    box.innerHTML = "<strong>This page is an older version than the figures it just loaded, " +
+      "so no figures are shown on it.</strong>" +
+      "<p>The site was updated in the last few minutes and your browser still holds the " +
+      "previous copy of this page. Nothing here is wrong; this copy is simply out of date.</p>" +
+      '<p><a href="' + fresh + '">Load the current version</a></p>';
+    main.insertBefore(box, main.firstChild);
+    document.querySelectorAll("[data-figure]").forEach(function (el) {
+      el.textContent = "\u2014";
+      el.classList.add("pending");
+    });
+  }
+
+  /* What this page was built against, against what the data says it is. */
+  function isStale(stampFile) {
+    var holder = document.querySelector("[data-dv]");
+    var built = holder ? holder.getAttribute("data-dv") : "";
+    var served = stampFile && stampFile.stamp;
+    return Boolean(built && served && built !== served);
+  }
+
   function load(url) {
     return fetch(url).then(function (r) { return r.ok ? r.json() : null; })
       .catch(function () { return null; });
   }
 
   var SOURCES = [dataUrl("findings.json"), dataUrl("reusability_findings.json")];
+  var ALL = SOURCES.concat([dataUrl("build_stamp.json")]);
 
-  Promise.all(SOURCES.map(load))
+  Promise.all(ALL.map(load))
     .then(function (res) {
+      // Checked before anything is filled in. A stale page must show nothing
+      // rather than show most of it.
+      if (isStale(res[SOURCES.length])) { staleBanner(); return; }
       var missing = SOURCES.filter(function (url, i) { return !res[i]; });
       // Any missing source leaves figures on the page with nothing to show, so
       // the page says which file did not load rather than leaving the reader to
