@@ -1236,7 +1236,7 @@ government already requires".
 
 ## 25. The disclaimer names the UK source
 
-**Owner decision, 1 October 2026.**
+**Owner decision, 30 September 2026.**
 
 Section 7 of the brief fixes the disclaimer's wording and says only the owner
 may change it. This is the first change since Phase 0.
@@ -1273,3 +1273,66 @@ them at once, which is what the single source is for.
 | Whether to name the UK in the disclaimer | **Yes.** A missing source in a text that lists the sources is a defect a reviewer notices before anything else on the page |
 | Whether to add it to the list of inventories or as its own clause | **Its own clause.** The UK source is a template, not an inventory, and the existing sentence says inventories |
 | Which licence to state | **Open Government Licence v3.0, confirmed on the publication page rather than assumed**, with © Crown copyright alongside it |
+
+## 26. Three reference texts read, and one not read
+
+**Owner decisions, 30 September 2026.**
+
+The field set page named the memorandum behind the nine oversight fields and
+declined to state its dates. It named the EU rule and ISO/IEC 42001 and
+recorded both as unread. The owner ruled that the first was the wrong way to
+hold a standard, and that the second was worth closing where it could be closed
+honestly.
+
+### The memorandum
+
+The page had said this project would not state the memorandum's dates because
+it could not check them against a file it holds. The owner retracted the
+framing that a public primary source needs no file, and ruled that the answer
+was to hold the file.
+
+| Decision | Ruling |
+|---|---|
+| Whether to state the dates without holding the document | **No.** The rest of the project publishes nothing it has not checked against a file it holds, and one exception is how that discipline ends |
+| Whether to add the memorandum as a source | **Yes.** Downloaded from the Office of Management and Budget itself, hashed and recorded like every other source |
+| Whether a secondary summary would do | **No.** Two secondary write-ups gave different dates. That is the argument for the primary, not against it |
+| What to conclude | **Committed in advance, before the document was read.** If the date comes before the snapshot, a blank is read as a gap. If it comes after, a blank is read as a clock that has not run out |
+
+**What the document says.** Section 4(a)(i) gives agencies 365 days from the
+issuance of the memorandum on 3 April 2025 to document implementation of the
+minimum practices in Section 4(b) for high-impact uses of AI. That date is
+3 April 2026. Section 4(b) is the list the nine fields come from, and two of
+the nine sit inside the impact assessment at 4(b)(ii)(C) and 4(b)(ii)(F).
+
+**The answer, by the rule set in advance.** The file was downloaded on
+22 September 2026, more than five months after the date. The blanks are read as
+a gap.
+
+**What the page also states, because it is true and cuts the other way.** The
+register's own README puts agency submissions on 22 December 2025, earlier than
+the date. The repository takes updates on a rolling basis. So an entry
+submitted in December 2025 and never touched since would still be inside its
+clock, and the register carries no field recording when an entry was last
+updated, so no entry can be placed on either side individually. That is this
+project's third finding and the reason the second proposed field exists.
+
+### The European Union's regulation
+
+| Decision | Ruling |
+|---|---|
+| Which text to read | **Article 49, Article 71 and Annex VIII**, not Article 49 alone. Article 49 says who registers, Article 71 sets up the database, and Annex VIII is the field list. Reading only the first would have described the duty and missed the fields |
+| Which version | **The consolidated text as at 27 July 2026**, CELEX `02024R1689-20260727`, with the version and its date recorded, because amendments have been proposed |
+| Where from | **The Union's own repository at publications.europa.eu.** EUR-Lex answers a scripted request with a status of 202 and an empty body, so it cannot be fetched by script. The Publications Office serves the same CELEX document and was used. No third-party copy was used |
+| Whether it becomes the comparator | **No.** The field set is still compared against the UK standard. The EU text is used only in the section naming what the field set does not cover |
+
+### NIST in place of ISO/IEC 42001
+
+| Decision | Ruling |
+|---|---|
+| Whether to map to ISO/IEC 42001 | **No, and the reason is stated on the page.** It is sold rather than published. A mapping written from other people's summaries is the one thing the rest of this project does not do |
+| Whether to leave the operating-model side unaddressed | **No.** The NIST AI Risk Management Framework is published free by its author, covers the same ground, and was downloaded and hashed like every other source |
+| Which parts | **GOVERN 1.5, 1.6, 1.7 and 2.1.** 1.6 treats the inventory itself as a control. The other three cover review cadence, taking a system out of use, and named responsibility |
+
+**Result.** All five of the things the field set page says it does not do are
+now mapped to a published text that does. Four to the EU regulation, three to
+the NIST framework, with overlap. The page states the mapping beside each gap.

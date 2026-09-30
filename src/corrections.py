@@ -19,10 +19,10 @@ from __future__ import annotations
 CORRECTIONS = [
     {
         "id": "oversight_denominator",
-        "date": "2026-10-01",
+        "date": "2026-09-30",
         "prominent": True,
         "pages": ["index.html", "register.html"],
-        "heading": "Correction, 2026-10-01",
+        "heading": "Correction, 2026-09-30",
         "template": (
             "An earlier version of this site counted the nine oversight questions across "
             "all {flagged} entries marked high-impact and reported {flagged_none} with none "
@@ -43,13 +43,13 @@ CORRECTIONS = [
     },
     {
         "id": "date_denominator",
-        "date": "2026-10-01",
+        "date": "2026-09-30",
         # Not prominent: this figure sits inside a section on the gaps page and
         # the correction is printed there, beside it, rather than at the top of
         # a page most of its readers arrive at for something else.
         "prominent": False,
         "pages": ["gaps.html"],
-        "heading": "Correction, 2026-10-01",
+        "heading": "Correction, 2026-09-30",
         "template": (
             "The one date field was reported as a share of every row in the register. The "
             "dictionary asks for it only of entries at the pilot and deployed stages. "

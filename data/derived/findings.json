@@ -1,11 +1,11 @@
 {
-  "disclaimer": "This is an independent portfolio project. It uses publicly available AI use case inventories published by the US Office of Management and Budget (public domain, 17 U.S.C. \u00a7105) and the Government of Ontario (Open Government Licence \u2013 Ontario). Vendor and product names have been removed. Findings describe patterns in the published data and are not claims about any agency's conduct. This is not legal advice. Not affiliated with or endorsed by any government body.",
+  "disclaimer": "This is an independent portfolio project. It uses publicly available AI use case inventories published by the US Office of Management and Budget (public domain, 17 U.S.C. \u00a7105) and the Government of Ontario (Open Government Licence \u2013 Ontario), and the UK Government's Algorithmic Transparency Recording Standard template (\u00a9 Crown copyright, Open Government Licence v3.0). Vendor and product names have been removed. Findings describe patterns in the published data and are not claims about any agency's conduct. This is not legal advice. Not affiliated with or endorsed by any government body.",
   "authorship": "Governance design by Sana Ahmad.",
   "generated": "2026-09-30",
   "corrections": {
     "oversight_denominator": {
-      "date": "2026-10-01",
-      "heading": "Correction, 2026-10-01",
+      "date": "2026-09-30",
+      "heading": "Correction, 2026-09-30",
       "prominent": true,
       "pages": [
         "index.html",
@@ -14,8 +14,8 @@
       "text": "An earlier version of this site counted the nine oversight questions across all 445 entries marked high-impact and reported 317 with none answered. The register's own dictionary asks those nine only of high-impact entries that are deployed. Counted against the 227 entries it does ask, the figure is 101, or 44.5%. The gap is smaller and it is still there. Every other field's denominator was then checked against the dictionary. The same fault was found in the one date field and corrected with it. The check is recorded in governance/corrections.md."
     },
     "date_denominator": {
-      "date": "2026-10-01",
-      "heading": "Correction, 2026-10-01",
+      "date": "2026-09-30",
+      "heading": "Correction, 2026-09-30",
       "prominent": false,
       "pages": [
         "gaps.html"

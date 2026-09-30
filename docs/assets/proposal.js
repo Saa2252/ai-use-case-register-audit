@@ -340,8 +340,34 @@
       "<p>" + esc(num(t.more_unfinished)) + " of the " + esc(num(t.entries_answering)) +
       " entries that answer at all give more answers saying a step is under way " +
       "than saying it was done.</p>" +
-      "<p>" + esc(t.what_this_project_will_not_say) + "</p>" +
+      clock(t.the_clock) +
       '<p class="caution-take"><strong>' + esc(t.consequence) + "</strong></p>";
+  }
+
+  /* What the memorandum behind these fields actually says.
+
+     This section used to decline to state the dates, because the project could
+     not check them against a file it held. The memorandum was then downloaded,
+     hashed and recorded like every other source, so the dates below are read
+     from a file and the sections are named. The rule for reading the answer was
+     written down before the memorandum was read, and it is printed here with
+     the answer so a reader can see it was not chosen to suit the finding. */
+  function clock(c) {
+    if (!c) { return ""; }
+    var rows = [
+      ["The memorandum", c.source],
+      ["The date it sets", c.deadline],
+      ["Why it bears on these nine fields", c.why_it_bears_on_these_fields],
+      ["What the register says about its own timing", c.what_the_register_says_about_its_own_timing],
+      ["The rule, written down before the memorandum was read", c.rule_set_in_advance],
+      ["The answer", c.answer],
+      ["What would change it", c.what_would_change_it],
+      ["What it still does not show", c.what_it_still_does_not_show]
+    ];
+    return '<div class="clockbox"><h3>' + esc(c.heading) + "</h3>" +
+      '<dl class="clocklist">' + rows.map(function (r) {
+        return "<dt>" + esc(r[0]) + "</dt><dd>" + esc(r[1]) + "</dd>";
+      }).join("") + "</dl></div>";
   }
 
   function drawNotCovered(d) {
@@ -352,13 +378,26 @@
       '<h2 class="h-caution">' + esc(n.heading) + "</h2>" +
       "<p class=\"caution-lead\">" + esc(n.lead) + "</p>" +
       '<ul class="misslist">' + n.missing.map(function (m) {
-        return "<li><strong>" + esc(m.name) + "</strong> " + esc(m.why) + "</li>";
+        // Each gap now says which published text covers it, so the section
+        // names what is missing and where it has already been solved rather
+        // than only the first.
+        return "<li><strong>" + esc(m.name) + "</strong> " + esc(m.why) +
+          (m.covered_by ? '<span class="covered"><span class="covered-label">' +
+            "Covered by</span> " + esc(m.covered_by) + "</span>" : "") + "</li>";
       }).join("") + "</ul>" +
       "<p>" + esc(n.coverage) + "</p>" +
       "<p>" + esc(n.comparators_lead) + "</p>" +
       '<ul class="misslist">' + n.comparators.map(function (c) {
-        return "<li><strong>" + esc(c.name) + "</strong> " + esc(c.what) +
-          " <em>" + esc(c.why) + "</em></li>";
+        // Whether a text was read is marked on the item itself. A comparator
+        // nobody opened and one read from the publisher's own file are not the
+        // same kind of statement and should not look alike.
+        return '<li class="' + (c.read ? "was-read" : "not-read") + '">' +
+          '<span class="readmark">' + (c.read ? "Read" : "Not read") + "</span>" +
+          "<strong>" + esc(c.name) + "</strong> " + esc(c.what) +
+          " <em>" + esc(c.why) + "</em>" +
+          (c.what_it_settles ? '<span class="covered"><span class="covered-label">' +
+            "What it settles</span> " + esc(c.what_it_settles) + "</span>" : "") +
+          "</li>";
       }).join("") + "</ul>" +
       '<p class="caution-take"><strong>' + esc(n.consequence) + "</strong></p>";
   }

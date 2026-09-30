@@ -9,7 +9,7 @@ it rather than restating it.
 Two things changed when it was written.
 
 The disclaimer in the header now names the UK source, which the owner added on
-2026-10-01.
+2026-09-30.
 
 The nine oversight columns no longer answer "no" for every entry. The register
 asks them only of high-impact entries that are deployed, and a pack that

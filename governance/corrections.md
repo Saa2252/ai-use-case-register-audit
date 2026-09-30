@@ -19,7 +19,7 @@ every other number on this site, so a correction cannot itself go stale.
 |---|---|
 | Found | 2026-09-30 |
 | Corrected in the analysis | 2026-09-30 |
-| Correction published | 2026-10-01 |
+| Correction published | 2026-09-30 |
 | Published as | 317 of the 445 entries marked high-impact have none of the nine answered |
 | Now published as | 101 of the 227 entries the register asks, which is 44.5% of them |
 | Where it ran | `index.html` and `register.html` |
@@ -45,8 +45,8 @@ put to.
 
 | | |
 |---|---|
-| Found | 2026-10-01, during the check below |
-| Corrected and published | 2026-10-01 |
+| Found | 2026-09-30, during the check below |
+| Corrected and published | 2026-09-30 |
 | Published as | usable dates cover 31.7% of the register |
 | Now published as | usable dates cover 67.6% of the 1,480 entries the register asks |
 | Where it ran | `gaps.html`, and the evidence strip on `index.html` |
@@ -66,7 +66,7 @@ rather than two thirds of the whole register.
 
 ## 3. The check of every other denominator
 
-Run 2026-10-01, after the owner asked whether the same fault sat anywhere else.
+Run 2026-09-30, after the owner asked whether the same fault sat anywhere else.
 
 **Method.** Every field's `Required:` clause was read from the publisher's own
 dictionary, `data/raw/omb2025_data_dictionary.json`, and turned into a rule the

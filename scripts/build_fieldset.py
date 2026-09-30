@@ -422,20 +422,63 @@ def main() -> None:
             "heading": "Some of these blanks may be a clock, not a gap",
             "lead": "A blank can mean nobody recorded the answer. It can also mean "
                     "the work is under way and the answer does not exist yet. This "
-                    "project cannot tell those apart, and the figures lean toward "
-                    "the second more than the headline suggests.",
+                    "project cannot tell those apart entry by entry, and the figures "
+                    "lean toward the second more than the headline suggests.",
             "in_progress_share": _resolve(_findings_store(), "M4.oversight_answers.share.in progress"),
             "entries_answering": _resolve(_findings_store(), "M4.oversight_answers.entries_answering_at_all"),
             "more_unfinished": _resolve(_findings_store(), "M4.oversight_answers.of_those_more_unfinished_than_done"),
             "reading": "of every answer the nine oversight fields contain says a "
                        "step is under way rather than finished.",
-            "what_this_project_will_not_say": "The register's own dictionary cites the "
-                "White House memorandum these fields come from, and that memorandum "
-                "sets dates by which agencies are to document this work. This project "
-                "does not state those dates, because it cannot check them against any "
-                "file it holds, and it publishes nothing it cannot check. What it can "
-                "say is that the file records no date by which any answer was due, so "
-                "an outside reader cannot tell a gap from a clock.",
+            # What the memorandum actually says, read from the memorandum.
+            #
+            # This section used to decline to state these dates, on the ground
+            # that the project could not check them against a file it holds.
+            # The answer to that was not to relax the rule. It was to download
+            # the memorandum, hash it and record it like every other source,
+            # which is what happened on 30 September 2026. The dates below are
+            # read from that file and the sections are cited so a reader can
+            # check them.
+            "the_clock": {
+                "heading": "What the memorandum says, and what it settles",
+                "source": "OMB Memorandum M-25-21, issued 3 April 2025. The register's own "
+                          "data dictionary cites it for the definition of high-impact AI, and "
+                          "the register's own README links to it.",
+                "deadline": "Section 4(a)(i) gives agencies 365 days from the issuance of the "
+                            "memorandum to document implementation of the minimum practices in "
+                            "Section 4(b) for high-impact uses of AI. That date is 3 April 2026.",
+                "why_it_bears_on_these_fields": "Section 4(b) is the list the nine fields come "
+                    "from. Pre-deployment testing, an impact assessment, ongoing monitoring, "
+                    "training for the people who use it, human oversight, a route of appeal, "
+                    "and consultation with the public are each named there. Two more of the "
+                    "nine sit inside the impact assessment itself: potential impacts at "
+                    "Section 4(b)(ii)(C) and the result of an independent review at Section "
+                    "4(b)(ii)(F).",
+                "what_the_register_says_about_its_own_timing": "The register's README states "
+                    "that agency submissions were due to OMB on 22 December 2025 and that the "
+                    "public reporting deadline was 28 January 2026. Both are earlier than "
+                    "3 April 2026. It also states that updates to the repository are processed on a "
+                    "rolling basis, and this project downloaded the file on 22 September 2026.",
+                # The rule was written down before the memorandum was read, so
+                # the answer could not be chosen to suit the finding.
+                "rule_set_in_advance": "If the deadline comes before the snapshot, a blank is "
+                                       "read as a gap. If it comes after, a blank is read as a "
+                                       "clock that has not run out.",
+                "answer": "The deadline comes before the snapshot. The file was downloaded "
+                          "more than five months after 3 April 2026, so by the rule set in "
+                          "advance these blanks are read as a gap rather than as work that was "
+                          "not yet due.",
+                "what_would_change_it": "The deadline also comes after the date agencies "
+                    "submitted, and the repository takes updates on a rolling basis. So an "
+                    "entry submitted in December 2025 and never touched since would still be "
+                    "inside its clock. Telling those entries from the rest needs a record of "
+                    "when each entry was last updated, and the register has no such field. "
+                    "That is this project's third finding, and it is the reason the second "
+                    "field in this set exists.",
+                "what_it_still_does_not_show": "The memorandum requires the work to be "
+                    "documented and the agency to be ready to report it through any of three "
+                    "routes, of which this inventory is one. A blank here is not evidence "
+                    "about the work itself.",
+            },
             "consequence": "Read the blanks as what reached the file on the day it was "
                            "downloaded, not as work that was not done.",
         },
@@ -446,47 +489,90 @@ def main() -> None:
                     "a document rather than a control.",
             "missing": [
                 {"name": "A named person accountable for each entry",
-                 "why": "A field with no owner is nobody's to keep current."},
+                 "why": "A field with no owner is nobody's to keep current.",
+                 "covered_by": "NIST AI 100-1, GOVERN 2.1, which asks that roles and "
+                               "responsibilities be documented. The UK standard names a "
+                               "senior responsible owner on the record itself."},
                 {"name": "What forces an update, and how often one is due",
                  "why": "Two of the ten ask when an entry was last checked and what "
-                        "changed. Neither makes anyone check it."},
+                        "changed. Neither makes anyone check it.",
+                 "covered_by": "NIST AI 100-1, GOVERN 1.5, which asks that periodic review "
+                               "be planned and its frequency decided. Annex VIII of the EU "
+                               "regulation requires registered information to be kept up to "
+                               "date after it is first entered."},
                 {"name": "Approval gates tied to buying and starting a system",
                  "why": "A register filled in after the fact records decisions rather "
-                        "than shaping them."},
+                        "than shaping them.",
+                 "covered_by": "Article 49 of the EU regulation, which requires registration "
+                               "before a system is placed on the market or put into service. "
+                               "The entry is a condition of use rather than a record made "
+                               "afterwards."},
                 {"name": "A state for a system that has been switched off",
-                 "why": "Without one, a register grows and never empties."},
+                 "why": "Without one, a register grows and never empties.",
+                 "covered_by": "Annex VIII, Section A, point 7 of the EU regulation, whose "
+                               "status field includes no longer on the market, no longer in "
+                               "service, and recalled. NIST AI 100-1, GOVERN 1.7, asks for a "
+                               "process for taking a system out of use."},
                 {"name": "A link from each answer to the evidence behind it",
                  "why": "Every field here records a claim. None records where the "
-                        "claim can be checked."},
+                        "claim can be checked.",
+                 "covered_by": "Annex VIII, Section C of the EU regulation, where a public "
+                               "body registering a use gives the address of the provider's "
+                               "entry and summaries of two named assessments."},
             ],
             "coverage": "There is also a limit no register design can solve from "
                         "outside. A published list shows what an organisation wrote "
                         "down. It cannot show systems nobody declared, or the AI "
                         "features that arrive inside software bought for something "
                         "else. Both are outside anything this project can see.",
-            "comparators_lead": "The comparison here is the United Kingdom's "
-                                "recording standard. Two other places ask for similar "
-                                "records and neither was read, so the ten fields are "
-                                "not compared to either.",
+            "comparators_lead": "The comparison in the field set is the United Kingdom's "
+                                "recording standard. Three other published texts bear on what "
+                                "a register records and how one is kept. Two were read for "
+                                "this section, from the publisher's own text, downloaded and "
+                                "recorded by hash like every other source. One was not, and "
+                                "the reason is stated.",
             "comparators": [
                 {"name": "The European Union's rule on entering AI in a public database",
-                 "what": "Before certain AI systems can be used in the EU, they have to "
-                         "be entered in a database anyone can look at.",
-                 "why": "It is a register with a different purpose: it decides who has "
-                        "to appear on it, which neither the US list nor the UK "
-                        "standard does."},
+                 "read": True,
+                 "what": "Regulation (EU) 2024/1689, read in the consolidated text as at "
+                         "27 July 2026. Article 49 says who has to register and when. "
+                         "Article 71 sets up the database and says which parts of it the "
+                         "public can see. Annex VIII is the field list.",
+                 "why": "It is a register with a different purpose. Registration comes "
+                        "before use rather than after it, and the regulation decides who "
+                        "has to appear on the list, which neither the US list nor the UK "
+                        "standard does.",
+                 "what_it_settles": "Four of the five things this field set leaves out are "
+                                    "written into its field list or its timing."},
+                {"name": "The United States framework for managing AI risk, NIST AI 100-1",
+                 "read": True,
+                 "what": "A framework published free by the National Institute of Standards "
+                         "and Technology. Its GOVERN function sets out what an organisation "
+                         "should have in place around AI, rather than what a record should "
+                         "contain.",
+                 "why": "It treats the inventory as a control rather than a document. "
+                        "GOVERN 1.6 asks that mechanisms be in place to inventory AI systems "
+                        "and be resourced according to risk. GOVERN 1.5 and 1.7 cover review "
+                        "and taking a system out of use.",
+                 "what_it_settles": "The part this field set leaves out, which is how a "
+                                    "register is kept up rather than what it records."},
                 {"name": "The international standard for managing AI, ISO/IEC 42001",
-                 "what": "A published standard describing how an organisation should "
-                         "run its AI oversight. An organisation can be checked against "
-                         "it by an outside auditor.",
-                 "why": "It covers the part this field set leaves out, which is how a "
-                        "register is kept up rather than what it records."},
+                 "read": False,
+                 "what": "A published standard describing how an organisation should run its "
+                         "AI oversight. An organisation can be checked against it by an "
+                         "outside auditor.",
+                 "why": "It is sold rather than published. Every other source named on this "
+                        "site was downloaded, hashed and recorded, and nothing here is "
+                        "written from a text this project has not read. A mapping built from "
+                        "other people's summaries of a standard would be the one thing the "
+                        "rest of this project does not do.",
+                 "what_it_settles": "Not stated, because it was not read."},
             ],
             "consequence": "Treat this as a proposal about what a register records, "
                            "traced to one published file and compared against one "
-                           "published standard. It is not an operating "
-                           "model, and it has not been checked against the standards "
-                           "that set one.",
+                           "published standard. It is not an operating model. Two "
+                           "published texts that do cover the operating side were read "
+                           "and are mapped against it above.",
         },
         # The same corrections the findings carry, so a page reading either
         # file renders one text rather than two that can drift.

@@ -851,3 +851,34 @@ ol.subfields li { font-size: .9rem; margin: .12rem 0; break-inside: avoid; }
 }
 .bottomline p + p { margin-top: .5rem; }
 .bottomline p:not(.bottomline-label) { font-size: 1rem; line-height: 1.55; margin: 0; }
+
+/* --- What the memorandum says --------------------------------------------
+
+   A short term list rather than prose, because each line is a separate fact
+   with a separate source and a reader should be able to check them one at a
+   time. The rule sits in the list above the answer, so the order on the page
+   is the order the reasoning ran in. */
+.clockbox { margin: 1rem 0 .4rem; }
+.clockbox h3 { font-size: .95rem; margin: 0 0 .5rem; }
+.clocklist { margin: 0; display: grid; gap: .45rem; }
+.clocklist dt {
+  font-size: .72rem; font-weight: 600; letter-spacing: .03em;
+  text-transform: uppercase; color: var(--ink-soft);
+}
+.clocklist dd { margin: .1rem 0 0; font-size: .88rem; line-height: 1.55; }
+
+/* A text this project opened, against one it did not. */
+.misslist .readmark {
+  display: inline-block; font-size: .64rem; font-weight: 600; letter-spacing: .05em;
+  text-transform: uppercase; border: 1px solid currentColor; border-radius: 2px;
+  padding: .03rem .3rem; margin-right: .4rem; vertical-align: .08em;
+}
+.misslist li.not-read .readmark { opacity: .65; border-style: dashed; }
+.misslist .covered {
+  display: block; margin-top: .3rem; font-size: .82rem; line-height: 1.5;
+  color: var(--ink-soft);
+}
+.misslist .covered-label {
+  font-weight: 600; text-transform: uppercase; font-size: .66rem;
+  letter-spacing: .04em; margin-right: .3rem;
+}

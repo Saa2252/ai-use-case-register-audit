@@ -24,14 +24,26 @@ section 3.1.**
 | US OMB 2024 Federal AI Use Case Inventory | https://github.com/ombegov/2024-Federal-AI-Use-Case-Inventory | Same | **Schema reference only.** Field names, to establish which questions each year asks. No row-level use. See decision-rules.md section 11 |
 | UK Algorithmic Transparency Recording Standard, template v4.0 | https://www.gov.uk/government/publications/algorithmic-transparency-template | Open Government Licence v3.0 | **Register design comparison.** The published template only: the field list organisations complete. No UK records are downloaded or read |
 | Government of Ontario, AI use cases in the OPS | https://data.ontario.ca/dataset/artificial-intelligence-ai-use-cases-in-the-ontario-public-service | Open Government Licence - Ontario | **Reduced on 30 September 2026** to one observation: that it names no supplier in any published field. No longer the comparator. See decision-rules.md section 24 |
+| OMB Memorandum M-25-21, 3 April 2025 | https://www.whitehouse.gov/wp-content/uploads/2025/02/M-25-21-Accelerating-Federal-Use-of-AI-through-Innovation-Governance-and-Public-Trust.pdf | US government work, public domain under 17 U.S.C. §105 | **Added 30 September 2026.** The memorandum the 2025 data dictionary cites for the definition of high-impact AI, and that the 2025 README links to. Read for Section 4(a)(i), which sets the date, and Section 4(b), which is the list the nine oversight fields come from. See decision-rules.md section 26 |
+| Regulation (EU) 2024/1689, consolidated text as at 27 July 2026 | https://eur-lex.europa.eu/eli/reg/2024/1689/2026-07-27/eng | © European Union, reuse permitted under Commission Decision 2011/833/EU | **Added 30 September 2026.** Read for Article 49, Article 71 and Annex VIII. Not a comparator for the field set, which stays the UK standard. Used only in the section naming what the field set does not cover |
+| NIST AI Risk Management Framework 1.0, NIST AI 100-1 | https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf | US government work, public domain under 17 U.S.C. §105 | **Added 30 September 2026.** Read for the GOVERN subcategories bearing on keeping an inventory: 1.5, 1.6, 1.7 and 2.1. Stands in for ISO/IEC 42001, which is sold rather than published and was not read |
 
 Both OMB repositories were on branch `main` at download. Neither carries a
 notice of archival, relocation or supersession.
 
 ## 2. Downloaded files
 
-All files downloaded by script (`src/provenance.py`), never by hand. Machine
-manifest at `data/raw/manifest.json`, which is not committed.
+All files downloaded by script and never by hand. Machine manifest at
+`data/raw/manifest.json`, which is not committed.
+
+**Corrected 30 September 2026.** This said the downloads were done by script,
+and `src/provenance.py` does the fetching and hashing, but nothing in the
+repository declared the addresses. The notebook's Phase 1 cell said the step
+was not implemented, so a reader following the README could not have
+reproduced the raw files. Every source is now declared in `scripts/acquire.py`,
+which downloads anything absent, re-hashes everything present and rewrites the
+manifest. The UK template had also been downloaded outside the manifest on
+30 September 2026 and was therefore outside T7 until now.
 
 | File | Source | Download date | SHA-256 | Bytes | Note |
 |---|---|---|---|---|---|
@@ -48,6 +60,9 @@ manifest at `data/raw/manifest.json`, which is not committed.
 | `uk_atrs_template_v4.xlsx` | UK ATRS | 2026-09-30 | `11e9f903e9c82525c1fc92ad66a59ae7e98d378f12c13311b8193a7fd0cb2eab` | 276,411 | The published field template, v4.0. Read for its field list and its lists of allowed answers. Downloaded by `src/provenance.py` like every other file |
 | `ontario_ai_use_cases_en.csv` | Ontario | 2026-09-22 | `f5bbd7d0c2b14d3f1a2f5ea9a982e7ef28d5b59a83a1f483104d9c98089ade7a` | 2,182 | English, the version analysed |
 | `ontario_ai_use_cases_fr.csv` | Ontario | 2026-09-22 | `6d0a01e8bc5df75c89d35a935719e7b9004adb24dd8510239ef7733bf9700a7a` | 3,037 | French translation, NOT analysed, recorded so the register is not read as twice its size |
+| `omb_m_25_21.pdf` | OMB memorandum | 2026-09-30 | `0aab0aa4eaeac969ed93894d3940c5dc9d0b7377048171b164a439e8b9e49813` | 2,629,748 | The memorandum itself, not a summary of it. Two secondary write-ups gave different dates, which is the argument for holding the primary |
+| `eu_ai_act_consolidated_20260727.xhtml` | EU AI Act | 2026-09-30 | `5e7719f77e8a606b257dc25958ee3222c4383300a5a34270a5b850a2ce8b8715` | 851,286 | CELEX 02024R1689-20260727. Fetched from the Union's own repository at publications.europa.eu, because EUR-Lex answers a scripted request with a status of 202 and an empty body |
+| `nist_ai_rmf_100_1.pdf` | NIST AI RMF | 2026-09-30 | `7576edb531d9848825814ee88e28b1795d3a84b435b4b797d3670eafdc4a89f1` | 1,946,127 | AI Risk Management Framework 1.0 |
 
 ### Encoding
 
@@ -301,7 +316,7 @@ Required by the licence and by S1. The Open Government Licence v3.0 sets this
 wording for use where the Information Provider publishes no attribution
 statement of its own. Copied verbatim from the licence at
 https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/ on
-1 October 2026.
+30 September 2026.
 
 > Contains public sector information licensed under the Open Government Licence v3.0.
 

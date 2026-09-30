@@ -44,19 +44,36 @@ def sha256_of(path: Path) -> str:
     return h.hexdigest()
 
 
-def fetch(url: str, local_name: str, source: str, note: str = "") -> Download:
+def fetch(url: str, local_name: str, source: str, note: str = "",
+          headers: dict[str, str] | None = None) -> Download:
     """Download one file into data/raw/ and record its provenance.
 
     Never overwrites silently: if the file exists, it is hashed and returned as
     is, so a re-run does not disturb what was already verified (S7).
+
+    `headers` adds request headers. The European Union's official repository
+    serves a document in several formats and languages from one address and
+    chooses between them by the Accept and Accept-Language headers, so a
+    source there cannot be fetched without them. An
+    empty download is treated as a failure rather than written, because a
+    server that answers a script with an empty body has refused it, and a
+    zero-byte file would otherwise be hashed and recorded as if it were the
+    source.
     """
     RAW.mkdir(parents=True, exist_ok=True)
     dest = RAW / local_name
 
     if not dest.exists():
-        req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
-        with urllib.request.urlopen(req, timeout=180) as r, dest.open("wb") as out:
-            out.write(r.read())
+        sent = {"User-Agent": USER_AGENT}
+        sent.update(headers or {})
+        req = urllib.request.Request(url, headers=sent)
+        with urllib.request.urlopen(req, timeout=180) as r:
+            body = r.read()
+        if not body:
+            raise RuntimeError(
+                f"{url} returned an empty body. The host answered the request and sent "
+                "nothing, which is a refusal, not a file.")
+        dest.write_bytes(body)
 
     return Download(
         local_name=local_name,

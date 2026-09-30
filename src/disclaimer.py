@@ -8,7 +8,7 @@ against the constants below.
 Only the owner may change DISCLAIMER.
 """
 
-# Changed by the owner on 2026-10-01, the only change since Phase 0. The UK
+# Changed by the owner on 2026-09-30, the only change since Phase 0. The UK
 # Government's recording standard became a source on 2026-09-30 and the text
 # named only the two earlier ones. The standard is a template rather than an
 # inventory, so it is named as its own clause rather than added to the list of
@@ -40,7 +40,7 @@ ONTARIO_LICENCE_URL = "https://www.ontario.ca/page/open-government-licence-ontar
 
 # The Open Government Licence v3.0 sets this wording for use where the
 # Information Provider gives no attribution statement of its own. Copied
-# verbatim from the licence at nationalarchives.gov.uk on 2026-10-01. Do not
+# verbatim from the licence at nationalarchives.gov.uk on 2026-09-30. Do not
 # paraphrase it (S1).
 UK_ATTRIBUTION = (
     "Contains public sector information licensed under the Open Government Licence v3.0."
