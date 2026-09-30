@@ -14,7 +14,16 @@ sys.path.insert(0, str(REPO_ROOT))
 
 from src.statements import apply as apply_statements  # noqa: E402
 from src.disclaimer import (AUTHORSHIP, DISCLAIMER, ONTARIO_ATTRIBUTION,
-                            ONTARIO_LICENCE_URL)
+                            ONTARIO_LICENCE_URL, UK_ATTRIBUTION, UK_LICENCE_URL)
+
+# Each licence that asks for an attribution statement, and the pages it goes
+# on. A page carries the statement for every source whose material it shows.
+# Both statements are copied verbatim from their licence pages and neither is
+# paraphrased (S1).
+ATTRIBUTIONS = {
+    "ontario": (ONTARIO_ATTRIBUTION, ONTARIO_LICENCE_URL),
+    "uk": (UK_ATTRIBUTION, UK_LICENCE_URL),
+}
 
 DOCS = REPO_ROOT / "docs"
 # The site has two halves, and the navigation says so. Three pages read the
@@ -68,7 +77,7 @@ def data_stamp() -> str:
     return "".join(chr(ord("a") + int(ch, 16)) for ch in digest.hexdigest()[:8])
 
 
-def page(file, title, heading, lede, body, scripts="", ontario=False, figures=True,
+def page(file, title, heading, lede, body, scripts="", licences=(), figures=True,
          page_class=""):
     links = []
     for index, (group_label, entries) in enumerate(NAV_GROUPS):
@@ -81,10 +90,11 @@ def page(file, title, heading, lede, body, scripts="", ontario=False, figures=Tr
             links.append('        <a href="' + href + '"' + current + ">" + label + "</a>")
         links.append("      </span>")
         links.append("    </div>")
-    ontario_line = ""
-    if ontario:
-        ontario_line = ('\n  <p id="ontario-attribution">' + ONTARIO_ATTRIBUTION +
-                        ' <a href="' + ONTARIO_LICENCE_URL + '">Licence</a></p>')
+    attribution_lines = ""
+    for name in licences:
+        statement, url = ATTRIBUTIONS[name]
+        attribution_lines += ('\n  <p id="' + name + '-attribution">' + statement +
+                              ' <a href="' + url + '">Licence</a></p>')
     return (
         '<!DOCTYPE html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n'
         '<meta name="viewport" content="width=device-width, initial-scale=1">\n'
@@ -96,7 +106,7 @@ def page(file, title, heading, lede, body, scripts="", ontario=False, figures=Tr
         "  <nav>\n" + "\n".join(links) + "\n  </nav>\n</header>\n\n"
         "<main" + (' class="' + page_class + '"' if page_class else "") + ">\n  <h2>" + heading + "</h2>\n"
         + ('  <p class="lede">' + lede + "</p>\n" if lede else "") + apply_statements(body) + "\n</main>\n\n"
-        '<footer>\n  <p id="disclaimer">' + DISCLAIMER + "</p>" + ontario_line +
+        '<footer>\n  <p id="disclaimer">' + DISCLAIMER + "</p>" + attribution_lines +
         "\n  <p>" + AUTHORSHIP + "</p>\n</footer>\n\n</div>\n"
         + (('<script src="' + stamp("assets/figures.js") + '"></script>') if figures else "")
         + scripts + "\n</body>\n</html>\n"
@@ -116,7 +126,7 @@ def main() -> None:
 "What this register does not record, and where it is easy to read wrongly.",
         (bodies / "view2.html").read_text(),
         scripts='\n<script src="' + stamp("assets/views.js") + '"></script>'
-                '\n<script src="' + stamp("assets/summary.js") + '"></script>', ontario=True))
+                '\n<script src="' + stamp("assets/summary.js") + '"></script>', licences=("ontario", "uk")))
     (DOCS / "obligations.html").write_text(page(
         "obligations.html", "Oversight pack | AI Use Case Register Audit",
         "If someone asked about the riskiest systems",
@@ -138,6 +148,10 @@ def main() -> None:
         # rules that carry that meaning are scoped to the page rather than let
         # loose on the three audit pages.
         page_class="design-page",
+        # Every field card on this page states what the UK standard asks, read
+        # from its published template, so the page carries that licence's
+        # attribution statement.
+        licences=("uk",),
         scripts='\n<script src="' + stamp("assets/proposal.js") + '"></script>'))
     # Counted, not written out, so the message cannot drift from the fact when
     # a page is added or removed.

@@ -19,6 +19,7 @@ def store() -> dict:
     findings = json.loads((DOCS / "data" / "findings.json").read_text())
     for f in findings["findings"]:
         data[f["measure"]] = f
+    data["corrections"] = findings.get("corrections", {})
     reuse = json.loads((DOCS / "data" / "reusability_findings.json").read_text())
     for f in reuse["findings"]:
         data[f["id"]] = f

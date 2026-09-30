@@ -25,6 +25,8 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
+from src import conditionality as COND
+
 REPO_ROOT = Path(__file__).resolve().parent.parent
 RAW = REPO_ROOT / "data" / "raw"
 DERIVED = REPO_ROOT / "data" / "derived"
@@ -227,6 +229,49 @@ def m2_preparation(reg: pd.DataFrame) -> dict:
     }
 
 
+def completeness_where_asked(reg: pd.DataFrame) -> dict:
+    """Completeness measured against the entries the register asks each field of.
+
+    A share over all 3,611 rows is the right figure for a field the register
+    requires of everything, and the wrong one for a field it requires only of,
+    say, pilot and deployed entries. Twenty-two of this register's fields carry
+    a condition. Reported over every row, each of those understates how filled
+    in it is by counting entries the question was never put to.
+
+    This project published exactly that mistake on the nine oversight fields,
+    corrected it there, and had not looked at the rest. This is the rest.
+
+    Entries where the field the condition depends on is itself blank are
+    reported separately and are in neither group, because the file does not say
+    which side they belong on.
+    """
+    always, text_only, types = _empty_rule()
+    dictionary = COND._dictionary()
+    out = {}
+    for column in reg.columns:
+        asked, undetermined = COND.asked_of(reg, column, dictionary)
+        subset = reg.loc[asked, column]
+        filled = int((~subset.map(
+            lambda v: is_empty(column, v, always, text_only, types))).sum())
+        asked_count = int(asked.sum())
+        out[column] = {
+            # Two columns here are this project's own, added when the register
+            # was scrubbed. They carry no Required clause because the publisher
+            # never asked them, and they are marked rather than left out, so
+            # the table covers every column a reader can see.
+            "in_the_publishers_dictionary": column in dictionary,
+            "required": COND.required_clause(column, dictionary),
+            "conditional": COND.condition(column, dictionary)["kind"] not in
+                           {"always", "optional", "not_stated"},
+            "asked_of": asked_count,
+            "filled": filled,
+            "share": round(filled / asked_count * 100, 1) if asked_count else None,
+            "not_asked": int(len(reg) - asked_count - int(undetermined.sum())),
+            "undetermined": int(undetermined.sum()),
+        }
+    return out
+
+
 def m2_completeness(reg: pd.DataFrame) -> dict:
     """What the register holds and what is blank. Within one year only."""
     hi = reg[reg["is_high_impact"] == "High-impact"]
@@ -235,8 +280,13 @@ def m2_completeness(reg: pd.DataFrame) -> dict:
         "question": "Does the register hold everything it should, and is each entry filled in?",
         "rule_applied": "Completeness is reported within one year only. The earlier inventory is a schema reference and its rows are not read.",
         "rows": int(len(reg)),
+        # Kept, and no longer the only view. For a field the register asks of
+        # every entry these two agree. For the twenty-two that carry a
+        # condition they do not, and the second is the one that describes an
+        # unanswered question.
         "field_completeness_all_rows": completeness(reg),
         "field_completeness_high_impact": completeness(hi),
+        "field_completeness_where_asked": completeness_where_asked(reg),
         "completeness_shape": m2_completeness_shape(reg),
         "reconciliation": {
             "figures_that_match": {"individually reported use cases": 3611,
@@ -277,6 +327,10 @@ def m2_completeness(reg: pd.DataFrame) -> dict:
             "A published list can only show what was declared, so nothing here says anything about "
             "systems nobody wrote down. Two fields store an empty answer as a pair of brackets that "
             "a spreadsheet counts as an answer, and every figure here treats them as empty. "
+            "Twenty-two of this register's fields are required only under a condition, so a "
+            "share of all rows counts entries the question was never put to. Both views are "
+            "published and the one measured against the entries the register asks is the one "
+            "that describes an unanswered question. "
             + FILLED_FIELD
         ),
     }
@@ -290,6 +344,17 @@ def m3_freshness(reg: pd.DataFrame) -> dict:
     od = reg["operational_date"].dropna().astype(str).str.strip()
     od = od[~od.str.lower().isin(always)]
     parsed = pd.to_datetime(od, errors="coerce", format="mixed")
+    # The register requires this date "for pilot and deployed use cases". Every
+    # share below that divides by all 3,611 rows counts entries it never asks,
+    # which is the same defect this project corrected on the nine oversight
+    # fields and had not looked for anywhere else.
+    asked, undetermined = COND.asked_of(reg, "operational_date")
+    asked_count = int(asked.sum())
+    in_scope = reg.loc[asked, "operational_date"].dropna().astype(str).str.strip()
+    in_scope = in_scope[~in_scope.str.lower().isin(always)]
+    in_scope_parsed = pd.to_datetime(in_scope, errors="coerce", format="mixed")
+    outside = reg.loc[~asked, "operational_date"].dropna().astype(str).str.strip()
+    outside = outside[~outside.str.lower().isin(always)]
     return {
         "measure": "M3",
         "question": "How old is the information in each entry, and what would trigger a re-check?",
@@ -308,6 +373,27 @@ def m3_freshness(reg: pd.DataFrame) -> dict:
             "values_that_cannot_be_resolved": int(parsed.isna().sum()),
             "usable_dates_as_share_of_all_rows": round(int(parsed.notna().sum()) / len(reg) * 100, 1),
             "values_dated_after_the_download_date": int((parsed > pd.Timestamp("2026-09-23")).sum()),
+        },
+        "operational_date_where_asked": {
+            "required": COND.required_clause("operational_date"),
+            "entries_asked": asked_count,
+            "entries_not_asked": int(len(reg) - asked_count - int(undetermined.sum())),
+            "entries_undetermined": int(undetermined.sum()),
+            "rows_with_a_value": int(len(in_scope)),
+            "share_of_entries_asked": round(len(in_scope) / asked_count * 100, 1),
+            "values_that_parse": int(in_scope_parsed.notna().sum()),
+            "usable_dates_as_share_of_entries_asked":
+                round(int(in_scope_parsed.notna().sum()) / asked_count * 100, 1),
+            "entries_not_asked_that_carry_a_date_anyway": int(len(outside)),
+            "statement": (
+                "Measured against every row, usable dates cover about a third of the register. "
+                "Measured against the entries the register asks for a date, they cover about "
+                "two thirds. The second figure is the one that describes a question with no "
+                "answer. A third of those entries still carry no date that can be read."),
+            "undetermined_note": (
+                "Entries with no development stage recorded cannot be placed on either side, "
+                "because the condition is written in terms of stage. They are counted here and "
+                "in neither of the other two groups."),
         },
         "development_stage_filter": {
             "rows_carrying_a_stage": int(len(reg) - no_stage),
@@ -384,6 +470,17 @@ OVERSIGHT_CONDITION = (
     'deployed is not asked them, so a blank there records that the question '
     'does not apply, not that it was left unanswered.'
 )
+
+
+def oversight_fields(columns) -> list[str]:
+    """The nine oversight columns, named once.
+
+    Derived from the column names rather than written out, and defined here
+    rather than inside each measure, so the analysis and the export cannot
+    disagree about which nine they are. The justification field is spelled with
+    a capital prefix in the source and is not one of them.
+    """
+    return [c for c in columns if c.startswith("hi_")]
 
 
 def oversight_conditionality(hi: pd.DataFrame, hifields: list) -> dict:
@@ -479,7 +576,7 @@ def m4_oversight_pack(reg: pd.DataFrame) -> dict:
     }
     hi = reg[reg["is_high_impact"] == "High-impact"]
     presumed = reg[reg["is_high_impact"] == "Presumed High-Impact, but Not High-impact"]
-    hifields = [c for c in reg.columns if c.startswith("hi_")]
+    hifields = oversight_fields(reg.columns)
     answered = sum((~hi[c].map(lambda v: is_empty(c, v, always, text_only, types))).astype(int) for c in hifields)
     jf = (~presumed["HI_justification"].map(
         lambda v: is_empty("HI_justification", v, always, text_only, types))).mean()
@@ -687,8 +784,9 @@ def question_summary(findings: list[dict], counting_traps: int = 0) -> list[dict
             "question": "How current is any of it?",
             "answer": (
                 "No entry records when it was last checked. The register has one date field, "
-                f"readable on {m3['operational_date']['usable_dates_as_share_of_all_rows']}% of "
-                "entries, and it records when a system started running."
+                "asked only of entries at the pilot and deployed stages, readable on "
+                f"{m3['operational_date_where_asked']['usable_dates_as_share_of_entries_asked']}% "
+                "of those, and it records when a system started running."
             ),
             "section": "The register cannot say how current any entry is",
         },

@@ -152,12 +152,12 @@
       "of_value": 3611
     },
     {
-      "path": "M3.operational_date.usable_dates_as_share_of_all_rows",
+      "path": "M3.operational_date_where_asked.usable_dates_as_share_of_entries_asked",
       "suffix": "%",
-      "reads": "of entries carry a date that can be read reliably",
-      "caveat": "It records when a system started running, not when the entry was checked.",
+      "reads": "of the entries the register asks for a date carry one that can be read reliably",
+      "caveat": "It records when a system started running, not when the entry was checked. The register asks for it only of pilot and deployed entries.",
       "link": "gaps.html",
-      "value": 31.7
+      "value": 67.6
     }
   ],
   "evidence_withheld": [
@@ -222,6 +222,27 @@
       }
     ],
     "consequence": "Treat this as a proposal about what a register records, traced to one published file and compared against one published standard. It is not an operating model, and it has not been checked against the standards that set one."
+  },
+  "corrections": {
+    "oversight_denominator": {
+      "date": "2026-10-01",
+      "heading": "Correction, 2026-10-01",
+      "prominent": true,
+      "pages": [
+        "index.html",
+        "register.html"
+      ],
+      "text": "An earlier version of this site counted the nine oversight questions across all 445 entries marked high-impact and reported 317 with none answered. The register's own dictionary asks those nine only of high-impact entries that are deployed. Counted against the 227 entries it does ask, the figure is 101, or 44.5%. The gap is smaller and it is still there. Every other field's denominator was then checked against the dictionary. The same fault was found in the one date field and corrected with it. The check is recorded in governance/corrections.md."
+    },
+    "date_denominator": {
+      "date": "2026-10-01",
+      "heading": "Correction, 2026-10-01",
+      "prominent": false,
+      "pages": [
+        "gaps.html"
+      ],
+      "text": "The one date field was reported as a share of every row in the register. The dictionary asks for it only of entries at the pilot and deployed stages. Usable dates were published as 31.7% of the register and are 67.6% of the 1480 entries the register asks."
+    }
   },
   "repository_url": "https://github.com/Saa2252/ai-use-case-register-audit",
   "judgment_calls": 10,
@@ -455,6 +476,7 @@
     "high_impact": 445,
     "asked_the_nine": 227,
     "no_oversight": 101,
+    "share_no_oversight": 44.5,
     "no_oversight_all_flagged": 317
   },
   "steps": [

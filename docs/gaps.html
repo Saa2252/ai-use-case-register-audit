@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Gaps | AI Use Case Register Audit</title>
-<link rel="stylesheet" href="assets/style.css?v=fnchbdaj">
+<link rel="stylesheet" href="assets/style.css?v=aljdmida">
 </head>
 <body>
-<div class="wrap" data-dv="fekimcgj">
+<div class="wrap" data-dv="kgniamig">
 
 <header>
   <h1>AI Use Case Register Audit</h1>
@@ -128,8 +128,13 @@
     <p class="note"><span data-figure="M3.re_verification_trigger_diagnostic.why_reported_separately"></span></p>
 
     <h3>The one date field</h3>
-    <p class="lead-in">It records when a system started running, not when its entry was checked, and under a third of entries carry one that can be read reliably.</p>
-    <p><span data-figure="M3.operational_date.share_of_rows"></span>% of entries carry a value. Of those, <span data-figure="M3.operational_date.parse_rate"></span>% can be read as dates, leaving <span data-figure="R4.figures.unresolvable_rate"></span> written in a form that could mean two things. Usable dates cover <span data-figure="M3.operational_date.usable_dates_as_share_of_all_rows"></span>% of the register.</p>
+    <p class="lead-in">It records when a system started running, not when its entry was checked. The register asks for it only of entries at the pilot and deployed stages.</p>
+    <p>It asks <span data-figure="M3.operational_date_where_asked.entries_asked"></span> entries for a date. <span data-figure="M3.operational_date_where_asked.share_of_entries_asked"></span>% of those carry a value, and of every value in the field <span data-figure="M3.operational_date.parse_rate"></span>% can be read as dates, leaving <span data-figure="R4.figures.unresolvable_rate"></span> written in a form that could mean two things. Usable dates cover <span data-figure="M3.operational_date_where_asked.usable_dates_as_share_of_entries_asked"></span>% of the entries the register asks.</p>
+    <aside class="correction" role="note">
+      <p class="correction-head" data-figure="corrections.date_denominator.heading"></p>
+      <p data-figure="corrections.date_denominator.text"></p>
+    </aside>
+    <p class="note"><span data-figure="M3.operational_date_where_asked.entries_undetermined"></span> entries record no development stage, so nothing in the file says which group they belong to, and they are counted in neither. <span data-figure="M3.operational_date_where_asked.entries_not_asked_that_carry_a_date_anyway"></span> entries the register does not ask carry a date anyway.</p>
     <p class="note"><span data-figure="M3.operational_date.values_dated_after_the_download_date"></span> values carry a date later than the day this project downloaded the file. An observation. No inference is drawn from it.</p>
     <p class="qualifier"><span data-figure="M3.caveat"></span></p>
   </div>
@@ -203,13 +208,14 @@
 </main>
 
 <footer>
-  <p id="disclaimer">This is an independent portfolio project. It uses publicly available AI use case inventories published by the US Office of Management and Budget (public domain, 17 U.S.C. §105) and the Government of Ontario (Open Government Licence – Ontario). Vendor and product names have been removed. Findings describe patterns in the published data and are not claims about any agency's conduct. This is not legal advice. Not affiliated with or endorsed by any government body.</p>
+  <p id="disclaimer">This is an independent portfolio project. It uses publicly available AI use case inventories published by the US Office of Management and Budget (public domain, 17 U.S.C. §105) and the Government of Ontario (Open Government Licence – Ontario), and the UK Government's Algorithmic Transparency Recording Standard template (© Crown copyright, Open Government Licence v3.0). Vendor and product names have been removed. Findings describe patterns in the published data and are not claims about any agency's conduct. This is not legal advice. Not affiliated with or endorsed by any government body.</p>
   <p id="ontario-attribution">Contains information licensed under the Open Government Licence – Ontario. <a href="https://www.ontario.ca/page/open-government-licence-ontario">Licence</a></p>
+  <p id="uk-attribution">Contains public sector information licensed under the Open Government Licence v3.0. <a href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/">Licence</a></p>
   <p>Governance design by Sana Ahmad.</p>
 </footer>
 
 </div>
-<script src="assets/figures.js?v=lmdlebco"></script>
+<script src="assets/figures.js?v=ajlfmofe"></script>
 <script src="assets/views.js?v=bbbglpli"></script>
 <script src="assets/summary.js?v=aanedlco"></script>
 </body>

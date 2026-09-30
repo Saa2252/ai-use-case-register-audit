@@ -2,6 +2,27 @@
   "disclaimer": "This is an independent portfolio project. It uses publicly available AI use case inventories published by the US Office of Management and Budget (public domain, 17 U.S.C. \u00a7105) and the Government of Ontario (Open Government Licence \u2013 Ontario). Vendor and product names have been removed. Findings describe patterns in the published data and are not claims about any agency's conduct. This is not legal advice. Not affiliated with or endorsed by any government body.",
   "authorship": "Governance design by Sana Ahmad.",
   "generated": "2026-09-30",
+  "corrections": {
+    "oversight_denominator": {
+      "date": "2026-10-01",
+      "heading": "Correction, 2026-10-01",
+      "prominent": true,
+      "pages": [
+        "index.html",
+        "register.html"
+      ],
+      "text": "An earlier version of this site counted the nine oversight questions across all 445 entries marked high-impact and reported 317 with none answered. The register's own dictionary asks those nine only of high-impact entries that are deployed. Counted against the 227 entries it does ask, the figure is 101, or 44.5%. The gap is smaller and it is still there. Every other field's denominator was then checked against the dictionary. The same fault was found in the one date field and corrected with it. The check is recorded in governance/corrections.md."
+    },
+    "date_denominator": {
+      "date": "2026-10-01",
+      "heading": "Correction, 2026-10-01",
+      "prominent": false,
+      "pages": [
+        "gaps.html"
+      ],
+      "text": "The one date field was reported as a share of every row in the register. The dictionary asks for it only of entries at the pilot and deployed stages. Usable dates were published as 31.7% of the register and are 67.6% of the 1480 entries the register asks."
+    }
+  },
   "questions": [
     {
       "id": "count",
@@ -18,7 +39,7 @@
     {
       "id": "current",
       "question": "How current is any of it?",
-      "answer": "No entry records when it was last checked. The register has one date field, readable on 31.7% of entries, and it records when a system started running.",
+      "answer": "No entry records when it was last checked. The register has one date field, asked only of entries at the pilot and deployed stages, readable on 67.6% of those, and it records when a system started running.",
       "section": "The register cannot say how current any entry is"
     },
     {
@@ -276,6 +297,338 @@
         "hi_appeal_process": 28.8,
         "hi_public_consultation": 28.8
       },
+      "field_completeness_where_asked": {
+        "agency": {
+          "in_the_publishers_dictionary": false,
+          "required": "",
+          "conditional": false,
+          "asked_of": 3611,
+          "filled": 3611,
+          "share": 100.0,
+          "not_asked": 0,
+          "undetermined": 0
+        },
+        "agency_name": {
+          "in_the_publishers_dictionary": false,
+          "required": "",
+          "conditional": false,
+          "asked_of": 3611,
+          "filled": 3611,
+          "share": 100.0,
+          "not_asked": 0,
+          "undetermined": 0
+        },
+        "id": {
+          "in_the_publishers_dictionary": true,
+          "required": "Yes",
+          "conditional": false,
+          "asked_of": 3611,
+          "filled": 2905,
+          "share": 80.4,
+          "not_asked": 0,
+          "undetermined": 0
+        },
+        "use_case_name": {
+          "in_the_publishers_dictionary": true,
+          "required": "Yes",
+          "conditional": false,
+          "asked_of": 3611,
+          "filled": 3610,
+          "share": 100.0,
+          "not_asked": 0,
+          "undetermined": 0
+        },
+        "agency_bureau": {
+          "in_the_publishers_dictionary": true,
+          "required": "Yes",
+          "conditional": false,
+          "asked_of": 3611,
+          "filled": 3554,
+          "share": 98.4,
+          "not_asked": 0,
+          "undetermined": 0
+        },
+        "is_withheld": {
+          "in_the_publishers_dictionary": true,
+          "required": "Yes",
+          "conditional": false,
+          "asked_of": 3611,
+          "filled": 2479,
+          "share": 68.7,
+          "not_asked": 0,
+          "undetermined": 0
+        },
+        "development_stage": {
+          "in_the_publishers_dictionary": true,
+          "required": "Yes",
+          "conditional": false,
+          "asked_of": 3611,
+          "filled": 3273,
+          "share": 90.6,
+          "not_asked": 0,
+          "undetermined": 0
+        },
+        "is_high_impact": {
+          "in_the_publishers_dictionary": true,
+          "required": "Yes",
+          "conditional": false,
+          "asked_of": 3611,
+          "filled": 3185,
+          "share": 88.2,
+          "not_asked": 0,
+          "undetermined": 0
+        },
+        "HI_justification": {
+          "in_the_publishers_dictionary": true,
+          "required": "Yes, but question should only appear if \"Presumed high-impact, but determined not high-impact\" is selected for the previous question.",
+          "conditional": true,
+          "asked_of": 110,
+          "filled": 109,
+          "share": 99.1,
+          "not_asked": 3075,
+          "undetermined": 426
+        },
+        "topic_area": {
+          "in_the_publishers_dictionary": true,
+          "required": "Yes, for pre-deployment, pilot and deployed use cases.",
+          "conditional": true,
+          "asked_of": 2959,
+          "filled": 2939,
+          "share": 99.3,
+          "not_asked": 314,
+          "undetermined": 338
+        },
+        "classification": {
+          "in_the_publishers_dictionary": true,
+          "required": "Yes, for pre-deployment, pilot and deployed use cases.",
+          "conditional": true,
+          "asked_of": 2959,
+          "filled": 2939,
+          "share": 99.3,
+          "not_asked": 314,
+          "undetermined": 338
+        },
+        "problem_solved": {
+          "in_the_publishers_dictionary": true,
+          "required": "Yes, for pre-deployment, pilot and deployed use cases.",
+          "conditional": true,
+          "asked_of": 2959,
+          "filled": 2913,
+          "share": 98.4,
+          "not_asked": 314,
+          "undetermined": 338
+        },
+        "benefits": {
+          "in_the_publishers_dictionary": true,
+          "required": "Yes, for pre-deployment, pilot and deployed use cases.",
+          "conditional": true,
+          "asked_of": 2959,
+          "filled": 2819,
+          "share": 95.3,
+          "not_asked": 314,
+          "undetermined": 338
+        },
+        "system_outputs": {
+          "in_the_publishers_dictionary": true,
+          "required": "Yes, for pre-deployment, pilot and deployed use cases.",
+          "conditional": true,
+          "asked_of": 2959,
+          "filled": 2819,
+          "share": 95.3,
+          "not_asked": 314,
+          "undetermined": 338
+        },
+        "operational_date": {
+          "in_the_publishers_dictionary": true,
+          "required": "Yes, for pilot and deployed use cases.",
+          "conditional": true,
+          "asked_of": 1480,
+          "filled": 1259,
+          "share": 85.1,
+          "not_asked": 1793,
+          "undetermined": 338
+        },
+        "contracting_usage": {
+          "in_the_publishers_dictionary": true,
+          "required": "Yes, for pilot and deployed use cases.",
+          "conditional": true,
+          "asked_of": 1480,
+          "filled": 1444,
+          "share": 97.6,
+          "not_asked": 1793,
+          "undetermined": 338
+        },
+        "have_ato": {
+          "in_the_publishers_dictionary": true,
+          "required": "Yes, for pilot and deployed use cases.",
+          "conditional": true,
+          "asked_of": 1480,
+          "filled": 1277,
+          "share": 86.3,
+          "not_asked": 1793,
+          "undetermined": 338
+        },
+        "data_description": {
+          "in_the_publishers_dictionary": true,
+          "required": "Yes, for pilot and deployed use cases.",
+          "conditional": true,
+          "asked_of": 1480,
+          "filled": 1133,
+          "share": 76.6,
+          "not_asked": 1793,
+          "undetermined": 338
+        },
+        "link_to_data": {
+          "in_the_publishers_dictionary": true,
+          "required": "No",
+          "conditional": false,
+          "asked_of": 3611,
+          "filled": 110,
+          "share": 3.0,
+          "not_asked": 0,
+          "undetermined": 0
+        },
+        "has_pii": {
+          "in_the_publishers_dictionary": true,
+          "required": "Yes, for pilot and deployed use cases.",
+          "conditional": true,
+          "asked_of": 1480,
+          "filled": 1271,
+          "share": 85.9,
+          "not_asked": 1793,
+          "undetermined": 338
+        },
+        "pia_url": {
+          "in_the_publishers_dictionary": true,
+          "required": "No",
+          "conditional": false,
+          "asked_of": 3611,
+          "filled": 168,
+          "share": 4.7,
+          "not_asked": 0,
+          "undetermined": 0
+        },
+        "demographic_features": {
+          "in_the_publishers_dictionary": true,
+          "required": "Yes, for pilot and deployed use cases.",
+          "conditional": true,
+          "asked_of": 1480,
+          "filled": 969,
+          "share": 65.5,
+          "not_asked": 1793,
+          "undetermined": 338
+        },
+        "has_custom_code": {
+          "in_the_publishers_dictionary": true,
+          "required": "Yes, for pilot and deployed use cases.",
+          "conditional": true,
+          "asked_of": 1480,
+          "filled": 1436,
+          "share": 97.0,
+          "not_asked": 1793,
+          "undetermined": 338
+        },
+        "code_url": {
+          "in_the_publishers_dictionary": true,
+          "required": "No",
+          "conditional": false,
+          "asked_of": 3611,
+          "filled": 168,
+          "share": 4.7,
+          "not_asked": 0,
+          "undetermined": 0
+        },
+        "hi_testing_conducted": {
+          "in_the_publishers_dictionary": true,
+          "required": "Yes, only for high-impact deployed use cases",
+          "conditional": true,
+          "asked_of": 227,
+          "filled": 125,
+          "share": 55.1,
+          "not_asked": 2958,
+          "undetermined": 426
+        },
+        "hi_assessment_completed": {
+          "in_the_publishers_dictionary": true,
+          "required": "Yes, only for high-impact deployed use cases",
+          "conditional": true,
+          "asked_of": 227,
+          "filled": 126,
+          "share": 55.5,
+          "not_asked": 2958,
+          "undetermined": 426
+        },
+        "hi_potential_impacts": {
+          "in_the_publishers_dictionary": true,
+          "required": "Yes, only for high-impact deployed use cases",
+          "conditional": true,
+          "asked_of": 227,
+          "filled": 125,
+          "share": 55.1,
+          "not_asked": 2958,
+          "undetermined": 426
+        },
+        "hi_independent_review": {
+          "in_the_publishers_dictionary": true,
+          "required": "Yes, only for high-impact deployed use cases",
+          "conditional": true,
+          "asked_of": 227,
+          "filled": 125,
+          "share": 55.1,
+          "not_asked": 2958,
+          "undetermined": 426
+        },
+        "hi_ongoing_monitoring": {
+          "in_the_publishers_dictionary": true,
+          "required": "Yes, only for high-impact deployed use cases",
+          "conditional": true,
+          "asked_of": 227,
+          "filled": 125,
+          "share": 55.1,
+          "not_asked": 2958,
+          "undetermined": 426
+        },
+        "hi_training_established": {
+          "in_the_publishers_dictionary": true,
+          "required": "Yes, only for high-impact deployed use cases",
+          "conditional": true,
+          "asked_of": 227,
+          "filled": 125,
+          "share": 55.1,
+          "not_asked": 2958,
+          "undetermined": 426
+        },
+        "hi_failsafe_presence": {
+          "in_the_publishers_dictionary": true,
+          "required": "Yes, only for high-impact deployed use cases",
+          "conditional": true,
+          "asked_of": 227,
+          "filled": 126,
+          "share": 55.5,
+          "not_asked": 2958,
+          "undetermined": 426
+        },
+        "hi_appeal_process": {
+          "in_the_publishers_dictionary": true,
+          "required": "Yes, only for high-impact deployed use cases",
+          "conditional": true,
+          "asked_of": 227,
+          "filled": 126,
+          "share": 55.5,
+          "not_asked": 2958,
+          "undetermined": 426
+        },
+        "hi_public_consultation": {
+          "in_the_publishers_dictionary": true,
+          "required": "Yes, only for high-impact deployed use cases",
+          "conditional": true,
+          "asked_of": 227,
+          "filled": 126,
+          "share": 55.5,
+          "not_asked": 2958,
+          "undetermined": 426
+        }
+      },
       "completeness_shape": {
         "core_fields_counted": 17,
         "distinct_values_across_the_register": 15,
@@ -320,7 +673,7 @@
           "difference": 1
         }
       },
-      "caveat": "These figures cannot be compared with the earlier year, because the two years ask different questions: a box left empty in one year may not exist at all in the other. A published list can only show what was declared, so nothing here says anything about systems nobody wrote down. Two fields store an empty answer as a pair of brackets that a spreadsheet counts as an answer, and every figure here treats them as empty. A filled field shows that information was provided, not that the practice is adequate. An empty field is not evidence that the practice is absent."
+      "caveat": "These figures cannot be compared with the earlier year, because the two years ask different questions: a box left empty in one year may not exist at all in the other. A published list can only show what was declared, so nothing here says anything about systems nobody wrote down. Two fields store an empty answer as a pair of brackets that a spreadsheet counts as an answer, and every figure here treats them as empty. Twenty-two of this register's fields are required only under a condition, so a share of all rows counts entries the question was never put to. Both views are published and the one measured against the entries the register asks is the one that describes an unanswered question. A filled field shows that information was provided, not that the practice is adequate. An empty field is not evidence that the practice is absent."
     },
     {
       "measure": "M2-preparation",
@@ -400,6 +753,19 @@
         "values_that_cannot_be_resolved": 258,
         "usable_dates_as_share_of_all_rows": 31.7,
         "values_dated_after_the_download_date": 5
+      },
+      "operational_date_where_asked": {
+        "required": "Yes, for pilot and deployed use cases.",
+        "entries_asked": 1480,
+        "entries_not_asked": 1793,
+        "entries_undetermined": 338,
+        "rows_with_a_value": 1259,
+        "share_of_entries_asked": 85.1,
+        "values_that_parse": 1001,
+        "usable_dates_as_share_of_entries_asked": 67.6,
+        "entries_not_asked_that_carry_a_date_anyway": 143,
+        "statement": "Measured against every row, usable dates cover about a third of the register. Measured against the entries the register asks for a date, they cover about two thirds. The second figure is the one that describes a question with no answer. A third of those entries still carry no date that can be read.",
+        "undetermined_note": "Entries with no development stage recorded cannot be placed on either side, because the condition is written in terms of stage. They are counted here and in neither of the other two groups."
       },
       "development_stage_filter": {
         "rows_carrying_a_stage": 3273,

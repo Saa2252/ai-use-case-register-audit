@@ -1233,3 +1233,43 @@ match a mandatory standard is better evidence than a proposal that does not. It
 also means the honest framing of the field set is no longer "what the author
 would build" alone, but "what the US list does not ask, most of which another
 government already requires".
+
+## 25. The disclaimer names the UK source
+
+**Owner decision, 1 October 2026.**
+
+Section 7 of the brief fixes the disclaimer's wording and says only the owner
+may change it. This is the first change since Phase 0.
+
+**Why it was needed.** The UK Government's Algorithmic Transparency Recording
+Standard became a source on 30 September 2026, when it replaced the Government
+of Ontario's list as the comparator. The disclaimer named the US Office of
+Management and Budget and the Government of Ontario. It did not name the UK,
+and the UK template is read on two pages. A disclaimer that lists the sources
+and leaves one out understates what the project used.
+
+**What changed.** One clause added:
+
+> ..., and the UK Government's Algorithmic Transparency Recording Standard
+> template (© Crown copyright, Open Government Licence v3.0).
+
+It is written as its own clause rather than added to the list of inventories,
+because the UK source is a published field template and not an inventory of
+records, and the sentence in front of it says "AI use case inventories".
+
+**Licence checked at source.** The publication page states the licence as Open
+Government Licence v3.0 and carries © Crown copyright. The attribution wording
+was copied verbatim from the licence itself, which sets a form of words for use
+where the Information Provider gives none of its own. Both are recorded in
+`governance/data-provenance.md`.
+
+**Held where it was already held.** `src/disclaimer.py`. Every footer, the top
+of the README and both export headers read from that one constant, and T6
+compares each published copy against it. Changing the constant changed all of
+them at once, which is what the single source is for.
+
+| Decision | Ruling |
+|---|---|
+| Whether to name the UK in the disclaimer | **Yes.** A missing source in a text that lists the sources is a defect a reviewer notices before anything else on the page |
+| Whether to add it to the list of inventories or as its own clause | **Its own clause.** The UK source is a template, not an inventory, and the existing sentence says inventories |
+| Which licence to state | **Open Government Licence v3.0, confirmed on the publication page rather than assumed**, with © Crown copyright alongside it |

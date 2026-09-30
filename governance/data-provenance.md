@@ -295,6 +295,21 @@ states that where no specific statement is given, the following must be used:
 
 > Contains information licensed under the Open Government Licence – Ontario.
 
+### UK licence attribution
+
+Required by the licence and by S1. The Open Government Licence v3.0 sets this
+wording for use where the Information Provider publishes no attribution
+statement of its own. Copied verbatim from the licence at
+https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/ on
+1 October 2026.
+
+> Contains public sector information licensed under the Open Government Licence v3.0.
+
+The publication also carries "© Crown copyright". Both appear on every page
+where material derived from the UK template is shown, which is `gaps.html` and
+`index.html`, and in the disclaimer on every page. Held once in
+`src/disclaimer.py` as `UK_ATTRIBUTION` and rendered by `scripts/build_site.py`.
+
 This statement appears on every page where Ontario-derived data is shown, with a
 link to the licence.
 

@@ -822,3 +822,32 @@ ol.subfields li { font-size: .9rem; margin: .12rem 0; break-inside: avoid; }
 @media (max-width: 600px) {
   .design-page .caution { padding: .9rem 1rem .3rem; }
 }
+
+/* --- A correction ---------------------------------------------------------
+
+   A figure that was published and later changed. It sits where the wrong
+   number sat, near the top, and it is marked out from the page around it
+   without being an alarm. It stays until the owner says it goes. */
+.correction {
+  border: 1px solid var(--pub); border-left: 4px solid var(--pub);
+  border-radius: 4px; padding: .7rem .85rem; margin: 0 0 1.4rem;
+  background: color-mix(in srgb, var(--pub) 7%, transparent);
+}
+.correction p { margin: 0 0 .4rem; font-size: .88rem; line-height: 1.55; }
+.correction p:last-child { margin-bottom: 0; }
+.correction-head {
+  font-weight: 600; font-size: .74rem; letter-spacing: .04em;
+  text-transform: uppercase; color: var(--pub);
+}
+
+/* --- The short version ----------------------------------------------------
+
+   One finding and one recommendation, before anything else on the page. A
+   reader who stops after this should still have the point. */
+.bottomline { margin: 0 0 1.4rem; padding: 0 0 .1rem; }
+.bottomline-label {
+  font-size: .72rem; letter-spacing: .06em; text-transform: uppercase;
+  color: var(--ink-soft); margin: 0 0 .45rem;
+}
+.bottomline p + p { margin-top: .5rem; }
+.bottomline p:not(.bottomline-label) { font-size: 1rem; line-height: 1.55; margin: 0; }

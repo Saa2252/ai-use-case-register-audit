@@ -93,8 +93,13 @@
     <p class="note"><span data-figure="M3.re_verification_trigger_diagnostic.why_reported_separately"></span></p>
 
     <h3>The one date field</h3>
-    <p class="lead-in">It records when a system started running, not when its entry was checked, and under a third of entries carry one that can be read reliably.</p>
-    <p><span data-figure="M3.operational_date.share_of_rows"></span>% of entries carry a value. Of those, <span data-figure="M3.operational_date.parse_rate"></span>% can be read as dates, leaving <span data-figure="R4.figures.unresolvable_rate"></span> written in a form that could mean two things. Usable dates cover <span data-figure="M3.operational_date.usable_dates_as_share_of_all_rows"></span>% of the register.</p>
+    <p class="lead-in">It records when a system started running, not when its entry was checked. The register asks for it only of entries at the pilot and deployed stages.</p>
+    <p>It asks <span data-figure="M3.operational_date_where_asked.entries_asked"></span> entries for a date. <span data-figure="M3.operational_date_where_asked.share_of_entries_asked"></span>% of those carry a value, and of every value in the field <span data-figure="M3.operational_date.parse_rate"></span>% can be read as dates, leaving <span data-figure="R4.figures.unresolvable_rate"></span> written in a form that could mean two things. Usable dates cover <span data-figure="M3.operational_date_where_asked.usable_dates_as_share_of_entries_asked"></span>% of the entries the register asks.</p>
+    <aside class="correction" role="note">
+      <p class="correction-head" data-figure="corrections.date_denominator.heading"></p>
+      <p data-figure="corrections.date_denominator.text"></p>
+    </aside>
+    <p class="note"><span data-figure="M3.operational_date_where_asked.entries_undetermined"></span> entries record no development stage, so nothing in the file says which group they belong to, and they are counted in neither. <span data-figure="M3.operational_date_where_asked.entries_not_asked_that_carry_a_date_anyway"></span> entries the register does not ask carry a date anyway.</p>
     <p class="note"><span data-figure="M3.operational_date.values_dated_after_the_download_date"></span> values carry a date later than the day this project downloaded the file. An observation. No inference is drawn from it.</p>
     <p class="qualifier"><span data-figure="M3.caveat"></span></p>
   </div>

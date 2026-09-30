@@ -1,6 +1,6 @@
 # AI Use Case Register Audit
 
-> This is an independent portfolio project. It uses publicly available AI use case inventories published by the US Office of Management and Budget (public domain, 17 U.S.C. §105) and the Government of Ontario (Open Government Licence – Ontario). Vendor and product names have been removed. Findings describe patterns in the published data and are not claims about any agency's conduct. This is not legal advice. Not affiliated with or endorsed by any government body.
+> This is an independent portfolio project. It uses publicly available AI use case inventories published by the US Office of Management and Budget (public domain, 17 U.S.C. §105) and the Government of Ontario (Open Government Licence – Ontario), and the UK Government's Algorithmic Transparency Recording Standard template (© Crown copyright, Open Government Licence v3.0). Vendor and product names have been removed. Findings describe patterns in the published data and are not claims about any agency's conduct. This is not legal advice. Not affiliated with or endorsed by any government body.
 
 **Live site:** https://saa2252.github.io/ai-use-case-register-audit/
 
@@ -19,6 +19,8 @@ It examines 3,611 entries published by US federal agencies in 2025. What a good 
 The governance design, the rules it follows and the judgments in it are the author's.
 
 **Ontario data.** Contains information licensed under the Open Government Licence – Ontario. The licence is at <https://www.ontario.ca/page/open-government-licence-ontario>.
+
+**UK data.** Contains public sector information licensed under the Open Government Licence v3.0. The licence is at <https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/>.
 
 ## Why a list like this exists at all
 
@@ -451,7 +453,7 @@ That prints the raw row as downloaded, compares it field by field with what the 
 | `notebooks/analysis.ipynb` | Download, verify, scrub, analyse, export |
 | `data/derived/` | Everything published. Every figure on the site comes from here |
 | `docs/` | The site |
-| `tests/` | 57 automated checks, run with pytest |
+| `tests/` | 64 automated checks, run with pytest |
 
 ## Licence
 

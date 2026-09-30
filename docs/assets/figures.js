@@ -88,6 +88,10 @@
       if (findings && findings.findings) {
         findings.findings.forEach(function (f) { STORE[f.measure] = f; });
         STORE.meta = { generated: findings.generated };
+        // Figures this site published and later changed. Held beside the
+        // measures so a correction's own numbers are loaded the same way as
+        // the numbers it corrects.
+        STORE.corrections = findings.corrections || {};
         STORE.__questions = findings.questions || null;
       }
       if (reuse && reuse.findings) {

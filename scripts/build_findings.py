@@ -25,6 +25,7 @@ warnings.filterwarnings("ignore")
 import pandas as pd  # noqa: E402
 
 from src import measures as M  # noqa: E402
+from src.corrections import resolve as resolve_corrections  # noqa: E402
 from src.disclaimer import AUTHORSHIP, DISCLAIMER  # noqa: E402
 
 RAW = REPO_ROOT / "data" / "raw"
@@ -50,10 +51,23 @@ def build() -> dict:
         M.m4_oversight_pack(reg),
         M.m5_design_comparison(list(reg.columns), ont),
     ]
+    store = {f["measure"]: f for f in findings}
+
+    def figure(path: str):
+        node = store
+        for key in path.split("."):
+            node = node.get(key) if isinstance(node, dict) else None
+            if node is None:
+                return None
+        return node
+
     return {
         "disclaimer": DISCLAIMER,
         "authorship": AUTHORSHIP,
         "generated": date.today().isoformat(),
+        # Figures this site published and later changed. Resolved here so the
+        # numbers inside a correction are computed like every other number.
+        "corrections": resolve_corrections(figure),
         "questions": M.question_summary(findings, counting_traps=COUNTING_TRAPS),
         "findings": findings,
     }

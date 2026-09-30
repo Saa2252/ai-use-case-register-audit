@@ -215,10 +215,10 @@ EVIDENCE = [
         "link": "obligations.html",
     },
     {
-        "path": "M3.operational_date.usable_dates_as_share_of_all_rows",
+        "path": "M3.operational_date_where_asked.usable_dates_as_share_of_entries_asked",
         "suffix": "%",
-        "reads": "of entries carry a date that can be read reliably",
-        "caveat": "It records when a system started running, not when the entry was checked.",
+        "reads": "of the entries the register asks for a date carry one that can be read reliably",
+        "caveat": "It records when a system started running, not when the entry was checked. The register asks for it only of pilot and deployed entries.",
         "link": "gaps.html",
     },
 ]

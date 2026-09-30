@@ -488,6 +488,10 @@ def main() -> None:
                            "model, and it has not been checked against the standards "
                            "that set one.",
         },
+        # The same corrections the findings carry, so a page reading either
+        # file renders one text rather than two that can drift.
+        "corrections": json.loads(
+            (DERIVED / "findings.json").read_text(encoding="utf-8"))["corrections"],
         "repository_url": REPOSITORY_URL,
         "judgment_calls": judgment_calls(),
         "panel_one": panel_one(register),
@@ -527,6 +531,8 @@ def main() -> None:
         "high_impact": _resolve(store, "M4.subset_size"),
         "asked_the_nine": _resolve(store, "M4.oversight_conditionality.required_of.entries"),
         "no_oversight": _resolve(store, "M4.oversight_conditionality.required_of.none_answered"),
+        "share_no_oversight": _resolve(
+            store, "M4.oversight_conditionality.required_of.share_none_answered"),
         "no_oversight_all_flagged": _resolve(store, "M4.oversight_block_shape.none_answered"),
     }
     for key, value in payload["lead"].items():
