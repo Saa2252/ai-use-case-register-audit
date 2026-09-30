@@ -537,3 +537,59 @@ weaker copy of something that already existed. The cost of keeping it was a
 looser scope lock and a safeguard enforced by a test where it had previously
 been enforced by the data simply not being there. Removing it was cheaper than
 maintaining a second, worse version of the same argument.
+
+## After Phase 9. Changing a comparator that nobody had chosen
+
+**What we did.** Replaced the Government of Ontario with the United Kingdom's
+Algorithmic Transparency Recording Standard as the register this project
+compares against. Downloaded its published field template by script, recorded
+its hash, and rewrote the comparison measure to read it. Kept Ontario for one
+observation the UK cannot provide.
+
+**Why it matters.** The comparator was never chosen. The brief named Ontario
+before anyone had read any of the sources, and the choice was never revisited,
+even after it was clear the list holds three entries and two proposed fields
+rested on it.
+
+The project had a route for changing that. A scope change, written down, with
+the owner approving it. That route was used four times in two days for other
+things. It was never used here, because nobody put the question until a reader
+from outside did.
+
+That is the lesson worth keeping. **A control that exists is not the same as a
+control that gets used.** The project could revise its scope, documented that it
+could, and still carried a weak comparator for nine phases because revising it
+was nobody's job on any particular day.
+
+**New terms.**
+- **Comparator.** The thing you measure against. Choosing it decides what your
+  findings can say, so it deserves the same scrutiny as the method.
+- **Schema comparison.** Comparing what two registers ask, rather than what
+  they contain. It needs only the published field list, not the records.
+
+**Decisions the owner made, and why.** Replace rather than add, because adding
+would widen the project rather than sharpen it. Keep Ontario only for its
+supplier-naming contrast, because that contrast supports this project's own
+removal safeguard and would otherwise be lost. Read the template and not the
+152 published records, because the measure compares what is asked and reading
+records would mean scrubbing a second body of free text for a question nobody
+asked.
+
+**What it found, and why the finding is uncomfortable.** The UK standard
+already asks most of what this project proposes. Of the ten fields, it asks
+five outright and three in part. It also carries two things this project had
+listed as absences: a published state for a system switched off, and an
+explicit way to answer No.
+
+The instinct on seeing that is to soften it. The better reading is that a
+proposal which matches a mandatory standard is stronger evidence than one that
+does not, and it was recorded as a finding.
+
+**Interview question.** *How do you know your benchmark is the right one?*
+Mostly you do not, unless you check. On this project the benchmark was named in
+the brief before anything had been read, it turned out to hold three entries,
+and the flaw was caught by a reader rather than by the project. The fix was to
+find a mandatory standard covering the same ground and compare against that
+instead. The uncomfortable part of the answer is that the better benchmark
+showed my own proposal was less original than it looked, which is worth more
+than a comparison I would have won.
