@@ -124,7 +124,7 @@ A new field therefore lands on the checked side by default.**
 | Key | Treated as | What it holds |
 |---|---|---|
 | `rows` | **Source data** | One entry per register row: use case name, agency, stage, classification, identifier |
-| `field` | **Source data** | A field name as one of the two registers publishes it |
+| `field` | **Source data** | A field name as the US register or the UK standard publishes it |
 | `oversight_field_coverage` | **Source data** | Keys are the register's own field names |
 | `field_completeness_all_rows` | **Source data** | Keys are the register's own field names |
 | `field_completeness_high_impact` | **Source data** | Keys are the register's own field names |

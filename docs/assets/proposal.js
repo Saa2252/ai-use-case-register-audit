@@ -143,18 +143,20 @@
 
   function drawSlots(d) {
     var host = el("slots");
-    if (!host || !d.headline) { return; }
-    var h = d.headline;
-    var marks = "";
-    for (var i = 0; i < h.fields; i++) {
-      marks += '<span class="slot' + (i < h.a_real_entry_can_fill ? " is-filled" : "") + '"></span>';
-    }
-    host.innerHTML = marks;
+    if (!host || !d.headline || !d.panel_one) { return; }
+    // One mark per row, carrying that row's own state. The strip used to draw
+    // every unanswered box the same way and caption them "left blank", which
+    // said the opposite of the paragraph beside it: none of them was asked and
+    // left blank. A reader who looked at the picture and a reader who read the
+    // words came away with different findings.
+    host.innerHTML = d.panel_one.rows.map(function (r) {
+      return '<span class="slot ' + esc(r.state) + '" title="' +
+        esc(r.short || "answered by the published entry") + '"></span>';
+    }).join("");
     var caption = el("slots-caption");
-    if (caption) {
-      caption.textContent = h.a_real_entry_can_fill + " of " + h.fields +
-        " boxes answered by a real published entry. " + h.a_real_entry_cannot_fill + " left blank.";
-    }
+    // Written where the state words are, not here, so the caption and the marks
+    // cannot describe different splits.
+    if (caption) { caption.textContent = d.headline.slots_caption || ""; }
   }
 
   /* ---- the two forms -----------------------------------------------------
@@ -165,16 +167,42 @@
      reader should see before reading a word of it. Why it is empty is said
      underneath, in words, so the difference never rests on the drawing alone. */
 
+  /* Nine answers inside one box is one answer with nine things written in it.
+     The made-up entry used to store all nine as a paragraph, with two of them
+     saying in words that there was no answer. That is an absence recorded as
+     ordinary text, which is the one thing the convention on this page says no
+     field does. Each of the nine now carries its own state, and a state that
+     is not "answered" prints no answer at all. */
+  function subRows(rows) {
+    return '<ul class="ffield-sub">' + rows.map(function (s) {
+      var answered = s.state === "answered";
+      return '<li class="fsub' + (answered ? "" : " is-empty") + '">' +
+        '<span class="fsub-label">' + esc(s.field) + "</span>" +
+        (answered
+          ? '<span class="fsub-value">' + esc(s.value) + "</span>"
+          : '<span class="fsub-state ' + esc(s.state) + '">' + esc(s.state_word) + "</span>") +
+        (s.ground ? '<span class="fsub-note">' + esc(s.ground) + "</span>" : "") +
+        "</li>";
+    }).join("") + "</ul>";
+  }
+
+  /* The two forms use different state words, because they record different
+     things: what this project could read out of the published file, and what
+     the proposed field set can hold. Each row carries its own state and its own
+     caption, so neither side is drawn from an assumption about which it is. */
   function boxes(rows, real) {
     return rows.map(function (r, i) {
-      var blank = real && r.state !== "from_source";
-      var value = real ? r.value : r.value;
-      return '<div class="ffield' + (blank ? " is-blank" : "") + '" data-row="' + i + '">' +
+      var empty = real ? r.state !== "from_source" : r.state !== "answered";
+      var note = real ? r.short : r.ground;
+      return '<div class="ffield' + (empty ? " is-blank" : "") + '" data-row="' + i + '">' +
         '<span class="ffield-label"><span class="ffield-n">' + (i + 1) + "</span>" +
         esc(r.field) + "</span>" +
-        '<div class="ffield-box' + (blank ? " is-blank " + esc(r.state) : "") + '">' +
-        (blank ? "" : esc(value)) + "</div>" +
-        (blank ? '<span class="ffield-note">' + esc(r.short) + "</span>" : "") +
+        '<div class="ffield-box' + (empty ? " is-blank " + esc(r.state) : "") +
+        (r.sub_rows ? " has-sub" : "") + '">' +
+        (r.sub_rows ? subRows(r.sub_rows)
+          : (empty ? (real ? "" : '<span class="fsub-state ' + esc(r.state) + '">' +
+             esc(r.state_word) + "</span>") : esc(r.value))) + "</div>" +
+        (empty && note ? '<span class="ffield-note">' + esc(note) + "</span>" : "") +
         "</div>";
     }).join("");
   }
@@ -190,13 +218,19 @@
       '<p class="formsheet-sub">' + esc(one.entry_id) + ", " + esc(one.agency) + "</p>" +
       '<div class="formsheet-body">' + boxes(one.rows, true) + "</div></section>" +
       '<section class="formsheet mine">' +
-      '<p class="formsheet-head">A made-up entry, filled in completely</p>' +
+      '<p class="formsheet-head">A made-up entry, every box resolved</p>' +
       '<p class="formsheet-sub">' + esc(two.organisation) + ", " + esc(two.system) + "</p>" +
       '<div class="formsheet-body">' + boxes(two.rows, false) + "</div></section>";
 
     if (el("p1-why")) { el("p1-why").textContent = one.why_this_entry; }
     if (el("p1-rule")) { el("p1-rule").textContent = one.rule; }
     if (el("p2-label")) { el("p2-label").textContent = two.label; }
+    // What the right-hand form is showing. Not that every box holds words,
+    // which is what it used to do, but that every box holds a state.
+    if (el("p2-reading")) {
+      el("p2-reading").textContent =
+        (two.reading || "") + " " + (two.state_not_shown || "");
+    }
 
     var bar = el("switch");
     if (!bar) { return; }

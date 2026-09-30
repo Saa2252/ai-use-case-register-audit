@@ -451,7 +451,7 @@ That prints the raw row as downloaded, compares it field by field with what the 
 | `notebooks/analysis.ipynb` | Download, verify, scrub, analyse, export |
 | `data/derived/` | Everything published. Every figure on the site comes from here |
 | `docs/` | The site |
-| `tests/` | 50 automated checks, run with pytest |
+| `tests/` | 57 automated checks, run with pytest |
 
 ## Licence
 

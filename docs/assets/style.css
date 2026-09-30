@@ -383,16 +383,27 @@ code { font-size: .92em; background: var(--surface); padding: .05rem .3rem; bord
   .opening .fig { font-size: 1.9rem; }
 }
 
-/* Ten marks: solid for a box the published entry answers, hollow for one it
-   does not. The caption says the same in words, so the strip is never the only
-   place the fact is stated. */
+/* One mark per box. Three kinds of empty, drawn three ways, because they are
+   three different facts and the strip used to draw them as one. A solid
+   outline means the register has the box. A dashed outline means it does not.
+   A struck box means it has it and does not put it to this entry. The caption
+   says the same split in words, so the strip is never the only place the fact
+   is stated, and the shapes differ so nothing rests on colour. */
 .slotfig { margin: 0; }
 .slots { display: flex; flex-wrap: wrap; gap: .4rem; margin-bottom: .55rem; }
 .slot {
   width: 1.65rem; height: 2.1rem; border-radius: 3px;
   border: 2px solid var(--pub); background: transparent;
 }
-.slot.is-filled { background: var(--pub); }
+.slot.from_source { background: var(--pub); }
+.slot.not_collected { border-style: dashed; opacity: .75; }
+.slot.blank_in_source { border-style: solid; }
+.slot.does_not_apply {
+  border-style: solid; opacity: .75;
+  background-image: linear-gradient(to top right,
+    transparent calc(50% - 1px), var(--pub) calc(50% - 1px),
+    var(--pub) calc(50% + 1px), transparent calc(50% + 1px));
+}
 .slots-caption { font-size: .82rem; line-height: 1.5; color: var(--ink-soft); }
 
 /* --- The drawn form ------------------------------------------------------
@@ -474,7 +485,33 @@ code { font-size: .92em; background: var(--surface); padding: .05rem .3rem; bord
 .ffield-box.is-blank.blank_in_source {
   border-style: solid; border-left-style: solid; border-color: var(--ink-soft);
 }
+/* A box the register has and does not put to this entry is struck through, so
+   it reads as a question that was not asked rather than one nobody answered. */
+.ffield-box.is-blank.does_not_apply {
+  border-style: solid; border-left-style: solid;
+  background-image: linear-gradient(to top right,
+    transparent calc(50% - 1px), var(--ink-soft) calc(50% - 1px),
+    var(--ink-soft) calc(50% + 1px), transparent calc(50% + 1px));
+}
 .ffield-note { font-size: .68rem; color: var(--ink-soft); font-style: italic; }
+
+/* Nine questions are nine rows, not one paragraph. Each carries its own answer
+   or its own state, and a state is drawn as a marker rather than as words
+   inside an answer, which is the distinction the whole field set rests on. */
+.ffield-box.has-sub { padding: .3rem .4rem; }
+.ffield-sub { list-style: none; margin: 0; padding: 0; display: flex;
+  flex-direction: column; gap: .3rem; }
+.fsub { display: flex; flex-direction: column; gap: .1rem;
+  padding: .28rem .35rem; border-radius: 3px; background: var(--surface); }
+.fsub.is-empty { background: transparent; border: 1px dashed var(--ink-soft); }
+.fsub-label { font-size: .68rem; font-weight: 600; color: var(--ink-soft); line-height: 1.3; }
+.fsub-value { font-size: .78rem; line-height: 1.4; overflow-wrap: anywhere; }
+.fsub-state {
+  align-self: flex-start; font-size: .7rem; font-style: italic;
+  color: var(--ink-soft); border: 1px solid var(--ink-soft); border-radius: 2px;
+  padding: .02rem .28rem;
+}
+.fsub-note { font-size: .66rem; color: var(--ink-soft); line-height: 1.35; }
 
 .compare-note { display: flex; flex-direction: column; gap: .3rem; margin-top: .9rem; }
 

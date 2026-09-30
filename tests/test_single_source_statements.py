@@ -64,6 +64,7 @@ def test_shared_statements_reach_the_pages_they_belong_on():
         "high_impact_meaning": ["register.html", "obligations.html"],
         "filled_field": ["register.html"],
         "reached_the_file": ["register.html"],
+        "sources_read": ["index.html"],
     }
     missing = []
     for key, wanted in expected.items():

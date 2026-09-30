@@ -593,3 +593,76 @@ find a mandatory standard covering the same ground and compare against that
 instead. The uncomfortable part of the answer is that the better benchmark
 showed my own proposal was less original than it looked, which is worth more
 than a comparison I would have won.
+
+## After Phase 9. A rule and an example that contradicted each other
+
+### What we did
+
+An outside reader checked the field set page against itself and found two
+things the project had missed.
+
+The page states a convention: every field distinguishes answered, the question
+does not apply, not yet answered and withheld, and no field records an absence
+as ordinary text. Directly beneath it sat a worked example that broke the
+convention. All nine oversight questions were stored in one box as a
+paragraph, and two of them recorded an absence in words: "not applicable at
+this classification" and "not yet carried out". The rule and the thing meant
+to demonstrate the rule were on the same screen saying opposite things.
+
+The example now gives each of the nine its own row and its own state. A row
+that is not answered prints no answer at all, because the state is the record.
+The reason a question does not apply sits in its own place rather than inside
+the answer.
+
+Second, the strip of marks beside the opening drew every unanswered box the
+same way and captioned them "left blank", while the paragraph next to it said
+that none of them was asked and left blank. A reader who looked at the picture
+and a reader who read the words came away with different findings. The marks
+now carry three different shapes for the three different states, and the
+caption is built from the same split the marks are drawn from.
+
+Third, two sentences still said the project had read two registers and named
+the Government of Ontario as the second. The comparator changed to the United
+Kingdom's recording standard the day before, and the field cards, the gaps
+table and the sources table all changed with it. Those two sentences did not.
+
+### Why it matters in real AI governance work
+
+The stale sentences are the ordinary failure. A change lands in the places
+somebody thought to look, and survives in the places nobody did. The fix is
+not to look harder next time. It is to stop copy from counting things. The
+page now names its sources rather than saying how many there are, because a
+name that goes wrong is visible to a reader and a count is not.
+
+The worked example is the more interesting one. A control can be written
+correctly, published, and still be contradicted by the thing sitting next to
+it, and nobody notices because the two are read by different parts of the
+brain. This is what happens to policies. The policy says one thing, the form
+people actually fill in says another, and the form wins, because the form is
+what gets used. Checking a stated rule against the artefact meant to embody it
+is a real audit step and it is almost never done.
+
+### New terms
+
+**Worked example.** A filled-in instance of a form or a rule, shown so a
+reader can see what the rule produces. It carries more weight than the rule it
+illustrates, because people copy the example.
+
+### Decisions the owner made and why
+
+The example shows three of the four states, not four. Nothing on the made-up
+entry is held back, so the withheld state does not appear on it, and the page
+says so. Inventing a withholding ground so that all four states could be shown
+would have made the example tidier and less true.
+
+### One question an interviewer could ask
+
+**"How would you check whether a governance policy is actually being
+followed?"**
+
+Start with the artefacts, not the policy. Take the form people fill in, the
+template they copy, the example in the guidance, and read each one against
+what the policy says. Contradictions there are more informative than an
+attestation, because the artefact is what people use. On this project the
+stated rule was that no field records an absence as ordinary text, and the
+worked example published beside it did exactly that, in two places.

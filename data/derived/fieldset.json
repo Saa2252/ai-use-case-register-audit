@@ -108,7 +108,7 @@
   ],
   "convention": {
     "name": "Every field records an empty answer the same way",
-    "records": "Every field distinguishes four states: answered, the question does not apply, not yet answered, and withheld. No field records an absence as ordinary text.",
+    "records": "Every field distinguishes these states: answered, the question does not apply, not yet answered and withheld. No field records an absence as ordinary text.",
     "finding": "Two fields store an empty answer as a pair of brackets a spreadsheet counts as content; words such as 'No' and 'Not available' record an absence in one field and a real answer in another; the development stage field offers four answers with no option meaning nobody filled it in; and a value the file uses appears nowhere in the document describing the field.",
     "finding_link": "gaps.html",
     "us_2025": "No single convention. Three of the seven counting problems on the gaps page come from how an empty answer is recorded.",
@@ -213,7 +213,7 @@
       {
         "name": "The European Union's rule on entering AI in a public database",
         "what": "Before certain AI systems can be used in the EU, they have to be entered in a database anyone can look at.",
-        "why": "It is a register with a different purpose: it decides who has to appear on it, which the two registers read here do not."
+        "why": "It is a register with a different purpose: it decides who has to appear on it, which neither the US list nor the UK standard does."
       },
       {
         "name": "The international standard for managing AI, ISO/IEC 42001",
@@ -221,7 +221,7 @@
         "why": "It covers the part this field set leaves out, which is how a register is kept up rather than what it records."
       }
     ],
-    "consequence": "Treat this as a proposal about what a register records, tested against two published files. It is not an operating model, and it has not been checked against the standards that set one."
+    "consequence": "Treat this as a proposal about what a register records, traced to one published file and compared against one published standard. It is not an operating model, and it has not been checked against the standards that set one."
   },
   "repository_url": "https://github.com/Saa2252/ai-use-case-register-audit",
   "judgment_calls": 10,
@@ -308,46 +308,133 @@
     "organisation": "A fictional city transport authority",
     "system": "A fictional tool that drafts replies to passenger complaints",
     "label": "Fictional throughout. No real organisation, no real system, no real data. It exists to show the field set filled in.",
+    "reading": "Every box on this form is resolved. Most carry an answer. Among the nine oversight questions, one is not put to this entry and one has been put and has no answer yet. Neither of those is written as words inside an answer: each is a state the field holds, which is what lets the two be told apart.",
+    "state_not_shown": "Nothing on this entry is held back, so the state for a withheld answer does not appear on it. The field that records withholding is answered No.",
     "rows": [
       {
         "field": "Entry identifier",
-        "value": "CTA-0041, unchanged since first registered"
+        "state": "answered",
+        "value": "CTA-0041",
+        "state_word": "answered"
       },
       {
         "field": "Date this entry was last checked",
-        "value": "12 March 2026"
+        "state": "answered",
+        "value": "12 March 2026",
+        "state_word": "answered"
       },
       {
         "field": "What changed since the last check",
-        "value": "Model version changed. The responsible office, data sources, purpose and degree of autonomy are unchanged."
+        "state": "answered",
+        "value": "The model version. The responsible office, the data it draws on, what it is used for and how far it acts without a person are all unchanged.",
+        "state_word": "answered"
       },
       {
         "field": "Acts without a person reviewing the output",
-        "value": "No. Every draft reply is read by a caseworker before it is sent."
+        "state": "answered",
+        "value": "No. It does not act on its own: every draft reply is read by a caseworker before anything is sent.",
+        "state_word": "answered"
       },
       {
         "field": "Where a person reviews it",
-        "value": "At the point of sending. The caseworker may edit or discard the draft."
+        "state": "answered",
+        "value": "At the point of sending. The caseworker may edit the draft or discard it.",
+        "state_word": "answered"
       },
       {
         "field": "Impact classification, with an explicit option for not yet assessed",
-        "value": "Assessed, not high impact. The output is a draft, and the decision that reaches the passenger is the caseworker's."
+        "state": "answered",
+        "value": "Assessed, and not high impact. The output is a draft, and the decision that reaches the passenger is the caseworker's.",
+        "state_word": "answered"
       },
       {
         "field": "Withheld from public reporting, and on what ground",
-        "value": "No. Published in full."
+        "state": "answered",
+        "value": "No. Nothing in this entry is held back.",
+        "state_word": "answered"
       },
       {
         "field": "The nine oversight questions, each with its own explicit states",
-        "value": "Tested before deployment: yes. Impact assessment: completed. Potential impacts: recorded. Independent review: not applicable at this classification. Monitoring: monthly sampling of sent replies. Operator training: completed for all caseworkers. Fail-safe: replies can be sent without the tool. Appeal: the existing complaints process is unchanged. Consultation: not yet carried out."
+        "state": "answered",
+        "value": null,
+        "sub_rows": [
+          {
+            "field": "Tested before deployment",
+            "state": "answered",
+            "value": "Yes. Tested on a sample of past complaints before release.",
+            "ground": null,
+            "state_word": "answered"
+          },
+          {
+            "field": "Impact assessment completed",
+            "state": "answered",
+            "value": "Yes. Completed 4 February 2026.",
+            "ground": null,
+            "state_word": "answered"
+          },
+          {
+            "field": "Potential impacts identified",
+            "state": "answered",
+            "value": "Yes. A reply in the wrong tone, and delay while the tool is unavailable.",
+            "ground": null,
+            "state_word": "answered"
+          },
+          {
+            "field": "Independent review conducted",
+            "state": "does_not_apply",
+            "value": null,
+            "ground": "This authority requires independent review only of systems it classifies high impact. This one is not.",
+            "state_word": "the question does not apply"
+          },
+          {
+            "field": "Ongoing monitoring in place",
+            "state": "answered",
+            "value": "Yes. Monthly sampling of replies that were sent.",
+            "ground": null,
+            "state_word": "answered"
+          },
+          {
+            "field": "Training established for operators",
+            "state": "answered",
+            "value": "Yes. Completed for every caseworker who uses it.",
+            "ground": null,
+            "state_word": "answered"
+          },
+          {
+            "field": "Fail-safe in place",
+            "state": "answered",
+            "value": "Yes. Replies can be written and sent without the tool.",
+            "ground": null,
+            "state_word": "answered"
+          },
+          {
+            "field": "Appeal process in place",
+            "state": "answered",
+            "value": "Yes. The existing complaints process is unchanged and is the route of appeal.",
+            "ground": null,
+            "state_word": "answered"
+          },
+          {
+            "field": "Consultation with the people it affects",
+            "state": "not_yet_answered",
+            "value": null,
+            "ground": null,
+            "state_word": "not yet answered"
+          }
+        ],
+        "state_word": "answered"
       },
       {
         "field": "What this entry counts as one of",
-        "value": "One system."
+        "state": "answered",
+        "value": "One system.",
+        "state_word": "answered"
       },
       {
         "field": "Who completed this entry, and when",
-        "value": "Customer Services, 12 March 2026."
+        "state": "answered",
+        "value": "Customer Services, 12 March 2026.",
+        "state_word": "answered"
       }
     ]
   },
@@ -360,7 +447,8 @@
     "does_not_apply": 1,
     "entry": "FRB-0055",
     "entry_agency": "Federal Reserve Board",
-    "register_entries": 3611
+    "register_entries": 3611,
+    "slots_caption": "3 of 10 boxes carry an answer from the published entry. That register does not collect 6 of them. 1 it collects and does not put to an entry like this one. None was asked and left empty."
   },
   "lead": {
     "entries": 3611,
@@ -433,7 +521,7 @@
     {
       "row": null,
       "field": "Of the ten, this is what carries a value",
-      "line": "3 of 10 boxes carry a value from the published register. The other 7 are the empty boxes on the left. The second form is one made-up organisation filling in every one.",
+      "line": "3 of 10 boxes carry a value from the published register. The other 7 are the empty boxes on the left. The second form is one made-up organisation giving every box a definite state, which is not the same as writing words in every box.",
       "state": "summary"
     }
   ]

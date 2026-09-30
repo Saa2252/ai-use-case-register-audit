@@ -38,12 +38,14 @@ STATEMENTS = {
         "The pattern describes what reached the file, not the oversight "
         "practice itself.",
 
-    # Two of the ten proposed fields exist because a three-entry register asks
-    # them. The owner ruled on 30 September 2026 that this limit belongs beside
-    # those fields, not only in the disclosure at the foot of the page.
-    "ontario_is_three":
-        "This rests on a register of three entries and has not been tested "
-        "against a large one.",
+    # What this project read. Held here because the field set page stated it
+    # twice in its own words, and both copies still said two registers after
+    # the comparator changed on 30 September 2026. A sentence that names the
+    # sources cannot be wrong about how many there are.
+    "sources_read":
+        "This project read the US federal list in full, and compares what a "
+        "register asks against the United Kingdom's recording standard, which "
+        "publishes a field template rather than entries.",
 
     "never_summed": NEVER_SUM,
 }

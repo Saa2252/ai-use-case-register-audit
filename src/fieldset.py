@@ -15,6 +15,19 @@ to ask. Any line that crosses that is flagged to the owner rather than shipped.
 
 from __future__ import annotations
 
+# The states every proposed field can hold. The convention below is written
+# from these, and scripts/build_fieldset.py fills the worked example using
+# them, so the rule this page states and the example it shows cannot describe
+# different sets of states. The example did exactly that: it stored "not
+# applicable at this classification" and "not yet carried out" as words inside
+# one box, which is the thing the convention says no field does.
+STATES = {
+    "answered": "answered",
+    "does_not_apply": "the question does not apply",
+    "not_yet_answered": "not yet answered",
+    "withheld": "withheld",
+}
+
 FIELDS = [
     {
         "name": "Entry identifier",
@@ -142,8 +155,13 @@ FIELDS = [
 # absence rather than recording anything itself.
 EMPTY_CONVENTION = {
     "name": "Every field records an empty answer the same way",
-    "records": "Every field distinguishes four states: answered, the question does not apply, "
-               "not yet answered, and withheld. No field records an absence as ordinary text.",
+    # Written from STATES rather than typed, so the states named here are the
+    # states the worked example is allowed to use. No count is stated, because
+    # a count is the part that goes stale when a state is added.
+    "records": ("Every field distinguishes these states: "
+                + ", ".join(list(STATES.values())[:-1])
+                + " and " + list(STATES.values())[-1]
+                + ". No field records an absence as ordinary text."),
     "finding": "Two fields store an empty answer as a pair of brackets a spreadsheet counts as "
                "content; words such as 'No' and 'Not available' record an absence in one field "
                "and a real answer in another; the development stage field offers four answers "

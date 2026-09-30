@@ -19,7 +19,8 @@ warnings.filterwarnings("ignore")
 
 import pandas as pd  # noqa: E402
 
-from src.fieldset import EMPTY_CONVENTION, EVIDENCE, EVIDENCE_WITHHELD, FIELDS  # noqa: E402
+from src.fieldset import (  # noqa: E402
+    EMPTY_CONVENTION, EVIDENCE, EVIDENCE_WITHHELD, FIELDS, STATES)
 from src.disclaimer import REPOSITORY_URL  # noqa: E402
 from src.statements import apply as apply_statements  # noqa: E402
 from src.measures import _empty_rule, is_empty  # noqa: E402
@@ -127,41 +128,113 @@ def panel_one(register: pd.DataFrame) -> dict:
     }
 
 
+# The nine oversight answers for the made-up entry, keyed to the sub-questions
+# named on the field itself so the example cannot drift from the field it fills.
+#
+# Each is a state and, where the state is "answered", a value. An answer that
+# does not exist carries no words at all. The earlier version of this panel put
+# all nine in one box as a paragraph, with "not applicable at this
+# classification" and "not yet carried out" written into the prose. That is an
+# absence recorded as ordinary text, which is the one thing the convention on
+# this page says no field does. The example contradicted the rule it existed to
+# demonstrate.
+NINE_ANSWERS = {
+    "Tested before deployment": {
+        "state": "answered",
+        "value": "Yes. Tested on a sample of past complaints before release."},
+    "Impact assessment completed": {
+        "state": "answered",
+        "value": "Yes. Completed 4 February 2026."},
+    "Potential impacts identified": {
+        "state": "answered",
+        "value": "Yes. A reply in the wrong tone, and delay while the tool is unavailable."},
+    "Independent review conducted": {
+        "state": "does_not_apply",
+        "ground": "This authority requires independent review only of systems it "
+                  "classifies high impact. This one is not."},
+    "Ongoing monitoring in place": {
+        "state": "answered",
+        "value": "Yes. Monthly sampling of replies that were sent."},
+    "Training established for operators": {
+        "state": "answered",
+        "value": "Yes. Completed for every caseworker who uses it."},
+    "Fail-safe in place": {
+        "state": "answered",
+        "value": "Yes. Replies can be written and sent without the tool."},
+    "Appeal process in place": {
+        "state": "answered",
+        "value": "Yes. The existing complaints process is unchanged and is the route of appeal."},
+    "Consultation with the people it affects": {
+        "state": "not_yet_answered"},
+}
+
+
+def nine_answers() -> list:
+    """The nine, in the order the field names them, each with its own state."""
+    field = next(f for f in FIELDS if f.get("sub_fields"))
+    rows = []
+    for name in field["sub_fields"]:
+        answer = NINE_ANSWERS.get(name)
+        if answer is None:
+            raise SystemExit(f"the made-up entry has no answer for '{name}'")
+        row = {"field": name, "state": answer["state"],
+               "value": answer.get("value"), "ground": answer.get("ground")}
+        if row["state"] == "answered" and not row["value"]:
+            raise SystemExit(f"'{name}' is marked answered and carries no answer")
+        if row["state"] != "answered" and row["value"]:
+            raise SystemExit(f"'{name}' is not answered and carries words anyway")
+        rows.append(row)
+    return rows
+
+
 def panel_two() -> dict:
-    """A fictional organisation. No real system, no real data."""
+    """A fictional organisation. No real system, no real data.
+
+    Every row carries one of the states in src.fieldset.STATES. A row that is
+    not answered carries no value, because the state is the record. Where a
+    state needs a reason, the reason sits in its own place rather than inside
+    the answer.
+    """
+    rows = [
+        {"field": "Entry identifier", "state": "answered", "value": "CTA-0041"},
+        {"field": "Date this entry was last checked", "state": "answered",
+         "value": "12 March 2026"},
+        {"field": "What changed since the last check", "state": "answered",
+         "value": "The model version. The responsible office, the data it draws on, what it "
+                  "is used for and how far it acts without a person are all unchanged."},
+        {"field": "Acts without a person reviewing the output", "state": "answered",
+         "value": "No. It does not act on its own: every draft reply is read by a caseworker "
+                  "before anything is sent."},
+        {"field": "Where a person reviews it", "state": "answered",
+         "value": "At the point of sending. The caseworker may edit the draft or discard it."},
+        {"field": "Impact classification, with an explicit option for not yet assessed",
+         "state": "answered",
+         "value": "Assessed, and not high impact. The output is a draft, and the decision that "
+                  "reaches the passenger is the caseworker's."},
+        {"field": "Withheld from public reporting, and on what ground", "state": "answered",
+         "value": "No. Nothing in this entry is held back."},
+        {"field": "The nine oversight questions, each with its own explicit states",
+         "state": "answered", "value": None, "sub_rows": nine_answers()},
+        {"field": "What this entry counts as one of", "state": "answered",
+         "value": "One system."},
+        {"field": "Who completed this entry, and when", "state": "answered",
+         "value": "Customer Services, 12 March 2026."},
+    ]
     return {
         "organisation": "A fictional city transport authority",
         "system": "A fictional tool that drafts replies to passenger complaints",
         "label": "Fictional throughout. No real organisation, no real system, no real data. "
                  "It exists to show the field set filled in.",
-        "rows": [
-            {"field": "Entry identifier", "value": "CTA-0041, unchanged since first registered"},
-            {"field": "Date this entry was last checked", "value": "12 March 2026"},
-            {"field": "What changed since the last check",
-             "value": "Model version changed. The responsible office, data sources, purpose and "
-                      "degree of autonomy are unchanged."},
-            {"field": "Acts without a person reviewing the output",
-             "value": "No. Every draft reply is read by a caseworker before it is sent."},
-            {"field": "Where a person reviews it",
-             "value": "At the point of sending. The caseworker may edit or discard the draft."},
-            {"field": "Impact classification, with an explicit option for not yet assessed",
-             "value": "Assessed, not high impact. The output is a draft, and the decision that "
-                      "reaches the passenger is the caseworker's."},
-            {"field": "Withheld from public reporting, and on what ground",
-             "value": "No. Published in full."},
-            {"field": "The nine oversight questions, each with its own explicit states",
-             "value": "Tested before deployment: yes. Impact assessment: completed. Potential "
-                      "impacts: recorded. Independent review: not applicable at this "
-                      "classification. Monitoring: monthly sampling of sent replies. Operator "
-                      "training: completed for all caseworkers. Fail-safe: replies can be sent "
-                      "without the tool. Appeal: the existing complaints process is unchanged. "
-                      "Consultation: not yet carried out."},
-            {"field": "What this entry counts as one of",
-             "value": "One system."},
-            {"field": "Who completed this entry, and when",
-             "value": "Customer Services, 12 March 2026."},
-
-        ],
+        # What the reader should take from the right-hand form. It is not that
+        # every box holds words. It is that every box holds a state.
+        "reading": "Every box on this form is resolved. Most carry an answer. Among the nine "
+                   "oversight questions, one is not put to this entry and one has been put and "
+                   "has no answer yet. Neither of those is written as words inside an answer: "
+                   "each is a state the field holds, which is what lets the two be told apart.",
+        "state_not_shown": ("Nothing on this entry is held back, so the state for a withheld "
+                            "answer does not appear on it. The field that records withholding "
+                            "is answered No."),
+        "rows": rows,
     }
 
 
@@ -232,6 +305,27 @@ STATE_LINE = {
 }
 
 
+def slots_caption(headline: dict) -> str:
+    """What the strip of marks says, in words.
+
+    The strip used to caption every unanswered box as "left blank", which
+    contradicted the paragraph beside it: on this entry none was asked and left
+    blank. The caption is built from the same split the marks are drawn from,
+    so the picture and the words cannot disagree.
+    """
+    parts = [f"{headline['a_real_entry_can_fill']} of {headline['fields']} boxes carry "
+             "an answer from the published entry."]
+    if headline["not_collected"]:
+        parts.append(f"That register does not collect {headline['not_collected']} of them.")
+    if headline["does_not_apply"]:
+        parts.append(f"{headline['does_not_apply']} it collects and does not put to an "
+                     "entry like this one.")
+    empty = headline["asked_and_left_empty"]
+    parts.append(f"{empty} were asked and left empty." if empty
+                 else "None was asked and left empty.")
+    return " ".join(parts)
+
+
 def reading_steps(one: dict, two: dict) -> list:
     """One step per field, narrating the real entry row by row.
 
@@ -253,8 +347,9 @@ def reading_steps(one: dict, two: dict) -> list:
         "field": "Of the ten, this is what carries a value",
         "line": (f"{filled} of {len(one['rows'])} boxes carry a value from the published "
                  f"register. The other {len(one['rows']) - filled} are the empty boxes on "
-                 "the left. The second form is one made-up organisation filling in "
-                 "every one."),
+                 "the left. The second form is one made-up organisation giving every "
+                 "box a definite state, which is not the same as writing words in "
+                 "every box."),
         "state": "summary",
     })
     return steps
@@ -378,7 +473,8 @@ def main() -> None:
                  "what": "Before certain AI systems can be used in the EU, they have to "
                          "be entered in a database anyone can look at.",
                  "why": "It is a register with a different purpose: it decides who has "
-                        "to appear on it, which the two registers read here do not."},
+                        "to appear on it, which neither the US list nor the UK "
+                        "standard does."},
                 {"name": "The international standard for managing AI, ISO/IEC 42001",
                  "what": "A published standard describing how an organisation should "
                          "run its AI oversight. An organisation can be checked against "
@@ -387,7 +483,8 @@ def main() -> None:
                         "register is kept up rather than what it records."},
             ],
             "consequence": "Treat this as a proposal about what a register records, "
-                           "tested against two published files. It is not an operating "
+                           "traced to one published file and compared against one "
+                           "published standard. It is not an operating "
                            "model, and it has not been checked against the standards "
                            "that set one.",
         },
@@ -439,6 +536,14 @@ def main() -> None:
     payload["steps"] = reading_steps(payload["panel_one"], payload["panel_two"])
     for row in payload["panel_one"]["rows"]:
         row["short"] = SHORT_STATE[row["state"]]
+    # The word for each state travels with the row rather than being written in
+    # the page script, so the states the convention names and the states the
+    # example prints are the same words.
+    for row in payload["panel_two"]["rows"]:
+        row["state_word"] = STATES[row["state"]]
+        for sub in row.get("sub_rows", []):
+            sub["state_word"] = STATES[sub["state"]]
+    payload["headline"]["slots_caption"] = slots_caption(payload["headline"])
 
     (DERIVED / "fieldset.json").write_text(json.dumps(payload, indent=2) + "\n")
     (DOCS_DATA / "fieldset.json").write_text(json.dumps(payload, indent=2) + "\n")
