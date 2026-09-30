@@ -290,6 +290,41 @@
 
   /* The account of how the work was done. A link only once the repository
      exists; the sentence still tells a reader where to find it either way. */
+  /* Two cautions that qualify the whole field set. Loud rather than quiet,
+     because a reader who takes the ten fields as a conclusion without them has
+     taken more than the work supports. Figures come from the data like the
+     rest. */
+  function drawTiming(d) {
+    var node = el("timing");
+    if (!node || !d.timing) { return; }
+    var t = d.timing;
+    node.innerHTML =
+      '<h2 class="h-caution">' + esc(t.heading) + "</h2>" +
+      "<p class=\"caution-lead\">" + esc(t.lead) + "</p>" +
+      '<p class="caution-fig"><strong>' + esc(num(t.in_progress_share)) + "%</strong> " +
+      esc(t.reading) + "</p>" +
+      "<p>" + esc(num(t.more_unfinished)) + " of the " + esc(num(t.entries_answering)) +
+      " entries that answer at all give more answers saying a step is under way " +
+      "than saying it was done.</p>" +
+      "<p>" + esc(t.what_this_project_will_not_say) + "</p>" +
+      '<p class="caution-take"><strong>' + esc(t.consequence) + "</strong></p>";
+  }
+
+  function drawNotCovered(d) {
+    var node = el("not-covered");
+    if (!node || !d.not_covered) { return; }
+    var n = d.not_covered;
+    node.innerHTML =
+      '<h2 class="h-caution">' + esc(n.heading) + "</h2>" +
+      "<p class=\"caution-lead\">" + esc(n.lead) + "</p>" +
+      '<ul class="misslist">' + n.missing.map(function (m) {
+        return "<li><strong>" + esc(m.name) + "</strong> " + esc(m.why) + "</li>";
+      }).join("") + "</ul>" +
+      "<p>" + esc(n.coverage) + "</p>" +
+      "<p>" + esc(n.comparators) + "</p>" +
+      '<p class="caution-take"><strong>' + esc(n.consequence) + "</strong></p>";
+  }
+
   function drawReadme(d) {
     var node = el("readme-link");
     if (!node) { return; }
@@ -336,6 +371,8 @@
       drawSteps(d);
       drawEvidence(d);
       drawFields(d);
+      drawTiming(d);
+      drawNotCovered(d);
       drawReadme(d);
       armMotion();
     });

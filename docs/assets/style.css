@@ -739,3 +739,49 @@ ol.subfields li { font-size: .9rem; margin: .12rem 0; break-inside: avoid; }
   font-size: .82rem; line-height: 1.45; color: var(--ink-soft);
   border-left: 3px solid var(--flag); padding: .35rem .6rem; margin: .5rem 0 0;
 }
+
+/* --- The two cautions on the field set page ------------------------------
+
+   These qualify the ten fields, so a reader who meets the field set without
+   meeting them has taken more from the page than the work supports. They sit
+   at the loud level rather than with the sources and limits: bordered, on a
+   tinted ground, with the figure at reading size rather than in a caption.
+
+   The border takes --mine, because both are statements about the author's own
+   proposal rather than about the published register. */
+.design-page .caution {
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--mine);
+  border-radius: var(--radius);
+  background: var(--mine-soft);
+  padding: 1.1rem 1.25rem .4rem;
+  margin: 2rem 0;
+}
+.design-page .h-caution {
+  margin: 0 0 .5rem;
+  font-size: 1.15rem;
+  color: var(--mine);
+  border: 0;
+  padding: 0;
+}
+.design-page .caution-lead {
+  font-size: 1.02rem;
+  line-height: 1.55;
+  margin: 0 0 .9rem;
+}
+.design-page .caution-fig strong {
+  font-size: 1.35rem;
+  color: var(--mine);
+  font-variant-numeric: tabular-nums;
+}
+.design-page .caution-take {
+  border-top: 1px solid var(--border);
+  padding-top: .7rem;
+  margin-top: 1rem;
+}
+.design-page .misslist { margin: 0 0 1rem; padding-left: 1.1rem; }
+.design-page .misslist li { margin-bottom: .45rem; max-width: var(--measure); }
+
+@media (max-width: 600px) {
+  .design-page .caution { padding: .9rem 1rem .3rem; }
+}

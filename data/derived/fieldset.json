@@ -174,6 +174,45 @@
       "link": "gaps.html"
     }
   ],
+  "timing": {
+    "heading": "Some of these blanks may be a clock, not a gap",
+    "lead": "A blank can mean nobody recorded the answer. It can also mean the work is under way and the answer does not exist yet. This project cannot tell those apart, and the figures lean toward the second more than the headline suggests.",
+    "in_progress_share": 16.9,
+    "entries_answering": 128,
+    "more_unfinished": 83,
+    "reading": "of every answer the nine oversight fields contain says a step is under way rather than finished.",
+    "what_this_project_will_not_say": "The register's own dictionary cites the White House memorandum these fields come from, and that memorandum sets dates by which agencies are to document this work. This project does not state those dates, because it cannot check them against any file it holds, and it publishes nothing it cannot check. What it can say is that the file records no date by which any answer was due, so an outside reader cannot tell a gap from a clock.",
+    "consequence": "Read the blanks as what reached the file on the day it was downloaded, not as work that was not done."
+  },
+  "not_covered": {
+    "heading": "What this field set does not do",
+    "lead": "These ten questions describe what a register should record. They do not describe how one is run, and a register that is not run is a document rather than a control.",
+    "missing": [
+      {
+        "name": "A named person accountable for each entry",
+        "why": "A field with no owner is nobody's to keep current."
+      },
+      {
+        "name": "What forces an update, and how often one is due",
+        "why": "Two of the ten ask when an entry was last checked and what changed. Neither makes anyone check it."
+      },
+      {
+        "name": "Approval gates tied to buying and starting a system",
+        "why": "A register filled in after the fact records decisions rather than shaping them."
+      },
+      {
+        "name": "A state for a system that has been switched off",
+        "why": "Without one, a register grows and never empties."
+      },
+      {
+        "name": "A link from each answer to the evidence behind it",
+        "why": "Every field here records a claim. None records where the claim can be checked."
+      }
+    ],
+    "coverage": "There is also a limit no register design can solve from outside. A published list shows what an organisation wrote down. It cannot show systems nobody declared, or the AI features that arrive inside software bought for something else. Both are outside anything this project can see.",
+    "comparators": "Two registers were read: the US federal list and the Government of Ontario's. Others were not. The United Kingdom's Algorithmic Transparency Recording Standard has been mandatory across central government since 2024 and is the obvious comparison this project does not make. The European Union's registration duties and the international management-system standard for AI are also absent. Nothing here is mapped to any of them.",
+    "consequence": "Treat this as a proposal about what a register records, tested against two published files. It is not an operating model, and it has not been checked against the standards that set one."
+  },
   "repository_url": "https://github.com/Saa2252/ai-use-case-register-audit",
   "judgment_calls": 10,
   "panel_one": {
