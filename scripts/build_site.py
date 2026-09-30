@@ -33,6 +33,7 @@ DOCS = REPO_ROOT / "docs"
 NAV_GROUPS = [
     ("What I would build", [
         ("index.html", "The field set"),
+        ("keeping.html", "Keeping it current"),
     ]),
     ("What the register says", [
         ("register.html", "The register"),
@@ -116,6 +117,18 @@ def page(file, title, heading, lede, body, scripts="", licences=(), figures=True
 def main() -> None:
     bodies = (REPO_ROOT / "scripts" / "bodies")
     DOCS.mkdir(exist_ok=True)
+    # The fifth page. Its own data file, its own script, and no findings loaded,
+    # because nothing on it was counted from a published file and it must never
+    # be filled with a figure from the audit.
+    (DOCS / "keeping.html").write_text(page(
+        "keeping.html", "Keeping it current | AI Use Case Register Audit",
+        "Keeping a register current",
+        "A proposal for how a register would be kept up, written against the five "
+        "things the field set does not do. Not tested against any real register.",
+        (bodies / "view5.html").read_text(),
+        figures=False,
+        page_class="design-page",
+        scripts='\n<script src="' + stamp("assets/keeping.js") + '"></script>'))
     (DOCS / "register.html").write_text(page(
         "register.html", "The register | AI Use Case Register Audit", "The register",
         "The list the United States federal government publishes of the AI systems it uses.",

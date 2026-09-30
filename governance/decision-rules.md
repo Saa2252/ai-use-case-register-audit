@@ -1336,3 +1336,38 @@ project's third finding and the reason the second proposed field exists.
 **Result.** All five of the things the field set page says it does not do are
 now mapped to a published text that does. Four to the EU regulation, three to
 the NIST framework, with overlap. The page states the mapping beside each gap.
+
+## 27. A page for how a register is kept
+
+**Owner decision, 30 September 2026.**
+
+The field set page has carried an admission for some time: these ten questions
+describe what a register should record, they do not describe how one is run,
+and a register that is not run is a document rather than a control. The owner
+ruled that the admission had stood long enough.
+
+| Decision | Ruling |
+|---|---|
+| Whether to build it at all | **Yes.** Naming the gap and leaving it is diagnosis. The work stops there otherwise |
+| How many options to present | **One shape, not a menu.** Options push the design decision back onto the owner, and the point of the exercise is to make it |
+| What it covers | **Exactly the five gaps the field set already names, and nothing else.** No framework, no policy text, no committee structure, no maturity model. Each of those is a reasonable thing to build and none of them is this |
+| Where it sits | **Its own page, marked as a proposal and untested.** It cannot be checked against a published file, so it does not sit under the audit's evidential claims |
+| When | **After the figures were corrected.** Correct numbers matter more than a new page |
+
+**What holds the scope.** The five gaps are held once, in
+`src.fieldset.OPERATING_GAPS`, and both pages read that list. The build stops
+if a gap has no mechanism or a mechanism answers no gap, so a sixth cannot be
+added without the list changing first, and the list is what the field set page
+publishes. `tests/test_operating_model.py` checks the two published files name
+the same five.
+
+**What every mechanism states.** The same five answers in the same order: what
+it is, who does it, what sets it off, what it leaves behind, and what it costs.
+The cost is checked by its own test, because it is the line that goes missing
+first and a proposal with no costs in it is a wish.
+
+**What the page states about itself.** That it has not been used to keep a
+register, that it has not been put in front of anyone who keeps one, and that
+nothing on it can be checked against a published file. It also lists three
+things that would show it to be wrong, because a design with no way of being
+wrong is not a design.

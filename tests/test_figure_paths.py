@@ -59,20 +59,30 @@ def test_every_figure_path_resolves():
 
 
 # Two scripts fill data-figure placeholders, from two different data files. A
-# page loads exactly one of them: loading both leaves whichever finishes second
-# writing over the first, and the loser's elements read "unavailable".
+# page that shows figures loads exactly one of them: loading both leaves
+# whichever finishes second writing over the first, and the loser's elements
+# read "unavailable".
+#
+# A page that shows no figures loads neither, and must carry no placeholders.
+# The fifth page is the case: nothing on it was counted from a published file,
+# so it has no figures to fill and uses a different attribute of its own. If it
+# ever grows a data-figure placeholder, the first half of this test catches it,
+# and if it ever loads a filler with nothing to fill, the second half does.
 FIGURE_FILLERS = ["assets/figures.js", "assets/proposal.js"]
 
 
-def test_every_page_loads_exactly_one_figure_script():
+def test_a_page_showing_figures_loads_exactly_one_script_to_fill_them():
     problems = []
     for page in sorted(DOCS.glob("*.html")):
         text = page.read_text()
         loaded = [s for s in FIGURE_FILLERS if s in text]
-        if len(loaded) != 1:
-            problems.append(f"{page.name}: loads {loaded or 'none'}")
+        has_figures = 'data-figure="' in text
+        if has_figures and len(loaded) != 1:
+            problems.append(f"{page.name}: shows figures and loads {loaded or 'none'}")
+        if not has_figures and loaded:
+            problems.append(f"{page.name}: shows no figures and loads {loaded}")
     assert not problems, (
-        "pages that do not load exactly one script to fill their figures:\n" + "\n".join(problems))
+        "a page and the script that fills its figures do not agree:\n" + "\n".join(problems))
 
 
 def test_every_data_file_the_scripts_request_exists():

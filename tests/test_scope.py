@@ -12,11 +12,16 @@ DB_SUFFIXES = {".db", ".sqlite", ".sqlite3", ".mdb", ".accdb"}
 LOGIN_PATTERNS = [r"\blogin\b", r"\bsign[\s-]?in\b", r"\bpassword\b", r"\bauthenticat", r"\bsession\b"]
 
 
-# The brief set three views. Two additions were approved and recorded in the
-# scope-change table in governance/safeguards.md: a design view, and then the
-# decision to merge the planned dashboard into that page rather than add a
-# fifth. Four is the approved number.
-APPROVED_PAGES = {"index.html", "register.html", "gaps.html", "obligations.html"}
+# The brief set three views. Three additions have been approved in writing and
+# recorded in the scope-change table in governance/safeguards.md: a design view,
+# the decision to merge the planned dashboard into that page rather than add a
+# page for it, and on 30 September 2026 a page setting out how a register would
+# be kept current. Five is the approved number.
+#
+# This set is the control. A page added without the owner's approval fails here,
+# which is the whole of S12 in one assertion.
+APPROVED_PAGES = {"index.html", "register.html", "gaps.html", "obligations.html",
+                  "keeping.html"}
 
 
 def test_exactly_the_approved_pages():

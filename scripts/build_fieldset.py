@@ -20,7 +20,7 @@ warnings.filterwarnings("ignore")
 import pandas as pd  # noqa: E402
 
 from src.fieldset import (  # noqa: E402
-    EMPTY_CONVENTION, EVIDENCE, EVIDENCE_WITHHELD, FIELDS, STATES)
+    EMPTY_CONVENTION, EVIDENCE, EVIDENCE_WITHHELD, FIELDS, OPERATING_GAPS, STATES)
 from src.disclaimer import REPOSITORY_URL  # noqa: E402
 from src.statements import apply as apply_statements  # noqa: E402
 from src.measures import _empty_rule, is_empty  # noqa: E402
@@ -487,39 +487,7 @@ def main() -> None:
             "lead": "These ten questions describe what a register should record. They "
                     "do not describe how one is run, and a register that is not run is "
                     "a document rather than a control.",
-            "missing": [
-                {"name": "A named person accountable for each entry",
-                 "why": "A field with no owner is nobody's to keep current.",
-                 "covered_by": "NIST AI 100-1, GOVERN 2.1, which asks that roles and "
-                               "responsibilities be documented. The UK standard names a "
-                               "senior responsible owner on the record itself."},
-                {"name": "What forces an update, and how often one is due",
-                 "why": "Two of the ten ask when an entry was last checked and what "
-                        "changed. Neither makes anyone check it.",
-                 "covered_by": "NIST AI 100-1, GOVERN 1.5, which asks that periodic review "
-                               "be planned and its frequency decided. Annex VIII of the EU "
-                               "regulation requires registered information to be kept up to "
-                               "date after it is first entered."},
-                {"name": "Approval gates tied to buying and starting a system",
-                 "why": "A register filled in after the fact records decisions rather "
-                        "than shaping them.",
-                 "covered_by": "Article 49 of the EU regulation, which requires registration "
-                               "before a system is placed on the market or put into service. "
-                               "The entry is a condition of use rather than a record made "
-                               "afterwards."},
-                {"name": "A state for a system that has been switched off",
-                 "why": "Without one, a register grows and never empties.",
-                 "covered_by": "Annex VIII, Section A, point 7 of the EU regulation, whose "
-                               "status field includes no longer on the market, no longer in "
-                               "service, and recalled. NIST AI 100-1, GOVERN 1.7, asks for a "
-                               "process for taking a system out of use."},
-                {"name": "A link from each answer to the evidence behind it",
-                 "why": "Every field here records a claim. None records where the "
-                        "claim can be checked.",
-                 "covered_by": "Annex VIII, Section C of the EU regulation, where a public "
-                               "body registering a use gives the address of the provider's "
-                               "entry and summaries of two named assessments."},
-            ],
+            "missing": OPERATING_GAPS,
             "coverage": "There is also a limit no register design can solve from "
                         "outside. A published list shows what an organisation wrote "
                         "down. It cannot show systems nobody declared, or the AI "

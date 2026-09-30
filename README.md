@@ -440,6 +440,7 @@ Then rebuild what is published:
 ./.venv/bin/python scripts/build_findings.py
 ./.venv/bin/python scripts/build_fieldset.py
 ./.venv/bin/python scripts/build_export.py
+./.venv/bin/python scripts/build_operating_model.py
 ./.venv/bin/python scripts/build_site.py
 ```
 
@@ -465,8 +466,8 @@ That prints the raw row as downloaded, compares it field by field with what the 
 | `notebooks/analysis.ipynb` | The intended single entry point. Phases 1 to 3 are not implemented in it, as noted above |
 | `scripts/acquire.py` | Every source, its address, and the hash manifest the tests verify |
 | `data/derived/` | Everything published. Every figure on the site comes from here |
-| `docs/` | The site |
-| `tests/` | 66 automated checks, run with pytest |
+| `docs/` | The site. Four pages that read the published register, and one that proposes how a register would be kept current |
+| `tests/` | 72 automated checks, run with pytest |
 
 ## Licence
 

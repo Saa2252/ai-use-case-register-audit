@@ -393,3 +393,11 @@ off by the owner before work starts.
 | 2026-09-30 | Declare every source's address in `scripts/acquire.py` and rebuild the manifest | **Correction.** The provenance document said files were downloaded by script, and the fetching code existed, but no script declared the addresses and the notebook's Phase 1 cell said the step was not implemented. The UK template had been downloaded outside the manifest on 30 September 2026 and was therefore outside T7 for as long as it was a source |
 | 2026-09-30 | Check every hash printed in the provenance document against the manifest | **New test.** `tests/test_provenance_hashes_match.py`. It found a hash whose tail had been written from a shortened display and was wrong. The file and the manifest were right; the published record a reader would check was not |
 | 2026-09-30 | State in the README that the notebook's Phases 1 to 3 are not implemented | **Recorded rather than left for a reader to find.** The README told a reader to run the notebook to reproduce the work, and the notebook could not do it. The commands that do are now listed |
+
+## Scope change, 30 September 2026
+
+| Date | Change | Outcome |
+|---|---|---|
+| 2026-09-30 | A fifth page, `keeping.html`, setting out how a register would be kept current | **Approved by the owner in writing.** S12 locks the site's shape and the brief set three views. This is the third approved addition. Scoped to exactly the five gaps the field set page already names and nothing else. Marked a proposal and untested on the page itself, at the top and again at the foot. T9's approved page set is the control: a page added without approval fails it. Reasoning in `governance/decision-rules.md` section 27 |
+| 2026-09-30 | The five gaps held once and read by both pages | **Enforced.** `src.fieldset.OPERATING_GAPS`. The build stops if a gap has no mechanism or a mechanism answers no gap, and `tests/test_operating_model.py` checks the two published files agree |
+| 2026-09-30 | The fifth page loads no findings and carries no figures from the audit | **Enforced.** It uses an attribute of its own, so no number counted from the register can be filled into a page where nothing was counted. `tests/test_figure_paths.py` now states that rule in both directions |

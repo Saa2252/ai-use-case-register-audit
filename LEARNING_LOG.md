@@ -666,3 +666,100 @@ what the policy says. Contradictions there are more informative than an
 attestation, because the artefact is what people use. On this project the
 stated rule was that no field records an absence as ordinary text, and the
 worked example published beside it did exactly that, in two places.
+
+## After Phase 9. Checking the denominator everywhere, and building the thing the page said was missing
+
+### What we did
+
+An outside reader asked whether the fault found in one figure sat anywhere
+else. It did. Every field's Required clause is now read from the publisher's
+own dictionary and turned into a rule the analysis applies row by row. 22 of
+the 31 fields the dictionary defines carry a condition, and every one of them
+was being published as a share of all 3,611 rows. Two published figures were
+wrong and are corrected. One, the withholding figure, was checked and is sound.
+
+Correction notes now sit on the pages where each wrong figure ran, saying what
+changed and what it does to the conclusion.
+
+The memorandum behind the nine oversight fields is downloaded and hashed, so
+its dates can be stated and its sections cited. So are the EU regulation and
+the NIST framework, which between them cover all five things the field set says
+it does not do.
+
+And the fifth page exists: one shape for keeping a register current, scoped to
+those five gaps and no more.
+
+### Why it matters in real AI governance work
+
+**A denominator is a claim.** Dividing by the wrong population is not a rounding
+error, it is a different statement. 317 of 445 and 101 of 227 are both true
+sentences about the same file, and only one of them describes an unanswered
+question. Nobody types a wrong number. People pick a denominator without
+noticing they have picked anything.
+
+**One correction is not a check.** The first fault was found and fixed and the
+matter felt closed. It was not. The fix was made by hand in one measure, and
+nothing looked at the other twenty-one fields with the same shape. A correction
+that is not followed by a systematic check of the same class is a patch.
+
+**Fail closed.** The parser that reads the Required clause raises on wording it
+has not been taught, rather than treating it as "asked of everything". The safe
+default is the one that stops, because the convenient default is what produced
+the fault.
+
+**Report what cannot be placed.** 338 entries record no development stage, so a
+condition written in terms of stage cannot place them on either side. They are
+counted on their own. Pushing them into one group would have been tidier and
+would have asserted something the file does not contain.
+
+**Hold the primary document.** The page had declined to state the memorandum's
+dates because it could not check them against a file it held. The answer was
+not to make an exception. It was to download the memorandum, hash it and read
+it. Two secondary summaries gave different dates, which is the argument for the
+primary rather than against it.
+
+**Commit to the answer before you look.** The rule for reading the dates was
+written into the page before the memorandum was opened. That is the only way a
+reader can tell the conclusion was not chosen to suit the finding.
+
+**Diagnosis is half the job.** Naming a gap and leaving it is where a lot of
+governance work stops. The fifth page is scoped to exactly the five gaps
+already named, states what each mechanism costs, and lists three things that
+would show it to be wrong.
+
+### New terms
+
+**Denominator.** The number you divide by. In a register, the population the
+question was actually put to, which is often smaller than the file.
+
+**Conditional field.** A field the publisher asks only of some entries. A blank
+in one, on an entry outside the condition, records a question that was not
+asked.
+
+**Fail closed.** Designing a check so that the unknown case stops the work
+rather than passing it. The opposite, failing open, is what lets a wrong
+default travel.
+
+### Decisions the owner made and why
+
+The correction notes go on the pages where the wrong figures ran, not only in a
+log, because a footer note does not reach anyone who saw the old number. They
+stay visible until the owner says otherwise rather than disappearing on a date,
+because when a correction stops being prominent is a judgment, not a clock.
+
+ISO/IEC 42001 stays unread and the reason is published. It is sold rather than
+published, and a mapping written from other people's summaries is the one thing
+the rest of this project does not do. The NIST framework covers the same ground
+and its author publishes it free.
+
+### One question an interviewer could ask
+
+**"You find a published figure is wrong. What do you do?"**
+
+Correct it, then assume it is not the only one. Work out what class of mistake
+it belongs to and check the whole class, not the one instance. Here the class
+was denominators: a figure divided by the file rather than by the population
+the question was put to. One had been found and fixed by hand; checking the
+class found another and cleared a third. Then publish the correction where the
+wrong number was read, say what it does to the conclusion rather than only
+giving the new number, and put a test in the way so the class cannot come back.

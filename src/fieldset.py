@@ -174,6 +174,82 @@ EMPTY_CONVENTION = {
 }
 
 
+# --- What the field set does not do -----------------------------------------
+#
+# Five things a register needs that no field on it records. Held here because
+# two pages name them: the field set page, which says they are missing, and the
+# page that proposes how each one would work. Two pages writing this list
+# separately is two lists that can disagree, and the project has already been
+# bitten by exactly that.
+#
+# `covered_by` names a published text that already solves it, read from the
+# publisher's own file. `finding` is what in this audit produced it.
+
+OPERATING_GAPS = [
+    {
+        "key": "owner",
+        "name": "A named person accountable for each entry",
+        "why": "A field with no owner is nobody's to keep current.",
+        "finding": "How completely an entry is filled in varies far less within one "
+                   "agency's submission than across the register, and the register records "
+                   "nothing about who filled an entry in.",
+        "covered_by": "NIST AI 100-1, GOVERN 2.1, which asks that roles and "
+                      "responsibilities be documented. The UK standard names a "
+                      "senior responsible owner on the record itself.",
+    },
+    {
+        "key": "triggers",
+        "name": "What forces an update, and how often one is due",
+        "why": "Two of the ten ask when an entry was last checked and what "
+               "changed. Neither makes anyone check it.",
+        "finding": "The register records no verification date, no update date and no "
+                   "review date, and no field records any of the five changes that would "
+                   "normally call for an entry to be checked again.",
+        "covered_by": "NIST AI 100-1, GOVERN 1.5, which asks that periodic review "
+                      "be planned and its frequency decided. Annex VIII of the EU "
+                      "regulation requires registered information to be kept up to "
+                      "date after it is first entered.",
+    },
+    {
+        "key": "gates",
+        "name": "Approval gates tied to buying and starting a system",
+        "why": "A register filled in after the fact records decisions rather "
+               "than shaping them.",
+        "finding": "The register is filled in once a year on a submission deadline. "
+                   "Nothing in the file ties an entry to the point at which a system was "
+                   "bought or switched on.",
+        "covered_by": "Article 49 of the EU regulation, which requires registration "
+                      "before a system is placed on the market or put into service. "
+                      "The entry is a condition of use rather than a record made "
+                      "afterwards.",
+    },
+    {
+        "key": "switched_off",
+        "name": "A state for a system that has been switched off",
+        "why": "Without one, a register grows and never empties.",
+        "finding": "The development stage field offers four answers and no option "
+                   "meaning nobody filled it in. Entries not carried forward from the "
+                   "earlier year cannot be told from entries that were withdrawn.",
+        "covered_by": "Annex VIII, Section A, point 7 of the EU regulation, whose "
+                      "status field includes no longer on the market, no longer in "
+                      "service, and recalled. NIST AI 100-1, GOVERN 1.7, asks for a "
+                      "process for taking a system out of use.",
+    },
+    {
+        "key": "evidence",
+        "name": "A link from each answer to the evidence behind it",
+        "why": "Every field here records a claim. None records where the "
+               "claim can be checked.",
+        "finding": "A filled oversight field shows information was provided. Nothing "
+                   "in the register points at the document behind it, so no answer can "
+                   "be checked from outside.",
+        "covered_by": "Annex VIII, Section C of the EU regulation, where a public "
+                      "body registering a use gives the address of the provider's "
+                      "entry and summaries of two named assessments.",
+    },
+]
+
+
 # --- The evidence strip -----------------------------------------------------
 #
 # The caveat test, set by the owner: a figure goes here only if its

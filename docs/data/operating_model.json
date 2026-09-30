@@ -1,0 +1,86 @@
+{
+  "status": {
+    "label": "Proposal. Not tested.",
+    "what_this_is": "One way to keep a register current, written against the five things the field set does not do. It is a design, not a finding.",
+    "what_this_is_not": "It has not been used to keep a register. It has not been put in front of anyone who keeps one. Nothing on this page can be checked against a published file, which is what the other four pages can be checked against and what the rest of this project rests on.",
+    "why_it_is_separate": "It sits on its own page so that it is never read as part of the audit. The audit describes a file. This describes a way of working, and the two carry different weight.",
+    "scope": "Five mechanisms, one for each gap the field set names, and nothing else. No framework, no policy text, no committee, no maturity model. Each of those is a reasonable thing to build and none of them is this."
+  },
+  "mechanisms": [
+    {
+      "key": "owner",
+      "name": "A named person accountable for each entry",
+      "why": "A field with no owner is nobody's to keep current.",
+      "finding": "How completely an entry is filled in varies far less within one agency's submission than across the register, and the register records nothing about who filled an entry in.",
+      "covered_by": "NIST AI 100-1, GOVERN 2.1, which asks that roles and responsibilities be documented. The UK standard names a senior responsible owner on the record itself.",
+      "mechanism": "Every entry carries one named role, not a team and not a mailbox. The role is the one that can stop the system being used, which in most organisations is the person who owns the process the system sits inside rather than the person who built it.",
+      "who": "The owner of the business process. The technical team is recorded separately and is not the accountable role.",
+      "trigger": "Set when the entry is created. Revisited when the named role changes hands, which is one of the five update triggers below.",
+      "record": "A name and a date on the entry, and a second date when it last changed hands. Both are readable without asking anyone.",
+      "cost": "Someone has to agree to be named, and naming a person who cannot stop the system produces an owner in name only. This is the mechanism most likely to be filled in with whoever is available."
+    },
+    {
+      "key": "triggers",
+      "name": "What forces an update, and how often one is due",
+      "why": "Two of the ten ask when an entry was last checked and what changed. Neither makes anyone check it.",
+      "finding": "The register records no verification date, no update date and no review date, and no field records any of the five changes that would normally call for an entry to be checked again.",
+      "covered_by": "NIST AI 100-1, GOVERN 1.5, which asks that periodic review be planned and its frequency decided. Annex VIII of the EU regulation requires registered information to be kept up to date after it is first entered.",
+      "mechanism": "Five named events force a re-check, and one date forces one in their absence. The five are the ones this audit found no field for: the responsible role changes, the model or its version changes, the data it draws on changes, what it is used for changes, or how far it acts without a person changes.",
+      "who": "The named owner confirms. Whoever makes the change raises it.",
+      "trigger": "Any of the five, within a set number of working days. Otherwise a calendar review, and the interval is set by the impact classification rather than being one interval for everything.",
+      "record": "A date of last check and which of the five set it off, both on the entry. These are the second and third proposed fields.",
+      "cost": "A trigger only works if the people making the change know the register exists. Four of the five are known to a technical team and not to a register, so this mechanism depends on a route from one to the other that does not exist by default."
+    },
+    {
+      "key": "gates",
+      "name": "Approval gates tied to buying and starting a system",
+      "why": "A register filled in after the fact records decisions rather than shaping them.",
+      "finding": "The register is filled in once a year on a submission deadline. Nothing in the file ties an entry to the point at which a system was bought or switched on.",
+      "covered_by": "Article 49 of the EU regulation, which requires registration before a system is placed on the market or put into service. The entry is a condition of use rather than a record made afterwards.",
+      "mechanism": "The entry is created before the system is bought or switched on, not after. Two points do the work: an entry exists before money is committed, and the entry is complete before the system is used on real cases.",
+      "who": "Whoever signs the purchase, and whoever authorises live use.",
+      "trigger": "The purchase, and the move from pilot to live.",
+      "record": "The entry's own creation date, earlier than the operational date the register already asks for. Two dates in the wrong order is a visible signal that needs no judgment to read.",
+      "cost": "This is the mechanism with teeth and the one most likely to be waived under time pressure. It also reaches beyond the register into procurement, which is the only one of the five that does."
+    },
+    {
+      "key": "switched_off",
+      "name": "A state for a system that has been switched off",
+      "why": "Without one, a register grows and never empties.",
+      "finding": "The development stage field offers four answers and no option meaning nobody filled it in. Entries not carried forward from the earlier year cannot be told from entries that were withdrawn.",
+      "covered_by": "Annex VIII, Section A, point 7 of the EU regulation, whose status field includes no longer on the market, no longer in service, and recalled. NIST AI 100-1, GOVERN 1.7, asks for a process for taking a system out of use.",
+      "mechanism": "A system that stops being used moves to a retired state on the entry, with a date and the reason. The entry stays. It is never deleted, because a register that empties by deletion cannot answer what was running last year.",
+      "who": "The named owner.",
+      "trigger": "The system stops being used, or a calendar review finds it has not been used since the previous one.",
+      "record": "A retired state, a date, and a short reason. The published register already has a retired stage, which is why this is the cheapest of the five.",
+      "cost": "Nobody is prompted when a system quietly stops being used, so this depends on the calendar review rather than on anyone noticing."
+    },
+    {
+      "key": "evidence",
+      "name": "A link from each answer to the evidence behind it",
+      "why": "Every field here records a claim. None records where the claim can be checked.",
+      "finding": "A filled oversight field shows information was provided. Nothing in the register points at the document behind it, so no answer can be checked from outside.",
+      "covered_by": "Annex VIII, Section C of the EU regulation, where a public body registering a use gives the address of the provider's entry and summaries of two named assessments.",
+      "mechanism": "Every answer that asserts something points at where that thing can be read. The nine oversight answers each carry a reference to the document behind them rather than only a yes.",
+      "who": "Whoever answers the question.",
+      "trigger": "At the point the answer is given. A reference added later is a reference nobody checked.",
+      "record": "A reference on each answer. Inside an organisation this is a link. Published outside it, it is a document name and a date, because the link is usually behind a login.",
+      "cost": "This is the mechanism that turns a yes into a claim someone can check, and for that reason it is the one people answer more slowly. Expect fewer answers and better ones."
+    }
+  ],
+  "signals": [
+    "Entries whose creation date is earlier than their operational date, as a share of entries added since the gates were put in.",
+    "Entries checked within their own interval, as a share of entries due a check.",
+    "Entries in a retired state, as a count. A register that never retires anything is not being read.",
+    "Oversight answers carrying a reference, as a share of oversight answers given.",
+    "Entries whose named owner has changed hands with no re-check recorded."
+  ],
+  "would_show_it_wrong": [
+    "Someone who keeps a register says the five triggers are not the events that actually change a system, or that they are unworkable in the volumes involved.",
+    "The gate at purchase turns out to be the one people route around, which would make the entry date less reliable than the operational date rather than more.",
+    "Asking for a reference on every answer reduces the answers given without improving the ones that remain."
+  ],
+  "disclaimer": "This is an independent portfolio project. It uses publicly available AI use case inventories published by the US Office of Management and Budget (public domain, 17 U.S.C. \u00a7105) and the Government of Ontario (Open Government Licence \u2013 Ontario), and the UK Government's Algorithmic Transparency Recording Standard template (\u00a9 Crown copyright, Open Government Licence v3.0). Vendor and product names have been removed. Findings describe patterns in the published data and are not claims about any agency's conduct. This is not legal advice. Not affiliated with or endorsed by any government body.",
+  "authorship": "Governance design by Sana Ahmad.",
+  "generated": "2026-09-30"
+}
