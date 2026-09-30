@@ -1371,3 +1371,58 @@ register, that it has not been put in front of anyone who keeps one, and that
 nothing on it can be checked against a published file. It also lists three
 things that would show it to be wrong, because a design with no way of being
 wrong is not a design.
+
+## 28. Five changes for a reader who is not reading carefully
+
+**Owner decisions, 30 September 2026.** All five came from a reader who said
+the site hedges too much, hides its method, and never says whose it is.
+
+### Hedging
+
+| Decision | Ruling |
+|---|---|
+| What to do about the repeats | **One box on the landing page, "How to read these numbers".** Two sentences appeared on three pages each. A reader who meets the same qualification four times stops reading qualifications |
+| Whether this reduces disclosure | **No.** Every rule was already published. It was published five times over, which made it wallpaper. The box is linked from the four other pages by one shared sentence |
+| What stays beside a finding | **One caveat, and only what qualifies that finding.** Phase 6 of the brief requires each caveat on View 2 to be visible rather than hidden behind a click, and one visible caveat per section satisfies it. The six measure caveats are between 60% and 80% shorter |
+| Two caveats on one card | **Removed.** The completeness card carried two and the oversight pack repeated its own page-level notice at the foot |
+
+### The showcase entry
+
+| Decision | Ruling |
+|---|---|
+| Whether to change it | **Yes.** The old entry was not high-impact, so the register never asked it the nine oversight questions. Every empty box on the panel was a question never put, and the side-by-side never showed what the audit found |
+| How to pick the new one | **By rule, never by hand.** The first entry in the file's own order among those the register asks the nine of and that answer none of them. The rule is printed beside the panel |
+| Whether to name the agency | **Yes, and the reason for the rule is exactly this.** S3 permits agency names as published facts in row-level detail, and the register page already publishes this entry. What S3 forbids is judgment. A mechanically selected entry, labelled as one of 101, makes none |
+| What the panel must say | **That 100 other entries would produce the same picture, and that a blank is not evidence a practice is absent** |
+
+### If you only do three
+
+| Decision | Ruling |
+|---|---|
+| Whether to rank the ten | **Yes, the first three.** Ten fields is a design and nobody adopts a design. They adopt three things and see whether it holds |
+| Which three | **Identifier, last-checked date, explicit empty states.** Ordered by what each unlocks, not by how hard it is |
+| Why the convention is third rather than eleventh | **The first two produce numbers, and numbers from a register with no rule for an absence cannot be read.** This project published such a figure itself |
+
+### The method behind the slider
+
+| Decision | Ruling |
+|---|---|
+| Whether to name it | **Yes, in both registers of language.** Plain description, the technical name, the term defined, and where to reproduce it |
+| Whether to show an example pair | **Yes, the marginal pair at each setting**, which is the one that only just qualifies. It shows what the line looks like where it is drawn |
+| Whether to name the two entries | **No, and this is a safeguard decision.** Two of the three marginal pairs carry product names the vendor list did not catch. Naming them would break S2. Choosing different pairs to avoid that would mean hand-picking an example to dodge a safeguard, which is worse |
+| What to show instead | **The wording the two entries share**, which is what produced the score. A name unique to one entry cannot be shared by both, and shared terms are screened against the vendor list as a second layer. It is also the better illustration: at two of the three settings the shared wording is boilerplate, not a shared system |
+
+### The validator
+
+| Decision | Ruling |
+|---|---|
+| Whether to publish the checks as a tool | **Yes.** Six of the seven counting problems are properties of a file's contents and run on any register of the same shape. A report describes one file once; a tool outlives it |
+| What it may print | **Counts and column names. Never a value.** The columns it reads carry supplier and product names, and its output lands on somebody's terminal where no check on `docs/` would ever see it. `tests/test_validator.py` searches its output for every distinct value in the free-text columns |
+
+### Who this is by
+
+| Decision | Ruling |
+|---|---|
+| Whether to say | **Yes, at the top.** The only mention was the footer credit, which a reader reaches last if at all |
+| What it may say | **The project is attributed and its purpose is stated. Nothing is said about who wrote any of it.** S11 forbids claiming or describing authorship of the code, and the phrasings it would take are checked by `tests/test_authorship_claims.py` |
+| Whether to describe the owner | **No. Nothing is asserted about them beyond their name.** Their background is theirs to write, and a portfolio that invents a line about the person is worse than one that says nothing. **Open for the owner: a sentence about themselves, if they want one** |

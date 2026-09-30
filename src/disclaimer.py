@@ -31,6 +31,25 @@ EXPORT_NOTICE = "Practice exercise. Not a response to any real request."
 # Safeguard S11. The owner is credited for the governance design.
 AUTHORSHIP = "Governance design by Sana Ahmad."
 
+# Who this is by and why, at the top of the landing page. Added 30 September
+# 2026 at the owner's request: the only mention of them was the footer credit,
+# which a reader reaches last if at all.
+#
+# **What this deliberately does not say.** S11 forbids claiming or describing
+# who wrote the code, and `tests/test_authorship_claims.py` looks for the
+# likely phrasings, "built by" among them. This attributes the project and
+# states its purpose. It says nothing about who wrote any of it.
+#
+# It also asserts nothing about the owner beyond their name. Anything about
+# their background is theirs to write, not this project's to infer, and a
+# portfolio that invents a line about the person is worse than one that says
+# nothing.
+ABOUT_LEAD = "A portfolio project by Sana Ahmad."
+ABOUT = ("It asks what an AI use case register should record, and answers it by auditing a "
+         "real one rather than reasoning from first principles. Every figure, decision rule "
+         "and safeguard is open, including the ones this project got wrong and corrected.")
+ABOUT_LINK_TEXT = "The working, in full"
+
 # Filled in Phase 1 by copying the statement verbatim from the Open Government
 # Licence - Ontario page. Do not paraphrase it (S1).
 ONTARIO_ATTRIBUTION = (

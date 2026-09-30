@@ -117,6 +117,36 @@
       }).join("");
     }
 
+    /* What a pair at this setting actually looks like.
+
+       The entries are not named. Two of the three marginal pairs carry product
+       names that the vendor list did not catch, so naming them would break the
+       safeguard, and picking different pairs to avoid that would mean choosing
+       an example to dodge a safeguard. What is shown is the wording the two
+       share, which is what produced the score and cannot contain a name that
+       appears in only one of them. It is also the more useful thing to see:
+       high similarity is often shared boilerplate rather than a shared system. */
+    function marginalPair(e) {
+      var node = el("thr-example");
+      if (!node) { return; }
+      if (!e) { node.innerHTML = ""; return; }
+      var who = e.same_agency
+        ? "Both are at the same agency."
+        : "They are at two different agencies, so one system written down twice is unlikely.";
+      var ref = e.neither_carries_an_identifier
+        ? "Neither carries an identifier."
+        : "Identifiers: " + e.identifiers.join(", ") + ".";
+      node.innerHTML =
+        '<p class="marginal-head">The closest call at this setting</p>' +
+        "<p>Two entries scoring <strong>" + e.score + "</strong>. " + esc(who) + " " +
+        esc(ref) + "</p>" +
+        '<p class="marginal-label">The wording they share</p>' +
+        '<p class="marginal-terms">' + e.shared_wording.map(function (w) {
+          return '<span class="term">' + esc(w) + "</span>";
+        }).join("") + "</p>" +
+        '<p class="marginal-note">' + esc(e.reading) + "</p>";
+    }
+
     // 2. The similarity control: the reader moves it and the count moves.
     var slider = el("thr");
     if (slider && S.M1) {
@@ -128,6 +158,7 @@
         el("thr-entries").textContent = n(b.entries_flagged);
         el("thr-share").textContent = b.share_of_register + "%";
         el("thr-pairs").textContent = n(b.candidate_pairs);
+        marginalPair(b.example);
       };
       slider.addEventListener("input", showBand);
       showBand();

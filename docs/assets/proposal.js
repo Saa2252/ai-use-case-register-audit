@@ -402,6 +402,59 @@
       '<p class="caution-take"><strong>' + esc(n.consequence) + "</strong></p>";
   }
 
+  /* The standing rules, published once. Each is a rule and a note saying where
+     it bites, so a reader can check it against the figure in front of them
+     rather than taking it as a disclaimer. */
+  function drawReadingRules(d) {
+    var node = el("reading-rules");
+    if (!node || !d.reading) { return; }
+    node.innerHTML = d.reading.rules.map(function (r) {
+      return "<li><p class=\"howread-rule\">" + esc(r.rule) + "</p>" +
+        '<p class="howread-where"><span class="howread-label">Where it bites</span>' +
+        esc(r.applies_to) + "</p></li>";
+    }).join("");
+  }
+
+  /* Ten fields is a design and nobody adopts a design. Each of the three
+     carries the same four lines in the same order, so they can be read against
+     each other: why it comes first, what it unlocks, what it costs, and the
+     finding it answers. The cost is there for the same reason it is on the
+     mechanisms page: a proposal with no costs in it is a wish. */
+  function drawMinimumThree(d) {
+    var node = el("minimum-three");
+    if (!node || !d.minimum_three) { return; }
+    var ROWS = [
+      ["Why it comes first", "why_first"],
+      ["What it unlocks", "unlocks"],
+      ["What it costs", "cost"],
+      ["What in the audit produced it", "evidence"]
+    ];
+    node.innerHTML = d.minimum_three.items.map(function (m) {
+      return '<li class="minitem">' +
+        '<h3>' + esc(m.name) +
+        (m.position ? '<span class="minitem-ref">field ' + m.position + " of ten</span>"
+                    : '<span class="minitem-ref">the rule, not a field</span>') + "</h3>" +
+        '<p class="minitem-records">' + esc(m.records) + "</p>" +
+        '<dl class="minitem-rows">' + ROWS.map(function (r) {
+          return "<dt>" + esc(r[0]) + "</dt><dd>" + esc(m[r[1]]) + "</dd>";
+        }).join("") + "</dl></li>";
+    }).join("");
+  }
+
+  /* Who this is by, at the top rather than only in the footer. The link is
+     rendered only when there is an address to point at, in the same way as the
+     README link at the foot of the page. */
+  function drawWhose(d) {
+    var link = el("whose-link");
+    if (!link || !d.about) { return; }
+    if (d.repository_url) {
+      link.setAttribute("href", d.repository_url);
+      link.textContent = d.about.link_text;
+    } else {
+      link.remove();
+    }
+  }
+
   function drawReadme(d) {
     var node = el("readme-link");
     if (!node) { return; }
@@ -480,6 +533,9 @@
       drawFields(d);
       drawTiming(d);
       drawNotCovered(d);
+      drawReadingRules(d);
+      drawMinimumThree(d);
+      drawWhose(d);
       drawReadme(d);
       armMotion();
     });

@@ -174,6 +174,78 @@ EMPTY_CONVENTION = {
 }
 
 
+# --- If you only do three ---------------------------------------------------
+#
+# Ten fields is a design. Nobody adopts a design. They adopt the first three
+# things and see whether it holds, so the three are named rather than left for
+# a reader to infer an order that is not there.
+#
+# The order is by what each one unlocks, not by how hard it is. The first two
+# are fields on this list. The third is the convention, because it is not a
+# field and putting it third rather than eleventh is the whole point: a field
+# set with no rule for recording an absence produces numbers nobody can read,
+# which is what this audit found.
+#
+# `field` is matched against the names above, so renaming a field and not this
+# stops the build rather than publishing an order that points at nothing.
+
+MINIMUM_THREE = [
+    {
+        "field": "Entry identifier",
+        "why_first": "Nothing else can be checked over time without it. An entry that cannot "
+                     "be followed from one year to the next cannot be shown to have been kept "
+                     "up, however well the rest of it is filled in.",
+        "unlocks": "Every other field becomes comparable across years. Duplicates become "
+                   "findable rather than guessable from wording.",
+        "cost": "Low. The register already asks for one. What it lacks is a rule that the "
+                "same entry keeps the same code, which costs a line in guidance rather "
+                "than a change to any system.",
+        "evidence": "706 of 3,611 entries carry no usable identifier, and the earlier year's "
+                    "list carries none at all, so no entry can be followed between the two.",
+    },
+    {
+        "field": "Date this entry was last checked",
+        "why_first": "It separates a register from a list. Without it an entry written last "
+                     "month and one written years ago and never revisited are identical on "
+                     "the page.",
+        "unlocks": "Anything about currency. A stale entry becomes visible without asking "
+                   "anyone, which is the only kind of check that scales.",
+        "cost": "Low to record, higher to mean anything. The date is one field. Making it "
+                "true requires somebody to do the checking, which is the operating model "
+                "this field set does not describe.",
+        "evidence": "The register records no verification date, no update date and no review "
+                    "date. Its one date field records when a system started running.",
+    },
+    {
+        "field": None,
+        "name": "Explicit empty states on every field",
+        "why_first": "It is third because the first two produce numbers, and numbers from a "
+                     "register with no rule for an absence cannot be read. This project "
+                     "published a figure that counted 218 entries the register never asked, "
+                     "and the reason it could is that a blank meant four different things.",
+        "unlocks": "Every count becomes readable by someone who did not build the file. A "
+                   "question not put can be told from one unanswered, which no amount of "
+                   "care with a spreadsheet can recover afterwards.",
+        "cost": "The highest of the three, and it is not technical. It means deciding in "
+                "advance what answers a field may hold, which is a governance decision each "
+                "time and cannot be delegated to whoever builds the form.",
+        "evidence": "Three of the seven counting problems on the gaps page come from how an "
+                    "empty answer is recorded, and this project made the same mistake in its "
+                    "own published figures.",
+    },
+]
+
+MINIMUM_THREE_LEAD = (
+    "These ten are a design, and nobody adopts a design. If only three of them are done, "
+    "these three, in this order. The order is by what each one unlocks, not by how hard "
+    "it is.")
+
+MINIMUM_THREE_AFTER = (
+    "What the three do not give you is any assurance that the register is kept. That is "
+    "the page on keeping a register current, and none of the five mechanisms on it works "
+    "without these three first.")
+
+
 # --- What the field set does not do -----------------------------------------
 #
 # Five things a register needs that no field on it records. Held here because

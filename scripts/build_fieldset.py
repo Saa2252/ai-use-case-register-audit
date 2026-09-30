@@ -20,10 +20,14 @@ warnings.filterwarnings("ignore")
 import pandas as pd  # noqa: E402
 
 from src.fieldset import (  # noqa: E402
-    EMPTY_CONVENTION, EVIDENCE, EVIDENCE_WITHHELD, FIELDS, OPERATING_GAPS, STATES)
-from src.disclaimer import REPOSITORY_URL  # noqa: E402
+    EMPTY_CONVENTION, EVIDENCE, EVIDENCE_WITHHELD, FIELDS, MINIMUM_THREE,
+    MINIMUM_THREE_AFTER, MINIMUM_THREE_LEAD, OPERATING_GAPS, STATES)
+from src.disclaimer import (  # noqa: E402
+    ABOUT, ABOUT_LEAD, ABOUT_LINK_TEXT, REPOSITORY_URL)
+from src.reading_rules import HEADING, LEAD, READING_RULES  # noqa: E402
 from src.statements import apply as apply_statements  # noqa: E402
-from src.measures import _empty_rule, is_empty  # noqa: E402
+from src import conditionality as COND  # noqa: E402
+from src.measures import _empty_rule, is_empty, oversight_fields  # noqa: E402
 
 DERIVED = REPO_ROOT / "data" / "derived"
 DOCS_DATA = REPO_ROOT / "docs" / "data"
@@ -67,7 +71,41 @@ SOURCE_COLUMN = {
 NOT_COLLECTED = "the source register does not collect this"
 BLANK_IN_SOURCE = "the source register asks this and this entry leaves it empty"
 
-ENTRY_ID = "FRB-0055"
+# Which published entry the worked panel shows.
+#
+# It used to be a hand-picked identifier: an ordinary entry, not flagged
+# high-impact, chosen because nothing about it was sensitive. That made a safe
+# example and a weak one. The register does not ask such an entry the nine
+# oversight questions at all, so the panel's empty boxes were all questions
+# never put, and the side-by-side never showed the thing this project found.
+#
+# The entry is now selected by a rule rather than chosen, and the rule is
+# printed on the page. It is the first entry in the file's own order among
+# those the register asks the nine of and that answer none of them. 100 others
+# meet the same rule and would produce the same picture, which is the point:
+# nothing about this entry singles it out, and the rule leaves no room to pick
+# one agency over another.
+ENTRY_RULE = ("The first entry in the file's own order among those the register asks the "
+              "nine oversight questions of and that carry no answer in any of them.")
+
+
+def showcase_entry(register: pd.DataFrame) -> tuple[str, int]:
+    """Apply the rule. Returns the identifier and how many entries share it."""
+    always, text_only, types = _empty_rule()
+    nine = oversight_fields(register.columns)
+    asked, _ = COND.asked_of(register, nine[0])
+    subset = register[asked]
+    answered = sum(
+        (~subset[c].map(lambda v, c=c: is_empty(c, v, always, text_only, types))).astype(int)
+        for c in nine)
+    none_answered = subset[answered == 0]
+    if none_answered.empty:
+        raise SystemExit(
+            "no entry meets the showcase rule. Every entry the register asks the nine of "
+            "answers at least one, so the panel would show something this project has not "
+            "found. Choose a new rule with the owner rather than falling back to a "
+            "hand-picked entry.")
+    return str(none_answered.iloc[0]["id"]), int(len(none_answered))
 
 
 # Which fields the register only asks under a condition, and what the condition
@@ -91,7 +129,8 @@ CONDITIONAL_FIELDS = {
 
 def panel_one(register: pd.DataFrame) -> dict:
     always, text_only, types = _empty_rule()
-    row = register.loc[register["id"] == ENTRY_ID].iloc[0]
+    entry_id, sharing = showcase_entry(register)
+    row = register.loc[register["id"] == entry_id].iloc[0]
     rows = []
     for field in FIELDS:
         columns = SOURCE_COLUMN.get(field["name"], [])
@@ -115,11 +154,16 @@ def panel_one(register: pd.DataFrame) -> dict:
             rows.append({"field": field["name"], "value": None, "state": "blank_in_source",
                          "label": BLANK_IN_SOURCE})
     return {
-        "entry_id": ENTRY_ID,
+        "entry_id": entry_id,
         "use_case_name": str(row["use_case_name"]),
         "agency": str(row["agency_name"]),
-        "why_this_entry": "An ordinary entry, not flagged high-impact, describing internal data "
-                          "quality work. Chosen because nothing about it is sensitive.",
+        "selection_rule": ENTRY_RULE,
+        "entries_meeting_the_rule": sharing,
+        "why_this_entry": (
+            f"Selected by rule, not chosen. {ENTRY_RULE} {sharing - 1} other entries meet the "
+            "same rule and would produce the same picture. Nothing here says anything about "
+            "the organisation that filed it: a blank is not evidence that a practice is "
+            "absent, and this project cannot see anything the file does not hold."),
         "rule": "Every value here is read from the published file. Nothing is inferred, estimated "
                 "or filled with a plausible answer. Where the source collects nothing, the row is "
                 "marked as such. Where the source asks and this entry is empty, the row is marked "
@@ -321,8 +365,40 @@ def slots_caption(headline: dict) -> str:
         parts.append(f"{headline['does_not_apply']} it collects and does not put to an "
                      "entry like this one.")
     empty = headline["asked_and_left_empty"]
-    parts.append(f"{empty} were asked and left empty." if empty
-                 else "None was asked and left empty.")
+    if not empty:
+        parts.append("None was asked and left empty.")
+    else:
+        parts.append(f"{empty} was asked and left empty." if empty == 1
+                     else f"{empty} were asked and left empty.")
+    return " ".join(parts)
+
+
+def headline_qualifier(headline: dict) -> str:
+    """The sentence that says why the empty boxes are empty.
+
+    Written from the panel's own states. It used to be typed, and it said "none
+    of them is a question this entry was asked and left blank" above a panel
+    where one of them was exactly that, the moment the showcased entry changed.
+    A sentence about a picture belongs with the picture that produced it.
+    """
+    parts = []
+    if headline["not_collected"]:
+        parts.append(
+            f"{headline['not_collected']} of the other {headline['a_real_entry_cannot_fill']} "
+            "are things the published list never asks, so no entry in it could answer them.")
+    if headline["does_not_apply"]:
+        parts.append(
+            f"{headline['does_not_apply']} is a question the list puts only to entries of a "
+            "different kind, so it is not put to this one.")
+    empty = headline["asked_and_left_empty"]
+    if empty:
+        parts.append(
+            f"{empty} is a question the register does put to this entry, and the entry carries "
+            "no answer to it." if empty == 1 else
+            f"{empty} are questions the register does put to this entry, and the entry carries "
+            "no answer to them.")
+    else:
+        parts.append("None of them is a question this entry was asked and left blank.")
     return " ".join(parts)
 
 
@@ -353,6 +429,33 @@ def reading_steps(one: dict, two: dict) -> list:
         "state": "summary",
     })
     return steps
+
+
+def minimum_three() -> list:
+    """The three to do first, resolved against the field set that names them.
+
+    Each entry points at a field by name. A name that no longer exists stops
+    the build, so the order cannot survive a field being renamed or dropped and
+    go on pointing at nothing.
+    """
+    by_name = {f["name"]: f for f in FIELDS}
+    out = []
+    for index, item in enumerate(MINIMUM_THREE, start=1):
+        row = dict(item, rank=index)
+        if item["field"] is not None:
+            field = by_name.get(item["field"])
+            if field is None:
+                raise SystemExit(
+                    f"the minimum three names a field the set does not have: {item['field']}")
+            row["name"] = field["name"]
+            row["records"] = field["records"]
+            row["position"] = list(by_name).index(item["field"]) + 1
+        else:
+            # The convention is not one of the ten and is not numbered with them.
+            row["records"] = EMPTY_CONVENTION["records"]
+            row["position"] = None
+        out.append(row)
+    return out
 
 
 def fields_with_figures() -> list:
@@ -408,6 +511,11 @@ def main() -> None:
             "arrive with is the one this project will not answer.",
         ],
         "fields": fields_with_figures(),
+        "minimum_three": {
+            "lead": MINIMUM_THREE_LEAD,
+            "items": minimum_three(),
+            "after": MINIMUM_THREE_AFTER,
+        },
         "convention": EMPTY_CONVENTION,
         "evidence": evidence_strip(),
         "evidence_withheld": EVIDENCE_WITHHELD,
@@ -546,6 +654,11 @@ def main() -> None:
         # file renders one text rather than two that can drift.
         "corrections": json.loads(
             (DERIVED / "findings.json").read_text(encoding="utf-8"))["corrections"],
+        # The rules that apply to every figure on the site. Published once, here,
+        # and pointed at from the other four pages. They used to be repeated in
+        # the caveats under individual findings, two of them on three pages each.
+        "reading": {"heading": HEADING, "lead": LEAD, "rules": READING_RULES},
+        "about": {"lead": ABOUT_LEAD, "text": ABOUT, "link_text": ABOUT_LINK_TEXT},
         "repository_url": REPOSITORY_URL,
         "judgment_calls": judgment_calls(),
         "panel_one": panel_one(register),
@@ -566,6 +679,7 @@ def main() -> None:
         "asked_and_left_empty": states.get("blank_in_source", 0),
         "does_not_apply": states.get("does_not_apply", 0),
         "entry": payload["panel_one"]["entry_id"],
+        "entries_meeting_the_rule": payload["panel_one"]["entries_meeting_the_rule"],
         "entry_agency": payload["panel_one"]["agency"],
         # The size of the file this entry comes from, read from the findings so
         # the landing page can name its source without a typed-in number.
@@ -604,6 +718,7 @@ def main() -> None:
         for sub in row.get("sub_rows", []):
             sub["state_word"] = STATES[sub["state"]]
     payload["headline"]["slots_caption"] = slots_caption(payload["headline"])
+    payload["headline"]["qualifier"] = headline_qualifier(payload["headline"])
 
     (DERIVED / "fieldset.json").write_text(json.dumps(payload, indent=2) + "\n")
     (DOCS_DATA / "fieldset.json").write_text(json.dumps(payload, indent=2) + "\n")
@@ -612,7 +727,7 @@ def main() -> None:
     for row in payload["panel_one"]["rows"]:
         counts[row["state"]] = counts.get(row["state"], 0) + 1
     print(f"fields: {len(payload['fields'])}")
-    print(f"panel one, entry {ENTRY_ID}: {counts}")
+    print(f"panel one, entry {payload['panel_one']['entry_id']}: {counts}")
 
 
 if __name__ == "__main__":

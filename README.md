@@ -444,6 +444,14 @@ Then rebuild what is published:
 ./.venv/bin/python scripts/build_site.py
 ```
 
+**Check another register with the same tests.** The counting problems this audit found are checks, not just findings. They run on any file of the same shape, so next year's inventory, or another organisation's, can be put through them without repeating the work:
+
+```
+./.venv/bin/python scripts/validate_register.py <file.csv> --dictionary <dictionary.json>
+```
+
+It prints counts and column names and never prints a value out of the file, because the columns it reads carry supplier and product names.
+
 **One honest note about the notebook.** `notebooks/analysis.ipynb` is the single entry point the brief asks for and it is not finished. Its cells for Phase 1 to Phase 3, which are download, profile and scrub, still say they are not implemented. The work those phases describe was done, and its outputs are in `data/derived/`, but it was done outside the notebook. The steps above are what actually reproduces the published figures today. Recorded here rather than left for a reader to discover.
 
 Any single entry can be checked against the file it came from:
@@ -465,9 +473,10 @@ That prints the raw row as downloaded, compares it field by field with what the 
 | `governance/corrections.md` | Figures this project published and later changed, with the method of the check that found them |
 | `notebooks/analysis.ipynb` | The intended single entry point. Phases 1 to 3 are not implemented in it, as noted above |
 | `scripts/acquire.py` | Every source, its address, and the hash manifest the tests verify |
+| `scripts/validate_register.py` | The counting checks as a tool, runnable on any register of the same shape |
 | `data/derived/` | Everything published. Every figure on the site comes from here |
 | `docs/` | The site. Four pages that read the published register, and one that proposes how a register would be kept current |
-| `tests/` | 75 automated checks, run with pytest |
+| `tests/` | 78 automated checks, run with pytest |
 
 ## Licence
 

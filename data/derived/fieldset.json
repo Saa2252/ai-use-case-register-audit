@@ -106,6 +106,45 @@
       "uk": "**Asks it.** A senior responsible owner is named, with the organisation and team, and the date the record was completed."
     }
   ],
+  "minimum_three": {
+    "lead": "These ten are a design, and nobody adopts a design. If only three of them are done, these three, in this order. The order is by what each one unlocks, not by how hard it is.",
+    "items": [
+      {
+        "field": "Entry identifier",
+        "why_first": "Nothing else can be checked over time without it. An entry that cannot be followed from one year to the next cannot be shown to have been kept up, however well the rest of it is filled in.",
+        "unlocks": "Every other field becomes comparable across years. Duplicates become findable rather than guessable from wording.",
+        "cost": "Low. The register already asks for one. What it lacks is a rule that the same entry keeps the same code, which costs a line in guidance rather than a change to any system.",
+        "evidence": "706 of 3,611 entries carry no usable identifier, and the earlier year's list carries none at all, so no entry can be followed between the two.",
+        "rank": 1,
+        "name": "Entry identifier",
+        "records": "A reference code that stays the same for this entry from one year to the next.",
+        "position": 1
+      },
+      {
+        "field": "Date this entry was last checked",
+        "why_first": "It separates a register from a list. Without it an entry written last month and one written years ago and never revisited are identical on the page.",
+        "unlocks": "Anything about currency. A stale entry becomes visible without asking anyone, which is the only kind of check that scales.",
+        "cost": "Low to record, higher to mean anything. The date is one field. Making it true requires somebody to do the checking, which is the operating model this field set does not describe.",
+        "evidence": "The register records no verification date, no update date and no review date. Its one date field records when a system started running.",
+        "rank": 2,
+        "name": "Date this entry was last checked",
+        "records": "The date a person last confirmed that this entry still describes the system.",
+        "position": 2
+      },
+      {
+        "field": null,
+        "name": "Explicit empty states on every field",
+        "why_first": "It is third because the first two produce numbers, and numbers from a register with no rule for an absence cannot be read. This project published a figure that counted 218 entries the register never asked, and the reason it could is that a blank meant four different things.",
+        "unlocks": "Every count becomes readable by someone who did not build the file. A question not put can be told from one unanswered, which no amount of care with a spreadsheet can recover afterwards.",
+        "cost": "The highest of the three, and it is not technical. It means deciding in advance what answers a field may hold, which is a governance decision each time and cannot be delegated to whoever builds the form.",
+        "evidence": "Three of the seven counting problems on the gaps page come from how an empty answer is recorded, and this project made the same mistake in its own published figures.",
+        "rank": 3,
+        "records": "Every field distinguishes these states: answered, the question does not apply, not yet answered and withheld. No field records an absence as ordinary text.",
+        "position": null
+      }
+    ],
+    "after": "What the three do not give you is any assurance that the register is kept. That is the page on keeping a register current, and none of the five mechanisms on it works without these three first."
+  },
   "convention": {
     "name": "Every field records an empty answer the same way",
     "records": "Every field distinguishes these states: answered, the question does not apply, not yet answered and withheld. No field records an absence as ordinary text.",
@@ -280,18 +319,51 @@
       "text": "The one date field was reported as a share of every row in the register. The dictionary asks for it only of entries at the pilot and deployed stages. Usable dates were published as 31.7% of the register and are 67.6% of the 1480 entries the register asks."
     }
   },
+  "reading": {
+    "heading": "How to read these numbers",
+    "lead": "Everything on this site is counted from one published file. These five rules apply to every figure on every page, so they are stated here once rather than repeated under each one. A finding carries only what qualifies that finding.",
+    "rules": [
+      {
+        "rule": "A filled field shows that information was provided, not that the practice is adequate. An empty field is not evidence that the practice is absent.",
+        "applies_to": "Every completeness figure, and the nine oversight fields in particular."
+      },
+      {
+        "rule": "Every figure describes what reached the file, not what any organisation did.",
+        "applies_to": "Every figure. This project reads a published file from outside and has no access to how any organisation works."
+      },
+      {
+        "rule": "A share is divided by the entries the register asks, which is often fewer than the whole file. Where the two differ, both are published and the narrower one is the one describing a question with no answer.",
+        "applies_to": "22 of the register's 31 fields, which are required only under a stated condition."
+      },
+      {
+        "rule": "A published list can only show what was declared. Nothing here says anything about systems nobody wrote down.",
+        "applies_to": "Every count of entries. Undeclared systems are outside anything this project can see."
+      },
+      {
+        "rule": "Nothing here compares one organisation with another, and no entry shown was picked out. Where a single entry appears, the rule that selected it is printed beside it.",
+        "applies_to": "Every page. There is no ranking, score or league table anywhere on this site, and that is a deliberate choice with a cost."
+      }
+    ]
+  },
+  "about": {
+    "lead": "A portfolio project by Sana Ahmad.",
+    "text": "It asks what an AI use case register should record, and answers it by auditing a real one rather than reasoning from first principles. Every figure, decision rule and safeguard is open, including the ones this project got wrong and corrected.",
+    "link_text": "The working, in full"
+  },
   "repository_url": "https://github.com/Saa2252/ai-use-case-register-audit",
   "judgment_calls": 10,
   "panel_one": {
-    "entry_id": "FRB-0055",
-    "use_case_name": "Data Quality Prioritization Dashboard",
-    "agency": "Federal Reserve Board",
-    "why_this_entry": "An ordinary entry, not flagged high-impact, describing internal data quality work. Chosen because nothing about it is sensitive.",
+    "entry_id": "FDIC \u2013 32",
+    "use_case_name": "Automatically-Scored Writing Assessment (AWA)",
+    "agency": "Federal Deposit Insurance Corporation",
+    "selection_rule": "The first entry in the file's own order among those the register asks the nine oversight questions of and that carry no answer in any of them.",
+    "entries_meeting_the_rule": 101,
+    "why_this_entry": "Selected by rule, not chosen. The first entry in the file's own order among those the register asks the nine oversight questions of and that carry no answer in any of them. 100 other entries meet the same rule and would produce the same picture. Nothing here says anything about the organisation that filed it: a blank is not evidence that a practice is absent, and this project cannot see anything the file does not hold.",
     "rule": "Every value here is read from the published file. Nothing is inferred, estimated or filled with a plausible answer. Where the source collects nothing, the row is marked as such. Where the source asks and this entry is empty, the row is marked differently, because those are different facts.",
     "rows": [
       {
         "field": "Entry identifier",
-        "value": "FRB-0055",
+        "value": "FDIC \u2013 32",
         "state": "from_source",
         "label": null,
         "short": ""
@@ -326,7 +398,7 @@
       },
       {
         "field": "Impact classification, with an explicit option for not yet assessed",
-        "value": "Not High-impact",
+        "value": "High-impact",
         "state": "from_source",
         "label": null,
         "short": ""
@@ -341,9 +413,9 @@
       {
         "field": "The nine oversight questions, each with its own explicit states",
         "value": null,
-        "state": "does_not_apply",
-        "label": "The register asks these only of high-impact entries that are deployed. This entry is neither, so the question is not put to it.",
-        "short": "not asked of this entry"
+        "state": "blank_in_source",
+        "label": "the source register asks this and this entry leaves it empty",
+        "short": "asked, left empty"
       },
       {
         "field": "What this entry counts as one of",
@@ -500,12 +572,14 @@
     "a_real_entry_can_fill": 3,
     "a_real_entry_cannot_fill": 7,
     "not_collected": 6,
-    "asked_and_left_empty": 0,
-    "does_not_apply": 1,
-    "entry": "FRB-0055",
-    "entry_agency": "Federal Reserve Board",
+    "asked_and_left_empty": 1,
+    "does_not_apply": 0,
+    "entry": "FDIC \u2013 32",
+    "entries_meeting_the_rule": 101,
+    "entry_agency": "Federal Deposit Insurance Corporation",
     "register_entries": 3611,
-    "slots_caption": "3 of 10 boxes carry an answer from the published entry. That register does not collect 6 of them. 1 it collects and does not put to an entry like this one. None was asked and left empty."
+    "slots_caption": "3 of 10 boxes carry an answer from the published entry. That register does not collect 6 of them. 1 was asked and left empty.",
+    "qualifier": "6 of the other 7 are things the published list never asks, so no entry in it could answer them. 1 is a question the register does put to this entry, and the entry carries no answer to it."
   },
   "lead": {
     "entries": 3611,
@@ -561,8 +635,8 @@
     {
       "row": 7,
       "field": "The nine oversight questions, each with its own explicit states",
-      "line": "The published register does not ask this of an entry like this one.",
-      "state": "does_not_apply"
+      "line": "The published register asks this, and this entry leaves it empty.",
+      "state": "blank_in_source"
     },
     {
       "row": 8,

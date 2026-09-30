@@ -74,19 +74,117 @@ def _key(s) -> str:
     return " ".join(re.sub(r"[^a-z0-9 ]", " ", str(s).lower()).split())
 
 
+# How the comparison is done, in both registers of language, because a reader
+# who cannot check the method cannot check the finding.
+SIMILARITY_METHOD = {
+    "plain": "Each entry's name and its description of the problem it solves are joined into "
+             "one piece of text. Every entry is then compared with every other, and the "
+             "comparison asks how much of their wording they share, with common English "
+             "words ignored and rarer words counting for more. The result is a score between "
+             "nothing in common and identical.",
+    "named": "TF-IDF vectorisation over the use case name and the problem-solved field, "
+             "with English stop words removed, unigrams and bigrams, terms appearing in only "
+             "one entry dropped, and cosine similarity between every pair of vectors.",
+    "term": "TF-IDF stands for term frequency, inverse document frequency. A word counts for "
+            "more when it is rare across the whole register and appears often in one entry. "
+            "Cosine similarity is the measure of overlap between two entries scored that way.",
+    "why_this_one": "It compares wording and nothing else, which is the only thing a "
+                    "published file supports. It cannot read a system, so it cannot confirm "
+                    "a duplicate, and nothing here is merged on the strength of it.",
+    "settings": "Compared on: use case name and problem solved. Words ignored: common "
+                "English. Phrases counted: one and two words. Terms appearing in only one "
+                "entry: dropped. Thresholds published: three.",
+    "reproduce": "src/measures.py, m1_unit_of_registration.",
+}
+
+
+def _marginal_pair(reg: pd.DataFrame, marginal, X, vocabulary) -> dict | None:
+    """The two entries that only just count as a pair at a given setting.
+
+    **What is published, and why it is not the entry names.** The first run of
+    this showed the two names. Two of the three marginal pairs turned out to
+    carry product names that the vendor list had not caught, so publishing them
+    would have broken S2, the safeguard this project exists to hold. Choosing a
+    different pair to avoid that would have meant hand-picking an example to
+    dodge a safeguard, which is worse than the exposure.
+
+    So what is published is the wording the two entries share, which is what
+    produced the score. A name unique to one entry cannot be shared by both, so
+    this cannot carry a product name that appears in only one of them, and the
+    shared terms are screened against the vendor list as a second layer.
+
+    It is also the better illustration. A reader learns more from seeing that
+    two entries scored alike because they share a boilerplate phrase than from
+    seeing two titles and being asked to judge.
+    """
+    if marginal is None:
+        return None
+    score, left, right = marginal
+    one, two = reg.iloc[left], reg.iloc[right]
+
+    a, b = X[left].toarray()[0], X[right].toarray()[0]
+    shared = np.where((a > 0) & (b > 0))[0]
+    ranked = sorted(shared, key=lambda i: min(a[i], b[i]), reverse=True)
+    terms, withheld = [], 0
+    for index in ranked:
+        term = vocabulary[index]
+        if _is_vendor_term(term):
+            withheld += 1
+            continue
+        terms.append(term)
+        if len(terms) == 8:
+            break
+
+    def entry_ref(row):
+        value = str(row["id"]).strip()
+        return value if value and value.lower() not in {"nan", ""} else None
+
+    refs = [entry_ref(one), entry_ref(two)]
+    return {
+        "score": round(score, 3),
+        "same_agency": bool(one["agency_name"] == two["agency_name"]),
+        "identifiers": [r for r in refs if r],
+        "neither_carries_an_identifier": not any(refs),
+        "shared_wording": terms,
+        "shared_terms_withheld": withheld,
+        "reading": "These two scored the least of any pair that counts at this setting, so "
+                   "every other pair here reads more alike than they do. What is shown is the "
+                   "wording the two entries share, which is what produced the score. The "
+                   "entries are not named, because a name is where a product name would sit "
+                   "and two of these three pairs carry one.",
+    }
+
+
+def _is_vendor_term(term: str) -> bool:
+    """Second layer only. The first is that a term has to appear in both entries."""
+    try:
+        listed = (RAW / "vendor_terms.txt").read_text(encoding="utf-8").lower().split("\n")
+    except OSError:
+        return False
+    words = {w.strip() for w in listed if w.strip()}
+    return any(part in words for part in term.lower().split())
+
+
 def m1_unit_of_registration(reg: pd.DataFrame, cots: pd.DataFrame) -> dict:
     """What counts as one use case. Candidates flagged, never merged."""
     from sklearn.feature_extraction.text import TfidfVectorizer
     from sklearn.metrics.pairwise import cosine_similarity
 
     text = (reg["use_case_name"].fillna("") + " " + reg["problem_solved"].fillna("")).map(_key)
-    X = TfidfVectorizer(min_df=2, stop_words="english", ngram_range=(1, 2),
-                        max_features=60000).fit_transform(text)
+    vectoriser = TfidfVectorizer(min_df=2, stop_words="english", ngram_range=(1, 2),
+                                 max_features=60000)
+    X = vectoriser.fit_transform(text)
+    vocabulary = vectoriser.get_feature_names_out()
 
     bands = []
     flagged_at_top = set()
     for thr in SIMILARITY_THRESHOLDS:
         rows, pairs = set(), 0
+        # The pair that only just qualifies at this setting. Showing the
+        # marginal case is the point: it is what the line looks like where it
+        # is drawn, and a reader can judge for themselves whether two entries
+        # that scored this much are one system or two.
+        marginal = None
         for a in range(0, X.shape[0], 500):
             blk = cosine_similarity(X[a:a + 500], X)
             for i in range(blk.shape[0]):
@@ -96,9 +194,13 @@ def m1_unit_of_registration(reg: pd.DataFrame, cots: pd.DataFrame) -> dict:
                         pairs += 1
                         rows.add(gi)
                         rows.add(int(j))
+                        score = float(blk[i][j])
+                        if marginal is None or score < marginal[0]:
+                            marginal = (score, gi, int(j))
         bands.append({"threshold": thr, "candidate_pairs": pairs,
                       "entries_flagged": len(rows),
-                      "share_of_register": round(len(rows) / len(reg) * 100, 1)})
+                      "share_of_register": round(len(rows) / len(reg) * 100, 1),
+                      "example": _marginal_pair(reg, marginal, X, vocabulary)})
         if thr == SIMILARITY_THRESHOLDS[0]:
             flagged_at_top = set(rows)
 
@@ -118,17 +220,16 @@ def m1_unit_of_registration(reg: pd.DataFrame, cots: pd.DataFrame) -> dict:
             "agency_task_combinations_in_use": int((cots["Agency Use (Y/N)?"] == "Y").sum()),
         },
         "never_summed_reason": NEVER_SUM,
+        "similarity_method": SIMILARITY_METHOD,
         "candidate_duplicates_not_confirmed": bands,
         "exact_name_repeats_within_one_agency": {
             "names": int((within > 1).sum()), "rows": int(within[within > 1].sum())},
         "same_name_used_by_more_than_one_agency": int((across > 1).sum()),
         "entries_flagged_at_highest_threshold": sorted(int(i) for i in flagged_at_top),
         "caveat": (
-            "Comparing wording cannot show that two entries are the same system. Entries that read "
-            "alike may be one system written down twice, or two different systems described in "
-            "similar words. The count triples depending on how alike they have to be, so it is a "
-            "choice about where to draw a line rather than something the file contains. All three "
-            "settings are shown for that reason. Nothing has been merged and no total changed."
+            "Comparing wording cannot show that two entries are the same system. The count "
+            "triples depending on how alike they have to be, so it is a choice about where to "
+            "draw a line rather than something the file contains."
         ),
     }
 
@@ -186,10 +287,9 @@ def m2_completeness_shape(reg: pd.DataFrame) -> dict:
             "every entry sits at the same one or two levels."
         ),
         "caveat": (
-            "This counts each entry on its own. No agency average is taken and no agency is "
-            "compared with another. The pattern describes how information arrives in the file, in "
-            "the same way the nine oversight fields do, and says nothing about how any agency "
-            "works."
+            "This counts each entry on its own. No agency average is taken, and the pattern "
+            "describes how information arrives in the file in the same way the nine oversight "
+            "fields do."
         ),
     }
 
@@ -323,15 +423,7 @@ def m2_completeness(reg: pd.DataFrame) -> dict:
         },
         "caveat": (
             "These figures cannot be compared with the earlier year, because the two years ask "
-            "different questions: a box left empty in one year may not exist at all in the other. "
-            "A published list can only show what was declared, so nothing here says anything about "
-            "systems nobody wrote down. Two fields store an empty answer as a pair of brackets that "
-            "a spreadsheet counts as an answer, and every figure here treats them as empty. "
-            "Twenty-two of this register's fields are required only under a condition, so a "
-            "share of all rows counts entries the question was never put to. Both views are "
-            "published and the one measured against the entries the register asks is the one "
-            "that describes an unanswered question. "
-            + FILLED_FIELD
+            "different questions: a box left empty in one year may not exist at all in the other."
         ),
     }
 
@@ -416,11 +508,9 @@ def m3_freshness(reg: pd.DataFrame) -> dict:
             ),
         },
         "caveat": (
-            "The one date says when a system started running, not when anyone last looked at its "
-            "entry. A system running for years might have had its description checked last week or "
-            "never, and nothing here can tell those apart. Dates written in a form that could mean "
-            "two different days are not counted, because choosing one reading would invent a "
-            "precision the file does not have."
+            "The one date says when a system started running, not when anyone last looked at "
+            "its entry, and a system running for years might have been checked last week or "
+            "never."
         ),
     }
 
@@ -519,8 +609,7 @@ def oversight_conditionality(hi: pd.DataFrame, hifields: list) -> dict:
         "caveat": (
             "Both figures are in the file. The wider one counts entries the register "
             "does not put the question to, so it describes the shape of the register "
-            "rather than an unanswered question. Neither figure shows whether any "
-            "oversight practice took place."
+            "rather than an unanswered question."
         ),
     }
 
@@ -556,10 +645,9 @@ def oversight_answers(hi: pd.DataFrame, hifields: list) -> dict:
             "finished, and no entry records a step as considered and not taken."
         ),
         "caveat": (
-            "These are the words agencies entered. A field saying a step is complete "
-            "shows that was entered, not that the step was adequate. The absence of "
-            "any answer recording a step not taken describes the answers present in "
-            "the file, and the field set offers no wording for one."
+            "These are the words agencies entered. The absence of any answer recording "
+            "a step not taken describes the answers present in the file, and the field "
+            "set offers no wording for one."
         ),
     }
 
@@ -623,9 +711,8 @@ def m4_oversight_pack(reg: pd.DataFrame) -> dict:
             ),
         },
         "caveat": (
-            FILLED_FIELD + " The pattern describes what reached the file, not the oversight practice "
-            "itself. This is a practice exercise modelled on a realistic request. It is not a response "
-            "to a request from any body."
+            "This is a practice exercise modelled on a realistic request. It is not a "
+            "response to a request from any body."
         ),
     }
 
@@ -733,10 +820,9 @@ def m5_design_comparison(reg_columns: list[str], ontario: pd.DataFrame) -> dict:
             "is the one this project removes from its own published data."
         ),
         "caveat": (
-            "This compares what each register asks. It says nothing about how completely "
-            "anyone fills any of them in, because no UK records were read. The UK count "
-            "is of fields in a published template, and a template with more fields is "
-            "not by itself a better register."
+            "This compares what each register asks, not how completely anyone fills either "
+            "in, because no UK records were read. A template with more fields is not by "
+            "itself a better register."
         ),
     }
 

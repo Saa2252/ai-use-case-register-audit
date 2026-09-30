@@ -930,3 +930,82 @@ ol.subfields li { font-size: .9rem; margin: .12rem 0; break-inside: avoid; }
 }
 .signals { margin: .3rem 0 1.4rem 1.1rem; padding: 0; }
 .signals li { margin-bottom: .4rem; line-height: 1.55; font-size: .92rem; }
+
+/* --- How to read these numbers --------------------------------------------
+
+   Five rules that apply to every figure on the site, published once. They used
+   to sit under individual findings, two of them on three pages each. A reader
+   who meets the same qualification four times stops reading qualifications,
+   which is the opposite of what they are for.
+
+   Drawn as a quiet panel rather than a warning. It is not a disclaimer; it is
+   how the numbers work. */
+.howread {
+  border: 1px solid var(--border); border-radius: 4px;
+  padding: 1rem 1.1rem; margin: 1.8rem 0;
+  background: var(--surface);
+}
+.howread-head { font-size: 1.05rem; margin: 0 0 .4rem; }
+.howread-lead { margin: 0 0 .9rem; color: var(--ink-soft); font-size: .92rem; line-height: 1.6; }
+.howread-list { margin: 0; padding-left: 1.3rem; display: grid; gap: .8rem; }
+.howread-list li { padding-left: .2rem; }
+.howread-rule { margin: 0; font-size: .95rem; line-height: 1.55; }
+.howread-where {
+  margin: .25rem 0 0; font-size: .82rem; line-height: 1.5; color: var(--ink-soft);
+}
+.howread-label {
+  display: block; font-weight: 600; font-size: .66rem; letter-spacing: .04em;
+  text-transform: uppercase;
+}
+
+/* --- If you only do three -------------------------------------------------
+
+   Numbered, because the order is the content. Each carries the same four lines
+   in the same order so they can be read against each other, and the cost is
+   one of them for the same reason it is on the mechanisms page. */
+.mintwo { margin: .4rem 0 1rem; padding-left: 1.4rem; display: grid; gap: 1rem; }
+.minitem { padding-left: .2rem; }
+.minitem h3 { font-size: 1rem; margin: 0 0 .2rem; }
+.minitem-ref {
+  display: inline-block; margin-left: .5rem; font-weight: 400;
+  font-size: .68rem; letter-spacing: .04em; text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.minitem-records { margin: 0 0 .6rem; font-size: .88rem; color: var(--ink-soft); }
+.minitem-rows { margin: 0; display: grid; gap: .35rem; }
+.minitem-rows dt {
+  font-size: .66rem; font-weight: 600; letter-spacing: .04em;
+  text-transform: uppercase; color: var(--ink-soft);
+}
+.minitem-rows dd { margin: .1rem 0 0; font-size: .88rem; line-height: 1.55; }
+
+/* --- The closest call at each setting -------------------------------------
+
+   What a pair at this threshold actually looks like. The entries are not
+   named: two of the three marginal pairs carry product names the vendor list
+   did not catch, and the wording the two share is both safe to publish and the
+   more useful thing to see. */
+.marginal { margin-top: .9rem; padding-top: .8rem; border-top: 1px solid var(--border); }
+.marginal p { margin: 0 0 .4rem; font-size: .88rem; line-height: 1.55; }
+.marginal-head, .marginal-label {
+  font-weight: 600; font-size: .68rem !important; letter-spacing: .04em;
+  text-transform: uppercase; color: var(--ink-soft);
+}
+.marginal-terms { display: flex; flex-wrap: wrap; gap: .3rem; }
+.marginal-terms .term {
+  border: 1px solid var(--ink-soft); border-radius: 2px;
+  padding: .05rem .35rem; font-size: .78rem; color: var(--ink-soft);
+}
+.marginal-note { font-size: .8rem !important; color: var(--ink-soft); }
+
+/* --- Who this is by -------------------------------------------------------
+
+   At the top, because the only other mention is the footer credit and a reader
+   reaches that last if at all. */
+.whose {
+  margin: 0 0 1.4rem; padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+  font-size: .92rem; line-height: 1.6; color: var(--ink-soft);
+}
+.whose strong { color: var(--ink); }
+.whose a { margin-left: .3rem; white-space: nowrap; }

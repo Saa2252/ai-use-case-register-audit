@@ -13,7 +13,7 @@ The wording of a statement is owner-approved copy. Changing it changes every
 page at once, which is the point.
 """
 
-from src.measures import FILLED_FIELD, NEVER_SUM
+from src.measures import NEVER_SUM
 
 STATEMENTS = {
     # Corrected 30 September 2026. The earlier wording, "Federal agencies in the
@@ -30,13 +30,11 @@ STATEMENTS = {
         "the agency judged the system's output to be the principal basis for a "
         "decision affecting people",
 
-    # Already single-sourced in src.measures and used by the findings. The
-    # register page used to write it out again by hand.
-    "filled_field": FILLED_FIELD,
-
-    "reached_the_file":
-        "The pattern describes what reached the file, not the oversight "
-        "practice itself.",
+    # "filled_field" and "reached_the_file" were here and are gone. Both were
+    # repeated on three pages each, which is what moved them into the reading
+    # rules on the landing page. A statement nothing substitutes is dead copy,
+    # and dead copy is what let the Ontario sentence survive the comparator
+    # change unnoticed, so it is removed rather than left for later.
 
     # What this project read. Held here because the field set page stated it
     # twice in its own words, and both copies still said two registers after
@@ -46,6 +44,12 @@ STATEMENTS = {
         "This project read the US federal list in full, and compares what a "
         "register asks against the United Kingdom's recording standard, which "
         "publishes a field template rather than entries.",
+
+    # What a page says instead of repeating the standing rules. Held here so the
+    # pages that point back to the box cannot word it four different ways.
+    "how_to_read":
+        "Five rules apply to every figure on this site: "
+        "<a href=\"index.html#how-to-read\">how to read these numbers</a>.",
 
     "never_summed": NEVER_SUM,
 }

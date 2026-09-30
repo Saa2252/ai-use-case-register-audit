@@ -73,24 +73,92 @@
         "agency_task_combinations_in_use": 468
       },
       "never_summed_reason": "The headline count of 3,611 includes nothing from the second route. The two count different things: one counts systems, the other counts an agency ticking a task on a shared list. Adding them would produce a number that means nothing.",
+      "similarity_method": {
+        "plain": "Each entry's name and its description of the problem it solves are joined into one piece of text. Every entry is then compared with every other, and the comparison asks how much of their wording they share, with common English words ignored and rarer words counting for more. The result is a score between nothing in common and identical.",
+        "named": "TF-IDF vectorisation over the use case name and the problem-solved field, with English stop words removed, unigrams and bigrams, terms appearing in only one entry dropped, and cosine similarity between every pair of vectors.",
+        "term": "TF-IDF stands for term frequency, inverse document frequency. A word counts for more when it is rare across the whole register and appears often in one entry. Cosine similarity is the measure of overlap between two entries scored that way.",
+        "why_this_one": "It compares wording and nothing else, which is the only thing a published file supports. It cannot read a system, so it cannot confirm a duplicate, and nothing here is merged on the strength of it.",
+        "settings": "Compared on: use case name and problem solved. Words ignored: common English. Phrases counted: one and two words. Terms appearing in only one entry: dropped. Thresholds published: three.",
+        "reproduce": "src/measures.py, m1_unit_of_registration."
+      },
       "candidate_duplicates_not_confirmed": [
         {
           "threshold": 0.95,
           "candidate_pairs": 220,
           "entries_flagged": 120,
-          "share_of_register": 3.3
+          "share_of_register": 3.3,
+          "example": {
+            "score": 0.952,
+            "same_agency": true,
+            "identifiers": [],
+            "neither_carries_an_identifier": true,
+            "shared_wording": [
+              "generation implementing",
+              "improve",
+              "act requiring",
+              "agency operations",
+              "change improve",
+              "control information",
+              "effectiveness agency",
+              "establishment management"
+            ],
+            "shared_terms_withheld": 0,
+            "reading": "These two scored the least of any pair that counts at this setting, so every other pair here reads more alike than they do. What is shown is the wording the two entries share, which is what produced the score. The entries are not named, because a name is where a product name would sit and two of these three pairs carry one."
+          }
         },
         {
           "threshold": 0.85,
           "candidate_pairs": 336,
           "entries_flagged": 234,
-          "share_of_register": 6.5
+          "share_of_register": 6.5,
+          "example": {
+            "score": 0.852,
+            "same_agency": true,
+            "identifiers": [
+              "DOJ-0010",
+              "DOJ-0036"
+            ],
+            "neither_carries_an_identifier": false,
+            "shared_wording": [
+              "hidta",
+              "provided managed",
+              "atf",
+              "managed",
+              "provided",
+              "area hidta",
+              "atf provides",
+              "atf staff"
+            ],
+            "shared_terms_withheld": 0,
+            "reading": "These two scored the least of any pair that counts at this setting, so every other pair here reads more alike than they do. What is shown is the wording the two entries share, which is what produced the score. The entries are not named, because a name is where a product name would sit and two of these three pairs carry one."
+          }
         },
         {
           "threshold": 0.7,
           "candidate_pairs": 510,
           "entries_flagged": 354,
-          "share_of_register": 9.8
+          "share_of_register": 9.8,
+          "example": {
+            "score": 0.703,
+            "same_agency": true,
+            "identifiers": [
+              "DOE-333",
+              "DOE-337"
+            ],
+            "neither_carries_an_identifier": false,
+            "shared_wording": [
+              "accelerate scientific",
+              "ornl ai",
+              "ornl",
+              "scientific discovery",
+              "accelerate",
+              "scientific",
+              "discovery",
+              "ai"
+            ],
+            "shared_terms_withheld": 0,
+            "reading": "These two scored the least of any pair that counts at this setting, so every other pair here reads more alike than they do. What is shown is the wording the two entries share, which is what produced the score. The entries are not named, because a name is where a product name would sit and two of these three pairs carry one."
+          }
         }
       ],
       "exact_name_repeats_within_one_agency": {
@@ -220,7 +288,7 @@
         3507,
         3571
       ],
-      "caveat": "Comparing wording cannot show that two entries are the same system. Entries that read alike may be one system written down twice, or two different systems described in similar words. The count triples depending on how alike they have to be, so it is a choice about where to draw a line rather than something the file contains. All three settings are shown for that reason. Nothing has been merged and no total changed."
+      "caveat": "Comparing wording cannot show that two entries are the same system. The count triples depending on how alike they have to be, so it is a choice about where to draw a line rather than something the file contains."
     },
     {
       "measure": "M2",
@@ -640,7 +708,7 @@
         "entries_in_those_agencies_too": 918,
         "median_share_of_entries_at_an_agency_most_common_value": 71.4,
         "statement": "An entry can hold anywhere from none of these fields to all seventeen. Almost every one of those levels occurs somewhere in the list. Inside a single agency, almost every entry sits at the same one or two levels.",
-        "caveat": "This counts each entry on its own. No agency average is taken and no agency is compared with another. The pattern describes how information arrives in the file, in the same way the nine oversight fields do, and says nothing about how any agency works."
+        "caveat": "This counts each entry on its own. No agency average is taken, and the pattern describes how information arrives in the file in the same way the nine oversight fields do."
       },
       "reconciliation": {
         "figures_that_match": {
@@ -673,7 +741,7 @@
           "difference": 1
         }
       },
-      "caveat": "These figures cannot be compared with the earlier year, because the two years ask different questions: a box left empty in one year may not exist at all in the other. A published list can only show what was declared, so nothing here says anything about systems nobody wrote down. Two fields store an empty answer as a pair of brackets that a spreadsheet counts as an answer, and every figure here treats them as empty. Twenty-two of this register's fields are required only under a condition, so a share of all rows counts entries the question was never put to. Both views are published and the one measured against the entries the register asks is the one that describes an unanswered question. A filled field shows that information was provided, not that the practice is adequate. An empty field is not evidence that the practice is absent."
+      "caveat": "These figures cannot be compared with the earlier year, because the two years ask different questions: a box left empty in one year may not exist at all in the other."
     },
     {
       "measure": "M2-preparation",
@@ -791,7 +859,7 @@
         },
         "why_reported_separately": "No field records a change and no field exists are different statements. Reporting them together would understate the second."
       },
-      "caveat": "The one date says when a system started running, not when anyone last looked at its entry. A system running for years might have had its description checked last week or never, and nothing here can tell those apart. Dates written in a form that could mean two different days are not counted, because choosing one reading would invent a precision the file does not have."
+      "caveat": "The one date says when a system started running, not when anyone last looked at its entry, and a system running for years might have been checked last week or never."
     },
     {
       "measure": "M4",
@@ -840,7 +908,7 @@
           "Pilot": 23
         },
         "statement": "Counted across every entry flagged high-impact, the nine are empty on more entries than the register ever asks them of. Counted across the entries the register does ask, the figure is lower and is the one that describes an unanswered question.",
-        "caveat": "Both figures are in the file. The wider one counts entries the register does not put the question to, so it describes the shape of the register rather than an unanswered question. Neither figure shows whether any oversight practice took place."
+        "caveat": "Both figures are in the file. The wider one counts entries the register does not put the question to, so it describes the shape of the register rather than an unanswered question."
       },
       "oversight_answers": {
         "possible_answers": 4005,
@@ -865,7 +933,7 @@
         "of_those_more_unfinished_share": 64.8,
         "no_field_records_a_step_not_taken": true,
         "statement": "Counting whether these fields are filled and reading what they say give different answers. Most of what is filled in says the work has not finished, and no entry records a step as considered and not taken.",
-        "caveat": "These are the words agencies entered. A field saying a step is complete shows that was entered, not that the step was adequate. The absence of any answer recording a step not taken describes the answers present in the file, and the field set offers no wording for one."
+        "caveat": "These are the words agencies entered. The absence of any answer recording a step not taken describes the answers present in the file, and the field set offers no wording for one."
       },
       "oversight_block_shape": {
         "all_nine_answered": 126,
@@ -889,7 +957,7 @@
         "justification_fill_rate": 99.1,
         "dictionary_note": "The justification field is specified to appear only when this band is selected, so a low rate in the high-impact band is the specification working."
       },
-      "caveat": "A filled field shows that information was provided, not that the practice is adequate. An empty field is not evidence that the practice is absent. The pattern describes what reached the file, not the oversight practice itself. This is a practice exercise modelled on a realistic request. It is not a response to a request from any body."
+      "caveat": "This is a practice exercise modelled on a realistic request. It is not a response to a request from any body."
     },
     {
       "measure": "M5",
@@ -1019,7 +1087,7 @@
         "note": "The template marks which fields are asked only under a condition. A reader can therefore tell a question not put from a question unanswered, which is the distinction the US list leaves to whoever reads it."
       },
       "naming_practice": "Three registers, three choices. The US list publishes a supplier name field. The UK standard asks for the supplier and its company registration number. The Ontario list names no supplier in any published field. The supplier field is the one this project removes from its own published data.",
-      "caveat": "This compares what each register asks. It says nothing about how completely anyone fills any of them in, because no UK records were read. The UK count is of fields in a published template, and a template with more fields is not by itself a better register."
+      "caveat": "This compares what each register asks, not how completely anyone fills either in, because no UK records were read. A template with more fields is not by itself a better register."
     }
   ]
 }
