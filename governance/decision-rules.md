@@ -1175,3 +1175,61 @@ application's own repository records how each is enforced there. S6 does not
 apply, because the application reconciles against nothing: it reads figures this
 project already reconciled.
 
+## 24. The comparator changed, and why it should have changed sooner
+
+**Owner decisions, 30 September 2026.**
+
+### 24.1 What was wrong with the old one
+
+The brief named three sources before any of them had been read. Measure M5 was
+written as a comparison against the Government of Ontario's list. That list
+holds three entries.
+
+The project noticed. It says so at the point of use, and two of the ten proposed
+fields carried a warning that they rested on a three-entry register. **What it
+never did was ask whether a better comparator existed.** There is a route for
+that, which is a scope change approved in writing, and it was used four times in
+two days for other things. It was never used here, because nobody put the
+question until a reader from outside did.
+
+Recorded plainly: this was not a decision anyone made. It was a default nobody
+examined, and calling it a scope decision afterwards would be generous to the
+project.
+
+### 24.2 What replaces it
+
+**The United Kingdom's Algorithmic Transparency Recording Standard**, template
+version 4.0, required across UK central government since 2024.
+
+| Decision | Ruling |
+|---|---|
+| Replace Ontario, or add the UK alongside it | **Replace as comparator, keep Ontario for one finding.** Ontario names no supplier in any published field, and both other registers do. That contrast is load-bearing for this project's own supplier-removal safeguard, so it stays as an observation |
+| The template only, or the template and the 152 published records | **The template only.** M5 compares what each register asks and never how much either holds. Reading records would mean scrubbing supplier names out of UK free text and reconciling to a second published total, which roughly doubles the analysis for a question M5 does not ask |
+
+### 24.3 What the change found
+
+The comparison is now materially different, and less flattering to this
+project's own proposal.
+
+**The UK standard already asks most of what this project proposes.** Of the ten
+fields, it asks five outright, asks three in part, and does not ask two. The
+ones it asks outright include a named senior responsible owner, three dates
+covering completion, update and archiving, and where a person sits in the
+decision. Those are fields this project arrived at independently and presented
+as a proposal.
+
+**It also closes two gaps this project had named as absences.** Its Phase field
+carries Retired, which is a published state for a system switched off. Its
+yes-or-no fields carry an explicit No, and no US oversight answer anywhere
+records a step as considered and not taken.
+
+**And it marks conditionality.** Ten of its 65 fields are marked as asked only
+under a condition, so a reader can tell a question not put from a question
+unanswered. That is the distinction this project's own four-state rule exists
+to make, and a real standard already publishes it.
+
+**This is recorded as a finding and not softened.** A proposal that turns out to
+match a mandatory standard is better evidence than a proposal that does not. It
+also means the honest framing of the field set is no longer "what the author
+would build" alone, but "what the US list does not ask, most of which another
+government already requires".

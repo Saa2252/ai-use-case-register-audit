@@ -534,34 +534,112 @@ def m4_oversight_pack(reg: pd.DataFrame) -> dict:
 
 
 def m5_design_comparison(reg_columns: list[str], ontario: pd.DataFrame) -> dict:
-    """How two real registers differ in what they ask. Fields, never volume."""
+    """How real registers differ in what they ask. Fields, never volume.
+
+    The comparator changed on 30 September 2026. It was the Government of
+    Ontario's list, which holds three entries and was never chosen for its fit:
+    the brief named it at the start and nobody revisited the choice. It is now
+    the United Kingdom's recording standard, which has been required across
+    central government since 2024.
+
+    Ontario stays for one thing only, which the UK cannot show: it names no
+    supplier in any published field, and both other registers do.
+    """
+    from src.uk_atrs import allowed_answers, fields as uk_fields
+
+    uk = uk_fields()
+    vocabularies = allowed_answers()
+    by_section = {}
+    for field in uk:
+        by_section.setdefault(field["section"], []).append(field["field"])
+
     return {
         "measure": "M5",
-        "question": "How do two real registers differ in what they ask, and what does that reveal about design choices?",
-        "rule_applied": "Fields asked are compared, never volume. One table, inside the gaps view.",
-        "federal_register": {"fields_published": len(reg_columns), "entries": 3611},
-        "ontario_register": {"fields_published": int(len(ontario.columns)), "entries": int(len(ontario))},
-        "asked_by_ontario_not_by_the_federal_register": [
-            {"field": "Autonomous", "note": "Whether the system acts autonomously. Not present in the 2025 federal field set."},
-            {"field": "Human in the loop", "note": "Whether a person is involved in the decision. Not present in the 2025 federal field set."},
-            {"field": "User base", "note": "Who the system serves."},
-        ],
-        "asked_by_the_federal_register_not_by_ontario": [
-            {"field": "unique identifier", "note": "Ontario publishes no identifier for an entry."},
-            {"field": "high-impact classification and its justification", "note": "Ontario publishes no risk classification."},
-            {"field": "nine oversight questions", "note": "Testing, impact assessment, independent review, monitoring, training, fail-safe, appeal, consultation, potential impacts."},
-            {"field": "whether the entry is withheld from public reporting", "note": "No Ontario equivalent."},
-        ],
-        "naming_practice": (
-            "The Ontario register names no vendor in its published fields. The federal register publishes "
-            "a vendor name field, which is the field this project removes under its own safeguard."
+        "question": "How do real registers differ in what they ask, and what does that reveal about design choices?",
+        "rule_applied": (
+            "Fields asked are compared, never volume. The comparator is the UK "
+            "recording standard's published template. No UK records are read, so "
+            "nothing here describes how completely anyone fills it in."
         ),
-        # The count was written out as "three". Read from the file instead, so
-        # the caveat cannot state a size the register does not have.
+        "federal_register": {"fields_published": len(reg_columns), "entries": 3611},
+        "uk_standard": {
+            "fields_published": len(uk),
+            "fields_asked_only_under_a_condition": sum(1 for f in uk if f["conditional"]),
+            "sections": len(by_section),
+            "version": "v4.0",
+            "note": ("Required across UK central government since 2024. The count is of "
+                     "fields the published template asks, not of records anyone filed."),
+        },
+        "ontario_register": {
+            "fields_published": int(len(ontario.columns)),
+            "entries": int(len(ontario)),
+            "kept_for": ("One contrast the UK cannot provide: Ontario names no supplier "
+                         "in any published field."),
+        },
+        # The fields that answer a question this project found the US list cannot.
+        # Each is checked against the US column list rather than asserted.
+        "asked_by_the_uk_not_by_the_federal_register": [
+            {"field": "Senior responsible owner",
+             "note": "A named person answerable for the entry. The US list records no owner."},
+            {"field": "Date updated, and date archived",
+             "note": "When the record was last changed, and when it was retired. The US "
+                     "list has one date and it records when a system started running."},
+            {"field": "Phase, with Retired among its allowed answers",
+             "note": "A published state for a system switched off. The US list has no "
+                     "equivalent, so an entry can only be added."},
+            {"field": "Human decisions and review",
+             "note": "Where a person sits in the decision. The US list asks this only of "
+                     "its high-impact deployed entries."},
+            {"field": "Alternatives considered",
+             "note": "What else was weighed and set aside. A record of a decision not "
+                     "taken, which the US oversight fields have no wording for."},
+            {"field": "Procurement procedure type, and Companies House Number",
+             "note": "How the thing was bought and from which registered company. The US "
+                     "list names a supplier and records nothing about the purchase."},
+            {"field": "Maintenance",
+             "note": "How the tool is kept up after it is running."},
+            {"field": "Model version",
+             "note": "Which version is in use, so a change to it can be seen."},
+        ],
+        "asked_by_the_federal_register_not_by_the_uk": [
+            {"field": "A risk classification with a named threshold",
+             "note": "The US list flags entries high-impact and asks nine oversight "
+                     "questions of the deployed ones. The UK standard asks every entry "
+                     "the same questions and sets no tier of its own."},
+            {"field": "Whether the entry is withheld from public reporting",
+             "note": "The US list asks each entry whether it should be withheld. The UK "
+                     "handles this through a separate scope and exemptions policy rather "
+                     "than a field."},
+        ],
+        # What a controlled vocabulary settles, and the US list leaves open.
+        "published_answers": {
+            "vocabularies": {k: v for k, v in vocabularies.items()},
+            "has_a_no": "No" in vocabularies.get("Binary choice", []),
+            "note": ("The standard publishes the answers a field may hold. Two matter "
+                     "here. Its yes-or-no fields carry an explicit No, and no US "
+                     "oversight answer anywhere records a step as considered and not "
+                     "taken. And its Phase field carries Retired, so a register built "
+                     "on it can record that a system has stopped, and not only "
+                     "that one exists."),
+        },
+        "conditionality_is_marked": {
+            "fields_marked": sum(1 for f in uk if f["conditional"]),
+            "note": ("The template marks which fields are asked only under a condition. "
+                     "A reader can therefore tell a question not put from a question "
+                     "unanswered, which is the distinction the US list leaves to whoever "
+                     "reads it."),
+        },
+        "naming_practice": (
+            "Three registers, three choices. The US list publishes a supplier name field. "
+            "The UK standard asks for the supplier and its company registration number. "
+            "The Ontario list names no supplier in any published field. The supplier field "
+            "is the one this project removes from its own published data."
+        ),
         "caveat": (
-            f"The Ontario register holds {len(ontario)} entries. This comparison is of what "
-            "each register asks, never of how much either contains, and nothing here "
-            "depends on the size of either."
+            "This compares what each register asks. It says nothing about how completely "
+            "anyone fills any of them in, because no UK records were read. The UK count "
+            "is of fields in a published template, and a template with more fields is "
+            "not by itself a better register."
         ),
     }
 
@@ -639,10 +717,12 @@ def question_summary(findings: list[dict], counting_traps: int = 0) -> list[dict
             "id": "compare",
             "question": "What does another government ask that this one does not?",
             "answer": (
-                f"{len(m5['asked_by_ontario_not_by_the_federal_register'])} questions, including "
-                "whether a system acts without a person reviewing it, and where a person reviews "
-                "it. Neither is in the 2025 federal field set."
+                f"{len(m5['asked_by_the_uk_not_by_the_federal_register'])} questions the UK "
+                "recording standard asks and the US list does not, including who is answerable "
+                "for the entry, when it was last changed, and whether the system has been "
+                "retired. Its yes-or-no fields carry an explicit No, and no US oversight answer "
+                "anywhere records a step as considered and not taken."
             ),
-            "section": "A second government asks different questions",
+            "section": "Another government asks different questions",
         },
     ]

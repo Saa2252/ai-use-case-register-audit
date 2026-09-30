@@ -1,8 +1,8 @@
 {
   "what_this_is": "The first three pages describe the register as published. This page is the author's own view: what they would build, given what the audit found.",
   "based_on": {
-    "sources": "Two published registers: the 2025 US federal AI use case inventory and the Government of Ontario's list.",
-    "downloaded": "2026-09-22",
+    "sources": "The 2025 US federal AI use case inventory, read in full. The United Kingdom's recording standard, read as a published field template and not as records. The Government of Ontario's list, kept for one observation about supplier naming.",
+    "downloaded": "2026-09-22, and the UK template on 2026-09-30",
     "snapshot": "A single point in time, each file recorded by SHA-256 hash in governance/data-provenance.md."
   },
   "limits": [
@@ -20,7 +20,7 @@
       "finding": "Of 3,611 entries, 706 carry no usable identifier, and the earlier year's list carries none for any entry, so no entry can be followed between the two.",
       "finding_link": "index.html",
       "us_2025": "Asks for one. It is filled on four fifths of entries, and 12 values appear on more than one row.",
-      "ontario": "Does not ask."
+      "uk": "**Asks it.** Every record carries an ID, and a standard version alongside it."
     },
     {
       "name": "Date this entry was last checked",
@@ -28,7 +28,7 @@
       "finding": "Nothing in the register records when an entry was checked. Its single date field records when a system started running, which answers a different question.",
       "finding_link": "gaps.html",
       "us_2025": "Does not ask.",
-      "ontario": "Does not ask."
+      "uk": "**Asks it.** Three dates: when the record was completed, when it was last updated, and when it was archived."
     },
     {
       "name": "What changed since the last check",
@@ -36,25 +36,23 @@
       "finding": "Five kinds of change would normally call for an entry to be verified again. No field in the register records any of them as a change, and one of the five is not present in the field set at all.",
       "finding_link": "gaps.html",
       "us_2025": "Does not ask.",
-      "ontario": "Does not ask."
+      "uk": "**Partly.** It asks for the model version in use and how the tool is maintained. Neither is a record of what changed since anyone last looked."
     },
     {
       "name": "Acts without a person reviewing the output",
       "records": "Whether the system can carry out a decision or action without a person looking at its output first.",
-      "finding": "The 2025 federal register does not ask this question. The Ontario register asks it as a standing field.",
+      "finding": "The 2025 federal register asks this only of its high-impact deployed entries. The UK standard asks it of every entry.",
       "finding_link": "gaps.html",
-      "rests_on": "This rests on a register of three entries and has not been tested against a large one.",
       "us_2025": "Not present in the 2025 field set.",
-      "ontario": "**Asks it**, as a standing field."
+      "uk": "**Asks it**, of every entry, in a field covering human decisions and review."
     },
     {
       "name": "Where a person reviews it",
       "records": "The point in the process at which a person sees the output, if there is one.",
-      "finding": "The 2025 federal register does not ask this question. The Ontario register asks it as a standing field.",
+      "finding": "The 2025 federal register asks this only of its high-impact deployed entries. The UK standard asks it of every entry.",
       "finding_link": "gaps.html",
-      "rests_on": "This rests on a register of three entries and has not been tested against a large one.",
       "us_2025": "Not present in the 2025 field set.",
-      "ontario": "**Asks it**, as a standing field."
+      "uk": "**Asks it**, in the same field, of every entry rather than of a subset."
     },
     {
       "name": "Impact classification, with an explicit option for not yet assessed",
@@ -62,7 +60,7 @@
       "finding": "The classification field has four states in practice, and the fourth is that nothing was recorded: 426 entries carry no classification at all, which is more than the 110 assessed and set aside.",
       "finding_link": "obligations.html",
       "us_2025": "Asks it. The options do not include one meaning no assessment was made.",
-      "ontario": "Does not ask."
+      "uk": "**Partly.** It asks whether an impact assessment was carried out and what the risks and mitigations are. It publishes no risk tier of its own."
     },
     {
       "name": "Withheld from public reporting, and on what ground",
@@ -70,7 +68,7 @@
       "finding": "The field asking whether an entry should be withheld is required, and is blank for 274 of the 445 entries flagged high-impact.",
       "finding_link": "obligations.html",
       "us_2025": "Asks it, and requires an answer.",
-      "ontario": "Does not ask."
+      "uk": "Does not ask. What may be left out is set by a separate published scope and exemptions policy rather than by a field on the record."
     },
     {
       "name": "The nine oversight questions, each with its own explicit states",
@@ -89,7 +87,7 @@
       "finding": "Of 445 high-impact entries, 126 answer all nine and 317 answer none, with two in between. The nine arrive together or not at all.",
       "finding_link": "obligations.html",
       "us_2025": "Asks all nine. Two of them offer a not-applicable option.",
-      "ontario": "Does not ask."
+      "uk": "**Asks several of them**, of every entry rather than of a subset: human review, required training, appeals and review, impact assessment, risks and mitigations."
     },
     {
       "name": "What this entry counts as one of",
@@ -97,7 +95,7 @@
       "finding": "The register publishes two routes that count different things and cannot be added: 3,611 systems reported individually, and 45 agencies reporting against 21 common tasks.",
       "finding_link": "gaps.html",
       "us_2025": "Implied by publishing two separate files, not recorded in either.",
-      "ontario": "Does not ask."
+      "uk": "**Partly.** It separates the tool from the models inside it and asks about each, which settles the question differently rather than answering it."
     },
     {
       "name": "Who completed this entry, and when",
@@ -105,7 +103,7 @@
       "finding": "How completely an entry is filled in varies far less within one agency's submission than across the register, and the nine oversight fields arrive together or not at all. What produces that pattern cannot be read from the file, because it records nothing about who filled an entry in or when.",
       "finding_link": "gaps.html",
       "us_2025": "Does not ask.",
-      "ontario": "Does not ask."
+      "uk": "**Asks it.** A senior responsible owner is named, with the organisation and team, and the date the record was completed."
     }
   ],
   "convention": {
@@ -114,7 +112,7 @@
     "finding": "Two fields store an empty answer as a pair of brackets a spreadsheet counts as content; words such as 'No' and 'Not available' record an absence in one field and a real answer in another; the development stage field offers four answers with no option meaning nobody filled it in; and a value the file uses appears nowhere in the document describing the field.",
     "finding_link": "gaps.html",
     "us_2025": "No single convention. Three of the seven counting problems on the gaps page come from how an empty answer is recorded.",
-    "ontario": "Not enough published entries to tell."
+    "uk": "**Settles it.** The standard publishes the answers each field may hold, and marks which fields are asked only under a condition, so a question not put can be told from one unanswered."
   },
   "evidence": [
     {
@@ -210,13 +208,8 @@
       }
     ],
     "coverage": "There is also a limit no register design can solve from outside. A published list shows what an organisation wrote down. It cannot show systems nobody declared, or the AI features that arrive inside software bought for something else. Both are outside anything this project can see.",
-    "comparators_lead": "This project read two registers: the US federal list and the Government of Ontario's. Three other places ask governments and companies to write down their AI in a similar way. None of the three was read, and the ten fields are not compared to any of them.",
+    "comparators_lead": "The comparison here is the United Kingdom's recording standard. Two other places ask for similar records and neither was read, so the ten fields are not compared to either.",
     "comparators": [
-      {
-        "name": "The United Kingdom's recording standard for algorithms",
-        "what": "A standard form that UK government departments have to fill in for each algorithm they use, and publish. It has been required across central government since 2024.",
-        "why": "It is the closest thing that already exists to what this page proposes, so it is the comparison a reader would most expect, and this project does not make it."
-      },
       {
         "name": "The European Union's rule on entering AI in a public database",
         "what": "Before certain AI systems can be used in the EU, they have to be entered in a database anyone can look at.",

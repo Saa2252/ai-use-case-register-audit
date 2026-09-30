@@ -164,11 +164,11 @@
         }).join(""));
     }
 
-    if (S.M5 && el("ont-only")) {
-      rows("ont-only", S.M5.asked_by_ontario_not_by_the_federal_register.map(function (r) {
+    if (S.M5 && el("uk-only")) {
+      rows("uk-only", S.M5.asked_by_the_uk_not_by_the_federal_register.map(function (r) {
         return "<tr><td>" + esc(r.field) + "</td><td>" + esc(r.note) + "</td></tr>";
       }).join(""));
-      rows("fed-only", S.M5.asked_by_the_federal_register_not_by_ontario.map(function (r) {
+      rows("fed-only", S.M5.asked_by_the_federal_register_not_by_the_uk.map(function (r) {
         return "<tr><td>" + esc(r.field) + "</td><td>" + esc(r.note) + "</td></tr>";
       }).join(""));
     }

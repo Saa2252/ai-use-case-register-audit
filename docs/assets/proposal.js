@@ -274,7 +274,7 @@
           esc(f.rests_on) + "</p>" : "") +
         '<div class="scroller"><table><tbody>' +
         "<tr><th>The federal register, 2025</th><td>" + bold(f.us_2025) + "</td></tr>" +
-        "<tr><th>The Ontario register</th><td>" + bold(f.ontario) + "</td></tr>" +
+        "<tr><th>The UK recording standard</th><td>" + bold(f.uk) + "</td></tr>" +
         "</tbody></table></div></div></details>";
     }).join("");
 

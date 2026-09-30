@@ -22,7 +22,8 @@ section 3.1.**
 |---|---|---|---|
 | US OMB 2025 Federal Agency AI Use Case Inventory | https://github.com/ombegov/2025-Federal-Agency-AI-Use-Case-Inventory | US government work, public domain under 17 U.S.C. §105 | Core dataset |
 | US OMB 2024 Federal AI Use Case Inventory | https://github.com/ombegov/2024-Federal-AI-Use-Case-Inventory | Same | **Schema reference only.** Field names, to establish which questions each year asks. No row-level use. See decision-rules.md section 11 |
-| Government of Ontario, AI use cases in the OPS | https://data.ontario.ca/dataset/artificial-intelligence-ai-use-cases-in-the-ontario-public-service | Open Government Licence - Ontario | Register design comparison |
+| UK Algorithmic Transparency Recording Standard, template v4.0 | https://www.gov.uk/government/publications/algorithmic-transparency-template | Open Government Licence v3.0 | **Register design comparison.** The published template only: the field list organisations complete. No UK records are downloaded or read |
+| Government of Ontario, AI use cases in the OPS | https://data.ontario.ca/dataset/artificial-intelligence-ai-use-cases-in-the-ontario-public-service | Open Government Licence - Ontario | **Reduced on 30 September 2026** to one observation: that it names no supplier in any published field. No longer the comparator. See decision-rules.md section 24 |
 
 Both OMB repositories were on branch `main` at download. Neither carries a
 notice of archival, relocation or supersession.
@@ -44,6 +45,7 @@ manifest at `data/raw/manifest.json`, which is not committed.
 | `omb2024_inventory_v2.csv` | OMB 2024 | 2026-09-22 | `789e1bac6d2551e8f90e5cfc5feb37ac23c6ca9f302f5af92fea8a577caa0a83` | 2,982,726 | Version 2. **This is the version used.** Its row count of 2,133 matches the total the 2024 README states; version 1 does not. Recorded 30 September 2026, closing a note that had stood open since Phase 1. The choice affects field names only, since no row of either file is read |
 | `omb2024_data_dictionary.yaml` | OMB 2024 | 2026-09-22 | `bc2302170a5b3aee419479522cd6afbb5416de9555a8d6fe7e34a848d7e8eee0` | 45,842 | Data dictionary |
 | `omb2024_README.md` | OMB 2024 | 2026-09-22 | `dc846005495e339b6a77a38030a973d1dfec53648611de72ea045edc5275ea7f` | 6,096 | States the 2024 totals |
+| `uk_atrs_template_v4.xlsx` | UK ATRS | 2026-09-30 | `11e9f903e9c82525c1fc92ad66a59ae7e98d378f12c13311b8193a7fd0cb2eab` | 276,411 | The published field template, v4.0. Read for its field list and its lists of allowed answers. Downloaded by `src/provenance.py` like every other file |
 | `ontario_ai_use_cases_en.csv` | Ontario | 2026-09-22 | `f5bbd7d0c2b14d3f1a2f5ea9a982e7ef28d5b59a83a1f483104d9c98089ade7a` | 2,182 | English, the version analysed |
 | `ontario_ai_use_cases_fr.csv` | Ontario | 2026-09-22 | `6d0a01e8bc5df75c89d35a935719e7b9004adb24dd8510239ef7733bf9700a7a` | 3,037 | French translation, NOT analysed, recorded so the register is not read as twice its size |
 

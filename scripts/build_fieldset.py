@@ -287,9 +287,12 @@ def main() -> None:
         "what_this_is": "The first three pages describe the register as published. This page is "
                         "the author's own view: what they would build, given what the audit found.",
         "based_on": {
-            "sources": "Two published registers: the 2025 US federal AI use case inventory and "
-                       "the Government of Ontario's list.",
-            "downloaded": "2026-09-22",
+            "sources": "The 2025 US federal AI use case inventory, read in full. The "
+                       "United Kingdom's recording standard, read as a published "
+                       "field template and not as records. The Government of "
+                       "Ontario's list, kept for one observation about supplier "
+                       "naming.",
+            "downloaded": "2026-09-22, and the UK template on 2026-09-30",
             "snapshot": "A single point in time, each file recorded by SHA-256 hash in "
                         "governance/data-provenance.md.",
         },
@@ -366,20 +369,11 @@ def main() -> None:
                         "down. It cannot show systems nobody declared, or the AI "
                         "features that arrive inside software bought for something "
                         "else. Both are outside anything this project can see.",
-            "comparators_lead": "This project read two registers: the US federal "
-                                "list and the Government of Ontario's. Three other "
-                                "places ask governments and companies to write down "
-                                "their AI in a similar way. None of the three was "
-                                "read, and the ten fields are not compared to any of "
-                                "them.",
+            "comparators_lead": "The comparison here is the United Kingdom's "
+                                "recording standard. Two other places ask for similar "
+                                "records and neither was read, so the ten fields are "
+                                "not compared to either.",
             "comparators": [
-                {"name": "The United Kingdom's recording standard for algorithms",
-                 "what": "A standard form that UK government departments have to fill "
-                         "in for each algorithm they use, and publish. It has been "
-                         "required across central government since 2024.",
-                 "why": "It is the closest thing that already exists to what this page "
-                        "proposes, so it is the comparison a reader would most expect, "
-                        "and this project does not make it."},
                 {"name": "The European Union's rule on entering AI in a public database",
                  "what": "Before certain AI systems can be used in the EU, they have to "
                          "be entered in a database anyone can look at.",

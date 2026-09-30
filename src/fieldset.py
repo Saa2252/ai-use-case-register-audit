@@ -27,7 +27,7 @@ FIELDS = [
         # twelve, so it is no longer written out here.
         "us_2025": "Asks for one. It is filled on four fifths of entries, and {repeated_ids} "
                    "values appear on more than one row.",
-        "ontario": "Does not ask.",
+        "uk": "**Asks it.** Every record carries an ID, and a standard version alongside it.",
     },
     {
         "name": "Date this entry was last checked",
@@ -36,7 +36,7 @@ FIELDS = [
                    "field records when a system started running, which answers a different question.",
         "finding_link": "gaps.html",
         "us_2025": "Does not ask.",
-        "ontario": "Does not ask.",
+        "uk": "**Asks it.** Three dates: when the record was completed, when it was last updated, and when it was archived.",
     },
     {
         "name": "What changed since the last check",
@@ -48,32 +48,26 @@ FIELDS = [
                    "five is not present in the field set at all.",
         "finding_link": "gaps.html",
         "us_2025": "Does not ask.",
-        "ontario": "Does not ask.",
+        "uk": "**Partly.** It asks for the model version in use and how the tool is maintained. Neither is a record of what changed since anyone last looked.",
     },
     {
         "name": "Acts without a person reviewing the output",
         "records": "Whether the system can carry out a decision or action without a person "
                    "looking at its output first.",
-        "finding": "The 2025 federal register does not ask this question. The Ontario "
-                   "register asks it as a standing field.",
+        "finding": "The 2025 federal register asks this only of its high-impact "
+                   "deployed entries. The UK standard asks it of every entry.",
         "finding_link": "gaps.html",
-        # This field has one source and that source is small. The owner ruled on
-        # 30 September 2026 that the limit is stated here, at the point of use.
-        "rests_on": "{{ontario_is_three}}",
         "us_2025": "Not present in the 2025 field set.",
-        "ontario": "**Asks it**, as a standing field.",
+        "uk": "**Asks it**, of every entry, in a field covering human decisions and review.",
     },
     {
         "name": "Where a person reviews it",
         "records": "The point in the process at which a person sees the output, if there is one.",
-        "finding": "The 2025 federal register does not ask this question. The Ontario "
-                   "register asks it as a standing field.",
+        "finding": "The 2025 federal register asks this only of its high-impact "
+                   "deployed entries. The UK standard asks it of every entry.",
         "finding_link": "gaps.html",
-        # This field has one source and that source is small. The owner ruled on
-        # 30 September 2026 that the limit is stated here, at the point of use.
-        "rests_on": "{{ontario_is_three}}",
         "us_2025": "Not present in the 2025 field set.",
-        "ontario": "**Asks it**, as a standing field.",
+        "uk": "**Asks it**, in the same field, of every entry rather than of a subset.",
     },
     {
         "name": "Impact classification, with an explicit option for not yet assessed",
@@ -84,7 +78,7 @@ FIELDS = [
                    "more than the 110 assessed and set aside.",
         "finding_link": "obligations.html",
         "us_2025": "Asks it. The options do not include one meaning no assessment was made.",
-        "ontario": "Does not ask.",
+        "uk": "**Partly.** It asks whether an impact assessment was carried out and what the risks and mitigations are. It publishes no risk tier of its own.",
     },
     {
         "name": "Withheld from public reporting, and on what ground",
@@ -95,7 +89,7 @@ FIELDS = [
                    "blank for 274 of the 445 entries flagged high-impact.",
         "finding_link": "obligations.html",
         "us_2025": "Asks it, and requires an answer.",
-        "ontario": "Does not ask.",
+        "uk": "Does not ask. What may be left out is set by a separate published scope and exemptions policy rather than by a field on the record.",
     },
     {
         "name": "The nine oversight questions, each with its own explicit states",
@@ -116,7 +110,7 @@ FIELDS = [
                    "two in between. The nine arrive together or not at all.",
         "finding_link": "obligations.html",
         "us_2025": "Asks all nine. Two of them offer a not-applicable option.",
-        "ontario": "Does not ask.",
+        "uk": "**Asks several of them**, of every entry rather than of a subset: human review, required training, appeals and review, impact assessment, risks and mitigations.",
     },
     {
         "name": "What this entry counts as one of",
@@ -127,7 +121,7 @@ FIELDS = [
                    "21 common tasks.",
         "finding_link": "gaps.html",
         "us_2025": "Implied by publishing two separate files, not recorded in either.",
-        "ontario": "Does not ask.",
+        "uk": "**Partly.** It separates the tool from the models inside it and asks about each, which settles the question differently rather than answering it.",
     },
     {
         "name": "Who completed this entry, and when",
@@ -139,7 +133,7 @@ FIELDS = [
                    "in or when.",
         "finding_link": "gaps.html",
         "us_2025": "Does not ask.",
-        "ontario": "Does not ask.",
+        "uk": "**Asks it.** A senior responsible owner is named, with the organisation and team, and the date the record was completed.",
     },
 ]
 
@@ -158,7 +152,7 @@ EMPTY_CONVENTION = {
     "finding_link": "gaps.html",
     "us_2025": "No single convention. Three of the seven counting problems on the gaps page "
                "come from how an empty answer is recorded.",
-    "ontario": "Not enough published entries to tell.",
+    "uk": "**Settles it.** The standard publishes the answers each field may hold, and marks which fields are asked only under a condition, so a question not put can be told from one unanswered.",
 }
 
 

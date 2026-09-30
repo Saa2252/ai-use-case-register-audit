@@ -14,7 +14,7 @@ It takes a list that a government publishes of its own AI systems, reads it the 
 
 So the audit is the method and the field set is the result. Each of the ten fields exists because of something the audit found, and says so on the page, with a link to the working behind it. The field set is the author's own proposal. It is not a claim about what any publisher should have done, and nothing here says any organisation acted wrongly.
 
-It examines 3,611 entries published by US federal agencies in 2025, alongside a second and much smaller list published by the Government of Ontario. Both were downloaded on one day and recorded by hash, so everything here describes those exact files and can be checked against them.
+It examines 3,611 entries published by US federal agencies in 2025. What a good register asks is then compared against the United Kingdom's Algorithmic Transparency Recording Standard, which has been required across UK central government since 2024, read as a published field template rather than as records. A third list, published by the Government of Ontario, is kept for one observation about supplier naming. Every file was downloaded by script and recorded by hash, so everything here describes those exact files and can be checked against them.
 
 The governance design, the rules it follows and the judgments in it are the author's.
 
@@ -34,7 +34,8 @@ The interesting question is not whether a register exists. It is whether the reg
 |---|---|
 | **The main list** | 3,611 entries published by 41 US federal agencies in 2025 |
 | **A second route in the same publication** | 45 agencies reporting against 21 common tasks, counted separately and never added to the first |
-| **A second government's list** | 3 entries published by the Government of Ontario, used only to compare what each list asks |
+| **The comparison** | The UK recording standard's published template, 65 fields, 10 of them asked only under a stated condition. No UK records read |
+| **A third list** | 3 entries published by the Government of Ontario, kept for one observation: it names no supplier in any published field |
 | **An earlier edition** | The 2024 US list, used only to compare which questions each year asks. Its rows are not read |
 | **Downloaded** | On one day, each file recorded by SHA-256 hash |
 
@@ -52,7 +53,9 @@ Five questions, and what the register could answer.
 
 **Could it answer an oversight request?** The register sets aside nine fields about human oversight for its most serious entries. Of the 445 flagged high-impact, 317 have all nine empty, and 274 carry nothing in the field asking whether the entry should be withheld from public reporting.
 
-**What does a second government ask that this one does not?** Ontario asks, as standing questions, whether a system acts autonomously and whether a person is in the loop. Neither is present in the 2025 US field set. Ontario names no vendor in any published field.
+**What does another government ask that this one does not?** The UK standard asks eight things the US list does not, including who is answerable for the entry, when the record was last updated and when it was archived, where a person sits in the decision, and what alternatives were considered and set aside. Its published list of allowed answers carries an explicit No, and no US oversight answer anywhere records a step as considered and not taken. Its Phase field carries Retired, so a system switched off can be recorded as such.
+
+That comparison is less flattering to this project than the earlier one. Of the ten fields it proposes, the UK standard already asks five outright and three in part. A proposal that matches a mandatory standard is better evidence than one that does not, and it is recorded as a finding rather than softened.
 
 Each finding on the site carries its own qualification, visible on the page, and every figure links to the working behind it.
 
