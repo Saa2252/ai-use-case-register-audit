@@ -23,6 +23,18 @@
   <div class="panel">
     <p class="lead-in">Nine fields cover human oversight, filled in only for high-impact entries. Almost every such entry has all nine filled or all nine empty. Two out of hundreds sit in between. The file records nothing about how any entry came to be filled in that way.</p>
     <p>The nine ask whether the system was tested before deployment, whether an impact assessment was completed, what the potential impacts are, whether an independent review took place, whether performance is monitored, whether operators are trained, whether there is a fail-safe, whether a person can appeal, and whether affected groups were consulted.</p>
+    <p class="pair">The register asks the nine only of high-impact entries that are running.</p>
+    <p><span data-figure="M4.oversight_conditionality.condition"></span></p>
+    <p>Of the <span data-figure="M4.subset_size" data-fmt="n"></span> entries flagged high-impact, <span data-figure="M4.oversight_conditionality.required_of.entries" data-fmt="n"></span> are deployed and are asked the nine. The other <span data-figure="M4.oversight_conditionality.not_required_of.entries" data-fmt="n"></span> are not, and on <span data-figure="M4.oversight_conditionality.not_required_of.none_answered" data-fmt="n"></span> of those all nine are empty, which records a question not put rather than a question unanswered.</p>
+    <div class="scroller"><table>
+      <thead><tr><th>Counted across</th><th>Entries</th><th>All nine empty</th></tr></thead>
+      <tbody>
+        <tr><td>Entries the register asks the nine of</td><td data-figure="M4.oversight_conditionality.required_of.entries" data-fmt="n"></td><td><span data-figure="M4.oversight_conditionality.required_of.none_answered" data-fmt="n"></span> (<span data-figure="M4.oversight_conditionality.required_of.share_none_answered"></span>%)</td></tr>
+        <tr><td>Every entry flagged high-impact</td><td data-figure="M4.subset_size" data-fmt="n"></td><td><span data-figure="M4.oversight_block_shape.none_answered" data-fmt="n"></span> (<span data-figure="M4.oversight_conditionality.not_required_of.share_none_answered"></span>% of the ones not asked)</td></tr>
+      </tbody>
+    </table></div>
+    <p class="qualifier"><span data-figure="M4.oversight_conditionality.caveat"></span></p>
+
     <p>Counting how many of the nine each of the <span data-figure="M4.subset_size" data-fmt="n"></span> high-impact entries answers:</p>
     <div class="scroller"><table>
       <thead><tr><th>Oversight questions answered</th><th>Entries</th></tr></thead>

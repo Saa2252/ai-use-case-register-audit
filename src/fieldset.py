@@ -175,10 +175,10 @@ EMPTY_CONVENTION = {
 
 EVIDENCE = [
     {
-        "path": "M4.oversight_block_shape.none_answered",
-        "of": "M4.subset_size",
-        "reads": "of the entries flagged high-impact have all nine oversight fields empty",
-        "caveat": "A filled field shows information was provided, not that the practice is adequate.",
+        "path": "M4.oversight_conditionality.required_of.none_answered",
+        "of": "M4.oversight_conditionality.required_of.entries",
+        "reads": "of the entries the register asks the nine oversight questions of have all nine empty",
+        "caveat": "The nine are asked only of high-impact entries that are deployed. A filled field shows information was provided, not that the practice is adequate.",
         "link": "obligations.html",
     },
     {

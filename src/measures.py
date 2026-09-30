@@ -368,6 +368,66 @@ def _answer_state(field: str, value, always, text_only, types) -> str:
     return "done"
 
 
+# The condition the publisher's own dictionary puts on the nine oversight
+# fields, quoted from it: "Required: Yes, only for high-impact deployed use
+# cases". Not high-impact. High-impact AND deployed.
+#
+# This project reported blanks across all 445 high-impact entries, which counts
+# 218 entries the register does not ask the question of. That is the difference
+# between "not yet answered" and "does not apply", which is the distinction this
+# project's own field set exists to make. It was applied to the register and not
+# to this analysis.
+OVERSIGHT_REQUIRED_STAGE = "Deployed"
+OVERSIGHT_CONDITION = (
+    'The publisher\'s dictionary requires these nine fields "only for '
+    'high-impact deployed use cases". An entry flagged high-impact but not '
+    'deployed is not asked them, so a blank there records that the question '
+    'does not apply, not that it was left unanswered.'
+)
+
+
+def oversight_conditionality(hi: pd.DataFrame, hifields: list) -> dict:
+    """Split the high-impact subset by whether the nine are required of it."""
+    always, text_only, types = _empty_rule()
+    stage = hi["development_stage"].fillna("").str.strip()
+    required = hi[stage.eq(OVERSIGHT_REQUIRED_STAGE)]
+    not_required = hi[~stage.eq(OVERSIGHT_REQUIRED_STAGE)]
+
+    def shape(frame):
+        answered = sum(
+            (~frame[c].map(lambda v: is_empty(c, v, always, text_only, types))).astype(int)
+            for c in hifields)
+        return {
+            "entries": int(len(frame)),
+            "all_nine_answered": int((answered == len(hifields)).sum()),
+            "none_answered": int((answered == 0).sum()),
+            "partially_answered": int(((answered > 0) & (answered < len(hifields))).sum()),
+            "share_none_answered": (
+                round(float((answered == 0).mean()) * 100, 1) if len(frame) else 0.0),
+        }
+
+    return {
+        "condition": OVERSIGHT_CONDITION,
+        "required_of": shape(required),
+        "not_required_of": shape(not_required),
+        "stages_not_required": {
+            k: int(v) for k, v in
+            not_required["development_stage"].fillna("not recorded").value_counts().items()},
+        "statement": (
+            "Counted across every entry flagged high-impact, the nine are empty on "
+            "more entries than the register ever asks them of. Counted across the "
+            "entries the register does ask, the figure is lower and is the one that "
+            "describes an unanswered question."
+        ),
+        "caveat": (
+            "Both figures are in the file. The wider one counts entries the register "
+            "does not put the question to, so it describes the shape of the register "
+            "rather than an unanswered question. Neither figure shows whether any "
+            "oversight practice took place."
+        ),
+    }
+
+
 def oversight_answers(hi: pd.DataFrame, hifields: list) -> dict:
     """What the nine oversight fields say, across the high-impact subset."""
     always, text_only, types = _empty_rule()
@@ -434,6 +494,7 @@ def m4_oversight_pack(reg: pd.DataFrame) -> dict:
         "subset_size": int(len(hi)),
         "oversight_field_coverage": {c: round(float((~hi[c].map(
             lambda v: is_empty(c, v, always, text_only, types))).mean()) * 100, 1) for c in hifields},
+        "oversight_conditionality": oversight_conditionality(hi, hifields),
         "oversight_answers": oversight_answers(hi, hifields),
         "oversight_block_shape": {
             "all_nine_answered": int((answered == len(hifields)).sum()),

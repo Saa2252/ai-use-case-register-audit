@@ -452,6 +452,30 @@
         "hi_appeal_process": 28.8,
         "hi_public_consultation": 28.8
       },
+      "oversight_conditionality": {
+        "condition": "The publisher's dictionary requires these nine fields \"only for high-impact deployed use cases\". An entry flagged high-impact but not deployed is not asked them, so a blank there records that the question does not apply, not that it was left unanswered.",
+        "required_of": {
+          "entries": 227,
+          "all_nine_answered": 124,
+          "none_answered": 101,
+          "partially_answered": 2,
+          "share_none_answered": 44.5
+        },
+        "not_required_of": {
+          "entries": 218,
+          "all_nine_answered": 2,
+          "none_answered": 216,
+          "partially_answered": 0,
+          "share_none_answered": 99.1
+        },
+        "stages_not_required": {
+          "Pre-deployment": 140,
+          "Retired": 55,
+          "Pilot": 23
+        },
+        "statement": "Counted across every entry flagged high-impact, the nine are empty on more entries than the register ever asks them of. Counted across the entries the register does ask, the figure is lower and is the one that describes an unanswered question.",
+        "caveat": "Both figures are in the file. The wider one counts entries the register does not put the question to, so it describes the shape of the register rather than an unanswered question. Neither figure shows whether any oversight practice took place."
+      },
       "oversight_answers": {
         "possible_answers": 4005,
         "fields": 9,

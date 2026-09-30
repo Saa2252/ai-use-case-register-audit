@@ -69,6 +69,25 @@ BLANK_IN_SOURCE = "the source register asks this and this entry leaves it empty"
 ENTRY_ID = "FRB-0055"
 
 
+# Which fields the register only asks under a condition, and what the condition
+# is. Quoted from the publisher's dictionary, which says of each of the nine
+# oversight fields: "Required: Yes, only for high-impact deployed use cases".
+#
+# Without this the panel marked a blank on a not-high-impact entry as "asked,
+# left empty". That is the wrong one of the four states: the register does not
+# ask it of that entry at all. The distinction is the reason this field set
+# exists, and it was applied to the register and not to this page.
+CONDITIONAL_FIELDS = {
+    "The nine oversight questions, each with its own explicit states": {
+        "applies": lambda row: (
+            str(row.get("is_high_impact", "")).strip() == "High-impact"
+            and str(row.get("development_stage", "")).strip() == "Deployed"),
+        "why_not": ("The register asks these only of high-impact entries that are "
+                    "deployed. This entry is neither, so the question is not put to it."),
+    },
+}
+
+
 def panel_one(register: pd.DataFrame) -> dict:
     always, text_only, types = _empty_rule()
     row = register.loc[register["id"] == ENTRY_ID].iloc[0]
@@ -78,6 +97,11 @@ def panel_one(register: pd.DataFrame) -> dict:
         if not columns:
             rows.append({"field": field["name"], "value": None, "state": "not_collected",
                          "label": NOT_COLLECTED})
+            continue
+        condition = CONDITIONAL_FIELDS.get(field["name"])
+        if condition and not condition["applies"](row):
+            rows.append({"field": field["name"], "value": None, "state": "does_not_apply",
+                         "label": condition["why_not"]})
             continue
         values = []
         for column in columns:
@@ -197,12 +221,14 @@ SHORT_STATE = {
     "from_source": "",
     "not_collected": "not collected by this register",
     "blank_in_source": "asked, left empty",
+    "does_not_apply": "not asked of this entry",
 }
 
 STATE_LINE = {
     "from_source": "The published register records this.",
     "not_collected": "The published register does not collect this.",
     "blank_in_source": "The published register asks this, and this entry leaves it empty.",
+    "does_not_apply": "The published register does not ask this of an entry like this one.",
 }
 
 
@@ -308,6 +334,7 @@ def main() -> None:
         # not collected by the register at all; one is asked and left empty.
         "not_collected": states.get("not_collected", 0),
         "asked_and_left_empty": states.get("blank_in_source", 0),
+        "does_not_apply": states.get("does_not_apply", 0),
         "entry": payload["panel_one"]["entry_id"],
         "entry_agency": payload["panel_one"]["agency"],
         # The size of the file this entry comes from, read from the findings so
@@ -318,10 +345,17 @@ def main() -> None:
     # from the findings so the first thing a stranger reads is computed, not
     # written out.
     store = _findings_store()
+    # The nine oversight fields are required of high-impact entries that are
+    # deployed, which the publisher's dictionary states and this project had not
+    # applied. Counting blanks across all 445 counts 218 entries the register
+    # never puts the question to. The opening now states the figure for the
+    # entries the register does ask, and the page gives both.
     payload["lead"] = {
         "entries": _resolve(store, "M2.rows"),
         "high_impact": _resolve(store, "M4.subset_size"),
-        "no_oversight": _resolve(store, "M4.oversight_block_shape.none_answered"),
+        "asked_the_nine": _resolve(store, "M4.oversight_conditionality.required_of.entries"),
+        "no_oversight": _resolve(store, "M4.oversight_conditionality.required_of.none_answered"),
+        "no_oversight_all_flagged": _resolve(store, "M4.oversight_block_shape.none_answered"),
     }
     for key, value in payload["lead"].items():
         if value is None:

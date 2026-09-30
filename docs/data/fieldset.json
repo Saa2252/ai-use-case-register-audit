@@ -118,13 +118,13 @@
   },
   "evidence": [
     {
-      "path": "M4.oversight_block_shape.none_answered",
-      "of": "M4.subset_size",
-      "reads": "of the entries flagged high-impact have all nine oversight fields empty",
-      "caveat": "A filled field shows information was provided, not that the practice is adequate.",
+      "path": "M4.oversight_conditionality.required_of.none_answered",
+      "of": "M4.oversight_conditionality.required_of.entries",
+      "reads": "of the entries the register asks the nine oversight questions of have all nine empty",
+      "caveat": "The nine are asked only of high-impact entries that are deployed. A filled field shows information was provided, not that the practice is adequate.",
       "link": "obligations.html",
-      "value": 317,
-      "of_value": 445
+      "value": 101,
+      "of_value": 227
     },
     {
       "path": "R3.figures.rows_with_no_usable_identifier",
@@ -235,9 +235,9 @@
       {
         "field": "The nine oversight questions, each with its own explicit states",
         "value": null,
-        "state": "blank_in_source",
-        "label": "the source register asks this and this entry leaves it empty",
-        "short": "asked, left empty"
+        "state": "does_not_apply",
+        "label": "The register asks these only of high-impact entries that are deployed. This entry is neither, so the question is not put to it.",
+        "short": "not asked of this entry"
       },
       {
         "field": "What this entry counts as one of",
@@ -307,7 +307,8 @@
     "a_real_entry_can_fill": 3,
     "a_real_entry_cannot_fill": 7,
     "not_collected": 6,
-    "asked_and_left_empty": 1,
+    "asked_and_left_empty": 0,
+    "does_not_apply": 1,
     "entry": "FRB-0055",
     "entry_agency": "Federal Reserve Board",
     "register_entries": 3611
@@ -315,7 +316,9 @@
   "lead": {
     "entries": 3611,
     "high_impact": 445,
-    "no_oversight": 317
+    "asked_the_nine": 227,
+    "no_oversight": 101,
+    "no_oversight_all_flagged": 317
   },
   "steps": [
     {
@@ -363,8 +366,8 @@
     {
       "row": 7,
       "field": "The nine oversight questions, each with its own explicit states",
-      "line": "The published register asks this, and this entry leaves it empty.",
-      "state": "blank_in_source"
+      "line": "The published register does not ask this of an entry like this one.",
+      "state": "does_not_apply"
     },
     {
       "row": 8,
