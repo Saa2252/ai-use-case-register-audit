@@ -366,14 +366,32 @@ def main() -> None:
                         "down. It cannot show systems nobody declared, or the AI "
                         "features that arrive inside software bought for something "
                         "else. Both are outside anything this project can see.",
-            "comparators": "Two registers were read: the US federal list and the "
-                           "Government of Ontario's. Others were not. The United "
-                           "Kingdom's Algorithmic Transparency Recording Standard has "
-                           "been mandatory across central government since 2024 and is "
-                           "the obvious comparison this project does not make. The "
-                           "European Union's registration duties and the international "
-                           "management-system standard for AI are also absent. Nothing "
-                           "here is mapped to any of them.",
+            "comparators_lead": "This project read two registers: the US federal "
+                                "list and the Government of Ontario's. Three other "
+                                "places ask governments and companies to write down "
+                                "their AI in a similar way. None of the three was "
+                                "read, and the ten fields are not compared to any of "
+                                "them.",
+            "comparators": [
+                {"name": "The United Kingdom's recording standard for algorithms",
+                 "what": "A standard form that UK government departments have to fill "
+                         "in for each algorithm they use, and publish. It has been "
+                         "required across central government since 2024.",
+                 "why": "It is the closest thing that already exists to what this page "
+                        "proposes, so it is the comparison a reader would most expect, "
+                        "and this project does not make it."},
+                {"name": "The European Union's rule on entering AI in a public database",
+                 "what": "Before certain AI systems can be used in the EU, they have to "
+                         "be entered in a database anyone can look at.",
+                 "why": "It is a register with a different purpose: it decides who has "
+                        "to appear on it, which the two registers read here do not."},
+                {"name": "The international standard for managing AI, ISO/IEC 42001",
+                 "what": "A published standard describing how an organisation should "
+                         "run its AI oversight. An organisation can be checked against "
+                         "it by an outside auditor.",
+                 "why": "It covers the part this field set leaves out, which is how a "
+                        "register is kept up rather than what it records."},
+            ],
             "consequence": "Treat this as a proposal about what a register records, "
                            "tested against two published files. It is not an operating "
                            "model, and it has not been checked against the standards "

@@ -321,7 +321,11 @@
         return "<li><strong>" + esc(m.name) + "</strong> " + esc(m.why) + "</li>";
       }).join("") + "</ul>" +
       "<p>" + esc(n.coverage) + "</p>" +
-      "<p>" + esc(n.comparators) + "</p>" +
+      "<p>" + esc(n.comparators_lead) + "</p>" +
+      '<ul class="misslist">' + n.comparators.map(function (c) {
+        return "<li><strong>" + esc(c.name) + "</strong> " + esc(c.what) +
+          " <em>" + esc(c.why) + "</em></li>";
+      }).join("") + "</ul>" +
       '<p class="caution-take"><strong>' + esc(n.consequence) + "</strong></p>";
   }
 
