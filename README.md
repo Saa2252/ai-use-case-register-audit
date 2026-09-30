@@ -476,7 +476,7 @@ That prints the raw row as downloaded, compares it field by field with what the 
 | `scripts/validate_register.py` | The counting checks as a tool, runnable on any register of the same shape |
 | `data/derived/` | Everything published. Every figure on the site comes from here |
 | `docs/` | The site. Four pages that read the published register, and one that proposes how a register would be kept current |
-| `tests/` | 78 automated checks, run with pytest |
+| `tests/` | 81 automated checks, run with pytest |
 
 ## Licence
 

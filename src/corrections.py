@@ -42,6 +42,35 @@ CORRECTIONS = [
         },
     },
     {
+        "id": "oversight_base",
+        "date": "2026-09-30",
+        "prominent": True,
+        "pages": ["obligations.html"],
+        "heading": "Correction, 2026-09-30",
+        "template": (
+            "Every per-question figure on this page, and the reading of what the answers "
+            "say, was divided by all {flagged} entries flagged high-impact. The register "
+            "asks these nine only of the {asked} that are also deployed. Measured against "
+            "those, the share of answers saying a step is under way is {in_progress}% rather "
+            "than {in_progress_before}%, the share saying a step was done is {done}% rather "
+            "than {done_before}%, and each question is answered on about {coverage}% of "
+            "entries rather than about {coverage_before}%. The picture is less empty than "
+            "this page showed. This is the third figure on this site corrected for the same "
+            "reason, and the check that now covers the class is in "
+            "governance/corrections.md."
+        ),
+        "figures": {
+            "flagged": "M4.subset_size",
+            "asked": "M4.asked_the_nine",
+            "in_progress": "M4.oversight_answers.share.in progress",
+            "in_progress_before": "M4.oversight_answers_all_flagged.share.in progress",
+            "done": "M4.oversight_answers.share.done",
+            "done_before": "M4.oversight_answers_all_flagged.share.done",
+            "coverage": "M4.oversight_field_coverage.hi_testing_conducted",
+            "coverage_before": "M4.oversight_field_coverage_all_flagged.hi_testing_conducted",
+        },
+    },
+    {
         "id": "date_denominator",
         "date": "2026-09-30",
         # Not prominent: this figure sits inside a section on the gaps page and

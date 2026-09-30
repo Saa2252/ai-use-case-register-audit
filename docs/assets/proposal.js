@@ -338,7 +338,8 @@
       '<p class="caution-fig"><strong>' + esc(num(t.in_progress_share)) + "%</strong> " +
       esc(t.reading) + "</p>" +
       "<p>" + esc(num(t.more_unfinished)) + " of the " + esc(num(t.entries_answering)) +
-      " entries that answer at all give more answers saying a step is under way " +
+      " entries that answer at all, out of the " + esc(num(t.entries_asked)) +
+      " the register asks, give more answers saying a step is under way " +
       "than saying it was done.</p>" +
       clock(t.the_clock) +
       '<p class="caution-take"><strong>' + esc(t.consequence) + "</strong></p>";

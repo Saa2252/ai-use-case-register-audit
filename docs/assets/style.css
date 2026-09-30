@@ -1009,3 +1009,8 @@ ol.subfields li { font-size: .9rem; margin: .12rem 0; break-inside: avoid; }
 }
 .whose strong { color: var(--ink); }
 .whose a { margin-left: .3rem; white-space: nowrap; }
+
+/* The dates beside the headline figure. A reader who stops after the short
+   version should not leave thinking the work might not have been due yet. */
+.bottomline-when { font-size: .88rem !important; color: var(--ink-soft); }
+.bottomline-when strong { color: var(--ink); }

@@ -13,6 +13,15 @@
       ],
       "text": "An earlier version of this site counted the nine oversight questions across all 445 entries marked high-impact and reported 317 with none answered. The register's own dictionary asks those nine only of high-impact entries that are deployed. Counted against the 227 entries it does ask, the figure is 101, or 44.5%. The gap is smaller and it is still there. Every other field's denominator was then checked against the dictionary. The same fault was found in the one date field and corrected with it. The check is recorded in governance/corrections.md."
     },
+    "oversight_base": {
+      "date": "2026-09-30",
+      "heading": "Correction, 2026-09-30",
+      "prominent": true,
+      "pages": [
+        "obligations.html"
+      ],
+      "text": "Every per-question figure on this page, and the reading of what the answers say, was divided by all 445 entries flagged high-impact. The register asks these nine only of the 227 that are also deployed. Measured against those, the share of answers saying a step is under way is 32.7% rather than 16.9%, the share saying a step was done is 20.5% rather than 10.7%, and each question is answered on about 55.1% of entries rather than about 28.5%. The picture is less empty than this page showed. This is the third figure on this site corrected for the same reason, and the check that now covers the class is in governance/corrections.md."
+    },
     "date_denominator": {
       "date": "2026-09-30",
       "heading": "Correction, 2026-09-30",
@@ -875,7 +884,19 @@
       "register_rows": 3611,
       "arithmetic_closes": true,
       "subset_size": 445,
+      "asked_the_nine": 227,
       "oversight_field_coverage": {
+        "hi_testing_conducted": 55.1,
+        "hi_assessment_completed": 55.5,
+        "hi_potential_impacts": 55.1,
+        "hi_independent_review": 55.1,
+        "hi_ongoing_monitoring": 55.1,
+        "hi_training_established": 55.1,
+        "hi_failsafe_presence": 55.5,
+        "hi_appeal_process": 55.5,
+        "hi_public_consultation": 55.5
+      },
+      "oversight_field_coverage_all_flagged": {
         "hi_testing_conducted": 28.5,
         "hi_assessment_completed": 28.8,
         "hi_potential_impacts": 28.5,
@@ -885,6 +906,10 @@
         "hi_failsafe_presence": 28.8,
         "hi_appeal_process": 28.8,
         "hi_public_consultation": 28.8
+      },
+      "coverage_bases": {
+        "primary": "the entries the register asks the nine of, which are the high-impact entries that are deployed",
+        "secondary": "every entry flagged high-impact, including those the register does not put these questions to"
       },
       "oversight_conditionality": {
         "condition": "The publisher's dictionary requires these nine fields \"only for high-impact deployed use cases\". An entry flagged high-impact but not deployed is not asked them, so a blank there records that the question does not apply, not that it was left unanswered.",
@@ -911,6 +936,33 @@
         "caveat": "Both figures are in the file. The wider one counts entries the register does not put the question to, so it describes the shape of the register rather than an unanswered question."
       },
       "oversight_answers": {
+        "population": "the entries the register asks the nine of",
+        "possible_answers": 2043,
+        "fields": 9,
+        "entries": 227,
+        "counts": {
+          "blank": 914,
+          "in progress": 669,
+          "done": 418,
+          "not applicable": 42,
+          "says no": 0
+        },
+        "share": {
+          "blank": 44.7,
+          "in progress": 32.7,
+          "done": 20.5,
+          "not applicable": 2.1,
+          "says no": 0.0
+        },
+        "entries_answering_at_all": 126,
+        "of_those_more_unfinished_than_done": 82,
+        "of_those_more_unfinished_share": 65.1,
+        "no_field_records_a_step_not_taken": true,
+        "statement": "Counting whether these fields are filled and reading what they say give different answers. Most of what is filled in says the work has not finished, and no entry records a step as considered and not taken.",
+        "caveat": "These are the words agencies entered. The absence of any answer recording a step not taken describes the answers present in the file, and the field set offers no wording for one."
+      },
+      "oversight_answers_all_flagged": {
+        "population": "every entry flagged high-impact",
         "possible_answers": 4005,
         "fields": 9,
         "entries": 445,

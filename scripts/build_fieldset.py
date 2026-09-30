@@ -159,11 +159,12 @@ def panel_one(register: pd.DataFrame) -> dict:
         "agency": str(row["agency_name"]),
         "selection_rule": ENTRY_RULE,
         "entries_meeting_the_rule": sharing,
+        # The closing clause here restated the first reading rule, which is
+        # published once on this same page. Removed rather than repeated.
         "why_this_entry": (
             f"Selected by rule, not chosen. {ENTRY_RULE} {sharing - 1} other entries meet the "
-            "same rule and would produce the same picture. Nothing here says anything about "
-            "the organisation that filed it: a blank is not evidence that a practice is "
-            "absent, and this project cannot see anything the file does not hold."),
+            "same rule and would produce the same picture, so nothing here is about the "
+            "organisation that filed this one."),
         "rule": "Every value here is read from the published file. Nothing is inferred, estimated "
                 "or filled with a plausible answer. Where the source collects nothing, the row is "
                 "marked as such. Where the source asks and this entry is empty, the row is marked "
@@ -534,6 +535,7 @@ def main() -> None:
                     "lean toward the second more than the headline suggests.",
             "in_progress_share": _resolve(_findings_store(), "M4.oversight_answers.share.in progress"),
             "entries_answering": _resolve(_findings_store(), "M4.oversight_answers.entries_answering_at_all"),
+            "entries_asked": _resolve(_findings_store(), "M4.oversight_answers.entries"),
             "more_unfinished": _resolve(_findings_store(), "M4.oversight_answers.of_those_more_unfinished_than_done"),
             "reading": "of every answer the nine oversight fields contain says a "
                        "step is under way rather than finished.",
@@ -701,6 +703,16 @@ def main() -> None:
         "no_oversight": _resolve(store, "M4.oversight_conditionality.required_of.none_answered"),
         "share_no_oversight": _resolve(
             store, "M4.oversight_conditionality.required_of.share_none_answered"),
+        # The dates, beside the figure rather than four screens below it. A
+        # reader who stops after the short version should not leave thinking
+        # the work might simply not have been due yet.
+        "timing": (
+            "Agencies submitted this file on 22 December 2025. The memorandum behind these "
+            "nine questions gives them until 3 April 2026 to document the work, so the "
+            "deadline came after they submitted. It came well before this file was "
+            "downloaded on 22 September 2026, and these entries were blank when it was "
+            "taken. The register records nothing about when an entry was last updated, so "
+            "no single entry can be placed on either side of that date."),
         "no_oversight_all_flagged": _resolve(store, "M4.oversight_block_shape.none_answered"),
     }
     for key, value in payload["lead"].items():

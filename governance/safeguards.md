@@ -419,3 +419,12 @@ off by the owner before work starts.
 | 2026-09-30 | The similarity example publishes shared wording, not entry names | **S2 held.** Two of the three marginal pairs carry product names the vendor list did not catch. A term has to appear in both entries to be shown, so a name unique to one cannot reach the page, and shared terms are screened against the vendor list as a second layer |
 | 2026-09-30 | `scripts/validate_register.py`, the counting checks as a reusable tool | **New deliverable, approved.** Not a site view, so S12's page lock is untouched. It prints counts and column names only. `tests/test_validator.py` searches its output for every distinct value in the free-text columns, verified by planting a leak |
 | 2026-09-30 | A line at the top naming the project's author and its purpose | **S11 held.** The project is attributed and nothing is said about who wrote the code. Nothing is asserted about the owner beyond their name |
+
+## The oversight base, 30 September 2026
+
+| Date | Change | Outcome |
+|---|---|---|
+| 2026-09-30 | Re-base every per-question oversight figure and the reading of the answers on the 227 entries the register asks | **Third correction of the same fault.** The two earlier passes each fixed the figure in front of them. This one is covered by three new checks rather than by remembering. Figures published both ways, the narrower one primary. Full record in `governance/corrections.md` section 3 |
+| 2026-09-30 | State both halves of the condition in the group caption above the per-question table | **Contributing cause, corrected.** The caption read "flagged high-impact" and the dictionary says "high-impact deployed". Half a condition above a table is a reasonable thing for everything below it to be divided by. A test now requires both halves |
+| 2026-09-30 | Put the submission and deadline dates beside the headline figure | **Done.** A reader who stops after the short version should not leave thinking the work might simply not have been due yet, nor thinking the deadline has not passed. Both dates and the download date are stated |
+| 2026-09-30 | Remove the two remaining restatements of the first reading rule | **Done.** One on the register headline, one under the worked form. The rule is published once, on the landing page |

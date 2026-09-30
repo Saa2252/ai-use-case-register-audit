@@ -62,7 +62,10 @@ FIELD_LABELS = {
 # determined not to be, which is not the same population as the nine.
 FIELD_GROUPS = {
     "high_impact_oversight": {
-        "label": "Asked only of entries flagged high-impact",
+        # The register's own dictionary: "Required: Yes, only for high-impact
+        # deployed use cases". Saying only the first half of the condition is
+        # what let every figure below it be divided by 445.
+        "label": "Asked only of entries that are flagged high-impact and deployed",
         "columns": [
             "hi_testing_conducted", "hi_assessment_completed", "hi_potential_impacts",
             "hi_independent_review", "hi_ongoing_monitoring", "hi_training_established",

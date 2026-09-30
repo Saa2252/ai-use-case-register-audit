@@ -214,9 +214,10 @@
   "timing": {
     "heading": "Some of these blanks may be a clock, not a gap",
     "lead": "A blank can mean nobody recorded the answer. It can also mean the work is under way and the answer does not exist yet. This project cannot tell those apart entry by entry, and the figures lean toward the second more than the headline suggests.",
-    "in_progress_share": 16.9,
-    "entries_answering": 128,
-    "more_unfinished": 83,
+    "in_progress_share": 32.7,
+    "entries_answering": 126,
+    "entries_asked": 227,
+    "more_unfinished": 82,
     "reading": "of every answer the nine oversight fields contain says a step is under way rather than finished.",
     "the_clock": {
       "heading": "What the memorandum says, and what it settles",
@@ -309,6 +310,15 @@
       ],
       "text": "An earlier version of this site counted the nine oversight questions across all 445 entries marked high-impact and reported 317 with none answered. The register's own dictionary asks those nine only of high-impact entries that are deployed. Counted against the 227 entries it does ask, the figure is 101, or 44.5%. The gap is smaller and it is still there. Every other field's denominator was then checked against the dictionary. The same fault was found in the one date field and corrected with it. The check is recorded in governance/corrections.md."
     },
+    "oversight_base": {
+      "date": "2026-09-30",
+      "heading": "Correction, 2026-09-30",
+      "prominent": true,
+      "pages": [
+        "obligations.html"
+      ],
+      "text": "Every per-question figure on this page, and the reading of what the answers say, was divided by all 445 entries flagged high-impact. The register asks these nine only of the 227 that are also deployed. Measured against those, the share of answers saying a step is under way is 32.7% rather than 16.9%, the share saying a step was done is 20.5% rather than 10.7%, and each question is answered on about 55.1% of entries rather than about 28.5%. The picture is less empty than this page showed. This is the third figure on this site corrected for the same reason, and the check that now covers the class is in governance/corrections.md."
+    },
     "date_denominator": {
       "date": "2026-09-30",
       "heading": "Correction, 2026-09-30",
@@ -358,7 +368,7 @@
     "agency": "Federal Deposit Insurance Corporation",
     "selection_rule": "The first entry in the file's own order among those the register asks the nine oversight questions of and that carry no answer in any of them.",
     "entries_meeting_the_rule": 101,
-    "why_this_entry": "Selected by rule, not chosen. The first entry in the file's own order among those the register asks the nine oversight questions of and that carry no answer in any of them. 100 other entries meet the same rule and would produce the same picture. Nothing here says anything about the organisation that filed it: a blank is not evidence that a practice is absent, and this project cannot see anything the file does not hold.",
+    "why_this_entry": "Selected by rule, not chosen. The first entry in the file's own order among those the register asks the nine oversight questions of and that carry no answer in any of them. 100 other entries meet the same rule and would produce the same picture, so nothing here is about the organisation that filed this one.",
     "rule": "Every value here is read from the published file. Nothing is inferred, estimated or filled with a plausible answer. Where the source collects nothing, the row is marked as such. Where the source asks and this entry is empty, the row is marked differently, because those are different facts.",
     "rows": [
       {
@@ -587,6 +597,7 @@
     "asked_the_nine": 227,
     "no_oversight": 101,
     "share_no_oversight": 44.5,
+    "timing": "Agencies submitted this file on 22 December 2025. The memorandum behind these nine questions gives them until 3 April 2026 to document the work, so the deadline came after they submitted. It came well before this file was downloaded on 22 September 2026, and these entries were blank when it was taken. The register records nothing about when an entry was last updated, so no single entry can be placed on either side of that date.",
     "no_oversight_all_flagged": 317
   },
   "steps": [

@@ -152,3 +152,68 @@ def test_the_correction_log_records_every_published_correction():
             f"correction '{name}' is published and its date {item['date']} is not in "
             "governance/corrections.md"
         )
+
+
+def test_every_oversight_figure_is_based_on_the_entries_the_register_asks():
+    """The same fault, found three times, now checked rather than remembered.
+
+    First the headline count of blanks was divided by 445. That was corrected
+    by hand. Then every conditional field's completeness was found to have the
+    same shape, and a rule was written for it. Neither pass looked at the
+    per-question coverage table or at the reading of what the answers say, and
+    both were still divided by 445 until 30 September 2026.
+
+    Each correction fixed the figure in front of it. This checks the class.
+
+    Anything in M4 measured across every flagged entry carries `_all_flagged`
+    in its name and is published beside the narrower figure, never instead of
+    it. Anything without that suffix is measured against the 227.
+    """
+    m4 = _findings()["M4"]
+    asked = m4["asked_the_nine"]
+    flagged = m4["subset_size"]
+    assert asked < flagged, (
+        "the entries the register asks the nine of are no longer a subset of the "
+        "entries flagged high-impact, which is the premise of the whole correction")
+
+    answers = m4["oversight_answers"]
+    assert answers["entries"] == asked, (
+        f"the reading of the answers covers {answers['entries']} entries and the register "
+        f"asks {asked}")
+    assert answers["possible_answers"] == asked * answers["fields"], (
+        "the number of places an answer could sit is not the asked entries times the "
+        "nine fields")
+
+    wider = m4["oversight_answers_all_flagged"]
+    assert wider["entries"] == flagged, (
+        "the wider reading is no longer the wider reading")
+    for block in (answers, wider):
+        assert block["population"].strip(), (
+            "a reading of the answers does not name the entries it read")
+
+
+def test_the_per_question_coverage_is_published_both_ways_and_they_differ():
+    m4 = _findings()["M4"]
+    narrow = m4["oversight_field_coverage"]
+    wide = m4["oversight_field_coverage_all_flagged"]
+    assert set(narrow) == set(wide), "the two coverage tables cover different questions"
+    same = [k for k in narrow if narrow[k] == wide[k]]
+    assert not same, (
+        "a question reports the same share against both populations, so the condition "
+        "was not applied to it: " + ", ".join(sorted(same))
+    )
+    for key in ("primary", "secondary"):
+        assert m4["coverage_bases"][key].strip(), f"the coverage table does not name its {key} base"
+
+
+def test_the_page_states_both_halves_of_the_condition():
+    """Half a condition above a table is how every share below it went wrong."""
+    labels = json.loads((REPO_ROOT / "docs" / "data" / "field_labels.json")
+                        .read_text(encoding="utf-8"))
+    groups = {v for k, v in labels["group_of"].items() if k.startswith("hi_")}
+    assert groups, "the nine oversight fields no longer carry a group label"
+    for group in groups:
+        lowered = group.lower()
+        assert "high-impact" in lowered and "deployed" in lowered, (
+            "the group label above the per-question table states only part of the "
+            f"condition: {group!r}")

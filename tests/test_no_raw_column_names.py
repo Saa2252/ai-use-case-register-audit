@@ -63,11 +63,16 @@ def test_no_label_starts_with_the_high_impact_prefix():
 def test_conditional_fields_carry_the_condition_they_are_asked_under():
     """A label loses the condition the column name carried in its prefix.
 
-    The nine oversight questions are asked only of entries flagged high-impact,
-    and the justification field only of entries presumed high-impact and then
-    determined not to be. Those are different populations, so they are different
-    groups. Replacing the prefix with a readable label drops that unless the
-    group is stated.
+    The nine oversight questions are asked only of entries that are flagged
+    high-impact **and deployed**, and the justification field only of entries
+    presumed high-impact and then determined not to be. Those are different
+    populations, so they are different groups. Replacing the prefix with a
+    readable label drops that unless the group is stated.
+
+    The group said "flagged high-impact" and stopped there until 30 September
+    2026. Half a condition, stated above a table of per-question shares, is how
+    every one of those shares came to be divided by 445 rather than by the 227
+    the register asks.
     """
     published = json.loads((DOCS / "data" / "field_labels.json").read_text())
     assert published["group_of"] == GROUP_OF, "published groups have drifted from the source"

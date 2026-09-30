@@ -1,3 +1,8 @@
+  <aside class="correction" role="note">
+    <p class="correction-head" data-figure="corrections.oversight_base.heading"></p>
+    <p data-figure="corrections.oversight_base.text"></p>
+  </aside>
+
   <div class="intro">
     <p><strong>Suppose someone in authority asked an agency to account for its riskiest AI systems.</strong> The register has a name for those: it flags them <strong>high-impact</strong>, meaning {{high_impact_meaning}}. This page asks what the published register could hand over about them, and finds that for most it holds almost nothing.</p>
     <p class="qualifier">Nobody asked. This page is a rehearsal: it takes a question an oversight body would plausibly ask and checks whether the published register could answer it. No agency requested this, and no agency has been asked to respond to it. {{how_to_read}}</p>
@@ -21,7 +26,7 @@
 
   <h2>The nine oversight fields are nearly always all filled or all empty</h2>
   <div class="panel">
-    <p class="lead-in">Nine fields cover human oversight, filled in only for high-impact entries. Almost every such entry has all nine filled or all nine empty. Two out of hundreds sit in between. The file records nothing about how any entry came to be filled in that way.</p>
+    <p class="lead-in">Nine fields cover human oversight, filled in only for entries that are flagged high-impact and deployed. Almost every such entry has all nine filled or all nine empty. Two out of hundreds sit in between. The file records nothing about how any entry came to be filled in that way.</p>
     <p>The nine ask whether the system was tested before deployment, whether an impact assessment was completed, what the potential impacts are, whether an independent review took place, whether performance is monitored, whether operators are trained, whether there is a fail-safe, whether a person can appeal, and whether affected groups were consulted.</p>
     <p class="pair">The register asks the nine only of high-impact entries that are running.</p>
     <p><span data-figure="M4.oversight_conditionality.condition"></span></p>
@@ -30,7 +35,7 @@
       <thead><tr><th>Counted across</th><th>Entries</th><th>All nine empty</th></tr></thead>
       <tbody>
         <tr><td>Entries the register asks the nine of</td><td data-figure="M4.oversight_conditionality.required_of.entries" data-fmt="n"></td><td><span data-figure="M4.oversight_conditionality.required_of.none_answered" data-fmt="n"></span> (<span data-figure="M4.oversight_conditionality.required_of.share_none_answered"></span>%)</td></tr>
-        <tr><td>Every entry flagged high-impact</td><td data-figure="M4.subset_size" data-fmt="n"></td><td><span data-figure="M4.oversight_block_shape.none_answered" data-fmt="n"></span> (<span data-figure="M4.oversight_conditionality.not_required_of.share_none_answered"></span>% of the ones not asked)</td></tr>
+        <tr><td>Every entry flagged high-impact</td><td data-figure="M4.subset_size" data-fmt="n"></td><td><span data-figure="M4.oversight_block_shape.none_answered" data-fmt="n"></span>, of which <span data-figure="M4.oversight_conditionality.not_required_of.none_answered" data-fmt="n"></span> are the <span data-figure="M4.oversight_conditionality.not_required_of.entries" data-fmt="n"></span> not asked (<span data-figure="M4.oversight_conditionality.not_required_of.share_none_answered"></span>%)</td></tr>
       </tbody>
     </table></div>
     <p class="qualifier"><span data-figure="M4.oversight_conditionality.caveat"></span></p>
@@ -48,7 +53,7 @@
 
     <h3>Reading what the answers say gives a different picture from counting them</h3>
     <p class="lead-in">Counting a field as filled treats every answer alike. Read instead, most of what is filled in says the work has not finished.</p>
-    <p>Across the nine fields and the <span data-figure="M4.oversight_answers.entries" data-fmt="n"></span> high-impact entries there are <span data-figure="M4.oversight_answers.possible_answers" data-fmt="n"></span> places an answer could sit. Sorting every one of them by what it says:</p>
+    <p>Across the nine fields and the <span data-figure="M4.oversight_answers.entries" data-fmt="n"></span> entries the register asks them of there are <span data-figure="M4.oversight_answers.possible_answers" data-fmt="n"></span> places an answer could sit. Sorting every one of them by what it says:</p>
     <div class="scroller"><table>
       <thead><tr><th>What the answer says</th><th>Share of all <span data-figure="M4.oversight_answers.possible_answers" data-fmt="n"></span></th></tr></thead>
       <tbody>
@@ -59,7 +64,8 @@
         <tr><td>The step was considered and not taken</td><td><span data-figure="M4.oversight_answers.share.says no"></span>%</td></tr>
       </tbody>
     </table></div>
-    <p><span data-figure="M4.oversight_answers.entries_answering_at_all" data-fmt="n"></span> entries give at least one answer. Of those, <span data-figure="M4.oversight_answers.of_those_more_unfinished_than_done" data-fmt="n"></span>, or <span data-figure="M4.oversight_answers.of_those_more_unfinished_share"></span>%, give more answers saying a step is under way than saying it was done.</p>
+    <p><span data-figure="M4.oversight_answers.entries_answering_at_all" data-fmt="n"></span> of those <span data-figure="M4.oversight_answers.entries" data-fmt="n"></span> entries give at least one answer. Of those, <span data-figure="M4.oversight_answers.of_those_more_unfinished_than_done" data-fmt="n"></span>, or <span data-figure="M4.oversight_answers.of_those_more_unfinished_share"></span>%, give more answers saying a step is under way than saying it was done.</p>
+    <p class="note"><strong>Counted across every entry flagged high-impact instead</strong>, including the <span data-figure="M4.oversight_conditionality.not_required_of.entries" data-fmt="n"></span> the register does not put these questions to, the same reading covers <span data-figure="M4.oversight_answers_all_flagged.possible_answers" data-fmt="n"></span> places and <span data-figure="M4.oversight_answers_all_flagged.share.blank"></span>% of them are empty. That figure describes the shape of the register rather than what the answers say.</p>
     <p class="pair">
       No entry, in any of the nine fields, records a step as considered and not taken.
     </p>
@@ -77,7 +83,7 @@
 
     <h3>How often each question is answered</h3>
     <div class="scroller"><table>
-      <thead><tr><th>Question</th><th>Share of high-impact entries providing information</th></tr></thead>
+      <thead><tr><th>Question</th><th>Share of the entries the register asks that provide information</th></tr></thead>
       <tbody id="coverage"></tbody>
     </table></div>
   </div>

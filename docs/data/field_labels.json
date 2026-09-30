@@ -36,7 +36,7 @@
  },
  "groups": {
   "high_impact_oversight": {
-   "label": "Asked only of entries flagged high-impact",
+   "label": "Asked only of entries that are flagged high-impact and deployed",
    "columns": [
     "hi_testing_conducted",
     "hi_assessment_completed",
@@ -57,15 +57,15 @@
   }
  },
  "group_of": {
-  "hi_testing_conducted": "Asked only of entries flagged high-impact",
-  "hi_assessment_completed": "Asked only of entries flagged high-impact",
-  "hi_potential_impacts": "Asked only of entries flagged high-impact",
-  "hi_independent_review": "Asked only of entries flagged high-impact",
-  "hi_ongoing_monitoring": "Asked only of entries flagged high-impact",
-  "hi_training_established": "Asked only of entries flagged high-impact",
-  "hi_failsafe_presence": "Asked only of entries flagged high-impact",
-  "hi_appeal_process": "Asked only of entries flagged high-impact",
-  "hi_public_consultation": "Asked only of entries flagged high-impact",
+  "hi_testing_conducted": "Asked only of entries that are flagged high-impact and deployed",
+  "hi_assessment_completed": "Asked only of entries that are flagged high-impact and deployed",
+  "hi_potential_impacts": "Asked only of entries that are flagged high-impact and deployed",
+  "hi_independent_review": "Asked only of entries that are flagged high-impact and deployed",
+  "hi_ongoing_monitoring": "Asked only of entries that are flagged high-impact and deployed",
+  "hi_training_established": "Asked only of entries that are flagged high-impact and deployed",
+  "hi_failsafe_presence": "Asked only of entries that are flagged high-impact and deployed",
+  "hi_appeal_process": "Asked only of entries that are flagged high-impact and deployed",
+  "hi_public_consultation": "Asked only of entries that are flagged high-impact and deployed",
   "HI_justification": "Asked only when an entry is presumed high-impact and then determined not to be"
  }
 }

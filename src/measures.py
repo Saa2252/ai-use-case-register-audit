@@ -614,8 +614,13 @@ def oversight_conditionality(hi: pd.DataFrame, hifields: list) -> dict:
     }
 
 
-def oversight_answers(hi: pd.DataFrame, hifields: list) -> dict:
-    """What the nine oversight fields say, across the high-impact subset."""
+def oversight_answers(hi: pd.DataFrame, hifields: list, population: str = "") -> dict:
+    """What the nine oversight fields say, across whichever entries are passed.
+
+    `population` names the group, because this is now computed twice and a
+    figure whose base is not stated is the fault this project has now made
+    three times.
+    """
     always, text_only, types = _empty_rule()
     counts = {k: 0 for k in ("blank", "in progress", "done", "not applicable", "says no")}
     per_entry = []
@@ -629,6 +634,7 @@ def oversight_answers(hi: pd.DataFrame, hifields: list) -> dict:
     more_unfinished = sum(
         1 for s in answering if s.count("in progress") > s.count("done"))
     return {
+        "population": population,
         "possible_answers": total,
         "fields": len(hifields),
         "entries": int(len(hi)),
@@ -666,6 +672,17 @@ def m4_oversight_pack(reg: pd.DataFrame) -> dict:
     presumed = reg[reg["is_high_impact"] == "Presumed High-Impact, but Not High-impact"]
     hifields = oversight_fields(reg.columns)
     answered = sum((~hi[c].map(lambda v: is_empty(c, v, always, text_only, types))).astype(int) for c in hifields)
+
+    # The entries the register actually puts these nine questions to. Its own
+    # dictionary requires them "only for high-impact deployed use cases".
+    #
+    # This is the third time the same fault has been corrected. First the
+    # headline count of blanks, then every conditional field's completeness,
+    # and now the per-question coverage and the reading of what the answers
+    # say, both of which were still divided by all 445. Each correction fixed
+    # the figure in front of it and did not ask what else shared its shape.
+    asked_mask, _ = COND.asked_of(reg, hifields[0])
+    asked = reg[asked_mask]
     jf = (~presumed["HI_justification"].map(
         lambda v: is_empty("HI_justification", v, always, text_only, types))).mean()
     return {
@@ -677,10 +694,25 @@ def m4_oversight_pack(reg: pd.DataFrame) -> dict:
         "register_rows": int(len(reg)),
         "arithmetic_closes": sum(bands.values()) == len(reg),
         "subset_size": int(len(hi)),
-        "oversight_field_coverage": {c: round(float((~hi[c].map(
+        # Measured against the entries the register asks. The wider view is kept
+        # beside it, never instead of it.
+        "asked_the_nine": int(len(asked)),
+        "oversight_field_coverage": {c: round(float((~asked[c].map(
             lambda v: is_empty(c, v, always, text_only, types))).mean()) * 100, 1) for c in hifields},
+        "oversight_field_coverage_all_flagged": {c: round(float((~hi[c].map(
+            lambda v: is_empty(c, v, always, text_only, types))).mean()) * 100, 1) for c in hifields},
+        "coverage_bases": {
+            "primary": "the entries the register asks the nine of, which are the high-impact "
+                       "entries that are deployed",
+            "secondary": "every entry flagged high-impact, including those the register does "
+                         "not put these questions to",
+        },
         "oversight_conditionality": oversight_conditionality(hi, hifields),
-        "oversight_answers": oversight_answers(hi, hifields),
+        "oversight_answers": oversight_answers(
+            asked, hifields,
+            population="the entries the register asks the nine of"),
+        "oversight_answers_all_flagged": oversight_answers(
+            hi, hifields, population="every entry flagged high-impact"),
         "oversight_block_shape": {
             "all_nine_answered": int((answered == len(hifields)).sum()),
             "none_answered": int((answered == 0).sum()),

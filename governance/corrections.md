@@ -64,7 +64,48 @@ rather than two thirds of the whole register.
 
 ---
 
-## 3. The check of every other denominator
+## 3. Every per-question oversight figure, counted against the wrong population
+
+| | |
+|---|---|
+| Found | 2026-09-30, reported by a reader |
+| Corrected and published | 2026-09-30 |
+| Published as | each question answered on 28.5% to 28.8% of entries; 4,005 answers read, of which 71.4% blank, 16.9% under way, 10.7% done |
+| Now published as | each question answered on 55.1% to 55.5% of the entries the register asks; 2,043 answers read, of which 44.7% blank, 32.7% under way, 20.5% done |
+| Where it ran | `obligations.html`, and the "under way" figure on `index.html` |
+| Note visible on | `obligations.html` |
+
+**What was wrong.** The same fault as items 1 and 2. Every figure in the
+per-question coverage table and every figure in the reading of what the answers
+say was divided by all 445 entries flagged high-impact, and the register asks
+these nine only of the 227 that are also deployed.
+
+**Why the two earlier corrections did not catch it.** Item 1 corrected one
+headline figure by hand. Item 3 below wrote a rule for conditional *fields* and
+applied it to completeness. Neither looked at figures that are about the nine
+oversight fields but are not field completeness: a per-question coverage table,
+and a classification of what each answer says. Both passes fixed the figures in
+front of them.
+
+**A contributing cause, in this project's own copy.** The group caption above
+the per-question table read "Asked only of entries flagged high-impact". That
+is half the condition. The dictionary says "only for high-impact deployed use
+cases". Half a condition stated above a table is a reasonable thing for
+everything below it to be divided by.
+
+**What it changes.** The picture is less empty than the page showed. Blank
+answers go from most of them to fewer than half, and the answers saying a step
+is under way rather than finished roughly double. It strengthens the reading
+that some of these blanks are a clock rather than a gap, which this project
+already published.
+
+**What now covers the class.** `tests/test_denominators.py` has three further
+checks: every oversight figure is based on the entries the register asks, the
+per-question coverage is published both ways and the two must differ, and the
+group caption must state both halves of the condition. Verified by planting
+both failures.
+
+## 4. The check of every other denominator
 
 Run 2026-09-30, after the owner asked whether the same fault sat anywhere else.
 
@@ -140,7 +181,7 @@ all 3,611 rows, and records `field_is_required` alongside them. No change.
 dictionary marks optional. All are asked of every entry, so the two shares
 agree.
 
-**Enforced by.** `tests/test_denominators.py`, five checks. Verified by planting
+**Enforced by.** `tests/test_denominators.py`, ten checks. Verified by planting
 the failure each exists to catch.
 
 ---
