@@ -483,7 +483,7 @@ That prints the raw row as downloaded, compares it field by field with what the 
 | `app/app.py` | A Streamlit application that serves the published site. It holds no figures and restates nothing |
 | `data/derived/` | Everything published. Every figure on the site comes from here |
 | `docs/` | The site. Four pages that read the published register, and one that proposes how a register would be kept current |
-| `tests/` | 86 automated checks, run with pytest |
+| `tests/` | 87 automated checks, run with pytest |
 
 ## Licence
 

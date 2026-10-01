@@ -113,6 +113,30 @@ def test_the_ground_behind_the_frame_is_the_sites_own():
         )
 
 
+def test_the_application_asks_for_streamlit_and_nothing_else():
+    """The host installs the file next to the entrypoint, not the root one.
+
+    Without this file the host installs the whole analysis stack, and the
+    application imports none of it. It reads no data and computes nothing, so
+    it needs nothing that reads data or computes. The first deployment of this
+    project failed on an error installing requirements, and the shortest list
+    is the least fragile.
+    """
+    app_requirements = REPO_ROOT / "app" / "requirements.txt"
+    assert app_requirements.exists(), (
+        "app/requirements.txt is gone, so the host would install the repository root's "
+        "list: the whole analysis stack, for an application that reads no data")
+    asked = [line.strip() for line in app_requirements.read_text(encoding="utf-8").splitlines()
+             if line.strip() and not line.startswith("#")]
+    assert asked == ["streamlit==1.64.0"], (
+        "the application asks for something other than Streamlit: " + ", ".join(asked))
+
+    root = (REPO_ROOT / "requirements.txt").read_text(encoding="utf-8")
+    assert asked[0] in root, (
+        f"the two pins have drifted. The application asks for {asked[0]} and the "
+        "repository root asks for something else")
+
+
 def test_the_site_address_is_stated_once():
     readme = README.read_text(encoding="utf-8")
     assert SITE_URL.rstrip("/") in readme, (

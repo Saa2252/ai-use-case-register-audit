@@ -1,0 +1,16 @@
+# What the application needs, which is only Streamlit.
+#
+# The host searches the entrypoint's directory before the repository root, so
+# this file is what it installs. Without it the root file is used, and that
+# carries the whole analysis stack: pandas, numpy, scikit-learn, jupyter,
+# notebook and pytest. The application imports none of them. It reads no data
+# and computes nothing, so it needs nothing that reads data or computes.
+#
+# This is also where the first deployment failed, on an error installing
+# requirements. A long dependency list resolved on a host whose Python is not
+# the one it was pinned against is the most fragile part of a deployment, and
+# the shortest list is the least fragile.
+#
+# The pin matches the one in the repository root. tests/test_app_safeguards.py
+# fails if the two drift.
+streamlit==1.64.0
