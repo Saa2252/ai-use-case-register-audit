@@ -481,9 +481,10 @@ That prints the raw row as downloaded, compares it field by field with what the 
 | `scripts/acquire.py` | Every source, its address, and the hash manifest the tests verify |
 | `scripts/validate_register.py` | The counting checks as a tool, runnable on any register of the same shape |
 | `app/app.py` | A Streamlit application that serves the published site. It holds no figures and restates nothing |
+| `scripts/build_card.py` | Draws the link preview card from the published findings, so the picture cannot fall behind them |
 | `data/derived/` | Everything published. Every figure on the site comes from here |
 | `docs/` | The site. Four pages that read the published register, and one that proposes how a register would be kept current |
-| `tests/` | 87 automated checks, run with pytest |
+| `tests/` | 90 automated checks, run with pytest |
 
 ## Licence
 
