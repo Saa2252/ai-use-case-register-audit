@@ -80,3 +80,8 @@ UK_LICENCE_URL = "https://www.nationalarchives.gov.uk/doc/open-government-licenc
 # a comparison against REPOSITORY_URL rather than a pattern, so widening one
 # means changing this value, which is a stop-and-ask.
 REPOSITORY_URL = "https://github.com/Saa2252/ai-use-case-register-audit"
+
+# Where the site is published. Held here because a second surface now points at
+# it, and two places stating an address is two addresses that can disagree.
+# The README states it from here, and so does the Streamlit application.
+SITE_URL = "https://saa2252.github.io/ai-use-case-register-audit/"

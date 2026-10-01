@@ -428,3 +428,13 @@ off by the owner before work starts.
 | 2026-09-30 | State both halves of the condition in the group caption above the per-question table | **Contributing cause, corrected.** The caption read "flagged high-impact" and the dictionary says "high-impact deployed". Half a condition above a table is a reasonable thing for everything below it to be divided by. A test now requires both halves |
 | 2026-09-30 | Put the submission and deadline dates beside the headline figure | **Done.** A reader who stops after the short version should not leave thinking the work might simply not have been due yet, nor thinking the deadline has not passed. Both dates and the download date are stated |
 | 2026-09-30 | Remove the two remaining restatements of the first reading rule | **Done.** One on the register headline, one under the worked form. The rule is published once, on the landing page |
+
+## The application, 1 October 2026
+
+| Date | Change | Outcome |
+|---|---|---|
+| 2026-10-01 | A Streamlit application, reopening the one dropped on 30 September 2026 | **Approved by the owner in writing, with the condition that decided the design: the interface must be identical.** It is not a rebuild. Streamlit's own interface is removed and the published site is served in a frame. Reasoning in `governance/decision-rules.md` section 29 |
+| 2026-10-01 | S12 amended to permit the framework again | **Recorded, as it was in 23.4.** The site's five views and T9's approved page set are untouched: the application adds no page, it serves the pages that exist |
+| 2026-10-01 | The application holds no figure and reads no data file | **This is the safeguard, not a consequence of it.** Section 23.4 recorded that losing the absence of the data was the real cost of the first version. This version has no data in it to restate. `tests/test_app_safeguards.py` holds that shape, five checks, each verified by planting the failure |
+| 2026-10-01 | Section 23.2, no agency filter and no agency sort | **Holds without a test.** There is no control in the application to filter or sort with |
+| 2026-10-01 | S9 disclaimer and S11 authorship | **Carried by the site inside the frame**, and by a fallback in the application for when the site cannot be reached. Both imported from `src/disclaimer.py`, so neither can be stated differently |

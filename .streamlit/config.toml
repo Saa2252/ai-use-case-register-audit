@@ -1,0 +1,13 @@
+# No theme is set here on purpose.
+#
+# The site inside the frame carries its own stylesheet and follows the reader's
+# system scheme. A theme fixed in this file would be a second answer to a
+# question the site already answers, and it would be the wrong answer for half
+# the readers. The ground behind the frame is set in app/app.py instead, in a
+# media query, so it follows the same scheme the site does.
+
+[server]
+headless = true
+
+[browser]
+gatherUsageStats = false

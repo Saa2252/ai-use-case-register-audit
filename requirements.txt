@@ -9,3 +9,8 @@ requests==2.32.3
 # Text similarity for M1 (candidate near-duplicate detection).
 # Ships with scikit-learn's TF-IDF; no separate fuzzy-matching library needed.
 scikit-learn==1.6.1
+# The Streamlit application in app/, which serves the published site rather
+# than rebuilding it. Not needed to run the analysis or the tests. Pinned like
+# everything else; an unpinned version is what made the first deployment fail,
+# with a two-year-old release resolved against a current Python.
+streamlit==1.64.0

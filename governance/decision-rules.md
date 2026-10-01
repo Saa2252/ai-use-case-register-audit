@@ -1426,3 +1426,70 @@ the site hedges too much, hides its method, and never says whose it is.
 | Whether to say | **Yes, at the top.** The only mention was the footer credit, which a reader reaches last if at all |
 | What it may say | **The project is attributed and its purpose is stated. Nothing is said about who wrote any of it.** S11 forbids claiming or describing authorship of the code, and the phrasings it would take are checked by `tests/test_authorship_claims.py` |
 | Whether to describe the owner | **No. Nothing is asserted about them beyond their name.** Their background is theirs to write, and a portfolio that invents a line about the person is worse than one that says nothing. **Open for the owner: a sentence about themselves, if they want one** |
+
+## 29. The application, reopened and built the other way round
+
+**Owner decision, 1 October 2026. This reopens section 23, which 23.5 closed.**
+
+The owner asked again for the project deployed on Streamlit, and added the
+condition that settles how: the interface must be identical.
+
+### Why the first attempt failed, and why that reason decides this one
+
+Section 23.5 recorded it exactly. *What it could not reproduce was the page as
+a designed object, because the host owns the page.* The application restated
+the findings in Streamlit components and approximated the design around them.
+
+An identical interface cannot be reached by approximating harder. Every version
+of that approach ends where the first one did, because the premise is the
+problem: a framework that owns the layout will own the layout.
+
+| Option | Ruling |
+|---|---|
+| Rebuild the pages in Streamlit components | **Rejected.** This is what 23.5 dropped. It cannot be identical, and the owner has already seen that it is not |
+| **Remove Streamlit's interface and serve the published site in a frame** | **Chosen.** The design is not approximated because it is not reproduced. It is the same stylesheet, the same scripts, the same navigation |
+| Do not build it | Rejected by the owner's instruction |
+
+### What this version is
+
+Every Streamlit element is hidden by stylesheet: the header, the toolbar, the
+running indicator, the menu, the footer, and the padding the block container
+adds. What is left is a window with one frame in it, at full width and height,
+holding the published site.
+
+### What the shape gives back
+
+**Section 23.4 recorded a real loss when the first application moved into this
+repository: the row-level register became present to be sorted, and an absent
+file is a stronger guard than any test. This version gets that back and more.**
+It reads no data file at all. There is no figure in it, no finding in it, and
+nothing in it that can drift from the audit. This project has corrected the
+same kind of figure three times, and the only copy that cannot be wrong is the
+one that does not exist.
+
+Section 23.2's ruling, that the application offers no agency filter and no
+agency sort, holds without needing a test: there is no control in it to filter
+with.
+
+### What it costs, stated rather than glossed
+
+| Cost | Where it stands |
+|---|---|
+| It depends on the published site being reachable | If the site is down the application shows nothing of its own. A fallback carries the address and the disclaimer |
+| It adds nothing the site does not have | True, and it is the point. The owner asked for the same site at a second address, not a second site |
+| Streamlit is a framework, which S12 excludes | **S12 is amended again**, as it was in 23.4. Recorded in `governance/safeguards.md` |
+| The frame is sandboxed by the host | Scripts and same-origin access are permitted, so the site's own figures load inside it. Verified |
+
+### What was checked before this was recorded
+
+The site renders inside the frame with its figures filled in, which shows its
+scripts ran and fetched their data through the sandbox. Light and dark both
+follow the reader's system scheme. The frame matches the window exactly at
+desktop and at mobile width, with no horizontal overflow. Every Streamlit
+element resolves to `display: none` or is absent.
+
+**Not checked: clicking a link inside the frame.** The automation available
+could not deliver input into a cross-origin frame. Same-frame navigation by an
+ordinary link is not affected by the sandbox the host applies, which withholds
+only top-level navigation, and the site's links carry no target. It is stated
+as reasoned rather than observed.
