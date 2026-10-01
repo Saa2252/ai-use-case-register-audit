@@ -15,7 +15,8 @@ sys.path.insert(0, str(REPO_ROOT))
 
 from src.statements import apply as apply_statements  # noqa: E402
 from src.disclaimer import (AUTHORSHIP, DISCLAIMER, ONTARIO_ATTRIBUTION,
-                            ONTARIO_LICENCE_URL, UK_ATTRIBUTION, UK_LICENCE_URL)
+                            ONTARIO_LICENCE_URL, SITE_URL, UK_ATTRIBUTION,
+                            UK_LICENCE_URL)
 
 # Each licence that asks for an attribution statement, and the pages it goes
 # on. A page carries the statement for every source whose material it shows.
@@ -107,6 +108,50 @@ def write_stamp(stamp: str) -> None:
         json.dumps({"stamp": stamp}) + "\n", encoding="utf-8")
 
 
+# What a link to this site looks like when it is pasted somewhere else.
+#
+# A preview card travels with none of the page around it: no selection rule
+# beside it, no caveat under it. So the description is the page's own lede,
+# which is copy already approved and already published above the fold, rather
+# than a second description written for the card and approved nowhere.
+#
+# The picture is drawn by scripts/build_card.py from the published findings and
+# names no organisation, for the same reason.
+#
+# The addresses here are absolute because a scraper reads this page from
+# another host, where a relative address resolves against that host. That is
+# what made these tags need the exact-string exemption the owner approved on
+# 2 October 2026, recorded in governance/safeguards.md.
+#
+# The image's dimensions are deliberately not declared. They would be two
+# numbers typed into every page, which is the thing S5 exists to stop, and the
+# host fetches the picture and measures it anyway.
+CARD = "assets/card.png"
+TAGLINE = "An independent read of publicly published AI use case inventories."
+
+
+def preview(file, title, heading, lede) -> str:
+    description = (lede or TAGLINE).strip()
+    address = SITE_URL + ("" if file == "index.html" else file)
+    tags = [
+        ("og:type", "website"),
+        ("og:site_name", "AI Use Case Register Audit"),
+        ("og:title", heading or title),
+        ("og:description", description),
+        ("og:url", address),
+        ("og:image", SITE_URL + CARD),
+        ("og:image:alt", "Ten boxes, three filled, standing for the ten questions this "
+                         "field set asks and the three a published entry answers."),
+        ("twitter:card", "summary_large_image"),
+        ("twitter:title", heading or title),
+        ("twitter:description", description),
+        ("twitter:image", SITE_URL + CARD),
+    ]
+    return "".join(
+        '<meta property="' + name + '" content="' + value.replace('"', "&quot;") + '">\n'
+        for name, value in tags)
+
+
 def page(file, title, heading, lede, body, scripts="", licences=(), figures=True,
          page_class=""):
     links = []
@@ -129,6 +174,7 @@ def page(file, title, heading, lede, body, scripts="", licences=(), figures=True
         '<!DOCTYPE html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n'
         '<meta name="viewport" content="width=device-width, initial-scale=1">\n'
         "<title>" + title + "</title>\n"
+        + preview(file, title, heading, lede) +
         '<link rel="stylesheet" href="' + stamp("assets/style.css") + '">\n</head>\n<body>\n'
         '<div class="wrap" data-dv="' + data_stamp() + '">\n\n'
         "<header>\n  <h1>AI Use Case Register Audit</h1>\n"

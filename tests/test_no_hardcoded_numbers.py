@@ -14,7 +14,8 @@ import sys
 from conftest import REPO_ROOT
 
 sys.path.insert(0, str(REPO_ROOT))
-from src.disclaimer import DISCLAIMER, ONTARIO_ATTRIBUTION, REPOSITORY_URL  # noqa: E402
+from src.disclaimer import (  # noqa: E402
+    DISCLAIMER, ONTARIO_ATTRIBUTION, REPOSITORY_URL, SITE_URL)
 
 YEAR = re.compile(r"^(19|20)\d{2}$")
 
@@ -31,6 +32,11 @@ def test_no_hardcoded_numbers_in_html():
         # is blanked. See governance/safeguards.md.
         if REPOSITORY_URL:
             text = text.replace(REPOSITORY_URL, " " * len(REPOSITORY_URL))
+        # The same exemption for the site's own address, approved 2 October
+        # 2026. The link preview tags publish it into the head of every page,
+        # and it carries the same digits in the same account name.
+        if SITE_URL:
+            text = text.replace(SITE_URL, " " * len(SITE_URL))
         for m in re.finditer(r"\d{3,}", text):
             if YEAR.match(m.group(0)):
                 continue

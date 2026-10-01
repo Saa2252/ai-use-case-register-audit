@@ -438,3 +438,19 @@ off by the owner before work starts.
 | 2026-10-01 | The application holds no figure and reads no data file | **This is the safeguard, not a consequence of it.** Section 23.4 recorded that losing the absence of the data was the real cost of the first version. This version has no data in it to restate. `tests/test_app_safeguards.py` holds that shape, five checks, each verified by planting the failure |
 | 2026-10-01 | Section 23.2, no agency filter and no agency sort | **Holds without a test.** There is no control in the application to filter or sort with |
 | 2026-10-01 | S9 disclaimer and S11 authorship | **Carried by the site inside the frame**, and by a fallback in the application for when the site cannot be reached. Both imported from `src/disclaimer.py`, so neither can be stated differently |
+
+## The fourth exact-string exemption, 2 October 2026
+
+| Date | Change | Outcome |
+|---|---|---|
+| 2026-10-02 | Exempt the site's own address from T2 and T5 | **Approved by the owner.** The link preview tags publish it into the head of every page. A preview image has to be an absolute address, because the page is read by a scraper on another host where a relative address resolves against that host. The provider's name sits inside the address, which trips T2, and the account name carries digits, which trips T5. Same shape as the repository exemption of 30 September 2026 |
+| 2026-10-02 | Scope | **One exact string, read from `src.disclaimer.SITE_URL`.** Not a categorical exemption for markup, attributes or link addresses. Blanked before each scan, so every other vendor term and every other number on the page stays checked, including any that sits next to the link. Widening it means changing the address the project publishes |
+| 2026-10-02 | What was not exempted | **The image's dimensions.** Declaring them would have put two numbers into the head of every page, which is what S5 exists to stop. They are left out, the host measures the picture itself, and `tests/test_preview_card.py` checks the size by reading the file |
+
+## The link preview card, 2 October 2026
+
+| Date | Change | Outcome |
+|---|---|---|
+| 2026-10-02 | A card shown when a link to the site is pasted elsewhere | **Drawn by `scripts/build_card.py` from the published findings, never captured from a screen.** A capture is a picture nothing can check, and this project has published a wrong figure four times. A card is the worst place for a fifth, because nothing on it can be re-read from the file by the person looking at it. `card.stamp` records what the picture was drawn from and a test fails when the findings move past it |
+| 2026-10-02 | The card names no organisation | **S3 applied where it bites hardest.** The worked panel names the entry and the agency, which S3 permits as published facts in row-level detail. A card is not row-level detail: it arrives with no selection rule beside it and no caveat under it, and a published fact shown alone is read as a point being made. The owner reached the same conclusion independently. Enforced by a check that the card script never reads a column holding a name |
+| 2026-10-02 | The description on the card | **The page's own lede**, which is copy already approved and already published above the fold, rather than a second description written for the card and approved nowhere |

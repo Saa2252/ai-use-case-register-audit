@@ -15,7 +15,7 @@ from pathlib import Path
 
 import pytest
 
-from src.disclaimer import REPOSITORY_URL
+from src.disclaimer import REPOSITORY_URL, SITE_URL
 
 from conftest import REPO_ROOT
 
@@ -57,11 +57,18 @@ def published_files() -> list[Path]:
 # src.disclaimer.REPOSITORY_URL rather than written out here, so the exemption
 # covers exactly the one address the project publishes and widening it means
 # changing that value. While the address is empty, nothing is exempt.
+#
+# A fourth was approved on 2 October 2026: the address of the site itself. The
+# link preview tags publish it into the head of every page, and a preview image
+# has to be an absolute address because the page is read by a scraper on
+# another host. The provider's name sits inside it for the same reason it sits
+# inside the repository address. Read from src.disclaimer.SITE_URL, so this
+# covers one address and widening it means changing that value.
 EXEMPT_EXACT_STRINGS = [
     '<meta charset',
     '<meta name="viewport"',
     'spheroidal elastic deformation sources',
-] + ([REPOSITORY_URL] if REPOSITORY_URL else [])
+] + ([REPOSITORY_URL] if REPOSITORY_URL else []) + ([SITE_URL] if SITE_URL else [])
 
 
 def strip_exempt(text: str) -> str:

@@ -9,7 +9,7 @@ the agency, which S3 permits as published facts in row-level detail. A card is
 not row-level detail. It is a picture that arrives alone, and a published fact
 shown alone is read as a point being made.
 
-**Its figures cannot fall behind the data.** This project has published a wrong
+**Its figures cannot drift from the data.** This project has published a wrong
 figure four times. A picture is the worst place for a fifth, because nothing on
 it can be re-read from the file by a reader. So the card is drawn from the
 findings by a script, and the figures it was drawn from are recorded beside it
@@ -34,11 +34,49 @@ CARD = DOCS / "assets" / "card.png"
 STAMP = DOCS / "assets" / "card.stamp"
 SCRIPT = REPO_ROOT / "scripts" / "build_card.py"
 
+REQUIRED_TAGS = ["og:title", "og:description", "og:url", "og:image", "twitter:card"]
+
+
+def _tags(page) -> dict:
+    text = page.read_text(encoding="utf-8")
+    return dict(re.findall(r'<meta property="([^"]+)" content="([^"]*)">', text))
+
+
+def test_every_page_carries_a_preview():
+    missing = []
+    for page in sorted(DOCS.glob("*.html")):
+        tags = _tags(page)
+        for name in REQUIRED_TAGS:
+            if not tags.get(name, "").strip():
+                missing.append(f"{page.name}: {name}")
+    assert not missing, (
+        "a page would paste into a feed with no preview, or a broken one:\n"
+        + "\n".join(missing)
+    )
+
+
+def test_the_preview_points_at_the_published_card_by_absolute_address():
+    """A relative address here resolves against the host reading the page.
+
+    The scraper is on another machine. A relative og:image would send it to
+    that machine's own assets directory, which is why these are absolute and
+    why they needed an exemption.
+    """
+    expected = SITE_URL + "assets/card.png"
+    wrong = []
+    for page in sorted(DOCS.glob("*.html")):
+        tags = _tags(page)
+        if tags.get("og:image") != expected:
+            wrong.append(f"{page.name}: og:image is {tags.get('og:image')}")
+        if not tags.get("og:url", "").startswith(SITE_URL):
+            wrong.append(f"{page.name}: og:url is {tags.get('og:url')}")
+    assert not wrong, "a preview points somewhere other than the published card:\n" + "\n".join(wrong)
+
+
 def test_the_card_exists_and_is_the_size_the_hosts_crop_to():
     """Read out of the picture, not out of a number declared next to it.
 
-    The hosts show a large card at 1200x627 and fall back to a thumbnail below
-    that, so the size is part of whether this works at all.
+    The hosts show a large card at 1200x627 and drop to a thumbnail below that, so the size is part of whether this works at all.
     """
     from PIL import Image
 
@@ -49,7 +87,7 @@ def test_the_card_exists_and_is_the_size_the_hosts_crop_to():
             "so it would be cut or shown as a thumbnail")
 
 
-def test_the_card_has_not_fallen_behind_the_findings():
+def test_the_card_has_not_drifted_from_the_findings():
     """A wrong number in a picture is the worst kind, because a reader cannot
     re-read it from the file."""
     assert STAMP.exists(), "the card carries no record of what it was drawn from"

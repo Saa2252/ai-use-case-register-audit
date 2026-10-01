@@ -19,8 +19,8 @@ through for one it does not put to an entry like this.
 
 Drawn here rather than captured from a browser. A capture would have been a
 manual step producing a picture that nothing could check, and this project has
-been caught four times by a published figure that fell behind its data. A
-script that redraws it from the findings cannot fall behind them.
+been caught four times by a published figure that had drifted from its data.
+A script that redraws it from the findings cannot drift from them.
 
 Run:  python scripts/build_card.py
 """
@@ -65,7 +65,7 @@ def fonts():
             return bold, regular
     raise SystemExit(
         "no font file found for the card. Add this machine's paths to "
-        "FONT_CANDIDATES rather than letting it fall back to a bitmap font, "
+        "FONT_CANDIDATES rather than letting it drop to a bitmap font, "
         "which would publish a picture that does not look like the site.")
 
 
