@@ -48,6 +48,11 @@ INK_SOFT = (168, 164, 152)
 PUB = (143, 196, 174)
 ACCENT = (185, 166, 230)
 BORDER = (58, 59, 51)
+MINE = (185, 166, 230)
+DIM = (90, 92, 82)
+
+# One row of one form, and the bar inside it.
+ROW, BAR = 33, 25
 
 # Font files are looked up rather than assumed, and the one used is recorded in
 # the stamp, so a card drawn on another machine can be told from this one.
@@ -79,7 +84,11 @@ def figures() -> dict:
         "asked_and_left_empty": head["asked_and_left_empty"],
         "does_not_apply": head["does_not_apply"],
         "meeting_the_rule": head["entries_meeting_the_rule"],
+        # The two columns, each row by its own state. The made-up entry is read
+        # the same way rather than assumed full, so a row that stops being
+        # answered there shows up on the card.
         "states": [row["state"] for row in payload["panel_one"]["rows"]],
+        "made_up": [row["state"] for row in payload["panel_two"]["rows"]],
     }
 
 
@@ -94,22 +103,38 @@ def dashed_rect(draw, box, colour, width=3, dash=9, gap=7):
         draw.line([(x1, y), (x1, min(y + dash, y1))], fill=colour, width=width)
 
 
-def draw_box(draw, box, state):
-    """One of the ten, drawn the way the site draws it.
+def draw_row(draw, box, state, tint):
+    """One row of one form, drawn the way the site draws that state.
 
-    The shapes carry the difference, not colour alone, exactly as on the page.
+    Filled for a box the entry answers. A solid outline for one the register
+    asks and the entry leaves empty. Dashed for one the register does not
+    collect. Struck through for one it does not put to an entry like this. The
+    shapes carry the difference, not colour alone, exactly as on the page.
     """
-    if state == "from_source":
-        draw.rounded_rectangle(box, radius=6, fill=PUB)
+    if state in ("from_source", "answered"):
+        draw.rounded_rectangle(box, radius=4, fill=tint)
     elif state == "not_collected":
-        dashed_rect(draw, box, (90, 124, 110))
+        dashed_rect(draw, box, DIM, width=2, dash=8, gap=6)
     elif state == "blank_in_source":
-        draw.rounded_rectangle(box, radius=6, outline=PUB, width=3)
+        draw.rounded_rectangle(box, radius=4, outline=tint, width=2)
     elif state == "does_not_apply":
-        draw.rounded_rectangle(box, radius=6, outline=PUB, width=3)
-        draw.line([(box[0] + 4, box[3] - 4), (box[2] - 4, box[1] + 4)], fill=PUB, width=3)
+        draw.rounded_rectangle(box, radius=4, outline=tint, width=2)
+        draw.line([(box[0] + 3, box[3] - 3), (box[2] - 3, box[1] + 3)], fill=tint, width=2)
+    elif state in ("not_yet_answered", "withheld"):
+        draw.rounded_rectangle(box, radius=4, outline=tint, width=2)
     else:
-        raise SystemExit(f"the panel holds a state the card cannot draw: {state}")
+        raise SystemExit(f"a panel holds a state the card cannot draw: {state}")
+
+
+def column(draw, x, width, y, states, tint, heading, font_head, font_num):
+    """One of the two forms: a heading, then its ten rows, numbered."""
+    draw.text((x, y), heading, font=font_head, fill=tint)
+    top = y + 34
+    for index, state in enumerate(states):
+        row_y = top + index * ROW
+        draw.text((x, row_y + 3), str(index + 1), font=font_num, fill=INK_SOFT)
+        draw_row(draw, (x + 26, row_y, x + width, row_y + BAR), state, tint)
+    return top + len(states) * ROW
 
 
 def build(f: dict) -> Image.Image:
@@ -117,59 +142,50 @@ def build(f: dict) -> Image.Image:
     image = Image.new("RGB", (WIDTH, HEIGHT), BG)
     draw = ImageDraw.Draw(image)
 
-    kicker = ImageFont.truetype(bold_path, 19)
-    head = ImageFont.truetype(bold_path, 54)
-    sub = ImageFont.truetype(regular_path, 23)
-    key = ImageFont.truetype(regular_path, 19)
+    kicker = ImageFont.truetype(bold_path, 17)
+    head = ImageFont.truetype(bold_path, 38)
+    col_head = ImageFont.truetype(bold_path, 17)
+    num = ImageFont.truetype(regular_path, 14)
+    key = ImageFont.truetype(regular_path, 17)
 
-    left, y = 56, 46
+    left, y = 52, 36
     draw.text((left, y), "A I   U S E   C A S E   R E G I S T E R   A U D I T",
               font=kicker, fill=INK_SOFT)
-    y += 50
+    y += 40
 
-    # The headline, with the two figures in the accent the site uses for them.
-    line_one = [("Of ", INK), (str(f["fields"]), ACCENT), (" boxes on the form,", INK)]
-    line_two = [("the real entry answers ", INK), (str(f["answered"]), ACCENT), (".", INK)]
-    for line in (line_one, line_two):
-        x = left
-        for text, colour in line:
-            draw.text((x, y), text, font=head, fill=colour)
-            x += draw.textlength(text, font=head)
-        y += 66
+    line_one = [("Of ", INK), (str(f["fields"]), ACCENT),
+                (" boxes on the form, the real entry answers ", INK),
+                (str(f["answered"]), ACCENT), (".", INK)]
+    x = left
+    for text, colour in line_one:
+        draw.text((x, y), text, font=head, fill=colour)
+        x += draw.textlength(text, font=head)
+    y += 62
 
-    y += 14
-    draw.text((left, y), "A published high-impact entry put through the field set this",
-              font=sub, fill=INK_SOFT)
-    draw.text((left, y + 32),
-              f"audit proposes. It is one of {f['meeting_the_rule']} that meet the same rule.",
-              font=sub, fill=INK_SOFT)
-    y += 132
+    # The two forms, side by side, which is the comparison the page makes.
+    gutter = 44
+    col_w = (WIDTH - left * 2 - gutter) // 2
+    column(draw, left, col_w, y, f["states"], PUB,
+           "A REAL PUBLISHED ENTRY", col_head, num)
+    bottom = column(draw, left + col_w + gutter, col_w, y, f["made_up"], MINE,
+                    "A MADE-UP ENTRY, EVERY BOX RESOLVED", col_head, num)
 
-    # The ten boxes, in the panel's own order. Sized to sit between the text
-    # above and the key below without a dead band under them.
-    box_w, box_h, gap = 62, 104, 14
-    for index, state in enumerate(f["states"]):
-        x0 = left + index * (box_w + gap)
-        draw_box(draw, (x0, y, x0 + box_w, y + box_h), state)
-
-    # The key, drawn with the same shapes rather than with symbols, so a reader
-    # matches it to the boxes above by looking rather than by guessing.
-    foot = HEIGHT - 58
-    draw.line([(left, foot - 26), (WIDTH - left, foot - 26)], fill=BORDER, width=1)
+    foot = bottom + 30
+    draw.line([(left, foot - 16), (WIDTH - left, foot - 16)], fill=BORDER, width=1)
     x = left
     legend = [
-        ("from_source", f"answered: {f['answered']}"),
-        ("blank_in_source", f"asked, left empty: {f['asked_and_left_empty']}"),
-        ("not_collected", f"never asked: {f['not_collected']}"),
+        ("from_source", PUB, f"answered: {f['answered']}"),
+        ("blank_in_source", PUB, f"asked, left empty: {f['asked_and_left_empty']}"),
+        ("not_collected", PUB, f"never asked: {f['not_collected']}"),
     ]
-    for state, label in legend:
-        draw_box(draw, (x, foot, x + 18, foot + 22), state)
-        draw.text((x + 28, foot + 1), label, font=key, fill=INK_SOFT)
-        x += 28 + int(draw.textlength(label, font=key)) + 34
+    for state, tint, label in legend:
+        draw_row(draw, (x, foot + 2, x + 26, foot + 18), state, tint)
+        draw.text((x + 36, foot), label, font=key, fill=INK_SOFT)
+        x += 36 + int(draw.textlength(label, font=key)) + 36
 
-    tail = "saa2252.github.io"
-    draw.text((WIDTH - left - draw.textlength(tail, font=key), foot + 1),
-              tail, font=key, fill=INK)
+    tail = f"one of {f['meeting_the_rule']} entries that meet the same rule"
+    draw.text((WIDTH - left - draw.textlength(tail, font=key), foot), tail,
+              font=key, fill=INK_SOFT)
     return image
 
 

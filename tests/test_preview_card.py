@@ -17,7 +17,8 @@ and compared here.
 
 Verified by planting the failure: changing any figure in the stamp fails the
 staleness check by name, and making the card script read an agency column fails
-the naming check.
+the naming check. Both columns are covered, so a row that stops being answered
+on either side shows up here rather than on the card.
 """
 
 import json
@@ -102,6 +103,7 @@ def test_the_card_has_not_drifted_from_the_findings():
         "does_not_apply": head["does_not_apply"],
         "meeting_the_rule": head["entries_meeting_the_rule"],
         "states": [row["state"] for row in payload["panel_one"]["rows"]],
+        "made_up": [row["state"] for row in payload["panel_two"]["rows"]],
     }
     stale = [k for k, v in now.items() if drawn.get(k) != v]
     assert not stale, (

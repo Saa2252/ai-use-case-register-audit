@@ -140,8 +140,9 @@ def preview(file, title, heading, lede) -> str:
         ("og:description", description),
         ("og:url", address),
         ("og:image", SITE_URL + CARD),
-        ("og:image:alt", "Ten boxes, three filled, standing for the ten questions this "
-                         "field set asks and the three a published entry answers."),
+        ("og:image:alt", "Two forms side by side. The left is a published entry with "
+                         "most of its ten boxes empty. The right is a made-up entry with "
+                         "every box resolved."),
         ("twitter:card", "summary_large_image"),
         ("twitter:title", heading or title),
         ("twitter:description", description),
