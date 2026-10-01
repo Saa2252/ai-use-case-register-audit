@@ -484,7 +484,7 @@ That prints the raw row as downloaded, compares it field by field with what the 
 | `scripts/build_card.py` | Draws the link preview card from the published findings, so the picture cannot drift from them |
 | `data/derived/` | Everything published. Every figure on the site comes from here |
 | `docs/` | The site. Four pages that read the published register, and one that proposes how a register would be kept current |
-| `tests/` | 92 automated checks, run with pytest |
+| `tests/` | 93 automated checks, run with pytest |
 
 ## Licence
 

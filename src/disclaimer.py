@@ -50,6 +50,14 @@ ABOUT = ("It asks what an AI use case register should record, and answers it by 
          "and safeguard is open, including the ones this project got wrong and corrected.")
 ABOUT_LINK_TEXT = "The working, in full"
 
+# The line a pasted link shows above the card. The owner's words, 2 October
+# 2026, set on the landing page only, which is the address they share.
+#
+# The other pages keep their own heading, which is more specific than this and
+# is what a reader arriving at one of them should be told. A title about
+# registers in general above the gaps page would describe the wrong thing.
+PREVIEW_TITLE = "What an AI use case register looks like"
+
 # Filled in Phase 1 by copying the statement verbatim from the Open Government
 # Licence - Ontario page. Do not paraphrase it (S1).
 ONTARIO_ATTRIBUTION = (

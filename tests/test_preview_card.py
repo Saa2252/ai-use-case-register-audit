@@ -28,7 +28,7 @@ import sys
 from conftest import REPO_ROOT
 
 sys.path.insert(0, str(REPO_ROOT))
-from src.disclaimer import SITE_URL  # noqa: E402
+from src.disclaimer import PREVIEW_TITLE, SITE_URL  # noqa: E402
 
 DOCS = REPO_ROOT / "docs"
 CARD = DOCS / "assets" / "card.png"
@@ -72,6 +72,27 @@ def test_the_preview_points_at_the_published_card_by_absolute_address():
         if not tags.get("og:url", "").startswith(SITE_URL):
             wrong.append(f"{page.name}: og:url is {tags.get('og:url')}")
     assert not wrong, "a preview points somewhere other than the published card:\n" + "\n".join(wrong)
+
+
+def test_the_shared_address_shows_the_line_the_owner_set():
+    """The landing page is the address that gets shared.
+
+    Its preview line is the owner's words, held in src/disclaimer.py. Every
+    other page keeps its own heading, which says what that page is rather than
+    what the project is, so a title about registers in general never appears
+    above the gaps page.
+    """
+    index = _tags(DOCS / "index.html")
+    assert index["og:title"] == PREVIEW_TITLE, (
+        f"the shared address shows {index['og:title']!r} and the owner set "
+        f"{PREVIEW_TITLE!r}")
+    assert index.get("twitter:title") == PREVIEW_TITLE, (
+        "the two titles on the landing page disagree")
+    for page in sorted(DOCS.glob("*.html")):
+        if page.name == "index.html":
+            continue
+        assert _tags(page)["og:title"] != PREVIEW_TITLE, (
+            f"{page.name} carries the landing page's line instead of its own heading")
 
 
 def test_the_card_exists_and_is_the_size_the_hosts_crop_to():

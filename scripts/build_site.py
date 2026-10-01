@@ -15,8 +15,8 @@ sys.path.insert(0, str(REPO_ROOT))
 
 from src.statements import apply as apply_statements  # noqa: E402
 from src.disclaimer import (AUTHORSHIP, DISCLAIMER, ONTARIO_ATTRIBUTION,
-                            ONTARIO_LICENCE_URL, SITE_URL, UK_ATTRIBUTION,
-                            UK_LICENCE_URL)
+                            ONTARIO_LICENCE_URL, PREVIEW_TITLE, SITE_URL,
+                            UK_ATTRIBUTION, UK_LICENCE_URL)
 
 # Each licence that asks for an attribution statement, and the pages it goes
 # on. A page carries the statement for every source whose material it shows.
@@ -133,10 +133,14 @@ TAGLINE = "An independent read of publicly published AI use case inventories."
 def preview(file, title, heading, lede) -> str:
     description = (lede or TAGLINE).strip()
     address = SITE_URL + ("" if file == "index.html" else file)
+    # The landing page is the address that gets shared, and its preview line is
+    # the owner's. Every other page keeps its own heading, which says what that
+    # page is rather than what the project is.
+    shown = PREVIEW_TITLE if file == "index.html" else (heading or title)
     tags = [
         ("og:type", "website"),
         ("og:site_name", "AI Use Case Register Audit"),
-        ("og:title", heading or title),
+        ("og:title", shown),
         ("og:description", description),
         ("og:url", address),
         ("og:image", SITE_URL + CARD),
@@ -144,7 +148,7 @@ def preview(file, title, heading, lede) -> str:
                          "most of its ten boxes empty. The right is a made-up entry with "
                          "every box resolved."),
         ("twitter:card", "summary_large_image"),
-        ("twitter:title", heading or title),
+        ("twitter:title", shown),
         ("twitter:description", description),
         ("twitter:image", SITE_URL + CARD),
     ]
